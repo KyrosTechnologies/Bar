@@ -65,8 +65,10 @@
         <activity
             android:name=".PurchaseListActivity"
             android:label="Purchase Stock" />
-        <activity android:name=".MyInventoryListActivity"
-            android:label="My Inventory List"/>
+        <activity
+            android:name=".MyInventoryListActivity"
+            android:label="My Inventory List" />
+        <activity android:name=".BottleDescriptionActivity"></activity>
     </application>
 
 </manifest>
