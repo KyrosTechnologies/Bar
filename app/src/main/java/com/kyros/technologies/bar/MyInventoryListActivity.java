@@ -8,6 +8,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.kyros.technologies.bar.database.DatabaseAccess;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class MyInventoryListActivity extends AppCompatActivity {
     private RecyclerView recycler_database;
     private DummyAdapter adapter;
+    private LinearLayout description_act;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +30,25 @@ public class MyInventoryListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_my_inventory_list);
         recycler_database=(RecyclerView)findViewById(R.id.recycler_database);
-        DatabaseAccess databaseAccess = DatabaseAccess.getDatabaseAccess(this);
-        databaseAccess.openDatabase();
-        List<String> quotes = databaseAccess.getQuotes();
-        databaseAccess.closeDatabase();
+        description_act=(LinearLayout)findViewById(R.id.description_act);
+        description_act.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MyInventoryListActivity.this,BottleDescriptionActivity.class);
+                startActivity(intent);
+            }
+        });
+//        DatabaseAccess databaseAccess = DatabaseAccess.getDatabaseAccess(this);
+//        databaseAccess.openDatabase();
+//        List<String> quotes = databaseAccess.getQuotes();
+//        databaseAccess.closeDatabase();
 
-        adapter=new DummyAdapter(MyInventoryListActivity.this,quotes);
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
-        recycler_database.setLayoutManager(layoutManager);
-        recycler_database.setItemAnimator(new DefaultItemAnimator());
-        recycler_database.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+//        adapter=new DummyAdapter(MyInventoryListActivity.this,quotes);
+//        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
+//        recycler_database.setLayoutManager(layoutManager);
+//        recycler_database.setItemAnimator(new DefaultItemAnimator());
+//        recycler_database.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
 
     }
     @Override

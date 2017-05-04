@@ -5,8 +5,6 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -16,10 +14,10 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SignUpActivity"
             android:label="Sign Up"
@@ -67,17 +65,10 @@
         <activity
             android:name=".PurchaseListActivity"
             android:label="Purchase Stock" />
-        <activity android:name=".MyInventoryListActivity"
-            android:label="My Inventory List"/>
-        <activity android:name=".VenueSummary"
-            android:label="Venue Summary"/>
-        <activity android:name=".BottleDetails"
-            android:label="Bottle Details"/>
-        <activity android:name=".ValueOnHand"
-            android:label="Value On Hand"/>
-        <activity android:name=".InventoryActivity"
-            android:label="Inventory Type"/>
-
+        <activity
+            android:name=".MyInventoryListActivity"
+            android:label="My Inventory List" />
+        <activity android:name=".BottleDescriptionActivity"></activity>
     </application>
 
 </manifest>
