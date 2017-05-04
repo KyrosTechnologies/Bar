@@ -3,7 +3,7 @@
     <color name="colorPrimary">#795548</color>
     <color name="colorPrimarytransparant">#6e795548</color>
     <color name="colorPrimaryDark">#3E2723</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccent">#000000</color>
     <color name="backgroundcolor">#D7CCC8</color>
     <color name="backgroundcolortransparent">#D7CCC8</color>
     <color name="loginbackground">#A1887F</color>

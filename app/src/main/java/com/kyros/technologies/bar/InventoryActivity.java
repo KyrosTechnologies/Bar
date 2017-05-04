@@ -1,0 +1,38 @@
+package com.kyros.technologies.bar;
+
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+
+/**
+ * Created by Rohin on 04-05-2017.
+ */
+
+public class InventoryActivity extends AppCompatActivity{
+
+    private RecyclerView inventory_type_list;
+    private InventoryType adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.inventory_type_list);
+        inventory_type_list=(RecyclerView)findViewById(R.id.inventory_type_list);
+        adapter=new InventoryType(InventoryActivity.this);
+        inventory_type_list.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        inventory_type_list.setItemAnimator(new DefaultItemAnimator());
+        inventory_type_list.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+    }
+}

@@ -25,7 +25,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
         add_bottle_act.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(SectionBottlesActivity.this,InventoryListActivity.class);
+                Intent intent =new Intent(SectionBottlesActivity.this,InventoryActivity.class);
                 startActivity(intent);
             }
         });

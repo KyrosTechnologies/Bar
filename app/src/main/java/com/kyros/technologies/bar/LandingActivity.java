@@ -84,9 +84,15 @@ public class LandingActivity extends AppCompatActivity
         if (id == R.id.par_value) {
         } else if (id == R.id.value_on_hand) {
 
+            Intent intent=new Intent(LandingActivity.this,ValueOnHand.class);
+            startActivity(intent);
+
         } else if (id == R.id.distri_list) {
 
         } else if (id == R.id.venue_sum) {
+
+            Intent i=new Intent(LandingActivity.this,VenueSummary.class);
+            startActivity(i);
 
         } else if (id == R.id.profile) {
             Intent intent=new Intent(LandingActivity.this,ProfileViewActivity.class);
