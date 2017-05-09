@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundcolor"
     tools:context="com.kyros.technologies.bar.SectionBottlesActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="350dp"
         android:layout_height="40dp"
@@ -17,8 +19,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/search_background"
         android:orientation="horizontal"
-        android:layout_gravity="center"
-       >
+        android:layout_gravity="center">
 
         <EditText
             android:layout_width="match_parent"
@@ -30,58 +31,57 @@
             android:hint="Search bottles"
             android:layout_height="wrap_content" />
 
-
-
-
     </LinearLayout>
 
-
         <LinearLayout
+            android:id="@+id/slider_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:weightSum="100"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="50"
-
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-
                     android:text="Name"
                     android:textColor="@color/lightblack"
                     android:textSize="14sp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="450ml"
                     android:layout_gravity="center"
-
                     android:textColor="@color/lightblack"
                     android:textSize="14sp"/>
+
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="25"
-
                 android:layout_marginLeft="5dp"
                 android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,6 +89,7 @@
                 android:textColor="@color/lightblack"
                 android:textSize="14sp"
                 android:text="total quantity"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,21 +97,25 @@
                     android:layout_gravity="center"
                     android:textSize="14sp"
                     android:text="64"/>
+
             </LinearLayout>
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="25"
-
                 android:src="@drawable/forward_20"/>
+
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/colorPrimary"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -118,16 +123,19 @@
         android:background="@color/linear_part"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="100"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,19 +144,23 @@
                 android:gravity="center"
                 android:id="@+id/add_bottle_act"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/lightblack"
                     android:textSize="18sp"
                     android:text="+"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/lightblack"
                     android:textSize="18sp"
                     android:text="Add Bottle"/>
+
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -156,20 +168,25 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/lightblack"
                     android:textSize="18sp"
                     android:src="@drawable/edit_20"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/lightblack"
                     android:textSize="18sp"
                     android:text="Edit"/>
+
             </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

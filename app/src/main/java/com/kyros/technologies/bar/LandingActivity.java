@@ -82,12 +82,19 @@ public class LandingActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.par_value) {
+
+            Intent i=new Intent(LandingActivity.this,ParList.class);
+            startActivity(i);
+
         } else if (id == R.id.value_on_hand) {
 
             Intent intent=new Intent(LandingActivity.this,ValueOnHand.class);
             startActivity(intent);
 
         } else if (id == R.id.distri_list) {
+
+            Intent i=new Intent(LandingActivity.this,DistributorList.class);
+            startActivity(i);
 
         } else if (id == R.id.venue_sum) {
 

@@ -9,15 +9,15 @@
         <item
             android:id="@+id/value_on_hand"
             android:icon="@drawable/cash_in_hand_100"
-            android:title="value on hand" />
+            android:title="Value on Hand" />
         <item
             android:id="@+id/distri_list"
             android:icon="@drawable/distributor_100"
-            android:title="Distributor list" />
+            android:title="Distributor List" />
         <item
             android:id="@+id/venue_sum"
             android:icon="@drawable/venue_100"
-            android:title="Venue summary" />
+            android:title="Venue Summary" />
         <item
             android:id="@+id/profile"
             android:icon="@drawable/profile_100"

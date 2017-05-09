@@ -19,7 +19,7 @@ public class EmailManagementActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_email_management_activitu);
+        setContentView(R.layout.activity_email_management_activity);
         add_email_management=(LinearLayout)findViewById(R.id.add_email_management);
         user_management=(LinearLayout)findViewById(R.id.user_management);
         add_email_management.setOnClickListener(new View.OnClickListener() {

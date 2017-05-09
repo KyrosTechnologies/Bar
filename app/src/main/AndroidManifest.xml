@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kyros.technologies.bar">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -68,7 +71,34 @@
         <activity
             android:name=".MyInventoryListActivity"
             android:label="My Inventory List" />
-        <activity android:name=".BottleDescriptionActivity"></activity>
+        <activity android:name=".BottleDescriptionActivity"/>
+        <activity android:name=".ValueOnHand"
+            android:label="Value On Hand"/>
+        <activity android:name=".VenueSummary"
+            android:label="Venue Summary"/>
+        <activity android:name=".InventoryActivity"
+            android:label="Inventory Type"/>
+        <activity android:name=".BottleDetails"
+            android:label="Bottle Details"/>
+        <activity android:name=".AddToInventory"
+            android:label="Add To Inventory"/>
+        <activity android:name=".AddCustomBottle"
+            android:label="Add Custom Bottle"/>
+        <activity android:name=".CustomBottleDetails"
+            android:label="Custom Bottle"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".AddCustomKeg"
+            android:label="Add Custom Keg"/>
+        <activity android:name=".CustomKegDetails"
+            android:label="Custom Keg"/>
+        <activity android:name=".LiquorSlider"
+            android:label="Liquor Slider"/>
+        <activity android:name=".ParList"
+            android:label="Par List"/>
+        <activity android:name=".DistributorList"
+            android:label="Distributor List"/>
+        <activity android:name=".DistributorDetails"
+            android:label="Distributor Details"/>
     </application>
 
 </manifest>

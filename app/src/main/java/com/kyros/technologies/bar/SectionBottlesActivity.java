@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 public class SectionBottlesActivity extends AppCompatActivity {
-    private LinearLayout add_bottle_act;
+    private LinearLayout add_bottle_act,slider_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,14 @@ public class SectionBottlesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent =new Intent(SectionBottlesActivity.this,InventoryActivity.class);
                 startActivity(intent);
+            }
+        });
+        slider_edit=(LinearLayout)findViewById(R.id.slider_edit);
+        slider_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(SectionBottlesActivity.this,LiquorSlider.class);
+                startActivity(i);
             }
         });
     }

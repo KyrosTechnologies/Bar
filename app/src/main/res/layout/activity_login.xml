@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/splash"
     android:layout_height="match_parent"
     tools:context="com.kyros.technologies.bar.LoginActivity">
     <ScrollView
@@ -20,138 +20,101 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/bar_logo"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="200dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="15dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:text="User Email Address"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:textColor="@color/white"
-                android:background="@android:color/transparent"
-                android:id="@+id/email_address_login"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="0.5dp"
-                android:background="@color/colorPrimaryDark"/>
-                <LinearLayout
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:text="Password"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:textColor="@color/white"
+                    android:hint="User Name"
+                    android:textColorHint="@color/edittext"
+                    android:textAlignment="center"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
 
-                android:background="@android:color/transparent"
-                android:textColorHint="@color/backgroundcolor"
-                android:id="@+id/pasword_login"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="0.5dp"
-                android:background="@color/colorPrimaryDark"/>
-                </LinearLayout>
-            </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/edittext"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/login_user"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:clickable="true"
-                android:foreground="@drawable/ripple_effect"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="5dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:textColorHint="@color/edittext"
+                    android:layout_marginTop="30dp"
+                    android:textAlignment="center"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/edittext"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Forgot Password?"
+                        android:id="@+id/forget_password_login"
+                        android:background="@drawable/ripple_effect"
+                        android:clickable="true"
+                        android:layout_gravity="start|center"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/signup_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sign Up"
+                        android:layout_gravity="end|center"
+                        android:textColor="@color/white"
+                        android:background="@drawable/ripple_effect"
+                        android:textSize="16sp"/>
+
+                </FrameLayout>
 
                 <TextView
-                    android:layout_width="250dp"
+                    android:id="@+id/login_user"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:text="Log In"
+                    android:text="Login"
                     android:gravity="center"
                     android:textAllCaps="false"
-                    android:textColor="@color/lightblack"
-                    android:background="@drawable/button_background"
-                    />
-            </android.support.v7.widget.CardView>
+                    android:textColor="@color/white"
+                    android:layout_marginTop="50dp"
+                    android:textSize="18sp"
+                    android:padding="8dp"
+                    android:background="@drawable/button_background" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Forgot Password?"
-                android:id="@+id/forget_password_login"
-                android:background="@drawable/ripple_effect"
-                android:clickable="true"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+            </LinearLayout>
+
+
+
+
 
 
         </LinearLayout>
 
     </LinearLayout>
-        <android.support.v7.widget.CardView
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            app:cardCornerRadius="20dp"
-            android:foreground="@drawable/ripple_effect"
-            android:layout_gravity="center"
-            android:clickable="true"
-            android:id="@+id/signup_login"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
-            app:cardElevation="5dp">
-            <TextView
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:text="Sign Up"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/lightblack"
-                android:background="@drawable/button_background"
-
-                android:textAllCaps="false"
-                />
-        </android.support.v7.widget.CardView>
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->

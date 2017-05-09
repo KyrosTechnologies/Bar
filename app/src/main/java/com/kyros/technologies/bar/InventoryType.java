@@ -36,13 +36,13 @@ public class InventoryType extends RecyclerView.Adapter<InventoryType.MyViewHold
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
         public CardView inventory_lists;
-        public RelativeLayout bottle_pic;
+        public ImageView bottle_pic;
         public TextView brand_name;
 
         public MyViewHolderEleven(View itemView) {
             super(itemView);
             inventory_lists=(CardView)itemView.findViewById(R.id.inventory_lists);
-            bottle_pic=(RelativeLayout) itemView.findViewById(R.id.bottle_pic);
+            bottle_pic=(ImageView) itemView.findViewById(R.id.bottle_pic);
             brand_name=(TextView)itemView.findViewById(R.id.brand_name);
 
         }
@@ -63,7 +63,15 @@ public class InventoryType extends RecyclerView.Adapter<InventoryType.MyViewHold
     public void onBindViewHolder(InventoryType.MyViewHolderEleven holder, final int position) {
 
         holder.brand_name.setText(Bottles[position]);
-        holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
+     //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
+        try{
+            Picasso.with(mContext)
+                    .load(Bottleimages[position])
+                    .resize(200, 200)
+                    .into(holder.bottle_pic);
+        }catch (Exception e){
+
+        }
 
     }
 
