@@ -6,10 +6,12 @@
     android:background="@drawable/splash"
     android:layout_height="match_parent"
     tools:context="com.kyros.technologies.bar.LoginActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,19 +21,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Boozy"
-            android:textColor="@color/white"
-            android:textSize="40sp"
-            android:textAlignment="center"
-            android:layout_marginTop="50dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:gravity="center"
+            android:src="@drawable/logotext"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -44,49 +42,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="User Name"
-                    android:textColorHint="@color/edittext"
+                    android:textColorHint="@color/edit"
                     android:textAlignment="center"
                     android:background="@android:color/transparent"
                     android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/edittext"/>
+                    android:layout_height="0.5dp"
+                    android:background="@color/edittext"
+                    android:layout_marginTop="5dp"/>
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
-                    android:textColorHint="@color/edittext"
+                    android:textColorHint="@color/edit"
                     android:layout_marginTop="30dp"
                     android:textAlignment="center"
                     android:background="@android:color/transparent"
                     android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/edittext"/>
+                    android:layout_height="0.5dp"
+                    android:background="@color/edittext"
+                    android:layout_marginTop="5dp"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="15dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Forgot Password?"
-                        android:id="@+id/forget_password_login"
-                        android:background="@drawable/ripple_effect"
-                        android:clickable="true"
-                        android:layout_gravity="start|center"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/signup_login"
@@ -97,6 +86,17 @@
                         android:textColor="@color/white"
                         android:background="@drawable/ripple_effect"
                         android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/forget_password_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:background="@drawable/ripple_effect"
+                        android:clickable="true"
+                        android:text="Forgot Password?"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
                 </FrameLayout>
 
@@ -110,16 +110,11 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:layout_marginTop="50dp"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:padding="8dp"
                     android:background="@drawable/button_background" />
 
             </LinearLayout>
-
-
-
-
-
 
         </LinearLayout>
 
@@ -133,6 +128,9 @@
         <!--android:gravity="center"-->
         <!--android:text="By logging in to the app,/n I agree to the License Agreement"-->
         <!--android:textColor="@color/lightblack"/>-->
+
     </RelativeLayout>
+
     </ScrollView>
+
 </LinearLayout>

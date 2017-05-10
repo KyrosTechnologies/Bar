@@ -42,7 +42,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_done:
-                Toast.makeText(getApplicationContext(),"Done clicked!",Toast.LENGTH_SHORT).show();
+                Intent i=new Intent(SignUpActivity.this,LandingActivity.class);
+                startActivity(i);
                 break;
 
             case android.R.id.home:

@@ -4,29 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/splash"
     tools:context="com.kyros.technologies.bar.SplashActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="50sp"
-        android:textColor="@color/white"
-        android:text="Bar"
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
         android:gravity="center"
-        android:textAllCaps="true"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:text="App by kyros"
-            android:gravity="center"
-            android:textAllCaps="false"/>
+        android:src="@drawable/logotext"/>
+
     </LinearLayout>
+
 </RelativeLayout>
