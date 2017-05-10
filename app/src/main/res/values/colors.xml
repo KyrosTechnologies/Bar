@@ -17,4 +17,5 @@
     <color name="line_color">#dedddd</color>
     <color name="edit">#7b6964</color>
     <color name="smallline">#ffbca4</color>
+    <color name="searchbarcolor">#645752</color>
 </resources>
