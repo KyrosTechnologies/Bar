@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/backgroundcolor"
+    android:background="@drawable/splash"
     tools:context="com.kyros.technologies.bar.BarActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,31 +23,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/front_bar"
+            android:layout_marginLeft="25dp"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_weight="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
                 android:text="Front Bar"
-                android:textColor="@color/lightblack"
+                android:textColor="@color/white"
                 android:textSize="16sp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
                 android:text="Updated 3 days ago"
-                android:textColor="@color/verlightblack"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                />
 
         </LinearLayout>
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/forward_50"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/rightarrow"
                 android:layout_gravity="center"
                 android:layout_marginRight="15dp"/>
 
@@ -55,91 +55,94 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"
+            android:layout_height="0.2dp"
+            android:background="@color/edittext"
             android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/linear_part"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:layout_marginBottom="5dp"
-            android:background="@color/colorPrimary"/>
-        <LinearLayout
+            android:background="@color/edittext"/>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="150"
-            android:orientation="horizontal">
+            android:layout_margin="10dp">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_bar_acti"
-            android:layout_weight="50"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:layout_gravity="start|center"
             android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:src="@drawable/bottle"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/lightblack"
-            android:textSize="18sp"
-            android:text="+"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/lightblack"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:text="Add Bar"/>
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
             android:layout_gravity="center"
-            android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/lightblack"
-                android:textSize="18sp"
-                android:src="@drawable/edit_20"/>
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:src="@drawable/edit"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/lightblack"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="Edit"/>
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:layout_gravity="end|center"
             android:orientation="vertical">
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:src="@drawable/report"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/lightblack"
-                android:textSize="18sp"
-                android:text="||"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/lightblack"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="Report"/>
+
         </LinearLayout>
-        </LinearLayout>
+
+        </FrameLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
