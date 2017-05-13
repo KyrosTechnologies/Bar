@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor">
+    android:background="@drawable/splash">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         <ImageView
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/liquier"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"/>
 
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textColor="@color/lightblack"
+                android:textColor="@color/edit"
                 android:textSize="14sp"/>
 
             <TextView
@@ -40,26 +40,27 @@
                 android:textSize="14sp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:textColor="@color/lightblack"/>
+                android:textColor="@color/edit"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="450ml"
                 android:layout_gravity="start|center"
-                android:textColor="@color/lightblack"
+                android:textColor="@color/edit"
                 android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|end"
-                android:textColor="@color/lightblack"
+                android:textColor="@color/edit"
                 android:textSize="14sp"
                 android:text="Total Product"/>
 
@@ -72,6 +73,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/edittext"
+        android:layout_marginTop="7dp"/>
 
 </LinearLayout>

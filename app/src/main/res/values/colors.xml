@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#21150e</color>
+    <color name="colorPrimary">#372525</color>
     <color name="colorPrimarytransparant">#6e795548</color>
-    <color name="colorPrimaryDark">#181616</color>
+    <color name="colorPrimaryDark">#573a3a</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="backgroundcolor">#D7CCC8</color>
     <color name="backgroundcolortransparent">#D7CCC8</color>
@@ -13,7 +13,7 @@
     <color name="lightblack">#FF454444</color>
     <color name="verlightblack">#545353</color>
     <color name="black">#000000</color>
-    <color name="edittext">#4e4a4a</color>
+    <color name="edittext">#5e5957</color>
     <color name="line_color">#dedddd</color>
     <color name="edit">#7b6964</color>
     <color name="smallline">#ffbca4</color>
