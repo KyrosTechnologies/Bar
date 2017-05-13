@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
+    android:background="@drawable/splash"
     tools:context="com.kyros.technologies.bar.SectionBottlesActivity">
 
     <LinearLayout
@@ -20,15 +20,18 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
 
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_marginLeft="15dp"
-                android:drawableLeft="@drawable/search_20"
+                android:drawableLeft="@drawable/searchwhite_20"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="@color/black"
                 android:background="@android:color/transparent"
                 android:hint="Search bottles"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
@@ -43,11 +46,12 @@
             <ImageView
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/liquier"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"/>
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="50"
@@ -57,64 +61,65 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="top"
+                    android:maxLines="1"
                     android:text="Name"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="450ml"
-                    android:layout_gravity="center"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="450ml"
+                        android:layout_weight="1"
+                        android:gravity="start|center"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:textSize="16sp"
+                        android:layout_weight="1"
+                        android:text="Type"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:textSize="16sp"
+                        android:layout_weight="1"
+                        android:text="64 bottles"/>
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="end|center"
+                        android:src="@drawable/rightarrow"
+                        android:layout_weight="1"
+                        android:layout_marginRight="40dp"/>
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Type"
-                android:textSize="14sp"
-                android:textColor="@color/lightblack"
-                android:layout_gravity="center"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="25"
-                android:layout_marginLeft="5dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp"
-                    android:text="total quantity"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/lightblack"
-                    android:layout_gravity="center"
-                    android:textSize="14sp"
-                    android:text="64"/>
-            </LinearLayout>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="25"
-                android:src="@drawable/forward_20"/>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 

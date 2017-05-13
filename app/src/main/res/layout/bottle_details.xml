@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor">
+    android:background="@drawable/splash">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,151 +18,115 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="8dp">
+        android:layout_margin="15dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/lightblack"
-        android:textSize="14sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Capacity"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Main Category"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sub Category"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shots"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Shots"
+            android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/lightblack"/>
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:paddingLeft="10dp"
+            android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Par Level"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Par Level"
+            android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/lightblack"/>
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Distributor Name"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Distributor Name"
+            android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/lightblack"/>
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Price Unit"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Price Unit"
+            android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/lightblack"/>
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bin Number"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Bin Number"
+            android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/lightblack"/>
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:inputType="textPersonName"/>
+
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Product Code"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/lightblack"
-            android:textSize="14sp" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Product Code"
+            android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/lightblack"/>
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
 
