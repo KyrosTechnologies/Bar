@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="250dp"
-    android:layout_height="300dp">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dialog_popup_background"
-        android:orientation="vertical">
+        android:layout_height="130dp"
+        android:orientation="vertical"
+        android:background="@drawable/popup">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Logout"
-            android:textColor="@color/lightblack"
+            android:textColor="@color/edit"
             android:textSize="18sp"
             android:layout_gravity="center"
             android:gravity="center"
@@ -20,53 +20,52 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-           android:textColor="@color/lightblack"
+           android:textColor="@color/edit"
             android:textSize="16sp"
             android:text="Are you sure want to logout?"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center"
-            android:background="@android:color/transparent"
             />
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:weightSum="100"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/lightblack"
+                android:textColor="@color/edit"
                 android:textSize="18sp"
-                android:layout_weight="50"
+                android:layout_weight="1"
                 android:id="@+id/back_logout"
-                android:text="Back"
+                android:text="No"
                 android:layout_gravity="center"
                 android:gravity="center"/>
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="30dp"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/edittext"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/lightblack"
+                android:textColor="@color/edit"
                 android:textSize="18sp"
                 android:id="@+id/yes_logout"
-                android:layout_weight="50"
+                android:layout_weight="1"
                 android:text="Yes"
                 android:layout_gravity="center"
                 android:gravity="center"/>

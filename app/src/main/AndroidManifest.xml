@@ -73,7 +73,7 @@
             android:label="My Inventory List" />
         <activity android:name=".BottleDescriptionActivity"/>
         <activity android:name=".ValueOnHand"
-            android:label="Value On Hand"/>
+            android:label="Value on Hand"/>
         <activity android:name=".VenueSummary"
             android:label="Venue Summary"/>
         <activity android:name=".InventoryActivity"

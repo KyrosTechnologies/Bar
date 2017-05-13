@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/backgroundcolor"
+    android:background="@drawable/splash"
     tools:context="com.kyros.technologies.bar.SectionBottlesActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="350dp"
             android:layout_height="40dp"
@@ -24,157 +25,163 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_marginLeft="15dp"
-                android:drawableLeft="@drawable/search_20"
+                android:drawableLeft="@drawable/searchwhite_20"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="@color/black"
                 android:background="@android:color/transparent"
                 android:hint="Search bottles"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/venue_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:weightSum="100"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/liquier"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:layout_weight="50"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="Name"
-                    android:textColor="@color/lightblack"
+                    android:textColor="@color/edit"
                     android:textSize="14sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="450ml"
-                    android:layout_gravity="center"
-                    android:textColor="@color/lightblack"
+                    android:textColor="@color/edit"
                     android:textSize="14sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:textColor="@color/edit"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/edit"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:text="Par Value"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Type"
-                android:textSize="14sp"
-                android:textColor="@color/lightblack"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/lightblack"
-                    android:layout_gravity="center"
-                    android:textSize="14sp"
-                    android:text="Par Value"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
-
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
-                android:layout_weight="25"
-                android:src="@drawable/forward_20"/>
+                android:layout_marginRight="15dp"
+                android:src="@drawable/rightarrow"/>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"/>
 
         <LinearLayout
-            android:id="@+id/venue_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:weightSum="100"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/liquier"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:layout_weight="50"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="Name"
-                    android:textColor="@color/lightblack"
+                    android:textColor="@color/edit"
                     android:textSize="14sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="450ml"
-                    android:layout_gravity="center"
-                    android:textColor="@color/lightblack"
+                    android:textColor="@color/edit"
                     android:textSize="14sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:textColor="@color/edit"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/edit"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:text="Par Value"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Type"
-                android:textSize="14sp"
-                android:textColor="@color/lightblack"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/lightblack"
-                android:layout_gravity="center"
-                android:textSize="14sp"
-                android:text="Par Value"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
-
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
-                android:layout_weight="25"
-                android:src="@drawable/forward_20"/>
+                android:layout_marginRight="15dp"
+                android:src="@drawable/rightarrow"/>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"/>
 
     </LinearLayout>
 
