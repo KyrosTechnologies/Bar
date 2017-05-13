@@ -55,7 +55,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.2dp"
+            android:layout_height="0.5dp"
             android:background="@color/edittext"
             android:layout_marginTop="5dp"/>
 
@@ -70,7 +70,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.2dp"
+            android:layout_height="0.5dp"
             android:layout_marginBottom="5dp"
             android:background="@color/edittext"/>
 
@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="Add Bar"/>
 
         </LinearLayout>
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:text="Edit"/>
 
         </LinearLayout>
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:text="Report"/>
 
         </LinearLayout>

@@ -13,9 +13,10 @@
     <color name="lightblack">#FF454444</color>
     <color name="verlightblack">#545353</color>
     <color name="black">#000000</color>
-    <color name="edittext">#fefefe</color>
+    <color name="edittext">#4e4a4a</color>
     <color name="line_color">#dedddd</color>
     <color name="edit">#7b6964</color>
     <color name="smallline">#ffbca4</color>
     <color name="searchbarcolor">#645752</color>
+    <color name="text_color">#feddd0</color>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
+    android:background="@drawable/splash"
     tools:context="com.kyros.technologies.bar.SettingActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,64 +15,116 @@
             android:layout_height="wrap_content"
             android:id="@+id/user_management"
             android:layout_marginTop="25dp"
-            android:orientation="vertical">
-            <TextView
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:text="User Management"
-                android:textColor="@color/lightblack"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/forward_20"/>
+                android:layout_weight="1"
+                android:textColor="@color/edit"
+                android:textSize="18sp"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/rightarrow"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"/>
+
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/edittext"
                 android:layout_marginTop="10dp"/>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/email_mangaement"
             android:layout_marginTop="25dp"
-            android:orientation="vertical">
-            <TextView
+            android:orientation="vertical"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:text="Email management"
-                android:textColor="@color/lightblack"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/forward_20"/>
+                android:layout_weight="1"
+                android:textColor="@color/edit"
+                android:textSize="18sp"/>
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/rightarrow"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"/>
+
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/edittext"
                 android:layout_marginTop="10dp"/>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:text="contact"
-                android:textColor="@color/lightblack"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/forward_20"/>
+                android:textColor="@color/edit"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/rightarrow"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"/>
+
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/edittext"
                 android:layout_marginTop="10dp"/>
 
         </LinearLayout>
