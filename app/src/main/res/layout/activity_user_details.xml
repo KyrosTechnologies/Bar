@@ -3,105 +3,139 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
+    android:background="@drawable/splash"
     tools:context="com.kyros.technologies.bar.UserDetailsActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="25dp"
-                android:text="Name"
-                android:textSize="14sp"
-                android:textColor="@color/lightblack"/>
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="25dp">
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="25dp"
-
+                android:hint="Enter Name"
+                android:textColorHint="@color/edit"
                 android:background="@android:color/transparent"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:paddingLeft="20dp"
+                android:inputType="textEmailAddress"/>
 
-                android:hint="Enter name"
-                />
             <View
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_height="0.5dp"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/edittext"
+                android:layout_marginTop="7dp"/>
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:text="Email"
-                android:textSize="14sp"
-                android:textColor="@color/lightblack"/>
+            android:orientation="vertical"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp">
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="25dp"
-
+                android:hint="Email"
+                android:textColorHint="@color/edit"
                 android:background="@android:color/transparent"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:paddingLeft="20dp"
+                android:inputType="textEmailAddress"/>
 
-                android:hint="Enter email"
-                />
             <View
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_height="0.5dp"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/edittext"
+                android:layout_marginTop="7dp"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/role">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
-                android:text="Role"
-                android:textSize="14sp"
-                android:textColor="@color/lightblack"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="25dp"
-                android:hint="Select role"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/drop_down_arrow"
-                />
+                android:textAlignment="center"
+                android:text="Select Role"
+                android:textSize="18sp"
+                android:textColor="@color/edit"
+                android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"/>
+
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_height="0.5dp"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/edittext"
+                android:layout_marginTop="7dp"/>
+
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/lightblack"
-            android:text="Bar Access"/>
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="25dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Bar Access"
+            android:textColorHint="@color/edit"
+            android:textAlignment="center"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:paddingLeft="20dp"
+            android:inputType="textEmailAddress"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
 
 </RelativeLayout>
