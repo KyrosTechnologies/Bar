@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
+    android:background="@drawable/splash"
     tools:context="com.kyros.technologies.bar.UserManagementActivity">
 <LinearLayout
     android:layout_width="match_parent"
@@ -15,62 +15,75 @@
         android:layout_height="wrap_content"
         android:id="@+id/user_item"
         android:layout_marginTop="25dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:text="Admin"
-            android:textColor="@color/lightblack"
-            android:textSize="16sp"
-           />
-        <TextView
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="10dp"
-            android:text="name"
-            android:textColor="@color/lightblack"
-            android:textSize="16sp"
-            android:drawableRight="@drawable/forward_20"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Admin"
+                android:layout_weight="1"
+                android:textColor="@color/edit"
+                android:textSize="18sp"/>
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/rightarrow"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"/>
+
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/edittext"
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:text="Basic"
-            android:textColor="@color/lightblack"
-            android:textSize="16sp"
-            />
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="10dp"
-            android:text="Employee one"
-            android:textColor="@color/lightblack"
-            android:textSize="16sp"
-            android:drawableRight="@drawable/forward_20"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Employee"
+                android:layout_weight="1"
+                android:textColor="@color/edit"
+                android:textSize="18sp"/>
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/rightarrow"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"/>
+
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/edittext"
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>
@@ -81,24 +94,23 @@
     android:gravity="center"
     android:id="@+id/add_user"
     android:orientation="vertical"
-    android:background="@color/linear_part"
     android:layout_alignParentBottom="true"
     android:layout_alignParentStart="true">
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginBottom="5dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/edittext"        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/lightblack"
+        android:textColor="@color/edit"
         android:textSize="18sp"
         android:text="+"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/lightblack"
+        android:textColor="@color/edit"
         android:textSize="18sp"
         android:text="Add User"/>
 </LinearLayout>
