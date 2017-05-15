@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor">
+    android:background="@drawable/splash">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,13 +12,13 @@
         android:id="@+id/bottle_custom"
         android:text="Add custom bottle"
         android:layout_marginBottom="4dp"
-        android:textColor="@color/lightblack"
+        android:textColor="@color/edit"
         android:textSize="18sp"
         android:layout_marginTop="8dp"/>
     <View
         android:layout_width="300dp"
         android:layout_height="0.5dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/edittext"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center"/>
 

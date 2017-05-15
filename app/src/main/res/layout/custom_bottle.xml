@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor">
+    android:background="@drawable/splash">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,45 +20,61 @@
                 android:orientation="vertical"
                 android:layout_margin="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:textColorHint="@color/edit"
+                    android:paddingLeft="10dp"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:inputType="textPersonName"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
                     android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                    android:background="@color/edittext"
+                    android:layout_marginTop="7dp"/>
 
-                <TextView
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Capacity (ML)"
+                        android:textColorHint="@color/edit"
+                        android:paddingLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/edittext"
+                        android:layout_marginTop="7dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Capacity (ML)"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,26 +87,22 @@
                         android:orientation="vertical"
                         android:layout_weight="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Main Category"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:text="Main Category"
+                            android:textColor="@color/edit"
+                            android:textSize="16sp"
+                            android:inputType="textPersonName"/>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
 
                     </LinearLayout>
 
                     <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/forward_50"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/rightarrow"
                         android:layout_gravity="center"
                         android:layout_marginRight="15dp"/>
 
@@ -99,144 +111,186 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
                     android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                    android:background="@color/edittext"
+                    android:layout_marginTop="7dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sub Category"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
-                <EditText
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Sub Category"
+                        android:textColorHint="@color/edit"
+                        android:paddingLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Shots"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/edittext"
+                        android:layout_marginTop="7dp"/>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
+                </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Par Level"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
-
-
-                <EditText
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Shots"
+                        android:textColorHint="@color/edit"
+                        android:paddingLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Distributor Name"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/edittext"
+                        android:layout_marginTop="7dp"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price Unit"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
-                <EditText
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Par Level"
+                        android:textColorHint="@color/edit"
+                        android:paddingLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bin Number"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/edittext"
+                        android:layout_marginTop="7dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Product Code"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/lightblack"
-                    android:textSize="14sp" />
-                <EditText
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/lightblack"/>
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
 
-                <View
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Distributor Name"
+                        android:textColorHint="@color/edit"
+                        android:paddingLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/edittext"
+                        android:layout_marginTop="7dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Price Unit"
+                        android:textColorHint="@color/edit"
+                        android:paddingLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/edittext"
+                        android:layout_marginTop="7dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bin Number"
+                        android:textColorHint="@color/edit"
+                        android:paddingLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/edittext"
+                        android:layout_marginTop="7dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Product Code"
+                        android:textColorHint="@color/edit"
+                        android:paddingLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/edittext"
+                        android:layout_marginTop="7dp"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
+    android:background="@drawable/splash"
     tools:context="com.kyros.technologies.bar.InventoryListActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,22 +17,20 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/search_background"
             android:orientation="horizontal"
-            android:layout_gravity="center"
-            >
-
+            android:layout_gravity="center">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_marginLeft="15dp"
-                android:drawableLeft="@drawable/search_20"
+                android:drawableLeft="@drawable/searchwhite_20"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:background="@android:color/transparent"
                 android:hint="Search bottles"
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content" />
-
-
-
 
         </LinearLayout>
 
@@ -44,62 +42,57 @@
             android:id="@+id/custom_bottle"
             android:text="Add custom bottle"
             android:layout_marginBottom="4dp"
-            android:textColor="@color/lightblack"
+            android:textColor="@color/edit"
             android:textSize="18sp"/>
         <View
             android:layout_width="300dp"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/edittext"
             android:layout_marginBottom="3dp"
             android:layout_gravity="center"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
-            android:weightSum="150"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_weight="50"
+                android:src="@drawable/liquier"
                 android:layout_marginLeft="10dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:layout_weight="75"
-
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:text="Name"
-                    android:textColor="@color/lightblack"
+                    android:textColor="@color/edit"
                     android:textSize="14sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="450ml"
-
-                    android:textColor="@color/lightblack"
+                    android:textColor="@color/edit"
                     android:textSize="14sp"/>
             </LinearLayout>
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
-                android:layout_weight="25"
-
-                android:src="@drawable/forward_20"/>
+                android:src="@drawable/rightarrow"
+                android:layout_marginRight="15dp"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"
+            android:layout_marginTop="7dp"/>
 
     </LinearLayout>
 
