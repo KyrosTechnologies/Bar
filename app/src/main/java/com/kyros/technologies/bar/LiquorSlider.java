@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by Rohin on 05-05-2017.
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 
 public class LiquorSlider extends AppCompatActivity {
 
+    private TextView edit_bottle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,14 @@ public class LiquorSlider extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.liquor_slider);
+        edit_bottle=(TextView)findViewById(R.id.edit_bottle);
+        edit_bottle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(LiquorSlider.this,BottleDescriptionActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 

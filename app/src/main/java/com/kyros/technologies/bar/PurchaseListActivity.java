@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class PurchaseListActivity extends AppCompatActivity {
-    private LinearLayout my_inventory_list;
+    private LinearLayout my_inventory_list,purchases;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +23,19 @@ public class PurchaseListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_purchase_list);
         my_inventory_list=(LinearLayout)findViewById(R.id.my_inventory_list);
+        purchases=(LinearLayout)findViewById(R.id.purchases);
         my_inventory_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(PurchaseListActivity.this,MyInventoryListActivity.class);
+                Intent intent=new Intent(PurchaseListActivity.this,InventoryActivity.class);
                 startActivity(intent);
+            }
+        });
+        purchases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(PurchaseListActivity.this,BottleDescriptionActivity.class);
+                startActivity(i);
             }
         });
     }

@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:id="@+id/bottle_custom"
-        android:text="Add custom bottle"
+        android:text="Add Custom bottle"
         android:layout_marginBottom="4dp"
         android:textColor="@color/edit"
         android:textSize="18sp"

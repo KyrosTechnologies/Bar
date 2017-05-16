@@ -37,21 +37,11 @@ public class DistributorList extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.next, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-
-            case R.id.action_next:
-                Intent i=new Intent(DistributorList.this,DistributorDetails.class);
-                startActivity(i);
-                break;
             case android.R.id.home:
                 DistributorList.this.finish();
                 return true;

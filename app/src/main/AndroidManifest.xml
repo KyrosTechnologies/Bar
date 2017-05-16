@@ -64,14 +64,16 @@
         <activity
             android:name=".InventoryListActivity"
             android:label="Inventory List" />
-        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".ChangePasswordActivity"
+            android:label="Change Password"/>
         <activity
             android:name=".PurchaseListActivity"
             android:label="Purchase Stock" />
         <activity
             android:name=".MyInventoryListActivity"
             android:label="My Inventory List" />
-        <activity android:name=".BottleDescriptionActivity"/>
+        <activity android:name=".BottleDescriptionActivity"
+            android:label="Bottle Details"/>
         <activity android:name=".ValueOnHand"
             android:label="Value on Hand"/>
         <activity android:name=".VenueSummary"
@@ -99,6 +101,8 @@
             android:label="Distributor List"/>
         <activity android:name=".DistributorDetails"
             android:label="Distributor Details"/>
+        <activity android:name=".AddBottleActivity"
+            android:label="Add Bottle"/>
     </application>
 
 </manifest>

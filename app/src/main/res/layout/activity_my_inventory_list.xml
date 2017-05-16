@@ -87,7 +87,7 @@
                             android:layout_gravity="center"
                             android:textSize="14sp"
                             android:layout_weight="1"
-                            android:text="64  Bottles"/>
+                            android:text="Type"/>
 
                     </LinearLayout>
 

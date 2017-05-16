@@ -8,9 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class SectionBottlesActivity extends AppCompatActivity {
-    private LinearLayout add_bottle_act,slider_edit;
+public class AddBottleActivity extends AppCompatActivity {
+    private LinearLayout my_inventory_list;
+    private TextView add_inventory_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,32 +23,33 @@ public class SectionBottlesActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_section_bottles);
-        add_bottle_act=(LinearLayout)findViewById(R.id.add_bottle_act);
-        add_bottle_act.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_add_bottle);
+        my_inventory_list=(LinearLayout)findViewById(R.id.my_inventory_list);
+        add_inventory_type=(TextView)findViewById(R.id.add_inventory_type);
+        my_inventory_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(SectionBottlesActivity.this,AddBottleActivity.class);
+                Intent intent=new Intent(AddBottleActivity.this,MyInventoryListActivity.class);
                 startActivity(intent);
             }
         });
-        slider_edit=(LinearLayout)findViewById(R.id.slider_edit);
-        slider_edit.setOnClickListener(new View.OnClickListener() {
+
+        add_inventory_type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(SectionBottlesActivity.this,LiquorSlider.class);
+                Intent i=new Intent(AddBottleActivity.this,InventoryActivity.class);
                 startActivity(i);
             }
         });
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
             case android.R.id.home:
-                SectionBottlesActivity.this.finish();
+                AddBottleActivity.this.finish();
                 return true;
-
         }
 
         return super.onOptionsItemSelected(item);

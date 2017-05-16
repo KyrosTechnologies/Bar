@@ -14,6 +14,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/add_inventory_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Inventory type"
+                android:textColor="@color/edit"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"/>
+
+            <View
+                android:layout_width="300dp"
+                android:layout_height="0.5dp"
+                android:background="@color/edittext"
+                android:layout_gravity="center"
+                android:layout_marginTop="7dp"/>
+
             <LinearLayout
                 android:layout_width="350dp"
                 android:layout_height="40dp"
@@ -37,14 +55,10 @@
                     android:textColor="@color/white"
                     android:layout_height="wrap_content" />
 
-
-
-
             </LinearLayout>
 
 
             <LinearLayout
-                android:id="@+id/purchases"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -55,17 +69,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:src="@drawable/liquier"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"/>
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:src="@drawable/liquier"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                       android:layout_gravity="center"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="8dp"
                         android:orientation="vertical">
                         <TextView

@@ -73,6 +73,14 @@ public class InventoryType extends RecyclerView.Adapter<InventoryType.MyViewHold
 
         }
 
+        holder.inventory_lists.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(mContext,MyInventoryListActivity.class);
+                mContext.startActivity(i);
+            }
+        });
+
     }
 
     @Override
