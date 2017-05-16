@@ -111,9 +111,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/linear_part"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
@@ -121,12 +120,13 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginBottom="5dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/edittext"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="100"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -138,17 +138,15 @@
                 android:id="@+id/add_bottle_act"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/bottle"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/lightblack"
-                    android:textSize="18sp"
-                    android:text="+"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/lightblack"
+                    android:textColor="@color/edit"
                     android:textSize="18sp"
                     android:text="Add Bottle"/>
 
@@ -163,16 +161,16 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:textColor="@color/lightblack"
                     android:textSize="18sp"
-                    android:src="@drawable/edit_20"/>
+                    android:src="@drawable/edit"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/lightblack"
+                    android:textColor="@color/edit"
                     android:textSize="18sp"
                     android:text="Edit"/>
 
