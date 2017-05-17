@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash"
     android:orientation="vertical"
-    tools:context="com.kyros.technologies.bar.EmailManagementActivity">
+    tools:context="com.kyros.technologies.bar.Activity.EmailManagementActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

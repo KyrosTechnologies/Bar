@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash"
-    tools:context="com.kyros.technologies.bar.AddEmailActivity">
+    tools:context="com.kyros.technologies.bar.Activity.AddEmailActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

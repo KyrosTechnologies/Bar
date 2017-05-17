@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/splash"
     android:layout_height="match_parent"
-    tools:context="com.kyros.technologies.bar.LoginActivity">
+    tools:context="com.kyros.technologies.bar.Activity.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,6 +39,7 @@
                 android:layout_margin="15dp">
 
                 <EditText
+                    android:id="@+id/email_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Email Address"
@@ -55,12 +56,14 @@
                     android:layout_marginTop="5dp"/>
 
                 <EditText
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:textColorHint="@color/edit"
                     android:layout_marginTop="30dp"
                     android:textAlignment="center"
+                    android:inputType="textPassword"
                     android:background="@android:color/transparent"
                     android:textColor="@color/white"
                     android:textSize="16sp"/>
