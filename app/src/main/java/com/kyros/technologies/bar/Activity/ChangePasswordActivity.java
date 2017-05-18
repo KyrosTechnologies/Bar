@@ -78,8 +78,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(),"Password Changed Sucessfully",Toast.LENGTH_SHORT).show();
 
-                        Intent i=new Intent(ChangePasswordActivity.this,ProfileViewActivity.class);
-                        startActivity(i);
+                        ChangePasswordActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

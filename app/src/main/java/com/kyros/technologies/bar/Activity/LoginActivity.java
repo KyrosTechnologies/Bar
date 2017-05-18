@@ -101,8 +101,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mails=email_address.getText().toString();
                 passwords=password.getText().toString();
+                Intent i=new Intent(LoginActivity.this,LandingActivity.class);
+                startActivity(i);
                 StateChangeWaggonapi(mails,passwords);
-                //Toast.makeText(getApplicationContext(),"Mail : "+mails+passwords,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Mail : "+mails+passwords,Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -189,6 +191,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
+
+                Intent i=new Intent(LoginActivity.this,LandingActivity.class);
+                startActivity(i);
 //                texts.setText(error.toString());
             }
         }) {

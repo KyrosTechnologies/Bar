@@ -10,7 +10,10 @@ import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper;
 import com.kyros.technologies.bar.R;
 
 /**
@@ -20,6 +23,7 @@ import com.kyros.technologies.bar.R;
 public class AddCustomBottle extends AppCompatActivity{
 
     private ImageView custom_capture_bottle;
+    private SeekBar min_seekbar,max_seekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class AddCustomBottle extends AppCompatActivity{
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.add_custom_bottle);
         custom_capture_bottle=(ImageView)findViewById(R.id.custom_capture_bottle);
+        max_seekbar=(SeekBar)findViewById(R.id.max_seekbar);
+        min_seekbar=(SeekBar)findViewById(R.id.min_seekbar);
 
         try {
             Bundle bundle=getIntent().getExtras();
@@ -54,9 +60,7 @@ public class AddCustomBottle extends AppCompatActivity{
 
         switch (item.getItemId()){
             case R.id.action_next:
-                Intent i=new Intent(AddCustomBottle.this,CustomBottleDetails.class);
-                startActivity(i);
-
+               AddCustomBottle.this.finish();
                 break;
             case android.R.id.home:
                 AddCustomBottle.this.finish();

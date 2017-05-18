@@ -145,6 +145,36 @@ private void showPopup(){
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        store= PreferenceManager.getInstance(getApplicationContext());
+        UserProfileId=store.getUserProfileId();
+        Firstname=store.getFirstName();
+        Lastname=store.getLastName();
+        UserEmail=store.getUserEmail();
+        MobileNumber=store.getMobileNumber();
+        Venue=store.getVenue();
+        Country=store.getCountry();
+        Inventory=store.getInventory();
+        InventoryTime=store.getInventoryTime();
+        Isactive=store.getIsactive();
+        Create=store.getCreate();
+        Modifi=store.getModifi();
+        Ids=store.getIds();
+        Password=store.getPassword();
+        String FullName=Firstname+" "+Lastname;
+        profile_password_change=(LinearLayout)findViewById(R.id.profile_password_change);
+        profile_name=(TextView)findViewById(R.id.profile_name);
+        venue=(TextView)findViewById(R.id.venue);
+        profile_name.setText(FullName);
+        if (Venue==null){
+            Venue="";
+
+        }
+        venue.setText(Venue);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){

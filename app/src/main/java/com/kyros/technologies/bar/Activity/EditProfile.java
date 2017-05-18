@@ -201,8 +201,7 @@ public class EditProfile extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Updated",Toast.LENGTH_SHORT).show();
 
-                        Intent i=new Intent(EditProfile.this,ProfileViewActivity.class);
-                        startActivity(i);
+                        EditProfile.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
