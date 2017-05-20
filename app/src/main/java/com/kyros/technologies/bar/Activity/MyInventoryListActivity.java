@@ -81,9 +81,11 @@ public class MyInventoryListActivity extends AppCompatActivity {
                             int quantity=first.getInt("capacity_mL");
                             String type=first.getString("alcohol_type");
                             String pic=first.getString("small_picture_url");
+                            String subtype=first.getString("alcohol_subtype");
                             LiquorListClass liquorListClass=new LiquorListClass();
                             liquorListClass.setName(name);
                             liquorListClass.setCapacity_mL(quantity);
+                            liquorListClass.setAlcohol_subtype(subtype);
                             liquorListClass.setAlcohol_type(type);
                             liquorListClass.setSmall_picture_url(pic);
                             liquorlist.add(liquorListClass);

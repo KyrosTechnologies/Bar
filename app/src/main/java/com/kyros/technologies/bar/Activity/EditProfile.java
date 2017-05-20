@@ -283,7 +283,7 @@ public class EditProfile extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(),"Please Enter Venue",Toast.LENGTH_SHORT).show();
 //                    return;
 //                }
-                StateChangeWaggonapi(fn,ln,mob,mail,con,venue,pass);
+                //StateChangeWaggonapi(fn,ln,mob,mail,con,venue,pass);
                 break;
 
             case android.R.id.home:

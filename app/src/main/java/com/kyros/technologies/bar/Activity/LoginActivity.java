@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.ServiceHandler.SessionManager;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private String Venue=null;
     private String Country=null;
     private String Inventory=null;
+    private SessionManager session;
     private String InventoryTime=null;
     private boolean Isactive;
     private String Create=null;
@@ -61,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
         setContentView(R.layout.activity_login);
+        session = new SessionManager(getApplicationContext());
         changeStatusBarColor();
 
         signup_login=(TextView) findViewById(R.id.signup_login);
@@ -101,10 +104,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mails=email_address.getText().toString();
                 passwords=password.getText().toString();
-                Intent i=new Intent(LoginActivity.this,LandingActivity.class);
-                startActivity(i);
                 StateChangeWaggonapi(mails,passwords);
                 Toast.makeText(getApplicationContext(),"Mail : "+mails+passwords,Toast.LENGTH_SHORT).show();
+
+             //   StateChangeWaggonapi(mails,passwords);
+                //Toast.makeText(getApplicationContext(),"Mail : "+mails+passwords,Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -167,6 +172,8 @@ public class LoginActivity extends AppCompatActivity {
                             store.putIds(String.valueOf(id));
                             String password=first.getString("password");
                             store.putPassword(String.valueOf(password));
+                            session.createLoginSession(email,password);
+
                         }
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Logged In",Toast.LENGTH_SHORT).show();
@@ -308,7 +315,7 @@ private void ForgotPasswordApi(final String mails){
                 public void onClick(View v) {
                     String email=email_forget_password.getText().toString();
                     if(!email.isEmpty()&&email!=null){
-                        ForgotPasswordApi(email);
+                       ForgotPasswordApi(email);
                         Toast.makeText(getApplicationContext(),"Email is: "+email,Toast.LENGTH_SHORT).show();
 
                     }else{

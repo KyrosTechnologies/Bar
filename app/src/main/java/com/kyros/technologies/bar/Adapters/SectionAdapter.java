@@ -2,6 +2,7 @@ package com.kyros.technologies.bar.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,10 @@ import android.widget.TextView;
 
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.Activity.SectionBottlesActivity;
+import com.kyros.technologies.bar.utils.MyBar;
+import com.kyros.technologies.bar.utils.MySection;
+
+import java.util.ArrayList;
 
 /**
  * Created by Rohin on 17-05-2017.
@@ -18,8 +23,9 @@ import com.kyros.technologies.bar.Activity.SectionBottlesActivity;
 
 public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHolderEleven>{
     private Context mContext;
-    String[]SectionName=new String[]{"Front Section","Side Section","Main Section"};
-    String[]SectionUpdates=new String[]{"Updated 3 days ago","Updated 2 days ago","Updated 4 days ago"};
+//    String[]SectionName=new String[]{"Front Section","Side Section","Main Section"};
+//    String[]SectionUpdates=new String[]{"Updated 3 days ago","Updated 2 days ago","Updated 4 days ago"};
+    private ArrayList<MySection>sectionArrayList;
 
 
 
@@ -35,8 +41,9 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
 
         }
     }
-    public SectionAdapter(Context mContext){
+    public SectionAdapter(Context mContext,ArrayList<MySection> sectionArrayList){
         this.mContext=mContext;
+        this.sectionArrayList=sectionArrayList;
 
 
     }
@@ -50,13 +57,33 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
     @Override
     public void onBindViewHolder(SectionAdapter.MyViewHolderEleven holder, final int position) {
 
-        holder.section_add.setText(SectionName[position]);
-        holder.section_updates.setText(SectionUpdates[position]);
+        MySection section=sectionArrayList.get(position);
+        final int id=section.getSectionid();
+        String sectionname=section.getSectionname();
+        String sectioncreated=section.getSectioncreated();
+        int barid=section.getBarid();
+
+        if (sectionname==null){
+            sectionname="";
+
+        }
+
+        if (sectioncreated==null){
+
+            sectioncreated="";
+
+        }
+
+        holder.section_add.setText(sectionname);
+        holder.section_updates.setText(sectioncreated);
+
         //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
 
         holder.add_section.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                com.kyros.technologies.bar.SharedPreferences.PreferenceManager store= com.kyros.technologies.bar.SharedPreferences.PreferenceManager.getInstance(mContext);
+                store.putSectionId(String.valueOf(id));
                 Intent i=new Intent(mContext,SectionBottlesActivity.class);
                 mContext.startActivity(i);
             }
@@ -66,7 +93,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return SectionName.length;
+        return sectionArrayList.size();
     }
 
 

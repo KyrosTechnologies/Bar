@@ -12,7 +12,11 @@ import android.widget.TextView;
 
 import com.kyros.technologies.bar.Activity.LiquorSlider;
 import com.kyros.technologies.bar.R;
+import com.kyros.technologies.bar.utils.MySection;
+import com.kyros.technologies.bar.utils.UtilSectionBar;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by Rohin on 17-05-2017.
@@ -20,10 +24,12 @@ import com.squareup.picasso.Picasso;
 
 public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.MyViewHolderEleven>{
     private Context mContext;
-    String[]Alchohol=new String[]{"Anchor Porter","Aristocrat Rum"};
-    String[]AlchoholType=new String[]{"Beer","Rum"};
-    String[]Ml=new String[]{"750 Ml","500 Ml"};
+//    String[]Alchohol=new String[]{"Anchor Porter","Aristocrat Rum"};
+//    String[]AlchoholType=new String[]{"Beer","Rum"};
+//    String[]Ml=new String[]{"750 Ml","900 Ml"};
     public int[]LiquorImages=new int[]{R.drawable.beer,R.drawable.rum};
+    private ArrayList<UtilSectionBar> utilSectionBarArrayList;
+
 
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
@@ -40,8 +46,9 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
             liquor_type=(TextView)itemView.findViewById(R.id.liquor_type);
         }
     }
-    public SectionBarAdapter(Context mContext){
+    public SectionBarAdapter(Context mContext,ArrayList<UtilSectionBar>utilSectionBarArrayList){
         this.mContext=mContext;
+        this.utilSectionBarArrayList=utilSectionBarArrayList;
 
 
     }
@@ -55,9 +62,36 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
     @Override
     public void onBindViewHolder(SectionBarAdapter.MyViewHolderEleven holder, final int position) {
 
-        holder.alchohol_name.setText(Alchohol[position]);
-        holder.bottle_ml.setText(Ml[position]);
-        holder.liquor_type.setText(AlchoholType[position]);
+        UtilSectionBar utilSectionBar=utilSectionBarArrayList.get(position);
+        final int id=utilSectionBar.getId();
+        final int barid=utilSectionBar.getBarid();
+        final int sectionid=utilSectionBar.getSectionid();
+        String liquorname=utilSectionBar.getLiquorname();
+        String liquorcapacity=utilSectionBar.getLiquorcapacity();
+        String shots=utilSectionBar.getShots();
+        String category=utilSectionBar.getCategory();
+        String subcategory=utilSectionBar.getSubcategory();
+        String parlevel=utilSectionBar.getParlevel();
+        String disname=utilSectionBar.getDistributorname();
+        String price=utilSectionBar.getPriceunit();
+        String binnumber=utilSectionBar.getBinnumber();
+        String productcode=utilSectionBar.getProductcode();
+
+        if (liquorname==null){
+            liquorname="";
+        }
+
+        if (liquorcapacity==null){
+            liquorcapacity="";
+        }
+
+        if (category==null){
+            category="";
+        }
+
+        holder.alchohol_name.setText(liquorname);
+        holder.bottle_ml.setText(String.valueOf(liquorcapacity));
+        holder.liquor_type.setText(category);
         //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
         try{
             Picasso.with(mContext)
@@ -80,7 +114,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
 
     @Override
     public int getItemCount() {
-        return Alchohol.length;
+        return utilSectionBarArrayList.size();
     }
 
 }

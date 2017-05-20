@@ -155,6 +155,57 @@ public class PreferenceManager {
         editor.commit();
     }
 
+    public String getBarName(){
+        return sp.getString("BarName",null);
+    }
+    public void putBarName(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("BarName", value);
+        editor.commit();
+    }
+
+    public String getBarId(){
+        return sp.getString("BarId",null);
+    }
+    public void putBarId(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("BarId", value);
+        editor.commit();
+    }
+
+    public String getSectionId(){
+        return sp.getString("SectionId",null);
+    }
+    public void putSectionId(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("SectionId", value);
+        editor.commit();
+    }
+
+    public String getSectionName(){
+        return sp.getString("SectionName",null);
+    }
+    public void putSectionName(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("SectionName", value);
+        editor.commit();
+    }
+
+
+    public String getBarDateCreated(){
+        return sp.getString("BarCreated",null);
+    }
+    public void putBarDateCreated(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("BarCreated", value);
+        editor.commit();
+    }
+
     public void clear(){
         SharedPreferences.Editor editor;
         editor=sp.edit();
@@ -162,393 +213,102 @@ public class PreferenceManager {
         editor.commit();
     }
 
-    public String getSpinnerName(String key){
-        return sp.getString(key,null);
+    public String getLiquorName(){
+        return sp.getString("LiquorName",null);
     }
-    public void putSpinnerName(String key, String value){
+    public void putLiquorName(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
-    public String getShopname(){
-        return sp.getString("ShopName",null);
-    }
-    public void putShopname(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("ShopName", value);
-        editor.commit();
-    }
-    public String getSpinnerId(String key){
-        return sp.getString(key,null);
-    }
-    public void putSpinnerId(String key, String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
-    public String getShopAddress(){
-        return sp.getString("ShopAddress",null);
-    }
-    public void putShopAddress(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("ShopAddress", value);
-        editor.commit();
-    }
-    public String getShopPincode(){
-        return sp.getString("PinCode",null);
-    }
-    public void putShopPincode(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("PinCode", value);
+        editor.putString("LiquorName", value);
         editor.commit();
     }
 
-    public String getDealerProfileId(){
-        return sp.getString("DealerProfileId",null);
+    public String getLiquorCapacity(){
+        return sp.getString("LiquorCapacity",null);
     }
-    public void putDealerProfileId(String value){
+    public void putLiquorCapacity(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString("DealerProfileId", value);
+        editor.putString("LiquorCapacity", value);
         editor.commit();
     }
-    public String getShopPictureAttachmentId(String key){
-        return sp.getString(key,null);
-    }
-    public void putShopPictureAttachmentId(String key, String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }public String getHomePage(){
-        return sp.getString("Home",null);
-    }
-    public void putHomepage(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("Home", value);
-        editor.commit();
-    }
-    public String getCarPicture(String key){
-        return sp.getString(key,null);
-    }
-    public void putCarPicture(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("CarPicture", value);
-        editor.commit();
-    }
-    public String getCarPictureAttachmentId(String key){
-        return sp.getString(key,null);
-    }
-    public void putCarPictureAttachmentId(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("AttachmentIdCarPicture", value);
-        editor.commit();
-    }
-    public String getCarName(String key){
-        return sp.getString(key,null);
-    }
-    public void putCarName(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("CarName", value);
-        editor.commit();
-    }
-    public String getCarMakeYear(String key){
-        return sp.getString(key,null);
-    }
-    public void putCarMakeYear(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("CarMakeYear", value);
-        editor.commit();
-    }
-    public String getShopPicture(){
-        return sp.getString("ShopPicture",null);
-    }
-    public void putShopPicture(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("ShopPicture", value);
-        editor.commit();
-    }
-    public void putCarsList(ArrayList<String> ok){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        Set<String> set= new HashSet<String>();
-        set.addAll(ok);
-        editor.putStringSet("CarsList",set);
-        editor.commit();
 
+    public String getShots(){
+        return sp.getString("Shots",null);
+    }
+    public void putShots(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("Shots", value);
+        editor.commit();
+    }
 
+    public String getCategory(){
+        return sp.getString("Category",null);
     }
-    public Set<String> getCarsList(){
-        return sp.getStringSet("CarsList",null);
-    }
-    public void putCarsDetailsIdList(ArrayList<String> ok){
+    public void putCategory(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        Set<String> set= new HashSet<String>();
-        set.addAll(ok);
-        editor.putStringSet("CarsListId",set);
+        editor.putString("Category", value);
         editor.commit();
     }
-    public Set<String> getCarsDetailsIdList(){
-        return sp.getStringSet("CarsListId",null);
-    }
-    public void putCarMakeYears(ArrayList<String> ok){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        Set<String> set= new HashSet<String>();
-        set.addAll(ok);
-        editor.putStringSet("CarMkyear",set);
-        editor.commit();
-    }
-    public Set<String> getCarMakeYears(){
-        return sp.getStringSet("CarMkyear",null);
-    }
-    public void putCarNames(ArrayList<String> ok){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        Set<String> set= new HashSet<String>();
-        set.addAll(ok);
-        editor.putStringSet("CarNamesss",set);
-        editor.commit();
-    }
-    public Set<String> getCarNames(){
-        return sp.getStringSet("CarNamesss",null);
-    }
-    public void putCarPictures(ArrayList<String> ok){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        Set<String> set= new HashSet<String>();
-        set.addAll(ok);
-        editor.putStringSet("Carspiks",set);
-        editor.commit();
-    }
-    public Set<String> getCarPictures(){
-        return sp.getStringSet("Carspiks",null);
-    }
-    public void putCarPicturesattachmentid(ArrayList<String> ok){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        Set<String> set= new HashSet<String>();
-        set.addAll(ok);
-        editor.putStringSet("attahidcarpic",set);
-        editor.commit();
-    }
-    public Set<String> getCarPicturesattachmentid(){
-        return sp.getStringSet("attahidcarpic",null);
-    }
-    public void putCarNumberplate(ArrayList<String> ok){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        Set<String> set= new HashSet<String>();
-        set.addAll(ok);
-        editor.putStringSet("Numberplarecar",set);
-        editor.commit();
-    }
-    public Set<String> getCarNumberplate(){
-        return sp.getStringSet("Numberplarecar",null);
-    }
-    public String getProfilePictureUrl(){
-        return sp.getString("FileSourceProfile",null);
-    }
-    public void putProfilePictureUrl(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("FileSourceProfile", value);
-        editor.commit();
-    }public String getProfilePictureFileName(String key){
-        return sp.getString(key,null);
-    }
-    public void putProfilePictureFileName(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("FileNameProfile", value);
-        editor.commit();
 
+    public String getSubCategory(){
+        return sp.getString("SubCategory",null);
     }
-    public String getCarPictureFileName(String key){
-        return sp.getString(key,null);
-    }
-    public void putCarPictureFileName(String value){
+    public void putSubCategory(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString("FileNameCar", value);
+        editor.putString("SubCategory", value);
         editor.commit();
-    } public String getCarPictureUrl(String key){
-        return sp.getString(key,null);
     }
-    public void putCarPictureUrl(String value){
+    public String getParLevel(){
+        return sp.getString("ParLevel",null);
+    }
+    public void putParLevel(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString("FileSourceCar", value);
+        editor.putString("ParLevel", value);
         editor.commit();
     }
-    public String getShopPictureUrl(){
-        return sp.getString("FileSourceShop",null);
+
+    public String getDistributorName(){
+        return sp.getString("DistributorName",null);
     }
-    public void putShopPictureUrl(String value){
+    public void putDistributorName(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString("FileSourceShop", value);
+        editor.putString("DistributorName", value);
         editor.commit();
     }
-    public String getShopProfilePictureUrl(){
-        return sp.getString("FileSourceProfileShop",null);
+    public String getPriceUnit(){
+        return sp.getString("PriceUnit",null);
     }
-    public void putShopProfilePictureUrl(String value){
+    public void putPriceUnit(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString("FileSourceProfileShop", value);
+        editor.putString("PriceUnit", value);
         editor.commit();
-    }public String getBusinessNatureTypes(){
-        return sp.getString("BusinessNatureType",null);
     }
-    public void putBusinessNatureTypes(String value){
+
+    public String getBinNumber(){
+        return sp.getString("PriceUnit",null);
+    }
+    public void putBinNumber(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString("BusinessNatureType", value);
+        editor.putString("PriceUnit", value);
         editor.commit();
-    }public String getBusinessTypes(){
-        return sp.getString("BusinessType",null);
     }
-    public void putBusinessTypes(String value){
+
+    public String getProductCode(){
+        return sp.getString("ProductCode",null);
+    }
+    public void putProductCode(String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString("BusinessType", value);
-        editor.commit();
-    }public String getWorkinProgress(){
-        return sp.getString("WorkInProgress",null);
-    }
-    public void putWorkinProgress(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("WorkInProgress", value);
-        editor.commit();
-    }public String getVechiled_Delivered(){
-        return sp.getString("Vechiled_Delivered",null);
-    }
-    public void putVechiled_Delivered(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("Vechiled_Delivered", value);
-        editor.commit();
-    }public String getSaw(){
-        return sp.getString("Saw",null);
-    }
-    public void putSaw(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("Saw", value);
-        editor.commit();
-    }public String getSaw1(){
-        return sp.getString("Saw1",null);
-    }
-    public void putSaw1(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("Saw1", value);
-        editor.commit();
-    }public String getSaw2(){
-        return sp.getString("Saw2",null);
-    }
-    public void putSaw2(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("Saw2", value);
-        editor.commit();
-    }public String getSaw3(){
-        return sp.getString("Saw3",null);
-    }
-    public void putSaw3(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("Saw3", value);
-        editor.commit();
-    }public String getAuthorizedDealershipName(){
-        return sp.getString("Saw3",null);
-    }
-    public void putAuthorizedDealershipName(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("Saw3", value);
-        editor.commit();
-    }public String getMapListGoogle(){
-        return sp.getString("MapListGoogle",null);
-    }
-    public void putMapListGoogle(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("MapListGoogle", value);
-        editor.commit();
-    }public String getMapListWaggon(){
-        return sp.getString("MapListWaggon",null);
-    }
-    public void putMapListWaggon(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("MapListWaggon", value);
-        editor.commit();
-    }public String getFCMToken(){
-        return sp.getString("FCMToken",null);
-    }
-    public void putFCMToken(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("FCMToken", value);
-        editor.commit();
-    }public String getFileSourceList(){
-        return sp.getString("FileSourceList",null);
-    }
-    public void putFileSourceList(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("FileSourceList", value);
+        editor.putString("ProductCode", value);
         editor.commit();
     }
-    public String getTempOneTimePass(){
-        return sp.getString("OneTimePass",null);
-    }
-    public void putTempOneTimePass(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("OneTimePass", value);
-        editor.commit();
-    }
-    public String getLatitudeSaved(){
-        return sp.getString("LatitudeSaved",null);
-    }
-    public void putLatitudeSaved(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("LatitudeSaved",value);
-        editor.commit();
-    }
-    public String getLongitudeSaved(){
-        return sp.getString("LongitudeSaved",null);
-    }
-    public void putLongitudeSaved(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("LongitudeSaved",value);
-        editor.commit();
-    }
-    public String getUserPassword(){
-        return sp.getString("UserPassword",null);
-    }
-    public void putUserPassword(String value){
-        SharedPreferences.Editor editor;
-        editor=sp.edit();
-        editor.putString("UserPassword",value);
-        editor.commit();
-    }
+
 }

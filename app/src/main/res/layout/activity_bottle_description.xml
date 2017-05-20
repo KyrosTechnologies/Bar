@@ -21,6 +21,7 @@
                 android:layout_margin="15dp">
 
                 <EditText
+                    android:id="@+id/bottle_des_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name"
@@ -39,6 +40,7 @@
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
+                    android:id="@+id/bottle_des_capacity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Capacity(ML)"
@@ -68,9 +70,10 @@
                         android:layout_weight="1">
 
                         <EditText
+                            android:id="@+id/bottle_des_main_category"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Shots"
+                            android:hint="Main Category"
                             android:textColorHint="@color/edit"
                             android:background="@android:color/transparent"
                             android:textColor="@color/white"
@@ -97,6 +100,7 @@
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
+                    android:id="@+id/bottle_des_sub_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Sub Category"
@@ -115,6 +119,7 @@
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
+                    android:id="@+id/bottle_des_shots"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Shots"
@@ -133,6 +138,7 @@
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
+                    android:id="@+id/bottle_des_par_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Par Level"
@@ -151,6 +157,7 @@
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
+                    android:id="@+id/bottle_des_distributor_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Distributor Name"
@@ -169,6 +176,7 @@
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
+                    android:id="@+id/bottle_des_price_unit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Price Unit"
@@ -187,6 +195,7 @@
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
+                    android:id="@+id/bottle_des_bin_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Bin Number"
@@ -205,6 +214,7 @@
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
+                    android:id="@+id/bottle_des_product_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Product Code"

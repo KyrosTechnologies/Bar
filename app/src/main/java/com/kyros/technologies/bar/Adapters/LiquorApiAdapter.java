@@ -63,12 +63,13 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
 
     @Override
     public void onBindViewHolder(LiquorApiAdapter.MyViewHolderEleven holder, final int position) {
-        LiquorListClass listClass=list.get(position);
+        final LiquorListClass listClass=list.get(position);
         String name=listClass.getName();
+        String subtype=listClass.getAlcohol_subtype();
         if(name==null){
             name="Dummy";
         }
-        int  quanti=listClass.getCapacity_mL();
+        final int  quanti=listClass.getCapacity_mL();
 
         String alchotype=listClass.getAlcohol_type();
         if(alchotype==null){
@@ -80,7 +81,7 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
         try {
 
             holder.bottle_name.setText(name);
-            holder.quantity.setText(String.valueOf(quanti)+" Ml");
+            holder.quantity.setText(String.valueOf(quanti)+" ML");
             holder.alchohol_type.setText(alchotype);
 
         }catch (Exception e){
@@ -98,10 +99,15 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
 
         }
 
+        final String finalName = name;
         holder.add_bottles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(mContext,BottleDescriptionActivity.class);
+                i.putExtra("name", finalName);
+                i.putExtra("capacity",String.valueOf(quanti)+" ML");
+                i.putExtra("category",listClass.getAlcohol_type());
+                i.putExtra("subcategory",listClass.getAlcohol_subtype());
                 mContext.startActivity(i);
             }
         });
