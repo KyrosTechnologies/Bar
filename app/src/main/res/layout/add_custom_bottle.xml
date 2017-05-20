@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsb="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,39 +35,36 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
-                android:layout_width="wrap_content"
-                android:layout_height="300dp"
-                android:layout_gravity="center|start">
-                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-                    android:id="@+id/min_seekbar"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:splitTrack="false"
-                    android:max="100"
-                    app:seekBarRotation="CW90"/>
-            </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
-        <ImageView
-            android:id="@+id/custom_capture_bottle"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_gravity="center"/>
+                <com.kyros.technologies.bar.seekbar.Seekbar
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    rsb:absoluteMaxValue="100 "
+                    rsb:absoluteMinValue="0"
+                    rsb:textAboveThumbsColor="@android:color/holo_purple"
+                    rsb:thumbDisabled="@drawable/custom_slider_thumb"
+                    rsb:thumbNormal="@drawable/custom_slider_thumb"
+                    rsb:thumbPressed="@drawable/custom_slider_thumb"
+                    rsb:thumbShadow="true"
+                    android:padding="0dp"
+                    android:rotation="270"
+                    android:layout_gravity="center"/>
 
-            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
-                android:layout_width="wrap_content"
-                android:layout_height="300dp"
-                android:layout_gravity="center|end">
-                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-                    android:id="@+id/max_seekbar"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:splitTrack="false"
-                    android:max="100"
-                    app:seekBarRotation="CW90"/>
-            </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                <ImageView
+                    android:id="@+id/custom_capture_bottle"
+                    android:layout_width="279dp"
+                    android:layout_height="380dp"
+                    android:layout_marginLeft="-250dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/absinthe"/>
+
+            </LinearLayout>
+
 
         </FrameLayout>
 

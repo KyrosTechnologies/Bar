@@ -53,7 +53,7 @@ public class AddCustomKeg extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_next:
-                Intent i=new Intent(AddCustomKeg.this,CustomKegDetails.class);
+                Intent i=new Intent(AddCustomKeg.this,BottleDescriptionActivity.class);
                 startActivity(i);
 
                 break;
