@@ -23,3 +23,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-dontwarn org.apache.commons.logging.impl.ServletContextCleaner
+-dontwarn org.apache.commons.logging.impl.ServletContextCleaner
+-dontwarn org.apache.commons.logging.impl.AvalonLogger
+-dontwarn org.apache.commons.logging.impl.Log4JLogger
+-dontwarn org.apache.commons.logging.impl.LogKitLogger

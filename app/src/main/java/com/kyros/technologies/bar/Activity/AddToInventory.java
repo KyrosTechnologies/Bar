@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -41,6 +42,7 @@ public class AddToInventory extends AppCompatActivity {
     private final int REQUEST_CAMERA = 0;
     private final int SELECT_FILE = 1;
     private String whichone=null;
+    private Uri selectedImage=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +186,8 @@ public class AddToInventory extends AppCompatActivity {
             }
         }else if(requestCode==REQUEST_CAMERA){
             if(resultCode==RESULT_OK){
+                  //  selectedImage = data.getData();
+
                 onCaptureImageResult(data);
 
             } else if (resultCode == RESULT_CANCELED) {
@@ -230,11 +234,13 @@ public class AddToInventory extends AppCompatActivity {
                             case "bottle":
                                 Intent i=new Intent(AddToInventory.this,AddCustomBottle.class);
                                 i.putExtra("image",imgString);
+                                i.putExtra("path","");
                                 startActivity(i);
                                 break;
                             case "keg":
                                 Intent k=new Intent(AddToInventory.this,AddCustomKeg.class);
                                 k.putExtra("image",imgString);
+                                k.putExtra("path","");
                                 startActivity(k);
                                 break;
                         }

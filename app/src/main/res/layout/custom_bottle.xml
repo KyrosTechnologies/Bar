@@ -31,6 +31,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Name"
                     android:textColorHint="@color/edit"
+                    android:id="@+id/name_custombottle"
                     android:paddingLeft="10dp"
                     android:background="@android:color/transparent"
                     android:textColor="@color/white"
@@ -55,6 +56,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Capacity (ML)"
+                        android:id="@+id/capacity_custombottle"
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
@@ -87,11 +89,13 @@
                         android:orientation="vertical"
                         android:layout_weight="1">
 
-                        <TextView
+                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
                             android:text="Main Category"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/category_custombottle"
                             android:textColor="@color/edit"
                             android:textSize="16sp"
                             android:inputType="textPersonName"/>
@@ -128,6 +132,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Sub Category"
                         android:textColorHint="@color/edit"
+                        android:id="@+id/subcategory_custombottle"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
                         android:textColor="@color/white"
@@ -152,6 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Shots"
+                        android:id="@+id/shots_custombottle"
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
@@ -177,6 +183,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Par Level"
+                        android:id="@+id/parlevel_custombottle"
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
@@ -202,6 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Distributor Name"
+                        android:id="@+id/distributor_custombottle"
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
@@ -227,6 +235,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Price Unit"
+                        android:id="@+id/price_custombottle"
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
@@ -252,6 +261,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Bin Number"
+                        android:id="@+id/binnumber_custombottle"
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
@@ -279,6 +289,7 @@
                         android:hint="Product Code"
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
+                        android:id="@+id/producr_custombottle"
                         android:background="@android:color/transparent"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -292,6 +303,19 @@
 
                 </LinearLayout>
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/image_custombottle"
+                    android:src="@mipmap/ic_launcher"/>
             </LinearLayout>
 
         </LinearLayout>

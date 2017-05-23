@@ -32,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }
-        }, 4000);
+        }, 2000);
     }
 
     private void changeStatusBarColor() {
