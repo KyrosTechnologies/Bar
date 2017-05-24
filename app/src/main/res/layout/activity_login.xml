@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/splash"
     android:layout_height="match_parent"
-    tools:context="com.kyros.technologies.bar.Activity.LoginActivity">
+    tools:context="com.kyros.technologies.bar.Common.activity.Activity.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"

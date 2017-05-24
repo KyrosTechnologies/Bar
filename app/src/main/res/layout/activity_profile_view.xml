@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/splash"
-    tools:context="com.kyros.technologies.bar.Activity.ProfileViewActivity">
+    tools:context="com.kyros.technologies.bar.Common.activity.Activity.ProfileViewActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.SplashActivity"
+            android:name=".Common.activity.Activity.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,89 +24,91 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.SignUpActivity"
+            android:name=".Common.activity.Activity.SignUpActivity"
             android:label="Sign Up"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".Activity.LandingActivity"
+            android:name=".Common.activity.Activity.LandingActivity"
             android:label="@string/title_activity_landing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.SettingActivity"
+            android:name=".Common.activity.Activity.SettingActivity"
             android:label="Settings" />
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name=".Common.activity.Activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".Activity.UserManagementActivity"
+            android:name=".Common.activity.Activity.UserManagementActivity"
             android:label="User Management" />
         <activity
-            android:name=".Activity.UserDetailsActivity"
+            android:name=".Common.activity.Activity.UserDetailsActivity"
             android:label="User Details" />
         <activity
-            android:name=".Activity.EmailManagementActivity"
+            android:name=".Common.activity.Activity.EmailManagementActivity"
             android:label="Email Management" />
         <activity
-            android:name=".Activity.ProfileViewActivity"
+            android:name=".Common.activity.Activity.ProfileViewActivity"
             android:label="Profile" />
         <activity
-            android:name=".Activity.AddEmailActivity"
+            android:name=".Common.activity.Activity.AddEmailActivity"
             android:label="Add Email" />
         <activity
-            android:name=".Activity.BarActivity"
+            android:name=".Inventory.Activity.Activity.BarActivity"
             android:label="Bar" />
         <activity
-            android:name=".Activity.AddSectionActivity"
+            android:name=".Inventory.Activity.Activity.AddSectionActivity"
             android:label="Section" />
         <activity
-            android:name=".Activity.SectionBottlesActivity"
+            android:name=".Inventory.Activity.Activity.SectionBottlesActivity"
             android:label="Section Bar" />
         <activity
-            android:name=".Activity.InventoryListActivity"
+            android:name=".Inventory.Activity.Activity.InventoryListActivity"
             android:label="Inventory List" />
-        <activity android:name=".Activity.ChangePasswordActivity"
+        <activity android:name=".Common.activity.Activity.ChangePasswordActivity"
             android:label="Change Password"/>
         <activity
-            android:name=".Activity.PurchaseListActivity"
+            android:name=".Purchase.Activity.PurchaseListActivity"
             android:label="Purchase Stock" />
         <activity
-            android:name=".Activity.MyInventoryListActivity"
+            android:name=".Inventory.Activity.Activity.MyInventoryListActivity"
             android:label="My Inventory List" />
-        <activity android:name=".Activity.BottleDescriptionActivity"
+        <activity android:name=".Inventory.Activity.Activity.BottleDescriptionActivity"
             android:label="Bottle Details"/>
-        <activity android:name=".Activity.ValueOnHand"
+        <activity android:name=".Common.activity.Activity.ValueOnHand"
             android:label="Value on Hand"/>
-        <activity android:name=".Activity.VenueSummary"
+        <activity android:name=".Common.activity.Activity.VenueSummary"
             android:label="Venue Summary"/>
-        <activity android:name=".Activity.InventoryActivity"
+        <activity android:name=".Inventory.Activity.Activity.InventoryActivity"
             android:label="Inventory Type"/>
-        <activity android:name=".Activity.BottleDetails"
+        <activity android:name=".Purchase.Activity.BottleDetails"
             android:label="Bottle Details"/>
-        <activity android:name=".Activity.AddToInventory"
+        <activity android:name=".Inventory.Activity.Activity.AddToInventory"
             android:label="Add To Inventory"/>
-        <activity android:name=".Activity.AddCustomBottle"
+        <activity android:name=".Inventory.Activity.Activity.AddCustomBottle"
             android:label="Add Custom Bottle"/>
-        <activity android:name=".Activity.CustomBottleDetails"
+        <activity android:name=".Inventory.Activity.Activity.CustomBottleDetails"
             android:label="Custom Bottle"
             android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".Activity.AddCustomKeg"
+        <activity android:name=".Inventory.Activity.Activity.AddCustomKeg"
             android:label="Add Custom Keg"/>
-        <activity android:name=".Activity.CustomKegDetails"
+        <activity android:name=".Inventory.Activity.Activity.CustomKegDetails"
             android:label="Custom Keg"/>
-        <activity android:name=".Activity.LiquorSlider"
+        <activity android:name=".Inventory.Activity.Activity.LiquorSlider"
             android:label="Liquor Slider"/>
-        <activity android:name=".Activity.ParList"
+        <activity android:name=".Common.activity.Activity.ParList"
             android:label="Par List"/>
-        <activity android:name=".Activity.DistributorList"
+        <activity android:name=".Common.activity.Activity.DistributorList"
             android:label="Distributor List"/>
-        <activity android:name=".Activity.DistributorDetails"
+        <activity android:name=".Common.activity.Activity.DistributorDetails"
             android:label="Distributor Details"/>
-        <activity android:name=".Activity.AddBottleActivity"
+        <activity android:name=".Inventory.Activity.Activity.AddBottleActivity"
             android:label="Add Bottle"/>
-        <activity android:name=".Activity.EditProfile"
+        <activity android:name=".Common.activity.Activity.EditProfile"
             android:label="Edit Profile"/>
+        <activity android:name=".Purchase.Activity.BottlePurchaseStock"
+            android:label="Bottle Details"/>
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.kyros.technologies.bar.Activity.LoginActivity;
+import com.kyros.technologies.bar.Common.activity.Activity.LoginActivity;
 import java.util.HashMap;
 
 /**
