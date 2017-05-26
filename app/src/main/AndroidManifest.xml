@@ -107,6 +107,9 @@
             android:label="Add Bottle"/>
         <activity android:name=".Common.activity.Activity.EditProfile"
             android:label="Edit Profile"/>
+        <activity
+            android:name=".Inventory.Activity.AddSectionActivity"
+            android:label="Section" />
         <activity android:name=".Purchase.Activity.BottlePurchaseStock"
             android:label="Bottle Details"/>
     </application>

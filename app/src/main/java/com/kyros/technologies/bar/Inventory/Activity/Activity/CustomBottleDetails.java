@@ -111,8 +111,8 @@ public class CustomBottleDetails extends AppCompatActivity {
             Bundle bundle=getIntent().getExtras();
             String image=bundle.getString("image");
             baseimage=image;
-//            MinValue=bundle.getString("minvalue");
-//            MaxValue=bundle.getString("maxvalue");
+            MinValue=bundle.getString("minvalue");
+            MaxValue=bundle.getString("maxvalue");
            // path=bundle.getString("path");
 
             byte[]decodedString= Base64.decode(image.getBytes(),Base64.DEFAULT);
@@ -377,6 +377,12 @@ public class CustomBottleDetails extends AppCompatActivity {
                 modl.setProductcode(productcode);
                 modl.setMinValue(Double.parseDouble(minValue));
                 modl.setMaxValue(Double.parseDouble(maxValue));
+                double minval=Double.parseDouble(minValue);
+                double maxval=Double.parseDouble(maxValue);
+                minval=minval/100;
+                maxval=maxval/100;
+                String fminval=String.valueOf(minval);
+                String fmaxval=String.valueOf(maxval);
 
                 entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
                 entity.addPart("barid", new StringBody(BarId, ContentType.TEXT_PLAIN));
@@ -390,8 +396,8 @@ public class CustomBottleDetails extends AppCompatActivity {
                 entity.addPart("price", new StringBody(price, ContentType.TEXT_PLAIN));
                 entity.addPart("binnumber", new StringBody(binnumber, ContentType.TEXT_PLAIN));
                 entity.addPart("productcode", new StringBody(productcode, ContentType.TEXT_PLAIN));
-                entity.addPart("minvalue", new StringBody(minValue, ContentType.TEXT_PLAIN));
-                entity.addPart("maxvalue", new StringBody(maxValue, ContentType.TEXT_PLAIN));
+                entity.addPart("minvalue", new StringBody(fminval, ContentType.TEXT_PLAIN));
+                entity.addPart("maxvalue", new StringBody(fmaxval, ContentType.TEXT_PLAIN));
                 entity.addPart("shots", new StringBody(shots, ContentType.TEXT_PLAIN));
 
                 long totalSize = entity.getContentLength();
@@ -405,13 +411,16 @@ public class CustomBottleDetails extends AppCompatActivity {
                 if (statusCode == 200) {
                     // Server response
                     responseString = EntityUtils.toString(r_entity);
-                    Toast.makeText(getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
+                    CustomBottleDetails.this.finish();
+                //    Toast.makeText(getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
                 } else {
                     responseString = "Error occurred! Http Status Code: "
                             + statusCode;
-                    Toast.makeText(getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
 
                 }
+                Log.d("response: ",responseString);
+
 
             } catch (ClientProtocolException e) {
                 responseString = e.toString();
