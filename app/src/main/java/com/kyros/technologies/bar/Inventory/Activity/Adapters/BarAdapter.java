@@ -92,6 +92,5 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
     public int getItemCount() {
         return barArrayList.size();
     }
-
-
+    
 }
