@@ -69,7 +69,7 @@
         <activity android:name=".Common.activity.Activity.ChangePasswordActivity"
             android:label="Change Password"/>
         <activity
-            android:name=".Purchase.Activity.PurchaseListActivity"
+            android:name=".Purchase.Activity.Activity.PurchaseListActivity"
             android:label="Purchase Stock" />
         <activity
             android:name=".Inventory.Activity.Activity.MyInventoryListActivity"
@@ -82,7 +82,7 @@
             android:label="Venue Summary"/>
         <activity android:name=".Inventory.Activity.Activity.InventoryActivity"
             android:label="Inventory Type"/>
-        <activity android:name=".Purchase.Activity.BottleDetails"
+        <activity android:name=".Purchase.Activity.Activity.BottleDetails"
             android:label="Bottle Details"/>
         <activity android:name=".Inventory.Activity.Activity.AddToInventory"
             android:label="Add To Inventory"/>
@@ -107,8 +107,12 @@
             android:label="Add Bottle"/>
         <activity android:name=".Common.activity.Activity.EditProfile"
             android:label="Edit Profile"/>
-        <activity android:name=".Purchase.Activity.BottlePurchaseStock"
-            android:label="Bottle Details"/>
+        <activity android:name=".Purchase.Activity.Activity.BottlePurchaseStock"
+            android:label="Bottle Purchase Details"/>
+        <activity android:name=".Purchase.Activity.Activity.InventoryTypePurchase"
+            android:label="Purchase Type"/>
+        <activity android:name=".Purchase.Activity.Activity.MyPurchaseListActivity"
+            android:label="My Purchase List"/>
     </application>
 
 </manifest>

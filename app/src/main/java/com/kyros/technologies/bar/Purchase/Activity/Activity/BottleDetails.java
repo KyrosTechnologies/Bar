@@ -1,4 +1,4 @@
-package com.kyros.technologies.bar.Purchase.Activity;
+package com.kyros.technologies.bar.Purchase.Activity.Activity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;

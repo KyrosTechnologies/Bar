@@ -1,4 +1,4 @@
-package com.kyros.technologies.bar.Purchase.Activity;
+package com.kyros.technologies.bar.Purchase.Activity.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -71,16 +71,16 @@ public class BottlePurchaseStock extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_purchase_bottle_description);
-        pur_bottle_des_name=(EditText)findViewById(R.id.bottle_des_name);
-        pur_bottle_des_capacity=(EditText)findViewById(R.id.bottle_des_capacity);
-        pur_bottle_des_main_category=(EditText)findViewById(R.id.bottle_des_main_category);
-        pur_bottle_des_sub_category=(EditText)findViewById(R.id.bottle_des_sub_category);
-        pur_bottle_des_shots=(EditText)findViewById(R.id.bottle_des_shots);
-        pur_bottle_des_par_level=(EditText)findViewById(R.id.bottle_des_par_level);
-        pur_bottle_des_distributor_name=(EditText)findViewById(R.id.bottle_des_distributor_name);
-        pur_bottle_des_price_unit=(EditText)findViewById(R.id.bottle_des_price_unit);
-        pur_bottle_des_bin_number=(EditText)findViewById(R.id.bottle_des_bin_number);
-        pur_bottle_des_product_code=(EditText)findViewById(R.id.bottle_des_product_code);
+        pur_bottle_des_name=(EditText)findViewById(R.id.pur_bottle_des_name);
+        pur_bottle_des_capacity=(EditText)findViewById(R.id.pur_bottle_des_capacity);
+        pur_bottle_des_main_category=(EditText)findViewById(R.id.pur_bottle_des_main_category);
+        pur_bottle_des_sub_category=(EditText)findViewById(R.id.pur_bottle_des_sub_category);
+        pur_bottle_des_shots=(EditText)findViewById(R.id.pur_bottle_des_shots);
+        pur_bottle_des_par_level=(EditText)findViewById(R.id.pur_bottle_des_par_level);
+        pur_bottle_des_distributor_name=(EditText)findViewById(R.id.pur_bottle_des_distributor_name);
+        pur_bottle_des_price_unit=(EditText)findViewById(R.id.pur_bottle_des_price_unit);
+        pur_bottle_des_bin_number=(EditText)findViewById(R.id.pur_bottle_des_bin_number);
+        pur_bottle_des_product_code=(EditText)findViewById(R.id.pur_bottle_des_product_code);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
         Barid=store.getBarId();
@@ -166,21 +166,21 @@ public class BottlePurchaseStock extends AppCompatActivity {
                             JSONObject first=array.getJSONObject(i);
                             int id=first.getInt("id");
                             int userprofile=first.getInt("userprofileid");
-                            int liquorname=first.getInt("liquorname");
+                            String liquorname=first.getString("liquorname");
                             String liquorcapacity=first.getString("liquorcapacity");
                             String shots=first.getString("shots");
                             String category=first.getString("category");
                             String subcategory=first.getString("subcategory");
                             String parlevel=first.getString("parlevel");
                             String distributorname=first.getString("distributorname");
-                            int priceunit=first.getInt("priceunit");
+                            String priceunit=first.getString("priceunit");
                             String binnumber=first.getString("binnumber");
                             String productcode=first.getString("productcode");
                             String createdon=first.getString("createdon");
 
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Logged In",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Sucessfully Updated Bottle",Toast.LENGTH_SHORT).show();
 
 
                     }else {

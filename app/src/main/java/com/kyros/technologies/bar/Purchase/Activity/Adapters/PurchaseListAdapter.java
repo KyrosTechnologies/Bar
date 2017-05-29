@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kyros.technologies.bar.Purchase.Activity.BottlePurchaseStock;
+import com.kyros.technologies.bar.Purchase.Activity.Activity.BottlePurchaseStock;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.utils.Purchase;
 import com.squareup.picasso.Picasso;

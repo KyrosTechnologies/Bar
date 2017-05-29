@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/purchase_bottle_custom"
+        android:text="Add Custom bottle"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/edit"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"/>
+    <View
+        android:layout_width="300dp"
+        android:layout_height="0.5dp"
+        android:background="@color/edittext"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/purchase_type_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

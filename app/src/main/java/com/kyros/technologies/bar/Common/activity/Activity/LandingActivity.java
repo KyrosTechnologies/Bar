@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kyros.technologies.bar.Inventory.Activity.Activity.BarActivity;
-import com.kyros.technologies.bar.Purchase.Activity.PurchaseListActivity;
+import com.kyros.technologies.bar.Purchase.Activity.Activity.PurchaseListActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.SessionManager;
 

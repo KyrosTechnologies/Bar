@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.kyros.technologies.bar.Purchase.Activity.BottleDetails;
+import com.kyros.technologies.bar.Purchase.Activity.Activity.BottleDetails;
 import com.kyros.technologies.bar.R;
 
 /**
