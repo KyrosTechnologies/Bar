@@ -1,44 +1,42 @@
 package com.kyros.technologies.bar.Purchase.Activity.Activity;
 
-import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+        import android.annotation.TargetApi;
+        import android.content.Intent;
+        import android.content.pm.ActivityInfo;
+        import android.os.Build;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.support.v7.widget.DefaultItemAnimator;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import android.util.Log;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.LinearLayout;
+        import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.Purchase.Activity.Adapters.PurchaseListAdapter;
-import com.kyros.technologies.bar.Common.activity.Activity.LandingActivity;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.InventoryActivity;
-import com.kyros.technologies.bar.R;
-import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
-import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
-import com.kyros.technologies.bar.utils.EndURL;
-import com.kyros.technologies.bar.utils.Purchase;
+        import com.android.volley.Request;
+        import com.android.volley.Response;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.JsonObjectRequest;
+        import com.kyros.technologies.bar.Purchase.Activity.Adapters.PurchaseListAdapter;
+        import com.kyros.technologies.bar.Common.activity.Activity.LandingActivity;
+        import com.kyros.technologies.bar.Inventory.Activity.Activity.InventoryActivity;
+        import com.kyros.technologies.bar.R;
+        import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+        import com.kyros.technologies.bar.utils.EndURL;
+        import com.kyros.technologies.bar.utils.Purchase;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+        import org.json.JSONArray;
+        import org.json.JSONObject;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 public class PurchaseListActivity extends AppCompatActivity {
     private LinearLayout my_inventory_list;
     private RecyclerView purchase_recycler;
     private PurchaseListAdapter adapter;
-    private PreferenceManager store;
     private String UserprofileId=null;
     private ArrayList<Purchase>purchaseArrayList=new ArrayList<Purchase>();
 
@@ -53,8 +51,6 @@ public class PurchaseListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_purchase_list);
         purchase_recycler=(RecyclerView)findViewById(R.id.purchase_recycler);
         adapter=new PurchaseListAdapter(PurchaseListActivity.this,purchaseArrayList);
-        store= PreferenceManager.getInstance(getApplicationContext());
-        UserprofileId=store.getUserProfileId();
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         purchase_recycler.setLayoutManager(layoutManagersecond);
         purchase_recycler.setItemAnimator(new DefaultItemAnimator());
@@ -66,7 +62,7 @@ public class PurchaseListActivity extends AppCompatActivity {
         my_inventory_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(PurchaseListActivity.this,InventoryTypePurchase.class);
+                Intent intent=new Intent(PurchaseListActivity.this,InventoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -122,7 +118,7 @@ public class PurchaseListActivity extends AppCompatActivity {
                             purchaseArrayList.add(purchase);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Updated",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
 
 
                     }else {
