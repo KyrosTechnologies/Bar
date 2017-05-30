@@ -22,23 +22,29 @@ import com.kyros.technologies.bar.Inventory.Activity.Activity.BarActivity;
 import com.kyros.technologies.bar.Purchase.Activity.Activity.PurchaseListActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.SessionManager;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 
 public class LandingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         private AlertDialog logoutdialog;
     private LinearLayout bar_activity,purchase_list;
+    private SessionManager session;
+    private PreferenceManager store;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
-        SessionManager session = new SessionManager(getApplicationContext());
-        session.checkLogin();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle("Venue Name");
-
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+        store = PreferenceManager.getInstance(getApplicationContext());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -113,6 +119,7 @@ public class LandingActivity extends AppCompatActivity
 
         } else if (id == R.id.logout) {
             showLogoutDialog();
+
         }else if (id == R.id.settings) {
             Intent intent=new Intent(LandingActivity.this,SettingActivity.class);
             startActivity(intent);
@@ -139,9 +146,12 @@ private void showLogoutDialog(){
         });
         yes_logout.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
-                LandingActivity.this.finish();
-                Toast.makeText(getApplicationContext(),"Logout successfully!",Toast.LENGTH_SHORT).show();
+                session.logoutUser();
+                store.clear();
+                Intent i=new Intent(LandingActivity.this,LoginActivity.class);
+                startActivity(i);
             }
         });
 

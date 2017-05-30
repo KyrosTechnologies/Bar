@@ -212,6 +212,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         }) {
 
         };
+
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }

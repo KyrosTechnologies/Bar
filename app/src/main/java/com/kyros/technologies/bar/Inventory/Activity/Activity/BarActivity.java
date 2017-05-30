@@ -81,20 +81,7 @@ public class BarActivity extends AppCompatActivity {
         });
         GetBarList();
         adapter.notifyDataSetChanged();
-//        front_bar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(BarActivity.this,AddSectionActivity.class);
-//                startActivity(intent);
-//            }
-//        });
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.home_bar, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -105,9 +92,6 @@ public class BarActivity extends AppCompatActivity {
             case android.R.id.home:
                 BarActivity.this.finish();
                 return true;
-//            case R.id.home_bar:
-//                BarActivity.this.finish();
-//                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -189,7 +173,6 @@ public class BarActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
-//                texts.setText(error.toString());
             }
         }) {
 
@@ -265,7 +248,6 @@ public class BarActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
-//                texts.setText(error.toString());
             }
         }) {
 
@@ -279,7 +261,7 @@ public class BarActivity extends AppCompatActivity {
         AlertDialog.Builder builder=new AlertDialog.Builder(BarActivity.this);
         LayoutInflater inflater =getLayoutInflater();
         View view=inflater.inflate(R.layout.add_bar_dialog,null);
-      final  EditText barname_bar=(EditText)view.findViewById(R.id.barname_bar);
+        final  EditText barname_bar=(EditText)view.findViewById(R.id.barname_bar);
         TextView back_bar=(TextView)view.findViewById(R.id.back_bar);
         TextView done_bar=(TextView)view.findViewById(R.id.done_bar);
         back_bar.setOnClickListener(new View.OnClickListener() {
