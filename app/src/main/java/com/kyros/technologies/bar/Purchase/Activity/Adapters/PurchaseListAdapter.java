@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapter.MyViewHolderEleven>{
     private Context mContext;
     public int[]PurchaseImages=new int[]{R.drawable.beer,R.drawable.rum};
-    public int[]LiquorImages=new int[]{R.drawable.beer,R.drawable.rum};
+//    public int[]LiquorImages=new int[]{R.drawable.beer,R.drawable.rum};
     private ArrayList<Purchase> purchaseArrayList;
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
@@ -62,7 +62,7 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
         String liquorcapacity=purchase.getLiquorcapacity();
         String shots=purchase.getShots();
         String category=purchase.getCategory();
-        String subcategory=purchase.getSubcategory();
+      //  String subcategory=purchase.getSubcategory();
         String parlevel=purchase.getParlevel();
         String disname=purchase.getDistributorname();
         String price=purchase.getPriceunit();

@@ -297,6 +297,7 @@ public class CustomBottleDetails extends AppCompatActivity {
             inputLogin.put("MaxValue",Double.parseDouble(maxValue));
             testImage.setImage(picturebyte);
             inputLogin.put("picture",testImage);
+            inputLogin.put("type","bottle");
 
 
         }catch (Exception e){
@@ -399,6 +400,7 @@ public class CustomBottleDetails extends AppCompatActivity {
                 entity.addPart("minvalue", new StringBody(fminval, ContentType.TEXT_PLAIN));
                 entity.addPart("maxvalue", new StringBody(fmaxval, ContentType.TEXT_PLAIN));
                 entity.addPart("shots", new StringBody(shots, ContentType.TEXT_PLAIN));
+                entity.addPart("type",new StringBody("bottle",ContentType.TEXT_PLAIN));
 
                 long totalSize = entity.getContentLength();
                 httppost.setEntity(entity);
@@ -406,6 +408,11 @@ public class CustomBottleDetails extends AppCompatActivity {
                 // Making server call
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity r_entity = response.getEntity();
+                try{
+                    Log.d("outputentity",entity.toString());
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
 
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == 200) {

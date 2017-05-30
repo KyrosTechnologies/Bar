@@ -58,9 +58,6 @@
             android:name=".Inventory.Activity.Activity.BarActivity"
             android:label="Bar" />
         <activity
-            android:name=".Inventory.Activity.Activity.AddSectionActivity"
-            android:label="Section" />
-        <activity
             android:name=".Inventory.Activity.Activity.SectionBottlesActivity"
             android:label="Section Bar" />
         <activity
@@ -107,10 +104,12 @@
         <activity android:name=".Common.activity.Activity.EditProfile"
             android:label="Edit Profile"/>
         <activity
-            android:name=".Inventory.Activity.AddSectionActivity"
+            android:name=".Inventory.Activity.Activity.AddSectionActivity"
             android:label="Section" />
        <activity android:name=".Purchase.Activity.Activity.BottlePurchaseStock"
            android:label="Bottle Details"/>
+        <activity android:name=".Inventory.Activity.Activity.AddBottleDescription"
+            android:label="Bottle Details"/>
     </application>
 
 </manifest>

@@ -13,7 +13,7 @@ import com.kyros.technologies.bar.R;
  * Created by Rohin on 05-05-2017.
  */
 
-public class CustomKegDetails extends AppCompatActivity {
+public class  CustomKegDetails extends AppCompatActivity {
 
 
     @Override

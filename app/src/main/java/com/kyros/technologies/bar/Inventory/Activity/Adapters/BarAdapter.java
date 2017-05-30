@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kyros.technologies.bar.Inventory.Activity.AddSectionActivity;
+import com.kyros.technologies.bar.Inventory.Activity.Activity.AddSectionActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.utils.MyBar;
 

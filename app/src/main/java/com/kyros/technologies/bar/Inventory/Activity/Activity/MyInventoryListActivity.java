@@ -68,10 +68,10 @@ public class MyInventoryListActivity extends AppCompatActivity {
 
                     JSONObject obj=new JSONObject(response.toString());
                     String message=obj.getString("message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
-                        JSONArray array=obj.getJSONArray("userList");
+                        JSONArray array=obj.getJSONArray("userlist");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
                             String name=first.getString("name");

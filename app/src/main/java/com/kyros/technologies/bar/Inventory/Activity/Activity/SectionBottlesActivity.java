@@ -86,8 +86,8 @@ public class SectionBottlesActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("Message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");
@@ -104,7 +104,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             String subcategory=first.getString("subcategory");
                             String parlevel=first.getString("parlevel");
                             String distributorname=first.getString("distributorname");
-                            String priceunit=first.getString("priceunit");
+                            String priceunit=first.getString("price");
                             String binnumber=first.getString("binnumber");
                             String productcode=first.getString("productcode");
                             String createdon=first.getString("createdon");

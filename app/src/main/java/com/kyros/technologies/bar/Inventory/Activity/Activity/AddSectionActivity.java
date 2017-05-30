@@ -1,4 +1,4 @@
-package com.kyros.technologies.bar.Inventory.Activity;
+package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -197,7 +197,7 @@ public class AddSectionActivity extends AppCompatActivity {
 
                     JSONObject obj=new JSONObject(response.toString());
                     String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issucess");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");
@@ -213,7 +213,7 @@ public class AddSectionActivity extends AppCompatActivity {
                             //store.putBarId(String.valueOf(lname));
                             String number=null;
                             try {
-                                number=first.getString("datecreated");
+                                number=first.getString("createdon");
                                 store.putBarDateCreated(String.valueOf(number));
                             }catch (Exception e){
                                 e.printStackTrace();

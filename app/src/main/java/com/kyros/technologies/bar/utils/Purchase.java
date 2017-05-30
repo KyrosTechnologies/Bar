@@ -19,6 +19,7 @@ public class Purchase {
     private String binnumber;
     private String productcode;
     private String createdon;
+    private String small_picture_url;
 
     public Purchase(){
 
@@ -94,6 +95,9 @@ public class Purchase {
 
     public void setDistributorname(String distributorname) {
         this.distributorname = distributorname;
+    }
+    public String getSmall_picture_url() {
+        return small_picture_url;
     }
 
     public String getPriceunit() {

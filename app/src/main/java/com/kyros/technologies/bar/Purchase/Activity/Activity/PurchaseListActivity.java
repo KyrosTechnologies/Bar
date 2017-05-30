@@ -25,6 +25,7 @@ package com.kyros.technologies.bar.Purchase.Activity.Activity;
         import com.kyros.technologies.bar.Inventory.Activity.Activity.InventoryActivity;
         import com.kyros.technologies.bar.R;
         import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+        import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
         import com.kyros.technologies.bar.utils.EndURL;
         import com.kyros.technologies.bar.utils.Purchase;
 
@@ -39,6 +40,7 @@ public class PurchaseListActivity extends AppCompatActivity {
     private PurchaseListAdapter adapter;
     private String UserprofileId=null;
     private ArrayList<Purchase>purchaseArrayList=new ArrayList<Purchase>();
+    private PreferenceManager store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class PurchaseListActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_purchase_list);
+        store= PreferenceManager.getInstance(getApplicationContext());
+        UserprofileId=store.getUserProfileId();
         purchase_recycler=(RecyclerView)findViewById(R.id.purchase_recycler);
         adapter=new PurchaseListAdapter(PurchaseListActivity.this,purchaseArrayList);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
@@ -82,8 +86,8 @@ public class PurchaseListActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("Message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");
@@ -95,10 +99,16 @@ public class PurchaseListActivity extends AppCompatActivity {
                             String liquorcapacity=first.getString("liquorcapacity");
                             String shots=first.getString("shots");
                             String category=first.getString("category");
-                            String subcategory=first.getString("subcategory");
+//                            String subcategory=null;
+//                            try {
+//                                subcategory=first.getString("subcategory");
+//
+//                            }catch (Exception e){
+//                                e.printStackTrace();
+//                            }
                             String parlevel=first.getString("parlevel");
                             String distributorname=first.getString("distributorname");
-                            String priceunit=first.getString("priceunit");
+                            String priceunit=first.getString("price");
                             String binnumber=first.getString("binnumber");
                             String productcode=first.getString("productcode");
                             String createdon=first.getString("createdon");
@@ -108,7 +118,7 @@ public class PurchaseListActivity extends AppCompatActivity {
                             purchase.setLiquorcapacity(liquorcapacity);
                             purchase.setShots(shots);
                             purchase.setCategory(category);
-                            purchase.setSubcategory(subcategory);
+                            //purchase.setSubcategory(subcategory);
                             purchase.setParlevel(parlevel);
                             purchase.setDistributorname(distributorname);
                             purchase.setPriceunit(priceunit);
