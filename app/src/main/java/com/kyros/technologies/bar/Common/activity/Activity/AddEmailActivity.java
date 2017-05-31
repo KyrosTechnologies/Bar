@@ -68,11 +68,10 @@ public class AddEmailActivity extends AppCompatActivity {
             inputLogin.put("userprofileid",userprofile);
             inputLogin.put("useremail",email);
 
-
-
         }catch (Exception e){
             e.printStackTrace();
         }
+
         Log.d("inputJsonuser",inputLogin.toString());
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -82,8 +81,8 @@ public class AddEmailActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("Message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");

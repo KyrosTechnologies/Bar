@@ -39,7 +39,6 @@ public class AddBottleActivity extends AppCompatActivity {
     private ArrayList<Purchase> inventoryArrayList=new ArrayList<Purchase>();
     private PreferenceManager store;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

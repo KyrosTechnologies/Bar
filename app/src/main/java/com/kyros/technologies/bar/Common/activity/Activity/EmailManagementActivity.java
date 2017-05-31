@@ -97,8 +97,8 @@ public class EmailManagementActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("Message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");

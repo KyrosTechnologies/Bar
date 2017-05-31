@@ -1,6 +1,9 @@
 package com.kyros.technologies.bar.Inventory.Activity.Adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 
 /**
@@ -20,7 +23,9 @@ import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionA
 import com.kyros.technologies.bar.Inventory.Activity.List.LiquorListClass;
 import com.kyros.technologies.bar.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +35,7 @@ import java.util.ArrayList;
 public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyViewHolderEleven>{
     private Context mContext;
     private ArrayList<LiquorListClass>list;
+    private String sharedbitmap=null;
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
         public LinearLayout add_bottles;
@@ -59,7 +65,7 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(LiquorApiAdapter.MyViewHolderEleven holder, final int position) {
+    public void onBindViewHolder(final LiquorApiAdapter.MyViewHolderEleven holder, final int position) {
         final LiquorListClass listClass=list.get(position);
         String name=listClass.getName();
         String subtype=listClass.getAlcohol_subtype();
@@ -87,13 +93,36 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
 
 
         //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
-        try{
-            Picasso.with(mContext)
-                    .load(smallpic)
-                    .resize(65, 65)
-                    .into(holder.liquor_bottle);
-        }catch (Exception e){
+//        try{
+//            Picasso.with(mContext)
+//                    .load(smallpic)
+//                    .resize(65, 65)
+//                    .into(holder.liquor_bottle);
+//        }catch (Exception e){
+//
+//        }
 
+        try {
+            Picasso.with(mContext).load(smallpic).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    holder.liquor_bottle.setImageBitmap(bitmap);
+                    sharedbitmap = Base64.encodeToString(getBytesFromBitmap(bitmap), Base64.DEFAULT);
+
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         final String finalName = name;
@@ -105,11 +134,18 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
                 i.putExtra("capacity",String.valueOf(quanti)+" ML");
                 i.putExtra("category",listClass.getAlcohol_type());
                 i.putExtra("subcategory",listClass.getAlcohol_subtype());
+                i.putExtra("image",sharedbitmap);
                 mContext.startActivity(i);
             }
         });
 
 
+    }
+
+    private byte[] getBytesFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+        return stream.toByteArray();
     }
 
     @Override

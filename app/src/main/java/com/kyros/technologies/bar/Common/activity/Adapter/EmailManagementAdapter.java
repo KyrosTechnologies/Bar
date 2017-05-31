@@ -74,6 +74,7 @@ public class EmailManagementAdapter extends RecyclerView.Adapter<EmailManagement
         holder.management.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                com.kyros.technologies.bar.SharedPreferences.PreferenceManager store= com.kyros.technologies.bar.SharedPreferences.PreferenceManager.getInstance(mContext);
                 Intent i=new Intent(mContext,AddEmailActivity.class);
                 i.putExtra("name", finalName);
                 mContext.startActivity(i);

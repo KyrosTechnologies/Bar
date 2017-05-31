@@ -3,13 +3,17 @@ package com.kyros.technologies.bar.Inventory.Activity.Activity;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,6 +36,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
     private String bottlesubcategory=null;
     private EditText bottle_des_name,bottle_des_capacity,bottle_des_main_category,bottle_des_sub_category,bottle_des_shots,bottle_des_par_level,
     bottle_des_distributor_name,bottle_des_price_unit,bottle_des_bin_number,bottle_des_product_code;
+    private ImageView bott_image;
     private int  userprofile;
     private int barid;
     private int id;
@@ -81,6 +86,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         bottle_des_price_unit=(EditText)findViewById(R.id.bottle_des_price_unit);
         bottle_des_bin_number=(EditText)findViewById(R.id.bottle_des_bin_number);
         bottle_des_product_code=(EditText)findViewById(R.id.bottle_des_product_code);
+        bott_image=(ImageView)findViewById(R.id.bott_image);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
         Barid=store.getBarId();
@@ -104,6 +110,15 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             bottlecapacity=bundle.getString("capacity");
             bottlecategory=bundle.getString("category");
             bottlesubcategory=bundle.getString("subcategory");
+            String imgbitmap=bundle.getString("image");
+            try {
+                byte[]decodedString= Base64.decode(imgbitmap.getBytes(),Base64.DEFAULT);
+                Bitmap decodeByte= BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
+                bott_image.setImageBitmap(decodeByte);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
 
             try {
 
@@ -146,7 +161,6 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             inputLogin.put("binnumber",binnumber);
             inputLogin.put("productcode",productcode);
 
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -158,9 +172,10 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                 Log.d("List Response",response.toString());
                 try {
 
+
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("Message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("isiuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");
@@ -201,11 +216,10 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
 
-            @Override
+             @Override
             public void onErrorResponse(VolleyError error) {
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
-
 
 //                texts.setText(error.toString());
             }
