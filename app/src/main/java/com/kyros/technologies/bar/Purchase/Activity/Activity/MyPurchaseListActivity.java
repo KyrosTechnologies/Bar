@@ -92,6 +92,7 @@ public class MyPurchaseListActivity extends AppCompatActivity {
                             liquorlist.add(liquorListClass);
                         }
 
+                        MyPurchaseListActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

@@ -121,6 +121,7 @@ public class AddBottleActivity extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
+                        AddBottleActivity.this.finish();
 
 
                     }else {

@@ -77,7 +77,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         profile_password_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                showPopup();
+                showPopup();
                 Intent intent=new Intent(ProfileViewActivity.this,ChangePasswordActivity.class);
                 startActivity(intent);
             }

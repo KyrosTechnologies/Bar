@@ -78,8 +78,6 @@
             android:label="Venue Summary"/>
         <activity android:name=".Inventory.Activity.Activity.InventoryActivity"
             android:label="Inventory Type"/>
-       <activity android:name=".Purchase.Activity.Activity.BottleDetails"
-           android:label="Bottle Details"/>
         <activity android:name=".Inventory.Activity.Activity.AddToInventory"
             android:label="Add To Inventory"/>
         <activity android:name=".Inventory.Activity.Activity.AddCustomBottle"

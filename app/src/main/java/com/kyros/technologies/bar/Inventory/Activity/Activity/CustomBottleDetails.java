@@ -309,7 +309,7 @@ public class CustomBottleDetails extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
                 Toast.makeText(getApplicationContext(),"Successfully uploaded",Toast.LENGTH_SHORT).show();
-
+                CustomBottleDetails.this.finish();
 
 
             }

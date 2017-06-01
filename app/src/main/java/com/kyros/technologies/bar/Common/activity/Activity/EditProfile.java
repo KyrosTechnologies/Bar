@@ -251,37 +251,7 @@ public class EditProfile extends AppCompatActivity {
                 mail=profile_email.getText().toString();
                 con=profile_country.getText().toString();
                 venue=profile_venue_name.getText().toString();
-//
-//                if (fn==null&&fn.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter First Name",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (ln==null&&ln.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Last Name",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (mob==null&&mob.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Mobile Number",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (mail==null&&mail.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Email Address",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (con==null&&con.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Country",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (venue==null&&venue.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Venue",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-                //StateChangeWaggonapi(fn,ln,mob,mail,con,venue,pass);
+                StateChangeWaggonapi(fn,ln,mob,mail,con,venue,pass);
                 break;
 
             case android.R.id.home:

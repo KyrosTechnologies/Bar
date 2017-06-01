@@ -60,6 +60,7 @@ public class EmailManagementActivity extends AppCompatActivity {
         UserEmail=store.getUserEmail();
         Log.d("Email : "+UserprofileId,UserEmail);
         GetEmail();
+        adapter.notifyDataSetChanged();
         email_recycler.setLayoutManager(layoutManagersecond);
         email_recycler.setItemAnimator(new DefaultItemAnimator());
         email_recycler.setAdapter(adapter);
@@ -117,7 +118,7 @@ public class EmailManagementActivity extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-
+                        EmailManagementActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

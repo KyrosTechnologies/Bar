@@ -120,7 +120,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             case R.id.action_save:
                 oldpass=old_password.getText().toString();
                 newpass=new_password.getText().toString();
-               // StateChangeWaggonapi(oldpass,newpass);
+                StateChangeWaggonapi(oldpass,newpass);
                 break;
             case android.R.id.home:
                 ChangePasswordActivity.this.finish();

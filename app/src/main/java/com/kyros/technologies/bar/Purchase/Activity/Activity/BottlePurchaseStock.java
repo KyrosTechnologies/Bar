@@ -181,7 +181,7 @@ public class BottlePurchaseStock extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Updated Bottle",Toast.LENGTH_SHORT).show();
-
+                        BottlePurchaseStock.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

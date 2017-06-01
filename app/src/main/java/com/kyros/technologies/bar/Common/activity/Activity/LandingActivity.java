@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ public class LandingActivity extends AppCompatActivity
     private LinearLayout bar_activity,purchase_list;
     private SessionManager session;
     private PreferenceManager store;
-
+    private TextView username,email_id;
 
 
     @Override
@@ -55,6 +56,18 @@ public class LandingActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+
+        View headerview = navigationView.getHeaderView(0);
+
+        email_id = (TextView) headerview.findViewById(R.id.email_id);
+        username = (TextView) headerview.findViewById(R.id.username);
+        try {
+            email_id.setText(store.getUserEmail());
+            String name=store.getFirstName()+" "+store.getLastName();
+            username.setText(name);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         bar_activity=(LinearLayout)findViewById(R.id.go_to_bar);
         purchase_list=(LinearLayout)findViewById(R.id.purchase_list);

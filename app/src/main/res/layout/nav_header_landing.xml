@@ -9,6 +9,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Dummy name"
@@ -22,7 +23,7 @@
         />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/email_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"

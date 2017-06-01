@@ -152,7 +152,7 @@ public class BarActivity extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
                         dismissBarDialog();
-
+                        BarActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

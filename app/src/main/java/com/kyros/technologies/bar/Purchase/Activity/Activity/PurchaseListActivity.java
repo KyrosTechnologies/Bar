@@ -129,6 +129,7 @@ public class PurchaseListActivity extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
+                        PurchaseListActivity.this.finish();
 
 
                     }else {

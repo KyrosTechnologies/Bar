@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.kyros.technologies.bar.Purchase.Activity.Activity.BottleDetails;
+import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
 import com.kyros.technologies.bar.R;
 
 /**
@@ -32,7 +32,7 @@ public class VenueSummary extends AppCompatActivity {
         venue_details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(VenueSummary.this,BottleDetails.class);
+                Intent i=new Intent(VenueSummary.this,BottleDescriptionActivity.class);
                 startActivity(i);
             }
         });
