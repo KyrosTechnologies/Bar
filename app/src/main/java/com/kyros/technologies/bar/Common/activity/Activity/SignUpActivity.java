@@ -94,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                     JSONObject obj=new JSONObject(response.toString());
                     String message=obj.getString("message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
 //                        JSONArray array=obj.getJSONArray("userList");
