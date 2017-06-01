@@ -151,7 +151,6 @@ public class AddSectionActivity extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
                         dismissBarDialog();
-                        AddSectionActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
