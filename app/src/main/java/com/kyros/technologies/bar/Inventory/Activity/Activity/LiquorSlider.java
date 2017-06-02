@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
 import com.kyros.technologies.bar.R;
 
 /**
@@ -18,6 +19,7 @@ import com.kyros.technologies.bar.R;
 public class LiquorSlider extends AppCompatActivity {
 
     private TextView edit_bottle;
+    private VerticalSeekBar mySeekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class LiquorSlider extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.liquor_slider);
         edit_bottle=(TextView)findViewById(R.id.edit_bottle);
+        mySeekbar=(VerticalSeekBar)findViewById(R.id.mySeekBar);
         edit_bottle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
