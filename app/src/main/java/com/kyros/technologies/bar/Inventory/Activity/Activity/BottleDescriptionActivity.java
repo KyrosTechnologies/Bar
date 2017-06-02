@@ -320,7 +320,6 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                         });
 
 
-                entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
 
 
                 double minval=Double.parseDouble(MinHeight);
@@ -329,7 +328,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                 maxval=maxval/100;
                 String fminval=String.valueOf(minval);
                 String fmaxval=String.valueOf(maxval);
-
+                entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
                 entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
                 entity.addPart("barid", new StringBody(Barid, ContentType.TEXT_PLAIN));
                 entity.addPart("sectionid", new StringBody(Sectionid, ContentType.TEXT_PLAIN));

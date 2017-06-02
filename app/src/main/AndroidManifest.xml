@@ -70,6 +70,9 @@
         <activity
             android:name=".Inventory.Activity.Activity.MyInventoryListActivity"
             android:label="My Inventory List" />
+        <activity
+            android:name=".Inventory.Activity.Activity.AddKegDescription"
+            android:label="Keg Details" />
         <activity android:name=".Inventory.Activity.Activity.BottleDescriptionActivity"
             android:label="Bottle Details"/>
         <activity android:name=".Common.activity.Activity.ValueOnHand"

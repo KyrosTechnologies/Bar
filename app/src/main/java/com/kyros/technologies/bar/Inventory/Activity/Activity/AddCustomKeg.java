@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.kyros.technologies.bar.R;
+import com.kyros.technologies.bar.seekbar.Seekbar;
 
 /**
  * Created by Rohin on 05-05-2017.
@@ -20,6 +21,11 @@ import com.kyros.technologies.bar.R;
 public class AddCustomKeg extends AppCompatActivity {
 
     private ImageView custom_capture_keg;
+    private Seekbar seekbar;
+    private String  Minvalue=null;
+    private String  Maxvalue=null;
+    private String ImageString=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,17 +35,28 @@ public class AddCustomKeg extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.add_custom_bottle);
+        seekbar=(Seekbar)findViewById(R.id.seek_custom_bottle);
+
         custom_capture_keg=(ImageView)findViewById(R.id.custom_capture_bottle);
 
         try {
             Bundle bundle=getIntent().getExtras();
             String image=bundle.getString("image");
+            ImageString=image;
             byte[]decodedString= Base64.decode(image.getBytes(),Base64.DEFAULT);
             Bitmap decodeByte= BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
             custom_capture_keg.setImageBitmap(decodeByte);
         }catch (Exception e){
             e.printStackTrace();
         }
+        seekbar.setOnRangeSeekBarChangeListener(new Seekbar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(Seekbar bar, Number minValue, Number maxValue) {
+                Minvalue=String.valueOf(minValue);
+                Maxvalue=String.valueOf(maxValue);
+
+            }
+        });
     }
 
     @Override
@@ -53,7 +70,10 @@ public class AddCustomKeg extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_next:
-                Intent i=new Intent(AddCustomKeg.this,BottleDescriptionActivity.class);
+                Intent i=new Intent(AddCustomKeg.this,AddKegDescription.class);
+                i.putExtra("image",ImageString);
+                i.putExtra("minvalue",Minvalue);
+                i.putExtra("maxvalue",Maxvalue);
                 startActivity(i);
 
                 break;

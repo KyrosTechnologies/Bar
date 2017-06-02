@@ -61,8 +61,8 @@ public class CustomBottleDetails extends AppCompatActivity {
     private byte[] multipartBody;
 
     private byte [] picturebyte=null;
-    private String MinValue="0.123";
-    private String MaxValue="0.235";
+    private String MinValue="";
+    private String MaxValue="";
     private String BarId=null;
     private String SectionId=null;
     private PreferenceManager store;
@@ -360,7 +360,6 @@ public class CustomBottleDetails extends AppCompatActivity {
 //            File sourceFile = new File(filePath);
 
                 // Adding file data to http body
-                entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
 
                 CustomLiquorModel modl = new CustomLiquorModel();
                 modl.setUserprofileid(Integer.parseInt(UserProfileId));
@@ -384,6 +383,7 @@ public class CustomBottleDetails extends AppCompatActivity {
                 maxval=maxval/100;
                 String fminval=String.valueOf(minval);
                 String fmaxval=String.valueOf(maxval);
+                entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
 
                 entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
                 entity.addPart("barid", new StringBody(BarId, ContentType.TEXT_PLAIN));

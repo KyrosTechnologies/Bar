@@ -98,7 +98,13 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             int barid=first.getInt("barid");
                             int sectionid=first.getInt("sectionid");
                             String liquorname=first.getString("liquorname");
-                            String liquorcapacity=first.getString("liquorcapacity");
+                            String liquorcapacity=null;
+                            try{
+                                liquorcapacity=first.getString("liquorcapacity");
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                             String shots=first.getString("shots");
                             String category=first.getString("category");
                             String subcategory=first.getString("subcategory");
