@@ -79,16 +79,19 @@ public class MyInventoryListActivity extends AppCompatActivity {
                             String type=first.getString("alcohol_type");
                             String pic=first.getString("small_picture_url");
                             String subtype=first.getString("alcohol_subtype");
+                            double minheight=first.getDouble("min_height");
+                            double maxheight=first.getDouble("max_height");
                             LiquorListClass liquorListClass=new LiquorListClass();
                             liquorListClass.setName(name);
                             liquorListClass.setCapacity_mL(quantity);
                             liquorListClass.setAlcohol_subtype(subtype);
                             liquorListClass.setAlcohol_type(type);
                             liquorListClass.setSmall_picture_url(pic);
+                            liquorListClass.setMin_height(minheight);
+                            liquorListClass.setMax_height(maxheight);
                             liquorlist.add(liquorListClass);
                         }
 
-                        MyInventoryListActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

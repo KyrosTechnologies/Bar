@@ -75,6 +75,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         String price=utilSectionBar.getPriceunit();
         String binnumber=utilSectionBar.getBinnumber();
         String productcode=utilSectionBar.getProductcode();
+        String pictureurl=utilSectionBar.getPictureurl();
 
         if (liquorname==null){
             liquorname="";
@@ -92,12 +93,22 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         holder.bottle_ml.setText(String.valueOf(liquorcapacity));
         holder.liquor_type.setText(category);
         //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
+
         try{
             Picasso.with(mContext)
-                    .load(LiquorImages[position])
+                    .load(pictureurl)
                     .resize(65, 65)
                     .into(holder.liquor_image);
         }catch (Exception e){
+            e.printStackTrace();
+            try {
+                Picasso.with(mContext)
+                        .load( LiquorImages[position])
+                        .resize(65, 65)
+                        .into(holder.liquor_image);
+            }catch (Exception eq){
+
+            }
 
         }
 

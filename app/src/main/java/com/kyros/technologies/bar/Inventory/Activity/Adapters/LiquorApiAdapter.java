@@ -69,6 +69,8 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
         final LiquorListClass listClass=list.get(position);
         String name=listClass.getName();
         String subtype=listClass.getAlcohol_subtype();
+        final double minheight=listClass.getMin_height();
+        final double maxheight=listClass.getMax_height();
         if(name==null){
             name="Dummy";
         }
@@ -135,6 +137,8 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
                 i.putExtra("category",listClass.getAlcohol_type());
                 i.putExtra("subcategory",listClass.getAlcohol_subtype());
                 i.putExtra("image",sharedbitmap);
+                i.putExtra("minheight",String.valueOf(minheight));
+                i.putExtra("maxheight",String.valueOf(maxheight));
                 mContext.startActivity(i);
             }
         });

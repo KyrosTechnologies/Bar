@@ -108,6 +108,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             String binnumber=first.getString("binnumber");
                             String productcode=first.getString("productcode");
                             String createdon=first.getString("createdon");
+                            String pictureurl=first.getString("pictureurl");
                             UtilSectionBar utilSectionBar=new UtilSectionBar();
                             utilSectionBar.setSectionid(sectionid);
                             utilSectionBar.setBarid(barid);
@@ -123,6 +124,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             utilSectionBar.setBinnumber(binnumber);
                             utilSectionBar.setProductcode(productcode);
                             utilSectionBar.setCreatedon(createdon);
+                            utilSectionBar.setPictureurl(pictureurl);
                             utilSectionBarArrayList.add(utilSectionBar);
                         }
 

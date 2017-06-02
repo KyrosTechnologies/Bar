@@ -21,6 +21,7 @@ public class UtilSectionBar {
     private String binnumber;
     private String productcode;
     private String createdon;
+    private String pictureurl;
 
     public UtilSectionBar(){
 
@@ -80,6 +81,14 @@ public class UtilSectionBar {
 
     public void setShots(String shots) {
         this.shots = shots;
+    }
+
+    public String getPictureurl() {
+        return pictureurl;
+    }
+
+    public void setPictureurl(String pictureurl) {
+        this.pictureurl = pictureurl;
     }
 
     public String getCategory() {
