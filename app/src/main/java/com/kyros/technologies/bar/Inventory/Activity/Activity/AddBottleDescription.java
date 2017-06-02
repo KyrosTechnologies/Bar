@@ -189,7 +189,6 @@ public class AddBottleDescription extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Logged In",Toast.LENGTH_SHORT).show();
-                        AddBottleDescription.this.finish();
 
 
                     }else {

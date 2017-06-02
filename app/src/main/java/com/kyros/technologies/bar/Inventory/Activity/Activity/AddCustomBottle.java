@@ -1,19 +1,19 @@
 package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.SeekBar;
+        import android.content.Intent;
+        import android.content.pm.ActivityInfo;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
+        import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.util.Base64;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.widget.ImageView;
+        import android.widget.SeekBar;
 
-import com.kyros.technologies.bar.R;
-import com.kyros.technologies.bar.seekbar.Seekbar;
+        import com.kyros.technologies.bar.R;
+        import com.kyros.technologies.bar.seekbar.Seekbar;
 
 /**
  * Created by Rohin on 05-05-2017.
@@ -56,8 +56,8 @@ public class AddCustomBottle extends AppCompatActivity{
         seekbar.setOnRangeSeekBarChangeListener(new Seekbar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(Seekbar bar, Number minValue, Number maxValue) {
-             Minvalue=String.valueOf(minValue);
-                 Maxvalue=String.valueOf(maxValue);
+                Minvalue=String.valueOf(minValue);
+                Maxvalue=String.valueOf(maxValue);
 
             }
         });

@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
-import com.kyros.technologies.bar.Inventory.Activity.Adapters.LiquorApiAdapter;
 import com.kyros.technologies.bar.Inventory.Activity.List.LiquorListClass;
 import com.kyros.technologies.bar.Purchase.Activity.Activity.BottlePurchaseStock;
 import com.kyros.technologies.bar.R;

@@ -98,16 +98,20 @@
         <activity android:name=".Common.activity.Activity.DistributorDetails"
             android:label="Distributor Details"/>
         <activity android:name=".Inventory.Activity.Activity.AddBottleActivity"
-            android:label="Add Bottle"/>
+            android:label="Inventory List"/>
         <activity android:name=".Common.activity.Activity.EditProfile"
             android:label="Edit Profile"/>
         <activity
             android:name=".Inventory.Activity.Activity.AddSectionActivity"
             android:label="Section" />
        <activity android:name=".Purchase.Activity.Activity.BottlePurchaseStock"
-           android:label="Bottle Details"/>
+           android:label="Bottle Details Purchase"/>
         <activity android:name=".Inventory.Activity.Activity.AddBottleDescription"
             android:label="Bottle Details"/>
+        <activity android:name=".Purchase.Activity.Activity.InventoryTypePurchase"
+            android:label="Purchase Type"/>
+        <activity android:name=".Purchase.Activity.Activity.MyPurchaseListActivity"
+            android:label="My Purchase List"/>
     </application>
 
 </manifest>

@@ -88,7 +88,6 @@ public class MyInventoryListActivity extends AppCompatActivity {
                             liquorlist.add(liquorListClass);
                         }
 
-                        MyInventoryListActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

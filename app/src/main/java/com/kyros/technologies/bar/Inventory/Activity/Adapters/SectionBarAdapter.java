@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.MyViewHolderEleven>{
     private Context mContext;
-//    String[]Alchohol=new String[]{"Anchor Porter","Aristocrat Rum"};
+    //    String[]Alchohol=new String[]{"Anchor Porter","Aristocrat Rum"};
 //    String[]AlchoholType=new String[]{"Beer","Rum"};
 //    String[]Ml=new String[]{"750 Ml","900 Ml"};
     public int[]LiquorImages=new int[]{R.drawable.beer,R.drawable.rum};
@@ -67,7 +67,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         final int sectionid=utilSectionBar.getSectionid();
         String liquorname=utilSectionBar.getLiquorname();
         String liquorcapacity=utilSectionBar.getLiquorcapacity();
-        String shots=utilSectionBar.getShots();
+        final String shots=utilSectionBar.getShots();
         String category=utilSectionBar.getCategory();
         String subcategory=utilSectionBar.getSubcategory();
         String parlevel=utilSectionBar.getParlevel();
@@ -75,6 +75,10 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         String price=utilSectionBar.getPriceunit();
         String binnumber=utilSectionBar.getBinnumber();
         String productcode=utilSectionBar.getProductcode();
+        final String pictureurl=utilSectionBar.getPictureurl();
+        final double minvalue=utilSectionBar.getMinvalue();
+        final double maxvalue=utilSectionBar.getMaxvalue();
+        final String totalbottles=utilSectionBar.getTotalbottles();
 
         if (liquorname==null){
             liquorname="";
@@ -92,19 +96,38 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         holder.bottle_ml.setText(String.valueOf(liquorcapacity));
         holder.liquor_type.setText(category);
         //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
+
         try{
             Picasso.with(mContext)
-                    .load(LiquorImages[position])
+                    .load(pictureurl)
                     .resize(65, 65)
                     .into(holder.liquor_image);
         }catch (Exception e){
+            e.printStackTrace();
+            try {
+                Picasso.with(mContext)
+                        .load( LiquorImages[position])
+                        .resize(65, 65)
+                        .into(holder.liquor_image);
+            }catch (Exception eq){
+
+            }
 
         }
 
+        final String finalLiquorname = liquorname;
+        final String finalLiquorcapacity = liquorcapacity;
         holder.slider_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(mContext,LiquorSlider.class);
+                i.putExtra("name", finalLiquorname);
+                i.putExtra("capacity", finalLiquorcapacity);
+                i.putExtra("picture",pictureurl);
+                i.putExtra("shots",shots);
+                i.putExtra("minvalue",minvalue);
+                i.putExtra("maxvalue",maxvalue);
+                i.putExtra("totalbottles",totalbottles);
                 mContext.startActivity(i);
             }
         });

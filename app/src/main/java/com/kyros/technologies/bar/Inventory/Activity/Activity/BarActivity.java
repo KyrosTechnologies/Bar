@@ -122,7 +122,7 @@ public class BarActivity extends AppCompatActivity {
 
                     JSONObject obj=new JSONObject(response.toString());
                     String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issucess");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");
@@ -136,7 +136,7 @@ public class BarActivity extends AppCompatActivity {
                             //store.putBarId(String.valueOf(lname));
                             String number=null;
                             try {
-                                number=first.getString("datecreated");
+                                number=first.getString("createdon");
                                 store.putBarDateCreated(String.valueOf(number));
                             }catch (Exception e){
                                 e.printStackTrace();
@@ -150,8 +150,7 @@ public class BarActivity extends AppCompatActivity {
                             myBarArrayList.add(bars);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-                        dismissBarDialog();
+
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
@@ -161,7 +160,8 @@ public class BarActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
+                Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
+                dismissBarDialog();
                 adapter.notifyDataSetChanged();
 
             }

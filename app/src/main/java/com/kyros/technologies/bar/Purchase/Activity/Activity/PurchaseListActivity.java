@@ -66,7 +66,7 @@ public class PurchaseListActivity extends AppCompatActivity {
         my_inventory_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(PurchaseListActivity.this,InventoryActivity.class);
+                Intent intent=new Intent(PurchaseListActivity.this,InventoryTypePurchase.class);
                 startActivity(intent);
             }
         });
@@ -129,7 +129,6 @@ public class PurchaseListActivity extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-                        PurchaseListActivity.this.finish();
 
 
                     }else {

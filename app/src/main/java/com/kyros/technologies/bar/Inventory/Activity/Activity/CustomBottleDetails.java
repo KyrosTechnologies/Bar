@@ -61,8 +61,8 @@ public class CustomBottleDetails extends AppCompatActivity {
     private byte[] multipartBody;
 
     private byte [] picturebyte=null;
-    private String MinValue="0.123";
-    private String MaxValue="0.235";
+    private String MinValue="";
+    private String MaxValue="";
     private String BarId=null;
     private String SectionId=null;
     private PreferenceManager store;
@@ -113,7 +113,7 @@ public class CustomBottleDetails extends AppCompatActivity {
             baseimage=image;
             MinValue=bundle.getString("minvalue");
             MaxValue=bundle.getString("maxvalue");
-           // path=bundle.getString("path");
+            // path=bundle.getString("path");
 
             byte[]decodedString= Base64.decode(image.getBytes(),Base64.DEFAULT);
             picturebyte=decodedString;
@@ -137,16 +137,16 @@ public class CustomBottleDetails extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_done:
-                 name=name_custombottle.getText().toString();
-                 capacity=capacity_custombottle.getText().toString();
-                 category=category_custombottle.getText().toString();
-                 subcategory=subcategory_custombottle.getText().toString();
-                 shots=shots_custombottle.getText().toString();
-                 distributor=distributor_custombottle.getText().toString();
-                 price=price_custombottle.getText().toString();
-                 binnumber=binnumber_custombottle.getText().toString();
-                 productcode=producr_custombottle.getText().toString();
-                 parlevel=parlevel_custombottle.getText().toString();
+                name=name_custombottle.getText().toString();
+                capacity=capacity_custombottle.getText().toString();
+                category=category_custombottle.getText().toString();
+                subcategory=subcategory_custombottle.getText().toString();
+                shots=shots_custombottle.getText().toString();
+                distributor=distributor_custombottle.getText().toString();
+                price=price_custombottle.getText().toString();
+                binnumber=binnumber_custombottle.getText().toString();
+                productcode=producr_custombottle.getText().toString();
+                parlevel=parlevel_custombottle.getText().toString();
                 try{
                     Async is=new Async();
                     Toast.makeText(getApplicationContext(),"executing",Toast.LENGTH_SHORT).show();
@@ -156,7 +156,7 @@ public class CustomBottleDetails extends AppCompatActivity {
                 }
 //                uploadFile(name,capacity,category,subcategory,shots,distributor,price,binnumber,productcode,MinValue,MaxValue,picturebyte,parlevel);
 
-               // Intent i=new Intent(CustomBottleDetails.this,SectionBottlesActivity.class);
+                // Intent i=new Intent(CustomBottleDetails.this,SectionBottlesActivity.class);
                 //startActivity(i);
 
                 break;
@@ -169,13 +169,13 @@ public class CustomBottleDetails extends AppCompatActivity {
     }
     private void saveProfileAccount(final String name, final String capacity, final String category, final String subcategory, final String shots, final String distributor, final String price, final String binnumber, final String productcode, String minValue, String maxValue, final byte[] picturebyte, final String parlevel) {
         {
-        // loading or check internet connection or something...
-        // ... then
-        String url = EndURL.URL+"insertCustomBottle";
-        VolleyMultiPartRequest multipartRequest = new VolleyMultiPartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
-            @Override
-            public void onResponse(NetworkResponse response) {
-                String resultResponse = new String(response.data);
+            // loading or check internet connection or something...
+            // ... then
+            String url = EndURL.URL+"insertCustomBottle";
+            VolleyMultiPartRequest multipartRequest = new VolleyMultiPartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+                @Override
+                public void onResponse(NetworkResponse response) {
+                    String resultResponse = new String(response.data);
 //                try {
 //                    JSONObject result = new JSONObject(resultResponse);
 //                    String status = result.getString("status");
@@ -190,82 +190,82 @@ public class CustomBottleDetails extends AppCompatActivity {
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                String errorMessage = "Unknown error";
-                if (networkResponse == null) {
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    NetworkResponse networkResponse = error.networkResponse;
+                    String errorMessage = "Unknown error";
+                    if (networkResponse == null) {
 //                    if (error.getClass().equals(TimeoutError.class)) {
 //                        errorMessage = "Request timeout";
 //                    } else if (error.getClass().equals(NoConnectionError.class)) {
 //                        errorMessage = "Failed to connect server";
 //                    }
-                } else {
-                    String result = new String(networkResponse.data);
-                    try {
-                        JSONObject response = new JSONObject(result);
-                        String status = response.getString("status");
-                        String message = response.getString("message");
+                    } else {
+                        String result = new String(networkResponse.data);
+                        try {
+                            JSONObject response = new JSONObject(result);
+                            String status = response.getString("status");
+                            String message = response.getString("message");
 
-                        Log.e("Error Status", status);
-                        Log.e("Error Message", message);
+                            Log.e("Error Status", status);
+                            Log.e("Error Message", message);
 
-                        if (networkResponse.statusCode == 404) {
-                            errorMessage = "Resource not found";
-                        } else if (networkResponse.statusCode == 401) {
-                            errorMessage = message+" Please login again";
-                        } else if (networkResponse.statusCode == 400) {
-                            errorMessage = message+ " Check your inputs";
-                        } else if (networkResponse.statusCode == 500) {
-                            errorMessage = message+" Something is getting wrong";
+                            if (networkResponse.statusCode == 404) {
+                                errorMessage = "Resource not found";
+                            } else if (networkResponse.statusCode == 401) {
+                                errorMessage = message+" Please login again";
+                            } else if (networkResponse.statusCode == 400) {
+                                errorMessage = message+ " Check your inputs";
+                            } else if (networkResponse.statusCode == 500) {
+                                errorMessage = message+" Something is getting wrong";
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                    Log.i("Error", errorMessage);
+                    error.printStackTrace();
                 }
-                Log.i("Error", errorMessage);
-                error.printStackTrace();
-            }
-        }) {
+            }) {
 
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("userprofileid", UserProfileId);
-                params.put("barid", BarId);
-                params.put("sectionid",SectionId);
-                params.put("liquorname", name);
-                params.put("liquorcapacity", capacity);
-                params.put("shots", shots);
-                params.put("category",category);
-                params.put("subcategory",subcategory);
-                params.put("parlevel", parlevel);
-                params.put("distributorname",distributor);
-                params.put("priceunit", price);
-                params.put("binnumber", binnumber);
-                params.put("productcode", productcode);
-                params.put("MinValue", MinValue);
-                params.put("MaxValue", MaxValue);
-                return params;
-            }
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("userprofileid", UserProfileId);
+                    params.put("barid", BarId);
+                    params.put("sectionid",SectionId);
+                    params.put("liquorname", name);
+                    params.put("liquorcapacity", capacity);
+                    params.put("shots", shots);
+                    params.put("category",category);
+                    params.put("subcategory",subcategory);
+                    params.put("parlevel", parlevel);
+                    params.put("distributorname",distributor);
+                    params.put("priceunit", price);
+                    params.put("binnumber", binnumber);
+                    params.put("productcode", productcode);
+                    params.put("MinValue", MinValue);
+                    params.put("MaxValue", MaxValue);
+                    return params;
+                }
 
 
-            @Override
-            protected Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = new HashMap<>();
-                // file name could found file base or direct access from real path
-                // for now just get bitmap data from ImageView
-                params.put("picture", new DataPart("file_avatar.jpg", picturebyte, "image/jpeg"));
+                @Override
+                protected Map<String, DataPart> getByteData() {
+                    Map<String, DataPart> params = new HashMap<>();
+                    // file name could found file base or direct access from real path
+                    // for now just get bitmap data from ImageView
+                    params.put("picture", new DataPart("file_avatar.jpg", picturebyte, "image/jpeg"));
 //                params.put("cover", new DataPart("file_cover.jpg", AppHelper.getFileDataFromDrawable(getBaseContext(), mCoverImage.getDrawable()), "image/jpeg"));
 
-                return params;
-            }
-        };
+                    return params;
+                }
+            };
 
-        VolleySingleton.getInstance(getBaseContext()).addToRequestQueue(multipartRequest);
-    }}
+            VolleySingleton.getInstance(getBaseContext()).addToRequestQueue(multipartRequest);
+        }}
     private void Uploaddata(String name, String capacity, String category, String subcategory, String shots, String distributor, String price, String binnumber, String productcode, String minValue, String maxValue, byte[] picturebyte, String parlevel) {
 
         String tag_json_obj = "json_obj_req";
@@ -360,7 +360,6 @@ public class CustomBottleDetails extends AppCompatActivity {
 //            File sourceFile = new File(filePath);
 
                 // Adding file data to http body
-                entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
 
                 CustomLiquorModel modl = new CustomLiquorModel();
                 modl.setUserprofileid(Integer.parseInt(UserProfileId));
@@ -384,6 +383,7 @@ public class CustomBottleDetails extends AppCompatActivity {
                 maxval=maxval/100;
                 String fminval=String.valueOf(minval);
                 String fmaxval=String.valueOf(maxval);
+                entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
 
                 entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
                 entity.addPart("barid", new StringBody(BarId, ContentType.TEXT_PLAIN));
@@ -419,11 +419,11 @@ public class CustomBottleDetails extends AppCompatActivity {
                     // Server response
                     responseString = EntityUtils.toString(r_entity);
                     CustomBottleDetails.this.finish();
-                //    Toast.makeText(getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
                 } else {
                     responseString = "Error occurred! Http Status Code: "
                             + statusCode;
-                  //  Toast.makeText(getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
 
                 }
                 Log.d("response: ",responseString);
@@ -439,8 +439,5 @@ public class CustomBottleDetails extends AppCompatActivity {
 
         }
     }
-
-
-
 
 }

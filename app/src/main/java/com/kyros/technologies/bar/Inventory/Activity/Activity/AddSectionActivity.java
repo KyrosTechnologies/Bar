@@ -118,7 +118,7 @@ public class AddSectionActivity extends AppCompatActivity {
 
                     JSONObject obj=new JSONObject(response.toString());
                     String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issucess");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");
@@ -134,7 +134,7 @@ public class AddSectionActivity extends AppCompatActivity {
                             //store.putSectionId(String .valueOf(sectionid));
                             String number=null;
                             try {
-                                number=first.getString("datecreated");
+                                number=first.getString("createdon");
                                 store.putBarDateCreated(String.valueOf(number));
                             }catch (Exception e){
                                 e.printStackTrace();
@@ -149,8 +149,7 @@ public class AddSectionActivity extends AppCompatActivity {
                             mySectionArrayList.add(section);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-                        dismissBarDialog();
+
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
@@ -160,7 +159,8 @@ public class AddSectionActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
+                Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
+                dismissBarDialog();
                 adapter.notifyDataSetChanged();
 
             }

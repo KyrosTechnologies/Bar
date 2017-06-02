@@ -41,6 +41,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/shots_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*12"
@@ -80,6 +81,7 @@
             </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
             <ImageView
+                android:id="@+id/liquor_bottle_image"
                 android:layout_width="279dp"
                 android:layout_height="320dp"
                 android:layout_gravity="center"
@@ -93,20 +95,23 @@
             android:layout_height="80dp">
 
             <ImageView
+                android:id="@+id/plus"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/add"
                 android:layout_gravity="start|center"/>
 
-            <TextView
+            <EditText
+                android:id="@+id/bottle_quan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bottle Name"
+                android:text=""
                 android:textSize="18sp"
                 android:textColor="@color/edit"
                 android:layout_gravity="center"/>
 
             <ImageView
+                android:id="@+id/minus"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/minus"

@@ -71,7 +71,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                     JSONObject obj=new JSONObject(response.toString());
                     String message=obj.getString("message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         Toast.makeText(getApplicationContext(),"Password Changed Sucessfully",Toast.LENGTH_SHORT).show();
