@@ -46,6 +46,8 @@ public class MyPurchaseListActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_my_inventory_list);
+        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
+
         recycler_database=(RecyclerView)findViewById(R.id.recycler_database);
         adapter=new PurchaseApiAdapter(MyPurchaseListActivity.this,liquorlist);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
@@ -53,14 +55,18 @@ public class MyPurchaseListActivity extends AppCompatActivity {
         recycler_database.setItemAnimator(new DefaultItemAnimator());
         recycler_database.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         StateChangeWaggonapi();
+
     }
 
     private void StateChangeWaggonapi() {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+ "getLiquorList";
-        //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
-        //     showProgressDialog();
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
@@ -68,14 +74,15 @@ public class MyPurchaseListActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                liquorlist.clear();
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
                     String message=obj.getString("message");
-                    boolean success=obj.getBoolean("IsSuccess");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
-                        JSONArray array=obj.getJSONArray("userList");
+                        JSONArray array=obj.getJSONArray("userlist");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
                             String name=first.getString("name");
@@ -83,16 +90,19 @@ public class MyPurchaseListActivity extends AppCompatActivity {
                             String type=first.getString("alcohol_type");
                             String pic=first.getString("small_picture_url");
                             String subtype=first.getString("alcohol_subtype");
+                            double max_height=first.getDouble("max_height");
+                            double min_height=first.getDouble("min_height");
                             LiquorListClass liquorListClass=new LiquorListClass();
                             liquorListClass.setName(name);
                             liquorListClass.setCapacity_mL(quantity);
                             liquorListClass.setAlcohol_subtype(subtype);
                             liquorListClass.setAlcohol_type(type);
                             liquorListClass.setSmall_picture_url(pic);
+                            liquorListClass.setMin_height(min_height);
+                            liquorListClass.setMax_height(max_height);
                             liquorlist.add(liquorListClass);
                         }
 
-                        MyPurchaseListActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

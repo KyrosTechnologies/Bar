@@ -62,12 +62,19 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
         String liquorcapacity=purchase.getLiquorcapacity();
         String shots=purchase.getShots();
         String category=purchase.getCategory();
-      //  String subcategory=purchase.getSubcategory();
+        String subcategory=purchase.getSubcategory();
         String parlevel=purchase.getParlevel();
         String disname=purchase.getDistributorname();
         String price=purchase.getPriceunit();
         String binnumber=purchase.getBinnumber();
         String productcode=purchase.getProductcode();
+        String minvalue=purchase.getMinvalue();
+        String maxvalue=purchase.getMaxvalue();
+        String pictureurl=purchase.getPictureurl();
+        final String type=purchase.getType();
+        String emptyweight=purchase.getEmptyweight();
+        String fullweight=purchase.getFullweight();
+
 
         if (liquorname==null){
             liquorname="";
@@ -87,18 +94,36 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
         //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
         try{
             Picasso.with(mContext)
-                    .load(PurchaseImages[position])
+                    .load(pictureurl)
                     .resize(65, 65)
                     .into(holder.purchase_image);
         }catch (Exception e){
+            try{
+                Picasso.with(mContext)
+                        .load(PurchaseImages[position])
+                        .resize(65, 65)
+                        .into(holder.purchase_image);
+            }catch (Exception es){
+                es.printStackTrace();
+            }
 
         }
 
         holder.purchases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(mContext,BottlePurchaseStock.class);
-                mContext.startActivity(i);
+
+                if(type.equals("bottle")){
+                    Intent i=new Intent(mContext,BottlePurchaseStock.class);
+                    mContext.startActivity(i);
+                }else if(type.equals("keg")){
+                    Intent i=new Intent(mContext,BottlePurchaseStock.class);
+                    mContext.startActivity(i);
+                }else{
+                    Intent i=new Intent(mContext,BottlePurchaseStock.class);
+                    mContext.startActivity(i);
+                }
+
             }
         });
 

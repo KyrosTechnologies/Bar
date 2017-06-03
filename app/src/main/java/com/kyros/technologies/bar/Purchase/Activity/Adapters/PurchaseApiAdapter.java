@@ -59,16 +59,21 @@ public class PurchaseApiAdapter extends RecyclerView.Adapter<PurchaseApiAdapter.
         final LiquorListClass listClass=list.get(position);
         String name=listClass.getName();
         String subtype=listClass.getAlcohol_subtype();
+        if(subtype==null){
+            subtype="";
+        }
         if(name==null){
-            name="Dummy";
+            name="";
         }
         final int  quanti=listClass.getCapacity_mL();
 
         String alchotype=listClass.getAlcohol_type();
         if(alchotype==null){
-            alchotype="Dummy";
+            alchotype="";
         }
-        String smallpic=listClass.getSmall_picture_url();
+        final String smallpic=listClass.getSmall_picture_url();
+        final double minvalue=listClass.getMin_height();
+        final double maxvalue=listClass.getMax_height();
 
 
         try {
@@ -93,14 +98,19 @@ public class PurchaseApiAdapter extends RecyclerView.Adapter<PurchaseApiAdapter.
         }
 
         final String finalName = name;
+        final String finalSubtype = subtype;
+        final String finalAlchotype = alchotype;
         holder.add_bottles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(mContext,BottlePurchaseStock.class);
                 i.putExtra("name", finalName);
-                i.putExtra("capacity",String.valueOf(quanti)+" ML");
-                i.putExtra("category",listClass.getAlcohol_type());
-                i.putExtra("subcategory",listClass.getAlcohol_subtype());
+                i.putExtra("capacity",String.valueOf(quanti));
+                i.putExtra("category", finalAlchotype);
+                i.putExtra("subcategory", finalSubtype);
+                i.putExtra("minvalue",String.valueOf(minvalue));
+                i.putExtra("maxvalue",String.valueOf(maxvalue));
+                i.putExtra("picture",smallpic);
                 mContext.startActivity(i);
             }
         });

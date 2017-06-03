@@ -60,16 +60,24 @@ public class PurchaseListActivity extends AppCompatActivity {
         purchase_recycler.setItemAnimator(new DefaultItemAnimator());
         purchase_recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
+
         my_inventory_list=(LinearLayout)findViewById(R.id.my_inventory_list);
-        GetBottlesList();
         adapter.notifyDataSetChanged();
         my_inventory_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(PurchaseListActivity.this,InventoryActivity.class);
+                Intent intent=new Intent(PurchaseListActivity.this,InventoryTypePurchase.class);
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetBottlesList();
+
     }
 
     private void GetBottlesList() {
@@ -83,6 +91,7 @@ public class PurchaseListActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                purchaseArrayList.clear();
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
@@ -99,26 +108,38 @@ public class PurchaseListActivity extends AppCompatActivity {
                             String liquorcapacity=first.getString("liquorcapacity");
                             String shots=first.getString("shots");
                             String category=first.getString("category");
-//                            String subcategory=null;
-//                            try {
-//                                subcategory=first.getString("subcategory");
-//
-//                            }catch (Exception e){
-//                                e.printStackTrace();
-//                            }
+                            String subcategory=null;
+                            try {
+                                subcategory=first.getString("subcategory");
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                             String parlevel=first.getString("parlevel");
                             String distributorname=first.getString("distributorname");
                             String priceunit=first.getString("price");
                             String binnumber=first.getString("binnumber");
                             String productcode=first.getString("productcode");
                             String createdon=first.getString("createdon");
+                            String minvalue=first.getString("minvalue");
+                            String maxvalue=first.getString("maxvalue");
+                            String pictureurl=first.getString("pictureurl");
+                            String type=first.getString("type");
+                            String fullweight=first.getString("fullweight");
+                            String emptyweight=first.getString("emptyweight");
                             Purchase purchase=new Purchase();
                             purchase.setLiquorname(liquorname);
+                            purchase.setMinvalue(minvalue);
+                            purchase.setMaxvalue(maxvalue);
+                            purchase.setPictureurl(pictureurl);
+                            purchase.setType(type);
+                            purchase.setFullweight(fullweight);
+                            purchase.setEmptyweight(emptyweight);
                             purchase.setUserprofileid(userprofile);
                             purchase.setLiquorcapacity(liquorcapacity);
                             purchase.setShots(shots);
                             purchase.setCategory(category);
-                            //purchase.setSubcategory(subcategory);
+                            purchase.setSubcategory(subcategory);
                             purchase.setParlevel(parlevel);
                             purchase.setDistributorname(distributorname);
                             purchase.setPriceunit(priceunit);
@@ -129,7 +150,6 @@ public class PurchaseListActivity extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-                        PurchaseListActivity.this.finish();
 
 
                     }else {
@@ -176,9 +196,7 @@ public class PurchaseListActivity extends AppCompatActivity {
                 PurchaseListActivity.this.finish();
                 return true;
             case R.id.home_bar:
-                Intent intent=new Intent(PurchaseListActivity.this,LandingActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                PurchaseListActivity.this.finish();
                 break;
         }
 

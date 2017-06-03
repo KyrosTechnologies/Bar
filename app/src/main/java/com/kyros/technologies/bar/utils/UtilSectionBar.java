@@ -22,9 +22,35 @@ public class UtilSectionBar {
     private String productcode;
     private String createdon;
     private String pictureurl;
-
+    private double minvalue;
+    private double maxvalue;
+    private String totalbottles;
     public UtilSectionBar(){
 
+    }
+
+    public double getMinvalue() {
+        return minvalue;
+    }
+
+    public void setMinvalue(double minvalue) {
+        this.minvalue = minvalue;
+    }
+
+    public double getMaxvalue() {
+        return maxvalue;
+    }
+
+    public void setMaxvalue(double maxvalue) {
+        this.maxvalue = maxvalue;
+    }
+
+    public String getTotalbottles() {
+        return totalbottles;
+    }
+
+    public void setTotalbottles(String totalbottles) {
+        this.totalbottles = totalbottles;
     }
 
     public int getId() {

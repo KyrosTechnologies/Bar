@@ -19,10 +19,68 @@ public class Purchase {
     private String binnumber;
     private String productcode;
     private String createdon;
+    private String minvalue;
+    private String maxvalue;
+    private String pictureurl;
+    private String type;
+    private String fullweight;
+    private String emptyweight;
     private String small_picture_url;
 
     public Purchase(){
 
+    }
+
+    public String getMinvalue() {
+        return minvalue;
+    }
+
+    public void setMinvalue(String minvalue) {
+        this.minvalue = minvalue;
+    }
+
+    public String getMaxvalue() {
+        return maxvalue;
+    }
+
+    public void setMaxvalue(String maxvalue) {
+        this.maxvalue = maxvalue;
+    }
+
+    public String getPictureurl() {
+        return pictureurl;
+    }
+
+    public void setPictureurl(String pictureurl) {
+        this.pictureurl = pictureurl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFullweight() {
+        return fullweight;
+    }
+
+    public void setFullweight(String fullweight) {
+        this.fullweight = fullweight;
+    }
+
+    public String getEmptyweight() {
+        return emptyweight;
+    }
+
+    public void setEmptyweight(String emptyweight) {
+        this.emptyweight = emptyweight;
+    }
+
+    public void setSmall_picture_url(String small_picture_url) {
+        this.small_picture_url = small_picture_url;
     }
 
     public int getId() {

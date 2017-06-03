@@ -1,10 +1,13 @@
 package com.kyros.technologies.bar.Common.activity.Activity;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,11 +22,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.BarActivity;
+import com.kyros.technologies.bar.Inventory.Activity.List.LiquorListClass;
 import com.kyros.technologies.bar.Purchase.Activity.Activity.PurchaseListActivity;
 import com.kyros.technologies.bar.R;
+import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.ServiceHandler.SessionManager;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
+import com.kyros.technologies.bar.utils.EndURL;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class LandingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,7 +44,8 @@ public class LandingActivity extends AppCompatActivity
     private LinearLayout bar_activity,purchase_list;
     private SessionManager session;
     private PreferenceManager store;
-    private TextView username,email_id;
+    private TextView username,email_id,total_quans,parvlie;
+    private String userprofileid=null;
 
 
     @Override
@@ -46,6 +60,7 @@ public class LandingActivity extends AppCompatActivity
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
         store = PreferenceManager.getInstance(getApplicationContext());
+        userprofileid=store.getUserProfileId();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,6 +76,8 @@ public class LandingActivity extends AppCompatActivity
 
         email_id = (TextView) headerview.findViewById(R.id.email_id);
         username = (TextView) headerview.findViewById(R.id.username);
+        total_quans = (TextView) findViewById(R.id.total_quans);
+        parvlie = (TextView) findViewById(R.id.parvlie);
         try {
             email_id.setText(store.getUserEmail());
             String name=store.getFirstName()+" "+store.getLastName();
@@ -86,6 +103,9 @@ public class LandingActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+        StateChangeWaggonapi();
+        GetUnderParValue();
+
     }
 
     @Override
@@ -193,4 +213,122 @@ private void showLogoutDialog(){
         dismissLogoutDialog();
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        store = PreferenceManager.getInstance(getApplicationContext());
+        userprofileid=store.getUserProfileId();
+
+        StateChangeWaggonapi();
+        GetUnderParValue();
+
+    }
+    private void StateChangeWaggonapi() {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+ "GetUserTotalBottles/"+userprofileid;
+
+        Log.d("waggonurl", url);
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response",response.toString());
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("issuccess");
+                    if (success){
+
+                        String totalbottles=obj.getString("totalbottles");
+                        if(totalbottles!=null){
+                            total_quans.setText(totalbottles);
+                        }
+
+
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                        total_quans.setText("0");
+
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
+//                texts.setText(error.toString());
+            }
+        }) {
+
+        };
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
+    }
+    private void GetUnderParValue() {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+ "GetUnderParValue/"+userprofileid;
+
+        Log.d("waggonurl", url);
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response",response.toString());
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("issuccess");
+                    if (success){
+
+                        String underparvalue=obj.getString("underparvalue");
+                        if(underparvalue!=null){
+                            parvlie.setText(underparvalue);
+                        }
+
+
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                        parvlie.setText("0");
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
+//                texts.setText(error.toString());
+            }
+        }) {
+
+        };
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
+    }
+
+
 }

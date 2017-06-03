@@ -118,6 +118,7 @@
                     android:layout_gravity="center"
                     android:text="250"
                     android:textColor="@color/white"
+                    android:id="@+id/total_quans"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -149,6 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="15"
+                    android:id="@+id/parvlie"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 

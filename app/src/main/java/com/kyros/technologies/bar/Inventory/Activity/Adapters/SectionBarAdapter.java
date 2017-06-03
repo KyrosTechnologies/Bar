@@ -67,7 +67,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         final int sectionid=utilSectionBar.getSectionid();
         String liquorname=utilSectionBar.getLiquorname();
         String liquorcapacity=utilSectionBar.getLiquorcapacity();
-        String shots=utilSectionBar.getShots();
+        final String shots=utilSectionBar.getShots();
         String category=utilSectionBar.getCategory();
         String subcategory=utilSectionBar.getSubcategory();
         String parlevel=utilSectionBar.getParlevel();
@@ -75,7 +75,10 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         String price=utilSectionBar.getPriceunit();
         String binnumber=utilSectionBar.getBinnumber();
         String productcode=utilSectionBar.getProductcode();
-        String pictureurl=utilSectionBar.getPictureurl();
+        final String pictureurl=utilSectionBar.getPictureurl();
+        final double minvalue=utilSectionBar.getMinvalue();
+        final double maxvalue=utilSectionBar.getMaxvalue();
+        final String totalbottles=utilSectionBar.getTotalbottles();
 
         if (liquorname==null){
             liquorname="";
@@ -88,7 +91,6 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         if (category==null){
             category="";
         }
-
         holder.alchohol_name.setText(liquorname);
         holder.bottle_ml.setText(String.valueOf(liquorcapacity));
         holder.liquor_type.setText(category);
@@ -111,11 +113,19 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
             }
 
         }
-
+        final String finalLiquorname = liquorname;
+        final String finalLiquorcapacity = liquorcapacity;
         holder.slider_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(mContext,LiquorSlider.class);
+                i.putExtra("name", finalLiquorname);
+                i.putExtra("capacity", finalLiquorcapacity);
+                i.putExtra("picture",pictureurl);
+                i.putExtra("shots",shots);
+                i.putExtra("minvalue",minvalue);
+                i.putExtra("maxvalue",maxvalue);
+                i.putExtra("totalbottles",totalbottles);
                 mContext.startActivity(i);
             }
         });

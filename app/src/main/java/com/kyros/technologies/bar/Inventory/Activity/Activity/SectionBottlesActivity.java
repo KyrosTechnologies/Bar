@@ -97,6 +97,8 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             int userprofile=first.getInt("userprofileid");
                             int barid=first.getInt("barid");
                             int sectionid=first.getInt("sectionid");
+                            double minvalue=first.getDouble("minvalue");
+                            double maxvalue=first.getDouble("maxvalue");
                             String liquorname=first.getString("liquorname");
                             String liquorcapacity=null;
                             try{
@@ -115,6 +117,12 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             String productcode=first.getString("productcode");
                             String createdon=first.getString("createdon");
                             String pictureurl=first.getString("pictureurl");
+                            String totalbottles=null;
+                            try {
+                                totalbottles=first.getString("totalbottles");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                             UtilSectionBar utilSectionBar=new UtilSectionBar();
                             utilSectionBar.setSectionid(sectionid);
                             utilSectionBar.setBarid(barid);
@@ -131,6 +139,9 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             utilSectionBar.setProductcode(productcode);
                             utilSectionBar.setCreatedon(createdon);
                             utilSectionBar.setPictureurl(pictureurl);
+                            utilSectionBar.setMinvalue(minvalue);
+                            utilSectionBar.setMaxvalue(maxvalue);
+                            utilSectionBar.setTotalbottles(totalbottles);
                             utilSectionBarArrayList.add(utilSectionBar);
                         }
 

@@ -3,6 +3,9 @@ package com.kyros.technologies.bar.Purchase.Activity.Activity;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,19 +13,38 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
+import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
+import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
 import com.kyros.technologies.bar.utils.EndURL;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class BottlePurchaseStock extends AppCompatActivity {
 
@@ -32,35 +54,14 @@ public class BottlePurchaseStock extends AppCompatActivity {
     private String bottlesubcategory=null;
     private EditText pur_bottle_des_name,pur_bottle_des_capacity,pur_bottle_des_main_category,pur_bottle_des_sub_category,pur_bottle_des_shots,pur_bottle_des_par_level,
             pur_bottle_des_distributor_name,pur_bottle_des_price_unit,pur_bottle_des_bin_number,pur_bottle_des_product_code;
-    private int  userprofile;
-    private int barid;
-    private int id;
-    private int sectionid;
-    private String liquorname;
-    private String liquorcapacity;
-    private String shots;
-    private String category;
-    private String subcategory;
-    private String parlevel;
-    private String distributor;
-    private String price;
-    private String binnumber;
-    private String productcode;
     private PreferenceManager store;
     private String UserProfileId=null;
-    private String Barid=null;
-    private String Sectionid=null;
-    private String LiquorName=null;
-    private String LiquorCapacity=null;
-    private String Shots=null;
-    private String Category=null;
-    private String SubCategory=null;
-    private String ParLevel=null;
-    private String DistributorName=null;
-    private String PriceUnit=null;
-    private String BinNumber=null;
-    private String ProductCode=null;
-    private String CreatedOn=null;
+    private String MinValue=null;
+    private String MaxValue=null;
+    private String Picture=null;
+    private ImageView pic_id_values;
+    private byte[] bytearayProfile;
+    private Bitmap bitmapvariable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +71,12 @@ public class BottlePurchaseStock extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_purchase_bottle_description);
         pur_bottle_des_name=(EditText)findViewById(R.id.pur_bottle_des_name);
         pur_bottle_des_capacity=(EditText)findViewById(R.id.pur_bottle_des_capacity);
+        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
+
         pur_bottle_des_main_category=(EditText)findViewById(R.id.pur_bottle_des_main_category);
         pur_bottle_des_sub_category=(EditText)findViewById(R.id.pur_bottle_des_sub_category);
         pur_bottle_des_shots=(EditText)findViewById(R.id.pur_bottle_des_shots);
@@ -81,29 +85,39 @@ public class BottlePurchaseStock extends AppCompatActivity {
         pur_bottle_des_price_unit=(EditText)findViewById(R.id.pur_bottle_des_price_unit);
         pur_bottle_des_bin_number=(EditText)findViewById(R.id.pur_bottle_des_bin_number);
         pur_bottle_des_product_code=(EditText)findViewById(R.id.pur_bottle_des_product_code);
+        pic_id_values=(ImageView)findViewById(R.id.pic_id_values);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
-        Barid=store.getBarId();
-        Sectionid=store.getSectionId();
-        LiquorName=store.getLiquorName();
-        LiquorCapacity=store.getLiquorCapacity();
-        Shots=store.getShots();
-        Category=store.getCategory();
-        SubCategory=store.getSubCategory();
-        ParLevel=store.getParLevel();
-        DistributorName=store.getDistributorName();
-        PriceUnit=store.getPriceUnit();
-        BinNumber=store.getBinNumber();
-        ProductCode=store.getProductCode();
-        CreatedOn=store.getBarDateCreated();
 
         try {
 
             Bundle bundle=getIntent().getExtras();
             bottlename=bundle.getString("name");
+            if(bottlename==null){
+                bottlename="";
+            }
+
             bottlecapacity=bundle.getString("capacity");
+            if(bottlecapacity==null){
+                bottlecapacity="";
+            }
             bottlecategory=bundle.getString("category");
+            if(bottlecategory==null){
+                bottlecategory="";
+            }
             bottlesubcategory=bundle.getString("subcategory");
+            if(bottlesubcategory==null){
+                bottlesubcategory="";
+            }
+            MinValue=bundle.getString("minvalue");
+            if(MinValue==null){
+                MinValue="";
+            }
+            MaxValue=bundle.getString("maxvalue");
+            if(MaxValue==null){
+                MaxValue="";
+            }
+            Picture=bundle.getString("picture");
 
             try {
 
@@ -115,102 +129,35 @@ public class BottlePurchaseStock extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
+            if(Picture!=null){
+                Picasso.with(BottlePurchaseStock.this).load(Picture).into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        pic_id_values.setImageBitmap(bitmap);
+                        bitmapvariable=bitmap;
+                    }
 
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    private void PurchaseBottleDescriptionApi(final int userprofile , String liquorname,String liquorcapacity,String category,String subcategory,String shots,
-                                      String parlevel,String distributor,String price,String binnumber,String productcode) {
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"insertPurchaseList";
-        //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
-        Log.d("waggonurl", url);
-        final JSONObject inputLogin=new JSONObject();
-        try{
-            inputLogin.put("userprofileid",userprofile);
-            inputLogin.put("liquorname",liquorname);
-            inputLogin.put("liquorcapacity",liquorcapacity);
-            inputLogin.put("shots",shots);
-            inputLogin.put("category",category);
-            inputLogin.put("subcategory",subcategory);
-            inputLogin.put("parlevel",parlevel);
-            inputLogin.put("distributorname",distributor);
-            inputLogin.put("priceunit",price);
-            inputLogin.put("binnumber",binnumber);
-            inputLogin.put("productcode",productcode);
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        Log.d("inputJsonuser",inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response",response.toString());
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("Message");
-                    boolean success=obj.getBoolean("IsSuccess");
-                    if (success){
-
-                        JSONArray array=obj.getJSONArray("model");
-                        for (int i=0;i<array.length();i++){
-                            JSONObject first=array.getJSONObject(i);
-                            int id=first.getInt("id");
-                            int userprofile=first.getInt("userprofileid");
-                            String liquorname=first.getString("liquorname");
-                            String liquorcapacity=first.getString("liquorcapacity");
-                            String shots=first.getString("shots");
-                            String category=first.getString("category");
-                            String subcategory=first.getString("subcategory");
-                            String parlevel=first.getString("parlevel");
-                            String distributorname=first.getString("distributorname");
-                            String priceunit=first.getString("priceunit");
-                            String binnumber=first.getString("binnumber");
-                            String productcode=first.getString("productcode");
-                            String createdon=first.getString("createdon");
-
-                        }
-
-                        Toast.makeText(getApplicationContext(),"Sucessfully Updated Bottle",Toast.LENGTH_SHORT).show();
-                        BottlePurchaseStock.this.finish();
-
-                    }else {
-                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
 
                     }
 
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
 
-                Intent i=new Intent(BottlePurchaseStock.this,PurchaseListActivity.class);
-                startActivity(i);
+                    }
+                });
             }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
 
-//                texts.setText(error.toString());
-            }
-        }) {
 
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
+
+
 
 
     @Override
@@ -229,27 +176,122 @@ public class BottlePurchaseStock extends AppCompatActivity {
                 BottlePurchaseStock.this.finish();
                 return true;
             case R.id.action_done:
-                Toast.makeText(getApplicationContext(),"Saved successfully!",Toast.LENGTH_SHORT).show();
-                Barid=store.getBarId();
-                Sectionid=store.getSectionId();
-                String name =pur_bottle_des_name.getText().toString();
-                String capacity= pur_bottle_des_capacity.getText().toString();
-                String maincat=pur_bottle_des_main_category.getText().toString();
-                String subcat=pur_bottle_des_sub_category.getText().toString();
-                String shots=pur_bottle_des_shots.getText().toString();
-                String parlevel=pur_bottle_des_par_level.getText().toString();
-                String disname=pur_bottle_des_distributor_name.getText().toString();
-                String price=pur_bottle_des_price_unit.getText().toString();
-                String bin=pur_bottle_des_bin_number.getText().toString();
-                String product=pur_bottle_des_product_code.getText().toString();
-                Log.d("Result",name+capacity+maincat+subcat+shots+parlevel+disname+price+bin+product);
-                PurchaseBottleDescriptionApi(Integer.parseInt(UserProfileId),name,capacity,maincat,subcat,shots,parlevel,disname,price,bin,product);
+                try{
+                    Async is=new Async();
+                    is.execute();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
 
                 break;
 
         }
 
         return super.onOptionsItemSelected(item);
+
+    }
+    private class Async extends AsyncTask<String,String,String > {
+
+        @Override
+        protected String doInBackground(String... params) {
+            uploadFile();
+
+            return null;
+        }
+    }
+    private String uploadFile() {
+
+        String responseString = null;
+        String name =pur_bottle_des_name.getText().toString();
+        String capacity= pur_bottle_des_capacity.getText().toString();
+        String maincat=pur_bottle_des_main_category.getText().toString();
+        String subcat=pur_bottle_des_sub_category.getText().toString();
+        String shots=pur_bottle_des_shots.getText().toString();
+        String parlevel=pur_bottle_des_par_level.getText().toString();
+        String disname=pur_bottle_des_distributor_name.getText().toString();
+        String price=pur_bottle_des_price_unit.getText().toString();
+        String bin=pur_bottle_des_bin_number.getText().toString();
+        String product=pur_bottle_des_product_code.getText().toString();
+        HttpClient httpclient = new DefaultHttpClient();
+        String url = EndURL.URL +"insertPurchaseList";
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmapvariable.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bytearayProfile = stream.toByteArray();
+        HttpPost httppost = new HttpPost(url);
+
+        try {
+            AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
+                    new AndroidMultiPartEntity.ProgressListener() {
+
+                        @Override
+                        public void transferred(long num) {
+                            //publishProgress((int) ((num / (float) totalSize) * 100));
+                        }
+                    });
+
+//            File sourceFile = new File(filePath);
+
+            // Adding file data to http body
+
+
+            double minval=Double.parseDouble(MinValue);
+            double maxval=Double.parseDouble(MaxValue);
+            minval=minval/100;
+            maxval=maxval/100;
+            String fminval=String.valueOf(minval);
+            String fmaxval=String.valueOf(maxval);
+            entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
+            entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
+            entity.addPart("liquorname", new StringBody(name, ContentType.TEXT_PLAIN));
+            entity.addPart("liquorcapacity", new StringBody(capacity, ContentType.TEXT_PLAIN));
+             entity.addPart("category", new StringBody(maincat, ContentType.TEXT_PLAIN));
+            entity.addPart("subcategory", new StringBody(subcat, ContentType.TEXT_PLAIN));
+            entity.addPart("parlevel", new StringBody(parlevel, ContentType.TEXT_PLAIN));
+            entity.addPart("distributorname", new StringBody(disname, ContentType.TEXT_PLAIN));
+            entity.addPart("priceunit", new StringBody(price, ContentType.TEXT_PLAIN));
+            entity.addPart("binnumber", new StringBody(bin, ContentType.TEXT_PLAIN));
+            entity.addPart("productcode", new StringBody(product, ContentType.TEXT_PLAIN));
+            entity.addPart("minvalue", new StringBody(fminval, ContentType.TEXT_PLAIN));
+            entity.addPart("maxvalue", new StringBody(fmaxval, ContentType.TEXT_PLAIN));
+            entity.addPart("shots", new StringBody(shots, ContentType.TEXT_PLAIN));
+            entity.addPart("type",new StringBody("bottle",ContentType.TEXT_PLAIN));
+
+            long totalSize = entity.getContentLength();
+            httppost.setEntity(entity);
+
+            // Making server call
+            HttpResponse response = httpclient.execute(httppost);
+            HttpEntity r_entity = response.getEntity();
+            try{
+                Log.d("outputentity",entity.toString());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 200) {
+                // Server response
+                responseString = EntityUtils.toString(r_entity);
+                Intent i=new Intent(BottlePurchaseStock.this,PurchaseListActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            } else {
+                responseString = "Error occurred! Http Status Code: "
+                        + statusCode;
+
+            }
+            Log.d("response: ",responseString);
+
+
+        } catch (ClientProtocolException e) {
+            responseString = e.toString();
+        } catch (IOException e) {
+            responseString = e.toString();
+        }
+
+        return responseString;
+
 
     }
 
