@@ -17,46 +17,46 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="15dp">
+                android:layout_margin="15dp"
+                android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_name"
+                    android:id="@+id/venue_bottle_des_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:hint="Name"
-                    android:textColorHint="@color/edit"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_capacity"
+                    android:id="@+id/venue_bottle_des_capacity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Capacity(ML)"
-                    android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:hint="Capacity(ML)"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,28 +66,28 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/pur_bottle_des_main_category"
+                            android:id="@+id/venue_bottle_des_main_category"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Main Category"
-                            android:textColorHint="@color/edit"
                             android:background="@android:color/transparent"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
+                            android:hint="Main Category"
+                            android:inputType="textPersonName"
                             android:paddingLeft="10dp"
-                            android:inputType="textPersonName"/>
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/edit"
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:background="@drawable/rightarrow"
-                        android:layout_marginRight="15dp"/>
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/rightarrow" />
 
 
                 </LinearLayout>
@@ -95,142 +95,142 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_sub_category"
+                    android:id="@+id/venue_bottle_des_sub_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:hint="Sub Category"
-                    android:textColorHint="@color/edit"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_shots"
+                    android:id="@+id/venue_bottle_des_shots"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:hint="Shots"
-                    android:textColorHint="@color/edit"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_par_level"
+                    android:id="@+id/venue_bottle_des_par_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:hint="Par Level"
-                    android:textColorHint="@color/edit"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textSize="16sp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_distributor_name"
+                    android:id="@+id/venue_bottle_des_distributor_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:hint="Distributor Name"
-                    android:textColorHint="@color/edit"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textSize="16sp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_price_unit"
+                    android:id="@+id/venue_bottle_des_price_unit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:hint="Price Unit"
-                    android:textColorHint="@color/edit"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textSize="16sp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_bin_number"
+                    android:id="@+id/venue_bottle_des_bin_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:hint="Bin Number"
-                    android:textColorHint="@color/edit"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textSize="16sp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
                 <EditText
-                    android:id="@+id/pur_bottle_des_product_code"
+                    android:id="@+id/venue_bottle_des_product_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Product Code"
-                    android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:hint="Product Code"
+                    android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textSize="16sp"
-                    android:inputType="textPersonName"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/edit"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/edittext"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:background="@color/edittext" />
 
             </LinearLayout>
 
@@ -241,12 +241,11 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/pic_id_values"
+                    android:id="@+id/venue_bott_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@mipmap/ic_launcher"/>
-
+                    android:src="@mipmap/ic_launcher" />
             </LinearLayout>
 
         </LinearLayout>

@@ -1,6 +1,6 @@
 package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
-        import android.content.Intent;
+import android.content.Intent;
         import android.content.pm.ActivityInfo;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;

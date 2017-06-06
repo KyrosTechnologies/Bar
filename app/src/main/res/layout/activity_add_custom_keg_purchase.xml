@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsb="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adjust Slider to set level for Full Bottle"
+            android:textColor="@color/edit"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&amp; an Empty Bottle"
+            android:textColor="@color/edit"
+            android:textSize="16sp"
+            android:layout_gravity="center"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <com.kyros.technologies.bar.seekbar.Seekbar
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    rsb:absoluteMaxValue="100 "
+                    rsb:absoluteMinValue="0"
+                    android:id="@+id/seek_custom_bottle_purchase"
+                    rsb:textAboveThumbsColor="@android:color/holo_purple"
+                    rsb:thumbDisabled="@drawable/custom_slider_thumb"
+                    rsb:thumbNormal="@drawable/custom_slider_thumb"
+                    rsb:thumbPressed="@drawable/custom_slider_thumb"
+                    rsb:thumbShadow="true"
+                    android:padding="0dp"
+                    android:rotation="270"
+                    android:layout_gravity="center"/>
+
+                <ImageView
+                    android:id="@+id/custom_capture_bottle_purchase"
+                    android:layout_width="279dp"
+                    android:layout_height="380dp"
+                    android:layout_marginLeft="-250dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/absinthe"/>
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

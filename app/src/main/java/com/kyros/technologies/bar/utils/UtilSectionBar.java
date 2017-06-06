@@ -25,6 +25,9 @@ public class UtilSectionBar {
     private double minvalue;
     private double maxvalue;
     private String totalbottles;
+    private String type;
+    private String fullweight;
+    private String emptyweight;
 
     public UtilSectionBar(){
 
@@ -180,6 +183,30 @@ public class UtilSectionBar {
 
     public void setTotalbottles(String totalbottles) {
         this.totalbottles = totalbottles;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFullweight() {
+        return fullweight;
+    }
+
+    public void setFullweight(String fullweight) {
+        this.fullweight = fullweight;
+    }
+
+    public String getEmptyweight() {
+        return emptyweight;
+    }
+
+    public void setEmptyweight(String emptyweight) {
+        this.emptyweight = emptyweight;
     }
 }
 

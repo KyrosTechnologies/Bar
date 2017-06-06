@@ -112,6 +112,16 @@
             android:label="Purchase Type"/>
         <activity android:name=".Purchase.Activity.Activity.MyPurchaseListActivity"
             android:label="My Purchase List"/>
+        <activity android:name=".Purchase.Activity.Activity.PurchaseAddToInventory" />
+        <activity android:name=".Purchase.Activity.Activity.AddCustomBottlePurchase" />
+        <activity android:name=".Purchase.Activity.Activity.AddCustomKegPurchase" />
+        <activity android:name=".Purchase.Activity.Activity.CustomBottleDetailsPurchase" />
+        <activity android:name=".Purchase.Activity.Activity.AddKegDescriptionPurchase"></activity>
+        <activity android:name=".Inventory.Activity.Activity.AddKegDescription"/>
+        <activity android:name=".Common.activity.Activity.VenueBottleDescription"
+            android:label="Bottle Details"/>
+        <activity android:name=".Common.activity.Activity.VenueKegDescription"
+            android:label="Keg Details"/>
     </application>
 
 </manifest>

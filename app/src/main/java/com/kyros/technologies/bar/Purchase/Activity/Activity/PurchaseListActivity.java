@@ -1,38 +1,38 @@
 package com.kyros.technologies.bar.Purchase.Activity.Activity;
 
-        import android.annotation.TargetApi;
-        import android.content.Intent;
-        import android.content.pm.ActivityInfo;
-        import android.os.Build;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.support.v7.widget.DefaultItemAnimator;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.util.Log;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.LinearLayout;
-        import android.widget.Toast;
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Build;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-        import com.android.volley.Request;
-        import com.android.volley.Response;
-        import com.android.volley.VolleyError;
-        import com.android.volley.toolbox.JsonObjectRequest;
-        import com.kyros.technologies.bar.Purchase.Activity.Adapters.PurchaseListAdapter;
-        import com.kyros.technologies.bar.Common.activity.Activity.LandingActivity;
-        import com.kyros.technologies.bar.Inventory.Activity.Activity.InventoryActivity;
-        import com.kyros.technologies.bar.R;
-        import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
-        import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
-        import com.kyros.technologies.bar.utils.EndURL;
-        import com.kyros.technologies.bar.utils.Purchase;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.kyros.technologies.bar.Purchase.Activity.Adapters.PurchaseListAdapter;
+import com.kyros.technologies.bar.Common.activity.Activity.LandingActivity;
+import com.kyros.technologies.bar.Inventory.Activity.Activity.InventoryActivity;
+import com.kyros.technologies.bar.R;
+import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
+import com.kyros.technologies.bar.utils.EndURL;
+import com.kyros.technologies.bar.utils.Purchase;
 
-        import org.json.JSONArray;
-        import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class PurchaseListActivity extends AppCompatActivity {
     private LinearLayout my_inventory_list;
@@ -60,8 +60,9 @@ public class PurchaseListActivity extends AppCompatActivity {
         purchase_recycler.setItemAnimator(new DefaultItemAnimator());
         purchase_recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
+
         my_inventory_list=(LinearLayout)findViewById(R.id.my_inventory_list);
-        GetBottlesList();
         adapter.notifyDataSetChanged();
         my_inventory_list.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +71,13 @@ public class PurchaseListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetBottlesList();
+
     }
 
     private void GetBottlesList() {
@@ -83,6 +91,7 @@ public class PurchaseListActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                purchaseArrayList.clear();
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
@@ -93,32 +102,47 @@ public class PurchaseListActivity extends AppCompatActivity {
                         JSONArray array=obj.getJSONArray("model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int id=first.getInt("id");
-                            int userprofile=first.getInt("userprofileid");
+                            String id=first.getString("id");
+                            String userprofile=first.getString("userprofileid");
                             String liquorname=first.getString("liquorname");
                             String liquorcapacity=first.getString("liquorcapacity");
                             String shots=first.getString("shots");
                             String category=first.getString("category");
-//                            String subcategory=null;
-//                            try {
-//                                subcategory=first.getString("subcategory");
-//
-//                            }catch (Exception e){
-//                                e.printStackTrace();
-//                            }
+                            String subcategory=null;
+                            try {
+                                subcategory=first.getString("subcategory");
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                             String parlevel=first.getString("parlevel");
                             String distributorname=first.getString("distributorname");
                             String priceunit=first.getString("price");
                             String binnumber=first.getString("binnumber");
                             String productcode=first.getString("productcode");
                             String createdon=first.getString("createdon");
+                            String minvalue=first.getString("minvalue");
+                            String maxvalue=first.getString("maxvalue");
+                            String pictureurl=first.getString("pictureurl");
+                            String type=first.getString("type");
+                            String fullweight=first.getString("fullweight");
+                            String emptyweight=first.getString("emptyweight");
+                            String totalbottles=first.getString("totalbottles");
                             Purchase purchase=new Purchase();
                             purchase.setLiquorname(liquorname);
-                            purchase.setUserprofileid(userprofile);
+                            purchase.setTotalbottles(totalbottles);
+                            purchase.setId(Integer.parseInt(id));
+                            purchase.setMinvalue(minvalue);
+                            purchase.setMaxvalue(maxvalue);
+                            purchase.setPictureurl(pictureurl);
+                            purchase.setType(type);
+                            purchase.setFullweight(fullweight);
+                            purchase.setEmptyweight(emptyweight);
+                            purchase.setUserprofileid(Integer.parseInt(userprofile));
                             purchase.setLiquorcapacity(liquorcapacity);
                             purchase.setShots(shots);
                             purchase.setCategory(category);
-                            //purchase.setSubcategory(subcategory);
+                            purchase.setSubcategory(subcategory);
                             purchase.setParlevel(parlevel);
                             purchase.setDistributorname(distributorname);
                             purchase.setPriceunit(priceunit);
@@ -175,9 +199,7 @@ public class PurchaseListActivity extends AppCompatActivity {
                 PurchaseListActivity.this.finish();
                 return true;
             case R.id.home_bar:
-                Intent intent=new Intent(PurchaseListActivity.this,LandingActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                PurchaseListActivity.this.finish();
                 break;
         }
 

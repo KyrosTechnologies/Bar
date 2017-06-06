@@ -123,6 +123,24 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
+//                            String type=null;
+//                            try {
+//                                type=first.getString("type");
+//                            }catch (Exception e){
+//                                e.printStackTrace();
+//                            }
+//                            String fullweight=null;
+//                            try {
+//                                fullweight=first.getString("fullweight");
+//                            }catch (Exception e){
+//                                e.printStackTrace();
+//                            }
+//                            String emptyweight=null;
+//                            try {
+//                                emptyweight=first.getString("emptyweight");
+//                            }catch (Exception e){
+//                                e.printStackTrace();
+//                            }
                             UtilSectionBar utilSectionBar=new UtilSectionBar();
                             utilSectionBar.setSectionid(sectionid);
                             utilSectionBar.setBarid(barid);
@@ -142,6 +160,9 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             utilSectionBar.setMinvalue(minvalue);
                             utilSectionBar.setMaxvalue(maxvalue);
                             utilSectionBar.setTotalbottles(totalbottles);
+//                            utilSectionBar.setType(type);
+//                            utilSectionBar.setFullweight(fullweight);
+//                            utilSectionBar.setEmptyweight(emptyweight);
                             utilSectionBarArrayList.add(utilSectionBar);
                         }
 

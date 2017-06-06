@@ -67,7 +67,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         final int sectionid=utilSectionBar.getSectionid();
         String liquorname=utilSectionBar.getLiquorname();
         String liquorcapacity=utilSectionBar.getLiquorcapacity();
-        final String shots=utilSectionBar.getShots();
+        String shots=utilSectionBar.getShots();
         String category=utilSectionBar.getCategory();
         String subcategory=utilSectionBar.getSubcategory();
         String parlevel=utilSectionBar.getParlevel();
@@ -75,10 +75,13 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         String price=utilSectionBar.getPriceunit();
         String binnumber=utilSectionBar.getBinnumber();
         String productcode=utilSectionBar.getProductcode();
-        final String pictureurl=utilSectionBar.getPictureurl();
+        String pictureurl=utilSectionBar.getPictureurl();
         final double minvalue=utilSectionBar.getMinvalue();
         final double maxvalue=utilSectionBar.getMaxvalue();
-        final String totalbottles=utilSectionBar.getTotalbottles();
+        String totalbottles=utilSectionBar.getTotalbottles();
+        final String type=utilSectionBar.getType();
+        String fullweight=utilSectionBar.getFullweight();
+        String emptyweight=utilSectionBar.getEmptyweight();
 
         if (liquorname==null){
             liquorname="";
@@ -91,7 +94,39 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         if (category==null){
             category="";
         }
-
+        if (shots==null){
+            shots="";
+        }
+        if (subcategory==null){
+            subcategory="";
+        }
+        if (parlevel==null){
+            parlevel="";
+        }
+        if (disname==null){
+            disname="";
+        }
+        if (price==null){
+            price="";
+        }
+        if (binnumber==null){
+            binnumber="";
+        }
+        if (productcode==null){
+            productcode="";
+        }
+        if (pictureurl==null){
+            pictureurl="";
+        }
+        if (totalbottles==null){
+            totalbottles="";
+        }
+        if (fullweight==null){
+            fullweight="";
+        }
+        if (emptyweight==null){
+            emptyweight="";
+        }
         holder.alchohol_name.setText(liquorname);
         holder.bottle_ml.setText(String.valueOf(liquorcapacity));
         holder.liquor_type.setText(category);
@@ -117,17 +152,42 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
 
         final String finalLiquorname = liquorname;
         final String finalLiquorcapacity = liquorcapacity;
+        final String finalPictureurl = pictureurl;
+        final String finalShots = shots;
+        final String finalSubcategory = subcategory;
+        final String finalParlevel = parlevel;
+        final String finalDisname = disname;
+        final String finalPrice = price;
+        final String finalBinnumber = binnumber;
+        final String finalProductcode = productcode;
+        final String finalTotalbottles = totalbottles;
+        final String finalFullweight = fullweight;
+        final String finalEmptyweight = emptyweight;
+        final String finalCategory = category;
         holder.slider_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(mContext,LiquorSlider.class);
                 i.putExtra("name", finalLiquorname);
                 i.putExtra("capacity", finalLiquorcapacity);
-                i.putExtra("picture",pictureurl);
-                i.putExtra("shots",shots);
+                i.putExtra("picture", finalPictureurl);
+                i.putExtra("shots", finalShots);
                 i.putExtra("minvalue",minvalue);
                 i.putExtra("maxvalue",maxvalue);
-                i.putExtra("totalbottles",totalbottles);
+                i.putExtra("category", finalCategory);
+                i.putExtra("totalbottles", finalTotalbottles);
+                i.putExtra("id",id);
+                i.putExtra("barid",barid);
+                i.putExtra("sectionid",sectionid);
+                i.putExtra("subcategory", finalSubcategory);
+                i.putExtra("parlevel", finalParlevel);
+                i.putExtra("disname", finalDisname);
+                i.putExtra("price", finalPrice);
+                i.putExtra("binnumber", finalBinnumber);
+                i.putExtra("productcode", finalProductcode);
+                i.putExtra("type",type);
+                i.putExtra("fullweight", finalFullweight);
+                i.putExtra("emptyweight", finalEmptyweight);
                 mContext.startActivity(i);
             }
         });

@@ -21,14 +21,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.Common.activity.Activity.EditProfile;
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -36,6 +35,7 @@ import org.json.JSONObject;
  */
 
 public class LiquorSlider extends AppCompatActivity {
+
 
     private TextView edit_bottle;
     private String UserProfileId=null;
@@ -45,7 +45,7 @@ public class LiquorSlider extends AppCompatActivity {
     private TextView shots_count;
     private SeekBar mySeekBar;
     private String userprofileid;
-    private double totalcount=0;
+    private float totalcount=0;
     private String barid;
     private String sectionid;
     private String liquorname;
@@ -55,7 +55,7 @@ public class LiquorSlider extends AppCompatActivity {
     private double minval;
     private double maxval;
     private String totalbottles;
-
+    private   float fintotalcount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +65,7 @@ public class LiquorSlider extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.liquor_slider);
+        edit_bottle=(TextView)findViewById(R.id.edit_bottle);
         store= PreferenceManager.getInstance(getApplicationContext());
         userprofileid=store.getUserProfileId();
         barid=store.getBarId();
@@ -145,9 +146,12 @@ public class LiquorSlider extends AppCompatActivity {
         mySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-               progress= progress/100;
-                totalcount=totalcount+progress;
-                bottle_quan.setText(String.valueOf(totalcount));
+                float progress1= (float)progress/100;
+                Toast.makeText(getApplicationContext(),"range is : "+progress+" / converted : "+progress1+" / total count: "+totalcount,Toast.LENGTH_SHORT).show();
+
+//                totalcount=totalcount+progress1;
+                fintotalcount=totalcount+progress1;
+                bottle_quan.setText(String.valueOf(fintotalcount));
             }
 
             @Override
@@ -160,10 +164,8 @@ public class LiquorSlider extends AppCompatActivity {
 
             }
         });
-
     }
-
-    private void LiquorSliderapi(final String userprofileid, double totalbottle, String barid, String sectionid,  String liquorname) {
+    private void LiquorSliderapi(final String userprofileid, float totalbottle, String barid, String sectionid,  String liquorname) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"InsertUserTotalBottle";
         //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
@@ -231,6 +233,7 @@ public class LiquorSlider extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_done, menu);
@@ -242,7 +245,9 @@ public class LiquorSlider extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_done:
-                LiquorSliderapi(userprofileid,totalcount,barid,sectionid,liquorname);
+                Log.d("count",""+totalcount);
+                LiquorSliderapi(userprofileid,fintotalcount,barid,sectionid,liquorname);
+
                 break;
             case android.R.id.home:
                 LiquorSlider.this.finish();

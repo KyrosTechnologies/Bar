@@ -1,14 +1,18 @@
 package com.kyros.technologies.bar.Purchase.Activity.Activity;
 
-import android.annotation.TargetApi;
+/**
+ * Created by Rohin on 06-06-2017.
+ */
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +24,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.Common.activity.Activity.ChangePasswordActivity;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
 import com.kyros.technologies.bar.R;
@@ -41,36 +44,42 @@ import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class BottlePurchaseStock extends AppCompatActivity {
+import static android.R.attr.name;
+import static android.R.attr.type;
 
-    private String bottlename=null;
-    private String bottlecapacity=null;
-    private String bottlecategory=null;
-    private String bottlesubcategory=null;
-    private EditText pur_bottle_des_name,pur_bottle_des_capacity,pur_bottle_des_main_category,pur_bottle_des_sub_category,pur_bottle_des_shots,pur_bottle_des_par_level,
-            pur_bottle_des_distributor_name,pur_bottle_des_price_unit,pur_bottle_des_bin_number,pur_bottle_des_product_code;
-    private PreferenceManager store;
-    private String UserProfileId=null;
-    private String MinValue=null;
-    private String MaxValue=null;
-    private String Picture=null;
-    private ImageView pic_id_values;
+public class AddKegDescriptionPurchase extends AppCompatActivity {
+    private ImageView kegg_image_purchase;
+    private EditText keg_name,keg_weight,keg_emptyweight,keg_shots,keg_parlevel,
+            keg_distributorname,keg_price,keg_binnumber,keg_productcode,keg_category,keg_subcategory;
+    private String baseimage=null;
+    private byte [] picturebyte=null;
+    private String MinValue="";
+    private String MaxValue="";
     private byte[] bytearayProfile;
     private Bitmap bitmapvariable;
+    private String BarId=null;
+    private String SectionId=null;
+    private PreferenceManager store;
+    private String UserProfileId=null;
+    private String id=null;
+    private String type=null;
+    private String kegname=null;
+    private String kegfullweight=null;
+    private String kegemptyweight=null;
+    private String kegcategory=null;
+    private String kegsubcategory=null;
     private String shots=null;
     private String parlevel=null;
     private String distributorname=null;
     private String price=null;
     private String binnumber=null;
     private String productcode=null;
-    private String type=null;
-    private String id=null;
+    private String Picture=null;
 
 
     @Override
@@ -81,43 +90,64 @@ public class BottlePurchaseStock extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        setContentView(R.layout.activity_purchase_bottle_description);
-        pur_bottle_des_name=(EditText)findViewById(R.id.pur_bottle_des_name);
-        pur_bottle_des_capacity=(EditText)findViewById(R.id.pur_bottle_des_capacity);
+        setContentView(R.layout.activity_add_keg_description_purchase);
+        kegg_image_purchase=(ImageView)findViewById(R.id.kegg_image_purchase);
+        keg_productcode=(EditText)findViewById(R.id.keg_productcode_purchase);
+        keg_binnumber=(EditText)findViewById(R.id.keg_binnumber_purchase);
+        keg_price=(EditText)findViewById(R.id.keg_price_purchase);
         Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
 
-        pur_bottle_des_main_category=(EditText)findViewById(R.id.pur_bottle_des_main_category);
-        pur_bottle_des_sub_category=(EditText)findViewById(R.id.pur_bottle_des_sub_category);
-        pur_bottle_des_shots=(EditText)findViewById(R.id.pur_bottle_des_shots);
-        pur_bottle_des_par_level=(EditText)findViewById(R.id.pur_bottle_des_par_level);
-        pur_bottle_des_distributor_name=(EditText)findViewById(R.id.pur_bottle_des_distributor_name);
-        pur_bottle_des_price_unit=(EditText)findViewById(R.id.pur_bottle_des_price_unit);
-        pur_bottle_des_bin_number=(EditText)findViewById(R.id.pur_bottle_des_bin_number);
-        pur_bottle_des_product_code=(EditText)findViewById(R.id.pur_bottle_des_product_code);
-        pic_id_values=(ImageView)findViewById(R.id.pic_id_values);
+        keg_distributorname=(EditText)findViewById(R.id.keg_distributorname_purchase);
+        keg_parlevel=(EditText)findViewById(R.id.keg_parlevel_purchase);
+        keg_shots=(EditText)findViewById(R.id.keg_shots_purchase);
+        keg_emptyweight=(EditText)findViewById(R.id.keg_emptyweight_purchase);
+        keg_weight=(EditText)findViewById(R.id.keg_weight_purchase);
+        keg_name=(EditText)findViewById(R.id.keg_name_purchase);
+        keg_category=(EditText)findViewById(R.id.keg_category_purchase);
+        keg_subcategory=(EditText)findViewById(R.id.keg_subcategory_purchase);
         store= PreferenceManager.getInstance(getApplicationContext());
+        BarId=store.getBarId();
+        SectionId=store.getSectionId();
         UserProfileId=store.getUserProfileId();
+        try {
+            Bundle bundle=getIntent().getExtras();
+            String image=bundle.getString("image");
+            baseimage=image;
+            MinValue=bundle.getString("minvalue");
+            MaxValue=bundle.getString("maxvalue");
+            byte[]decodedString= Base64.decode(image.getBytes(),Base64.DEFAULT);
+            picturebyte=decodedString;
+            Bitmap decodeByte= BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
+            kegg_image_purchase.setImageBitmap(decodeByte);
+            bitmapvariable=decodeByte;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         try {
 
             Bundle bundle=getIntent().getExtras();
-            bottlename=bundle.getString("name");
-            if(bottlename==null){
-                bottlename="";
+            kegname=bundle.getString("name");
+            if(kegname==null){
+                kegname="";
             }
 
-            bottlecapacity=bundle.getString("capacity");
-            if(bottlecapacity==null){
-                bottlecapacity="";
+            kegfullweight=bundle.getString("fullweight");
+            if(kegfullweight==null){
+                kegfullweight="";
             }
-            bottlecategory=bundle.getString("category");
-            if(bottlecategory==null){
-                bottlecategory="";
+            kegemptyweight=bundle.getString("emptyweight");
+            if(kegemptyweight==null){
+                kegemptyweight="";
             }
-            bottlesubcategory=bundle.getString("subcategory");
-            if(bottlesubcategory==null){
-                bottlesubcategory="";
+
+            kegcategory=bundle.getString("category");
+            if(kegcategory==null){
+                kegcategory="";
+            }
+            kegsubcategory=bundle.getString("subcategory");
+            if(kegsubcategory==null){
+                kegsubcategory="";
             }
             shots=bundle.getString("shots");
             if(shots==null){
@@ -164,24 +194,26 @@ public class BottlePurchaseStock extends AppCompatActivity {
 
             try {
 
-                pur_bottle_des_name.setText(bottlename);
-                pur_bottle_des_capacity.setText(bottlecapacity);
-                pur_bottle_des_main_category.setText(bottlecategory);
-                pur_bottle_des_sub_category.setText(bottlesubcategory);
-                pur_bottle_des_shots.setText(shots);
-                pur_bottle_des_par_level.setText(parlevel);
-                pur_bottle_des_distributor_name.setText(distributorname);
-                pur_bottle_des_price_unit.setText(price);
-                pur_bottle_des_bin_number.setText(binnumber);
-                pur_bottle_des_product_code.setText(productcode);
+                keg_name.setText(kegname);
+                keg_weight.setText(kegfullweight);
+                keg_emptyweight.setText(kegemptyweight);
+                keg_category.setText(kegcategory);
+                keg_subcategory.setText(kegsubcategory);
+                keg_shots.setText(shots);
+                keg_parlevel.setText(parlevel);
+                keg_distributorname.setText(distributorname);
+                keg_price.setText(price);
+                keg_binnumber.setText(binnumber);
+                keg_productcode.setText(productcode);
             }catch (Exception e){
                 e.printStackTrace();
             }
+
             if(Picture!=null){
-                Picasso.with(BottlePurchaseStock.this).load(Picture).into(new Target() {
+                Picasso.with(AddKegDescriptionPurchase.this).load(Picture).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        pic_id_values.setImageBitmap(bitmap);
+                        kegg_image_purchase.setImageBitmap(bitmap);
                         bitmapvariable=bitmap;
                     }
 
@@ -204,45 +236,37 @@ public class BottlePurchaseStock extends AppCompatActivity {
         }
 
     }
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_done,menu);
-        return  true;
+        getMenuInflater().inflate(R.menu.next, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-
-
-            case android.R.id.home:
-                BottlePurchaseStock.this.finish();
-                return true;
-            case R.id.action_done:
+            case R.id.action_next:
                 if(type.equals("update")){
-                    Updatepurchaselist();
-                }else{
-                    try{
-                        Async is=new Async();
+
+                    //Log.d("Keg Values",id+type+kegname+kegfullweight+kegemptyweight+kegcategory+kegsubcategory+shots+parlevel+distributorname+price+parlevel+binnumber+productcode+picturebyte);
+                    UpdatepurchaselistKeg();
+                }else {
+                    try {
+                        Async is = new Async();
                         is.execute();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
-
-
                 break;
-
+            case android.R.id.home:
+                AddKegDescriptionPurchase.this.finish();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
-
     }
     private class Async extends AsyncTask<String,String,String > {
 
@@ -256,18 +280,20 @@ public class BottlePurchaseStock extends AppCompatActivity {
     private String uploadFile() {
 
         String responseString = null;
-        String name =pur_bottle_des_name.getText().toString();
-        String capacity= pur_bottle_des_capacity.getText().toString();
-        String maincat=pur_bottle_des_main_category.getText().toString();
-        String subcat=pur_bottle_des_sub_category.getText().toString();
-        String shots=pur_bottle_des_shots.getText().toString();
-        String parlevel=pur_bottle_des_par_level.getText().toString();
-        String disname=pur_bottle_des_distributor_name.getText().toString();
-        String price=pur_bottle_des_price_unit.getText().toString();
-        String bin=pur_bottle_des_bin_number.getText().toString();
-        String product=pur_bottle_des_product_code.getText().toString();
+        String name=keg_name.getText().toString();
+        String fullweight=keg_weight.getText().toString();
+        String emptyweight=keg_emptyweight.getText().toString();
+        String category=keg_category.getText().toString();
+        String subcategory=keg_subcategory.getText().toString();
+        String parlevel=keg_parlevel.getText().toString();
+        String distributor=keg_distributorname.getText().toString();
+        String price=keg_price.getText().toString();
+        String binnumber=keg_binnumber.getText().toString();
+        String shots=keg_shots.getText().toString();
+        String productcode=keg_productcode.getText().toString();
         HttpClient httpclient = new DefaultHttpClient();
-        String url = EndURL.URL +"insertPurchaseList";
+        String url = EndURL.URL + "insertCustomKegPurchase";
+        Log.d("url: ",url);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmapvariable.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         bytearayProfile = stream.toByteArray();
@@ -297,18 +323,19 @@ public class BottlePurchaseStock extends AppCompatActivity {
             entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
             entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
             entity.addPart("liquorname", new StringBody(name, ContentType.TEXT_PLAIN));
-            entity.addPart("liquorcapacity", new StringBody(capacity, ContentType.TEXT_PLAIN));
-            entity.addPart("category", new StringBody(maincat, ContentType.TEXT_PLAIN));
-            entity.addPart("subcategory", new StringBody(subcat, ContentType.TEXT_PLAIN));
-            entity.addPart("parlevel", new StringBody(parlevel, ContentType.TEXT_PLAIN));
-            entity.addPart("distributorname", new StringBody(disname, ContentType.TEXT_PLAIN));
-            entity.addPart("priceunit", new StringBody(price, ContentType.TEXT_PLAIN));
-            entity.addPart("binnumber", new StringBody(bin, ContentType.TEXT_PLAIN));
-            entity.addPart("productcode", new StringBody(product, ContentType.TEXT_PLAIN));
+            entity.addPart("fullweight", new StringBody(fullweight, ContentType.TEXT_PLAIN));
+            entity.addPart("emptyweight", new StringBody(emptyweight, ContentType.TEXT_PLAIN));
+            entity.addPart("category", new StringBody(category, ContentType.TEXT_PLAIN));
+            entity.addPart("subcategory", new StringBody(subcategory, ContentType.TEXT_PLAIN));
+            entity.addPart("parvalue", new StringBody(parlevel, ContentType.TEXT_PLAIN));
+            entity.addPart("distributorname", new StringBody(distributor, ContentType.TEXT_PLAIN));
+            entity.addPart("price", new StringBody(price, ContentType.TEXT_PLAIN));
+            entity.addPart("binnumber", new StringBody(binnumber, ContentType.TEXT_PLAIN));
+            entity.addPart("productcode", new StringBody(productcode, ContentType.TEXT_PLAIN));
             entity.addPart("minvalue", new StringBody(fminval, ContentType.TEXT_PLAIN));
             entity.addPart("maxvalue", new StringBody(fmaxval, ContentType.TEXT_PLAIN));
             entity.addPart("shots", new StringBody(shots, ContentType.TEXT_PLAIN));
-            entity.addPart("type",new StringBody("bottle",ContentType.TEXT_PLAIN));
+            entity.addPart("type",new StringBody("keg",ContentType.TEXT_PLAIN));
 
             long totalSize = entity.getContentLength();
             httppost.setEntity(entity);
@@ -326,9 +353,7 @@ public class BottlePurchaseStock extends AppCompatActivity {
             if (statusCode == 200) {
                 // Server response
                 responseString = EntityUtils.toString(r_entity);
-                Intent i=new Intent(BottlePurchaseStock.this,PurchaseListActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
+
             } else {
                 responseString = "Error occurred! Http Status Code: "
                         + statusCode;
@@ -347,27 +372,30 @@ public class BottlePurchaseStock extends AppCompatActivity {
 
 
     }
-    private void Updatepurchaselist() {
+
+    private void UpdatepurchaselistKeg() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"UpdatePurchaseListBottle";
+        String url = EndURL.URL+"UpdatePurchaseListKeg";
         Log.d("bottleurl", url);
-        String name =pur_bottle_des_name.getText().toString();
-        String capacity= pur_bottle_des_capacity.getText().toString();
-        String maincat=pur_bottle_des_main_category.getText().toString();
-        String subcat=pur_bottle_des_sub_category.getText().toString();
-        String shots=pur_bottle_des_shots.getText().toString();
-        String parlevel=pur_bottle_des_par_level.getText().toString();
-        String disname=pur_bottle_des_distributor_name.getText().toString();
-        String price=pur_bottle_des_price_unit.getText().toString();
-        String bin=pur_bottle_des_bin_number.getText().toString();
-        String product=pur_bottle_des_product_code.getText().toString();
+        String name =keg_name.getText().toString();
+        String fullweight= keg_weight.getText().toString();
+        String emptyweight=keg_emptyweight.getText().toString();
+        String maincat=keg_category.getText().toString();
+        String subcat=keg_subcategory.getText().toString();
+        String shots=keg_shots.getText().toString();
+        String parlevel=keg_parlevel.getText().toString();
+        String disname=keg_distributorname.getText().toString();
+        String price=keg_price.getText().toString();
+        String bin=keg_binnumber.getText().toString();
+        String product=keg_productcode.getText().toString();
         JSONObject inputLogin=new JSONObject();
         try{
             inputLogin.put("id",id);
             inputLogin.put("userprofileid",UserProfileId);
             inputLogin.put("liquorname",name);
-            inputLogin.put("liquorcapacity",capacity);
-            inputLogin.put("type","bottle");
+            inputLogin.put("fullweight",fullweight);
+            inputLogin.put("emptyweight",emptyweight);
+            inputLogin.put("type","keg");
             inputLogin.put("shots",shots);
             inputLogin.put("category",maincat);
             inputLogin.put("subcategory",subcat);
@@ -397,6 +425,9 @@ public class BottlePurchaseStock extends AppCompatActivity {
                     if (success){
 
                         Toast.makeText(getApplicationContext(),"Item Updated successfully",Toast.LENGTH_SHORT).show();
+                        Intent i=new Intent(AddKegDescriptionPurchase.this,PurchaseListActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
@@ -423,5 +454,6 @@ public class BottlePurchaseStock extends AppCompatActivity {
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.kyros.technologies.bar.Purchase.Activity.Activity;
+package com.kyros.technologies.bar.Common.activity.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,9 +20,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.Common.activity.Activity.ChangePasswordActivity;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
+import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
+import com.kyros.technologies.bar.Purchase.Activity.Activity.BottlePurchaseStock;
+import com.kyros.technologies.bar.Purchase.Activity.Activity.PurchaseListActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -47,20 +48,24 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class BottlePurchaseStock extends AppCompatActivity {
+/**
+ * Created by Rohin on 06-06-2017.
+ */
+
+public class VenueBottleDescription extends AppCompatActivity {
 
     private String bottlename=null;
     private String bottlecapacity=null;
     private String bottlecategory=null;
     private String bottlesubcategory=null;
-    private EditText pur_bottle_des_name,pur_bottle_des_capacity,pur_bottle_des_main_category,pur_bottle_des_sub_category,pur_bottle_des_shots,pur_bottle_des_par_level,
-            pur_bottle_des_distributor_name,pur_bottle_des_price_unit,pur_bottle_des_bin_number,pur_bottle_des_product_code;
+    private EditText venue_bottle_des_name,venue_bottle_des_capacity,venue_bottle_des_main_category,venue_bottle_des_sub_category,venue_bottle_des_shots,venue_bottle_des_par_level,
+            venue_bottle_des_distributor_name,venue_bottle_des_price_unit,venue_bottle_des_bin_number,venue_bottle_des_product_code;
     private PreferenceManager store;
     private String UserProfileId=null;
     private String MinValue=null;
     private String MaxValue=null;
     private String Picture=null;
-    private ImageView pic_id_values;
+    private ImageView venue_bott_image;
     private byte[] bytearayProfile;
     private Bitmap bitmapvariable;
     private String shots=null;
@@ -82,20 +87,20 @@ public class BottlePurchaseStock extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        setContentView(R.layout.activity_purchase_bottle_description);
-        pur_bottle_des_name=(EditText)findViewById(R.id.pur_bottle_des_name);
-        pur_bottle_des_capacity=(EditText)findViewById(R.id.pur_bottle_des_capacity);
+        setContentView(R.layout.venue_bottle_details);
+        venue_bottle_des_name=(EditText)findViewById(R.id.venue_bottle_des_name);
+        venue_bottle_des_capacity=(EditText)findViewById(R.id.venue_bottle_des_capacity);
         Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
 
-        pur_bottle_des_main_category=(EditText)findViewById(R.id.pur_bottle_des_main_category);
-        pur_bottle_des_sub_category=(EditText)findViewById(R.id.pur_bottle_des_sub_category);
-        pur_bottle_des_shots=(EditText)findViewById(R.id.pur_bottle_des_shots);
-        pur_bottle_des_par_level=(EditText)findViewById(R.id.pur_bottle_des_par_level);
-        pur_bottle_des_distributor_name=(EditText)findViewById(R.id.pur_bottle_des_distributor_name);
-        pur_bottle_des_price_unit=(EditText)findViewById(R.id.pur_bottle_des_price_unit);
-        pur_bottle_des_bin_number=(EditText)findViewById(R.id.pur_bottle_des_bin_number);
-        pur_bottle_des_product_code=(EditText)findViewById(R.id.pur_bottle_des_product_code);
-        pic_id_values=(ImageView)findViewById(R.id.pic_id_values);
+        venue_bottle_des_main_category=(EditText)findViewById(R.id.venue_bottle_des_main_category);
+        venue_bottle_des_sub_category=(EditText)findViewById(R.id.venue_bottle_des_sub_category);
+        venue_bottle_des_shots=(EditText)findViewById(R.id.venue_bottle_des_shots);
+        venue_bottle_des_par_level=(EditText)findViewById(R.id.venue_bottle_des_par_level);
+        venue_bottle_des_distributor_name=(EditText)findViewById(R.id.venue_bottle_des_distributor_name);
+        venue_bottle_des_price_unit=(EditText)findViewById(R.id.venue_bottle_des_price_unit);
+        venue_bottle_des_bin_number=(EditText)findViewById(R.id.venue_bottle_des_bin_number);
+        venue_bottle_des_product_code=(EditText)findViewById(R.id.venue_bottle_des_product_code);
+        venue_bott_image=(ImageView)findViewById(R.id.venue_bott_image);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
 
@@ -164,24 +169,24 @@ public class BottlePurchaseStock extends AppCompatActivity {
 
             try {
 
-                pur_bottle_des_name.setText(bottlename);
-                pur_bottle_des_capacity.setText(bottlecapacity);
-                pur_bottle_des_main_category.setText(bottlecategory);
-                pur_bottle_des_sub_category.setText(bottlesubcategory);
-                pur_bottle_des_shots.setText(shots);
-                pur_bottle_des_par_level.setText(parlevel);
-                pur_bottle_des_distributor_name.setText(distributorname);
-                pur_bottle_des_price_unit.setText(price);
-                pur_bottle_des_bin_number.setText(binnumber);
-                pur_bottle_des_product_code.setText(productcode);
+                venue_bottle_des_name.setText(bottlename);
+                venue_bottle_des_capacity.setText(bottlecapacity);
+                venue_bottle_des_main_category.setText(bottlecategory);
+                venue_bottle_des_sub_category.setText(bottlesubcategory);
+                venue_bottle_des_shots.setText(shots);
+                venue_bottle_des_par_level.setText(parlevel);
+                venue_bottle_des_distributor_name.setText(distributorname);
+                venue_bottle_des_price_unit.setText(price);
+                venue_bottle_des_bin_number.setText(binnumber);
+                venue_bottle_des_product_code.setText(productcode);
             }catch (Exception e){
                 e.printStackTrace();
             }
             if(Picture!=null){
-                Picasso.with(BottlePurchaseStock.this).load(Picture).into(new Target() {
+                Picasso.with(VenueBottleDescription.this).load(Picture).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        pic_id_values.setImageBitmap(bitmap);
+                        venue_bott_image.setImageBitmap(bitmap);
                         bitmapvariable=bitmap;
                     }
 
@@ -221,18 +226,18 @@ public class BottlePurchaseStock extends AppCompatActivity {
 
 
             case android.R.id.home:
-                BottlePurchaseStock.this.finish();
+                VenueBottleDescription.this.finish();
                 return true;
             case R.id.action_done:
                 if(type.equals("update")){
                     Updatepurchaselist();
                 }else{
-                    try{
-                        Async is=new Async();
-                        is.execute();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+//                    try{
+//                        BottlePurchaseStock.Async is=new BottlePurchaseStock.Async();
+//                        is.execute();
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }
                 }
 
 
@@ -256,16 +261,16 @@ public class BottlePurchaseStock extends AppCompatActivity {
     private String uploadFile() {
 
         String responseString = null;
-        String name =pur_bottle_des_name.getText().toString();
-        String capacity= pur_bottle_des_capacity.getText().toString();
-        String maincat=pur_bottle_des_main_category.getText().toString();
-        String subcat=pur_bottle_des_sub_category.getText().toString();
-        String shots=pur_bottle_des_shots.getText().toString();
-        String parlevel=pur_bottle_des_par_level.getText().toString();
-        String disname=pur_bottle_des_distributor_name.getText().toString();
-        String price=pur_bottle_des_price_unit.getText().toString();
-        String bin=pur_bottle_des_bin_number.getText().toString();
-        String product=pur_bottle_des_product_code.getText().toString();
+        String name =venue_bottle_des_name.getText().toString();
+        String capacity= venue_bottle_des_capacity.getText().toString();
+        String maincat=venue_bottle_des_main_category.getText().toString();
+        String subcat=venue_bottle_des_sub_category.getText().toString();
+        String shots=venue_bottle_des_shots.getText().toString();
+        String parlevel=venue_bottle_des_par_level.getText().toString();
+        String disname=venue_bottle_des_distributor_name.getText().toString();
+        String price=venue_bottle_des_price_unit.getText().toString();
+        String bin=venue_bottle_des_bin_number.getText().toString();
+        String product=venue_bottle_des_product_code.getText().toString();
         HttpClient httpclient = new DefaultHttpClient();
         String url = EndURL.URL +"insertPurchaseList";
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -326,7 +331,7 @@ public class BottlePurchaseStock extends AppCompatActivity {
             if (statusCode == 200) {
                 // Server response
                 responseString = EntityUtils.toString(r_entity);
-                Intent i=new Intent(BottlePurchaseStock.this,PurchaseListActivity.class);
+                Intent i=new Intent(VenueBottleDescription.this,VenueSummary.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
             } else {
@@ -351,16 +356,16 @@ public class BottlePurchaseStock extends AppCompatActivity {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"UpdatePurchaseListBottle";
         Log.d("bottleurl", url);
-        String name =pur_bottle_des_name.getText().toString();
-        String capacity= pur_bottle_des_capacity.getText().toString();
-        String maincat=pur_bottle_des_main_category.getText().toString();
-        String subcat=pur_bottle_des_sub_category.getText().toString();
-        String shots=pur_bottle_des_shots.getText().toString();
-        String parlevel=pur_bottle_des_par_level.getText().toString();
-        String disname=pur_bottle_des_distributor_name.getText().toString();
-        String price=pur_bottle_des_price_unit.getText().toString();
-        String bin=pur_bottle_des_bin_number.getText().toString();
-        String product=pur_bottle_des_product_code.getText().toString();
+        String name =venue_bottle_des_name.getText().toString();
+        String capacity= venue_bottle_des_capacity.getText().toString();
+        String maincat=venue_bottle_des_main_category.getText().toString();
+        String subcat=venue_bottle_des_sub_category.getText().toString();
+        String shots=venue_bottle_des_shots.getText().toString();
+        String parlevel=venue_bottle_des_par_level.getText().toString();
+        String disname=venue_bottle_des_distributor_name.getText().toString();
+        String price=venue_bottle_des_price_unit.getText().toString();
+        String bin=venue_bottle_des_bin_number.getText().toString();
+        String product=venue_bottle_des_product_code.getText().toString();
         JSONObject inputLogin=new JSONObject();
         try{
             inputLogin.put("id",id);

@@ -27,6 +27,7 @@ import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
 import com.kyros.technologies.bar.utils.CustomLiquorModel;
 import com.kyros.technologies.bar.utils.EndURL;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -44,6 +45,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static com.kyros.technologies.bar.Inventory.Activity.List.InventoryLists.holder;
+
 public class BottleDescriptionActivity extends AppCompatActivity {
 
     private String bottlename=null;
@@ -53,16 +56,24 @@ public class BottleDescriptionActivity extends AppCompatActivity {
     private EditText bottle_des_name,bottle_des_capacity,bottle_des_main_category,bottle_des_sub_category,bottle_des_shots,bottle_des_par_level,
             bottle_des_distributor_name,bottle_des_price_unit,bottle_des_bin_number,bottle_des_product_code;
     private ImageView bott_image;
-
     private PreferenceManager store;
     private String UserProfileId=null;
     private String Barid=null;
     private String Sectionid=null;
-
     private Bitmap bitmap;
     private byte[] bytearayProfile;
     private String MinHeight=null;
     private String MaxHeight=null;
+    private String parlevel=null;
+    private String shots=null;
+    private String disname=null;
+    private String price=null;
+    private String binnumber=null;
+    private String productcode=null;
+    private String fullweight=null;
+    private String emptyweight=null;
+    private String type=null;
+    private String id=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,18 +118,26 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             bottlecapacity=bundle.getString("capacity");
             bottlecategory=bundle.getString("category");
             bottlesubcategory=bundle.getString("subcategory");
-            String imgbitmap=bundle.getString("image");
+            String imgbitmap=bundle.getString("picture");
             MinHeight=bundle.getString("minheight");
             MaxHeight=bundle.getString("maxheight");
+            parlevel=bundle.getString("parlevel");
+            shots=bundle.getString("shots");
+            disname=bundle.getString("disname");
+            price=bundle.getString("price");
+            binnumber=bundle.getString("binnumber");
+            productcode=bundle.getString("productcode");
+            type=bundle.getString("type");
+            fullweight=bundle.getString("fullweight");
+            emptyweight=bundle.getString("emptyweight");
+            id=bundle.getString("id");
             try {
-                byte[]decodedString= Base64.decode(imgbitmap.getBytes(),Base64.DEFAULT);
-                Bitmap decodeByte= BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-                bott_image.setImageBitmap(decodeByte);
-                bitmap=decodeByte;
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+                Picasso.with(BottleDescriptionActivity.this)
+                        .load(imgbitmap)
+                        .into(bott_image);
+            }catch (Exception eq){
 
+            }
 
             try {
 
@@ -126,6 +145,12 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                 bottle_des_capacity.setText(bottlecapacity);
                 bottle_des_main_category.setText(bottlecategory);
                 bottle_des_sub_category.setText(bottlesubcategory);
+                bottle_des_par_level.setText(parlevel);
+                bottle_des_shots.setText(shots);
+                bottle_des_distributor_name.setText(disname);
+                bottle_des_price_unit.setText(price);
+                bottle_des_bin_number.setText(binnumber);
+                bottle_des_product_code.setText(productcode);
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -263,7 +288,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                 String bin=bottle_des_bin_number.getText().toString();
                 String product=bottle_des_product_code.getText().toString();
                 Log.d("Result",name+capacity+maincat+subcat+shots+parlevel+disname+price+bin+product);
-                //  BottleDescriptionApi(Integer.parseInt(UserProfileId),Integer.parseInt(Barid),Integer.parseInt(Sectionid),name,capacity,maincat,subcat,shots,parlevel,disname,price,bin,product);
+                BottleDescriptionApi(Integer.parseInt(UserProfileId),Integer.parseInt(Barid),Integer.parseInt(Sectionid),name,capacity,maincat,subcat,shots,parlevel,disname,price,bin,product);
 
                 try{
                     Async i= new Async();

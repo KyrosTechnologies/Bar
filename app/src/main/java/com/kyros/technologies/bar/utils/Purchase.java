@@ -19,7 +19,17 @@ public class Purchase {
     private String binnumber;
     private String productcode;
     private String createdon;
+    private String modifiedon;
+    private String minvalue;
+    private String maxvalue;
+    private String pictureurl;
+    private String type;
+    private String fullweight;
+    private String emptyweight;
     private String small_picture_url;
+    private String totalbottles;
+    private String barid;
+    private String sectionid;
 
     public Purchase(){
 
@@ -130,5 +140,93 @@ public class Purchase {
 
     public void setCreatedon(String createdon) {
         this.createdon = createdon;
+    }
+
+    public String getMinvalue() {
+        return minvalue;
+    }
+
+    public void setMinvalue(String minvalue) {
+        this.minvalue = minvalue;
+    }
+
+    public String getMaxvalue() {
+        return maxvalue;
+    }
+
+    public void setMaxvalue(String maxvalue) {
+        this.maxvalue = maxvalue;
+    }
+
+    public String getPictureurl() {
+        return pictureurl;
+    }
+
+    public void setPictureurl(String pictureurl) {
+        this.pictureurl = pictureurl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFullweight() {
+        return fullweight;
+    }
+
+    public void setFullweight(String fullweight) {
+        this.fullweight = fullweight;
+    }
+
+    public String getEmptyweight() {
+        return emptyweight;
+    }
+
+    public void setEmptyweight(String emptyweight) {
+        this.emptyweight = emptyweight;
+    }
+
+    public void setSmall_picture_url(String small_picture_url) {
+        this.small_picture_url = small_picture_url;
+    }
+
+    public String getTotalbottles() {
+        return totalbottles;
+    }
+
+    public void setTotalbottles(String totalbottles) {
+        this.totalbottles = totalbottles;
+    }
+
+    public String getBarid() {
+        return barid;
+    }
+
+    public void setBarid(String barid) {
+        this.barid = barid;
+    }
+
+    public String getSectionid() {
+        return sectionid;
+    }
+
+    public void setSectionid(String sectionid) {
+        this.sectionid = sectionid;
+    }
+
+    public String getModifiedon() {
+        return modifiedon;
+    }
+
+    public void setModifiedon(String modifiedon) {
+        this.modifiedon = modifiedon;
+    }
+
+    public void setid(int id) {
+        this.id = id;
     }
 }
