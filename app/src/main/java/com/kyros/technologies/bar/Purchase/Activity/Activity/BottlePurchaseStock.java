@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.kyros.technologies.bar.Common.activity.Activity.ChangePasswordActivity;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
 import com.kyros.technologies.bar.R;
@@ -62,6 +63,15 @@ public class BottlePurchaseStock extends AppCompatActivity {
     private ImageView pic_id_values;
     private byte[] bytearayProfile;
     private Bitmap bitmapvariable;
+    private String shots=null;
+    private String parlevel=null;
+    private String distributorname=null;
+    private String price=null;
+    private String binnumber=null;
+    private String productcode=null;
+    private String type=null;
+    private String id=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +119,39 @@ public class BottlePurchaseStock extends AppCompatActivity {
             if(bottlesubcategory==null){
                 bottlesubcategory="";
             }
+            shots=bundle.getString("shots");
+            if(shots==null){
+                shots="";
+            }
+            id=bundle.getString("id");
+            if(id==null){
+                id="0";
+            }
+            type=bundle.getString("type");
+            if(type==null){
+                type="";
+            }
+            parlevel=bundle.getString("parvalue");
+            if(parlevel==null){
+                parlevel="";
+            }
+            distributorname=bundle.getString("distributorname");
+            if(distributorname==null){
+                distributorname="";
+            }
+            price=bundle.getString("price");
+            if(price==null){
+                price="";
+            }
+            binnumber=bundle.getString("binnumber");
+            if(binnumber==null){
+                binnumber="";
+            }
+            productcode=bundle.getString("productcode");
+            if(productcode==null){
+                productcode="";
+            }
+
             MinValue=bundle.getString("minvalue");
             if(MinValue==null){
                 MinValue="";
@@ -125,7 +168,12 @@ public class BottlePurchaseStock extends AppCompatActivity {
                 pur_bottle_des_capacity.setText(bottlecapacity);
                 pur_bottle_des_main_category.setText(bottlecategory);
                 pur_bottle_des_sub_category.setText(bottlesubcategory);
-
+                pur_bottle_des_shots.setText(shots);
+                pur_bottle_des_par_level.setText(parlevel);
+                pur_bottle_des_distributor_name.setText(distributorname);
+                pur_bottle_des_price_unit.setText(price);
+                pur_bottle_des_bin_number.setText(binnumber);
+                pur_bottle_des_product_code.setText(productcode);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -176,12 +224,17 @@ public class BottlePurchaseStock extends AppCompatActivity {
                 BottlePurchaseStock.this.finish();
                 return true;
             case R.id.action_done:
-                try{
-                    Async is=new Async();
-                    is.execute();
-                }catch (Exception e){
-                    e.printStackTrace();
+                if(type.equals("update")){
+                    Updatepurchaselist();
+                }else{
+                    try{
+                        Async is=new Async();
+                        is.execute();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
+
 
 
                 break;
@@ -292,6 +345,82 @@ public class BottlePurchaseStock extends AppCompatActivity {
 
         return responseString;
 
+
+    }
+    private void Updatepurchaselist() {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+"UpdatePurchaseListBottle";
+        Log.d("bottleurl", url);
+        String name =pur_bottle_des_name.getText().toString();
+        String capacity= pur_bottle_des_capacity.getText().toString();
+        String maincat=pur_bottle_des_main_category.getText().toString();
+        String subcat=pur_bottle_des_sub_category.getText().toString();
+        String shots=pur_bottle_des_shots.getText().toString();
+        String parlevel=pur_bottle_des_par_level.getText().toString();
+        String disname=pur_bottle_des_distributor_name.getText().toString();
+        String price=pur_bottle_des_price_unit.getText().toString();
+        String bin=pur_bottle_des_bin_number.getText().toString();
+        String product=pur_bottle_des_product_code.getText().toString();
+        JSONObject inputLogin=new JSONObject();
+        try{
+            inputLogin.put("id",id);
+            inputLogin.put("userprofileid",UserProfileId);
+            inputLogin.put("liquorname",name);
+            inputLogin.put("liquorcapacity",capacity);
+            inputLogin.put("type","bottle");
+            inputLogin.put("shots",shots);
+            inputLogin.put("category",maincat);
+            inputLogin.put("subcategory",subcat);
+            inputLogin.put("parlevel",parlevel);
+            inputLogin.put("distributorname",disname);
+            inputLogin.put("price",price);
+            inputLogin.put("binnumber",bin);
+            inputLogin.put("productcode",product);
+            inputLogin.put("minvalue",MinValue);
+            inputLogin.put("maxvalue",MaxValue);
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Log.d("inputJsonuser",inputLogin.toString());
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url, inputLogin, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response",response.toString());
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("issuccess");
+                    if (success){
+
+                        Toast.makeText(getApplicationContext(),"Item Updated successfully",Toast.LENGTH_SHORT).show();
+
+                       }else {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getApplicationContext(),"Something went wrong!.",Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+
+        };
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 

@@ -26,9 +26,18 @@ public class Purchase {
     private String fullweight;
     private String emptyweight;
     private String small_picture_url;
+    private String totalbottles;
 
     public Purchase(){
 
+    }
+
+    public String getTotalbottles() {
+        return totalbottles;
+    }
+
+    public void setTotalbottles(String totalbottles) {
+        this.totalbottles = totalbottles;
     }
 
     public String getMinvalue() {

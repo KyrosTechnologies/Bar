@@ -102,8 +102,8 @@ public class PurchaseListActivity extends AppCompatActivity {
                         JSONArray array=obj.getJSONArray("model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int id=first.getInt("id");
-                            int userprofile=first.getInt("userprofileid");
+                            String id=first.getString("id");
+                            String userprofile=first.getString("userprofileid");
                             String liquorname=first.getString("liquorname");
                             String liquorcapacity=first.getString("liquorcapacity");
                             String shots=first.getString("shots");
@@ -127,15 +127,18 @@ public class PurchaseListActivity extends AppCompatActivity {
                             String type=first.getString("type");
                             String fullweight=first.getString("fullweight");
                             String emptyweight=first.getString("emptyweight");
+                           String totalbottles=first.getString("totalbottles");
                             Purchase purchase=new Purchase();
                             purchase.setLiquorname(liquorname);
+                            purchase.setTotalbottles(totalbottles);
+                            purchase.setId(Integer.parseInt(id));
                             purchase.setMinvalue(minvalue);
                             purchase.setMaxvalue(maxvalue);
                             purchase.setPictureurl(pictureurl);
                             purchase.setType(type);
                             purchase.setFullweight(fullweight);
                             purchase.setEmptyweight(emptyweight);
-                            purchase.setUserprofileid(userprofile);
+                            purchase.setUserprofileid(Integer.parseInt(userprofile));
                             purchase.setLiquorcapacity(liquorcapacity);
                             purchase.setShots(shots);
                             purchase.setCategory(category);
