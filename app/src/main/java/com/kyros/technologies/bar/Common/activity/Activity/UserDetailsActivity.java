@@ -1,25 +1,53 @@
 package com.kyros.technologies.bar.Common.activity.Activity;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.kyros.technologies.bar.Common.activity.Adapter.ParListAdapter;
+import com.kyros.technologies.bar.Common.activity.Adapter.UserDetailsAdapter;
 import com.kyros.technologies.bar.R;
+import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
+import com.kyros.technologies.bar.utils.EndURL;
+import com.kyros.technologies.bar.utils.Purchase;
+import com.kyros.technologies.bar.utils.UserDetail;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
     private LinearLayout role;
     private AlertDialog forget_dialog;
+    private UserDetailsAdapter adapter;
+    private ArrayList<UserDetail> userDetailArrayList=new ArrayList<UserDetail>();
+    private PreferenceManager store;
+    private String UserProfileId=null;
+    private RecyclerView user_details_recycler;
 
 
     @Override
@@ -38,7 +66,95 @@ public class UserDetailsActivity extends AppCompatActivity {
                 openpopup();
             }
         });
+        user_details_recycler=(RecyclerView)findViewById(R.id.user_details_recycler);
+        adapter=new UserDetailsAdapter(UserDetailsActivity.this,userDetailArrayList);
+        RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+        user_details_recycler.setLayoutManager(layoutManagersecond);
+        user_details_recycler.setItemAnimator(new DefaultItemAnimator());
+        user_details_recycler.setAdapter(adapter);
+        store= PreferenceManager.getInstance(getApplicationContext());
+        UserProfileId=store.getUserProfileId();
+        adapter.notifyDataSetChanged();
+        GetUserDetailList();
+        adapter.notifyDataSetChanged();
     }
+
+    private void GetUserDetailList() {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+"GetUserManagementBarList/"+UserProfileId;
+        //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
+        Log.d("waggonurl", url);
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response",response.toString());
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    String message=obj.getString("message");
+                    boolean success=obj.getBoolean("issuccess");
+                    if (success){
+
+                        JSONArray array=obj.getJSONArray("usermanagementlist");
+                        for (int i=0;i<array.length();i++){
+                            JSONObject first=array.getJSONObject(i);
+                            int userprofile=first.getInt("userprofileid");
+                            int id=first.getInt("id");
+                            String barname=first.getString("barname");
+                            String number=null;
+                            try {
+                                number=first.getString("createdon");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String modify=null;
+                            try {
+                                modify=first.getString("modifiedon");
+                            }catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            UserDetail userDetail=new UserDetail();
+                            userDetail.setId(id);
+                            userDetail.setUserprofileid(userprofile);
+                            userDetail.setCreatedon(number);
+                            userDetail.setBarname(barname);
+                            userDetail.setModifiedon(modify);
+                            userDetailArrayList.add(userDetail);
+                        }
+
+                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
+
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                adapter.notifyDataSetChanged();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+
+        };
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
+    }
+
 
     @Override
     protected void onStop() {

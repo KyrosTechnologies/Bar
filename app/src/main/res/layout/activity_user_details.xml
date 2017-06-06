@@ -132,21 +132,10 @@
             android:background="@color/edittext"
             android:layout_marginTop="7dp"/>
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Front Bar"
-                android:textColor="@color/edit"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"/>
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Side Bar"
-                android:textColor="@color/edit"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/user_details_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 
