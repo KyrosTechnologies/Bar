@@ -98,8 +98,8 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             int userprofile=first.getInt("userprofileid");
                             int barid=first.getInt("barid");
                             int sectionid=first.getInt("sectionid");
-                            double minvalue=first.getDouble("minvalue");
-                            double maxvalue=first.getDouble("maxvalue");
+                            String minvalue=first.getString("minvalue");
+                            String maxvalue=first.getString("maxvalue");
                             String liquorname=first.getString("liquorname");
                             String liquorcapacity=null;
                             try{
@@ -158,8 +158,8 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             utilSectionBar.setProductcode(productcode);
                             utilSectionBar.setCreatedon(createdon);
                             utilSectionBar.setPictureurl(pictureurl);
-                            utilSectionBar.setMinvalue(minvalue);
-                            utilSectionBar.setMaxvalue(maxvalue);
+                            utilSectionBar.setMinvalue(Double.parseDouble(minvalue));
+                            utilSectionBar.setMaxvalue(Double.parseDouble(maxvalue));
                             utilSectionBar.setTotalbottles(totalbottles);
 //                            utilSectionBar.setType(type);
 //                            utilSectionBar.setFullweight(fullweight);
