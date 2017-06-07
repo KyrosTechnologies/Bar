@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
 import com.kyros.technologies.bar.utils.CustomLiquorModel;
 import com.kyros.technologies.bar.utils.EndURL;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -60,7 +62,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
     private String UserProfileId=null;
     private String Barid=null;
     private String Sectionid=null;
-    private Bitmap bitmap;
+    private Bitmap bitmapvar;
     private byte[] bytearayProfile;
     private String MinHeight=null;
     private String MaxHeight=null;
@@ -133,12 +135,26 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             emptyweight=bundle.getString("emptyweight");
             id=bundle.getString("id");
 //            Log.d("Pictureurl",imgbitmap);
-            try {
-                Picasso.with(BottleDescriptionActivity.this)
-                        .load(imgbitmap)
-                        .into(bott_image);
-            }catch (Exception eq){
-                eq.printStackTrace();
+            try{
+                Picasso.with(BottleDescriptionActivity.this).load(imgbitmap).into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        bott_image.setImageBitmap(bitmap);
+                        bitmapvar=bitmap;
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
             try {
@@ -333,7 +349,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         HttpClient httpclient = new DefaultHttpClient();
         String url = EndURL.URL + "insertUserLiquorlistM";
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bitmapvar.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         bytearayProfile = stream.toByteArray();
         HttpPost httppost = new HttpPost(url);
 
