@@ -96,6 +96,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         bottle_des_product_code=(EditText)findViewById(R.id.bottle_des_product_code);
         bott_image=(ImageView)findViewById(R.id.bott_image);
         store= PreferenceManager.getInstance(getApplicationContext());
+        Toast.makeText(getApplicationContext(),"picture",Toast.LENGTH_SHORT).show();
         UserProfileId=store.getUserProfileId();
         Barid=store.getBarId();
         Sectionid=store.getSectionId();
@@ -118,7 +119,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             bottlecapacity=bundle.getString("capacity");
             bottlecategory=bundle.getString("category");
             bottlesubcategory=bundle.getString("subcategory");
-            String imgbitmap=bundle.getString("picture");
+            String imgbitmap=bundle.getString("image");
             MinHeight=bundle.getString("minheight");
             MaxHeight=bundle.getString("maxheight");
             parlevel=bundle.getString("parlevel");
@@ -131,12 +132,13 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             fullweight=bundle.getString("fullweight");
             emptyweight=bundle.getString("emptyweight");
             id=bundle.getString("id");
+//            Log.d("Pictureurl",imgbitmap);
             try {
                 Picasso.with(BottleDescriptionActivity.this)
                         .load(imgbitmap)
                         .into(bott_image);
             }catch (Exception eq){
-
+                eq.printStackTrace();
             }
 
             try {

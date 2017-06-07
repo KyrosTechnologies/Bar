@@ -80,7 +80,7 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
         if(alchotype==null){
             alchotype="Dummy";
         }
-        String smallpic=listClass.getSmall_picture_url();
+        final String smallpic=listClass.getSmall_picture_url();
 
 
         try {
@@ -136,7 +136,7 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
                 i.putExtra("capacity",String.valueOf(quanti)+" ML");
                 i.putExtra("category",listClass.getAlcohol_type());
                 i.putExtra("subcategory",listClass.getAlcohol_subtype());
-                i.putExtra("image",sharedbitmap);
+                i.putExtra("image",smallpic);
                 i.putExtra("minheight",String.valueOf(minheight));
                 i.putExtra("maxheight",String.valueOf(maxheight));
                 mContext.startActivity(i);
