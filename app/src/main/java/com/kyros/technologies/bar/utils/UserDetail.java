@@ -55,4 +55,9 @@ public class UserDetail {
     public void setModifiedon(String modifiedon) {
         this.modifiedon = modifiedon;
     }
+
+    private static final UserDetail holder=new UserDetail();
+    public static UserDetail getHolder(){
+        return holder;
+    }
 }

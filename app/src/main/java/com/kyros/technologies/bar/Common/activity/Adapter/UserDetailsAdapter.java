@@ -3,8 +3,10 @@ package com.kyros.technologies.bar.Common.activity.Adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
  * Created by Rohin on 06-06-2017.
  */
 
-public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.MyViewHolderEleven>{
+public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.MyViewHolderEleven> {
 
     private Context mContext;
     private ArrayList<UserDetail> userDetailArrayList;
@@ -57,8 +59,8 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
         final int id=userDetail.getId();
         final int userprofileid=userDetail.getUserprofileid();
         final String barname=userDetail.getBarname();
-        String createdon=userDetail.getCreatedon();
-        String modifiedon=userDetail.getModifiedon();
+        final String createdon=userDetail.getCreatedon();
+        final String modifiedon=userDetail.getModifiedon();
 
         try {
             holder.bar_name.setText(barname);
@@ -70,7 +72,10 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
         holder.bar_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(mContext.getApplicationContext(),"Name : "+barname,Toast.LENGTH_SHORT).show();
+                UserDetail.getHolder().setId(id);
+                UserDetail.getHolder().setBarname(barname);
+                UserDetail.getHolder().setCreatedon(createdon);
+                UserDetail.getHolder().setModifiedon(modifiedon);
             }
         });
 

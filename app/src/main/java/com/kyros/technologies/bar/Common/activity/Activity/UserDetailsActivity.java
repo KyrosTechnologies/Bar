@@ -48,7 +48,10 @@ public class UserDetailsActivity extends AppCompatActivity {
     private PreferenceManager store;
     private String UserProfileId=null;
     private RecyclerView user_details_recycler;
-
+    private int id=0;
+    private String barname=null;
+    private String createdon=null;
+    private String modifiedon=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,16 @@ public class UserDetailsActivity extends AppCompatActivity {
         user_details_recycler.setAdapter(adapter);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
+        id=UserDetail.getHolder().getId();
+        barname=UserDetail.getHolder().getBarname();
+        createdon=UserDetail.getHolder().getCreatedon();
+        modifiedon=UserDetail.getHolder().getModifiedon();
+         try {
+             Toast.makeText(getApplicationContext(),"Name : "+barname+"id : "+id,Toast.LENGTH_SHORT).show();
+
+         }catch (Exception e){
+             e.printStackTrace();
+         }
         adapter.notifyDataSetChanged();
         GetUserDetailList();
         adapter.notifyDataSetChanged();

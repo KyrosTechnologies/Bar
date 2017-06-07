@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.SectionBarAdapter;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
@@ -179,6 +180,14 @@ public class SectionBottlesActivity extends AppCompatActivity {
 
                 adapter.notifyDataSetChanged();
 
+                try{
+                    Gson gson=new Gson();
+                    String bottlestring=gson.toJson(utilSectionBarArrayList);
+                    store.putSectionBottles(bottlestring);
+
+                }catch (Exception e){
+                    Log.d("exception_conve_gson",e.getMessage());
+                }
             }
         }, new Response.ErrorListener() {
 

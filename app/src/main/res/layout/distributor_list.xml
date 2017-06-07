@@ -37,72 +37,11 @@
             android:layout_marginTop="7dp"
             android:background="@color/edittext"/>
 
-
-        <LinearLayout
-            android:id="@+id/distributors"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/distributor_list_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Distributor Name"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:textColor="@color/edit"
-                    android:textSize="14sp"/>
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/rightarrow"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="15dp"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="7dp"
-            android:background="@color/edittext"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/edit"
-                android:layout_gravity="center"
-                android:textSize="14sp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:text="Distributor Name"/>
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/rightarrow"
-                android:layout_gravity="center"
-                android:layout_marginRight="15dp"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/edittext"/>
 
     </LinearLayout>
 

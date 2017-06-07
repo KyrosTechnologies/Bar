@@ -310,6 +310,14 @@ public class PreferenceManager {
         editor.putString("ProductCode", value);
         editor.commit();
     }
-
+    public String getSectionBottles(){
+        return sp.getString("SectionBottles",null);
+    }
+    public void putSectionBottles(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("SectionBottles", value);
+        editor.commit();
+    }
 
 }
