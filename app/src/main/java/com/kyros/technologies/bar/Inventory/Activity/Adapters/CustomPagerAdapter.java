@@ -4,15 +4,17 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +25,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.LiquorSlider;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
@@ -35,8 +36,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import static android.R.attr.value;
 
 /**
  * Created by Rohin on 07-06-2017.
@@ -64,6 +63,7 @@ public class CustomPagerAdapter extends PagerAdapter {
     private SeekBar mySeekBar;
     private   float fintotalcount;
     private PreferenceManager store;
+    private FrameLayout frame_fill_background;
 
     public CustomPagerAdapter(Context context,ArrayList<UtilSectionBar> bottleslist) {
         mContext = context;
@@ -133,6 +133,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         done=(TextView)itemView.findViewById(R.id.done);
         liquor_names=(TextView)itemView.findViewById(R.id.liquor_names);
         back=(ImageView)itemView.findViewById(R.id.back);
+        frame_fill_background=(FrameLayout)itemView.findViewById(R.id.frame_fill_background);
 
         try {
             liquor_names.setText(liquorname);
@@ -218,6 +219,18 @@ public class CustomPagerAdapter extends PagerAdapter {
 //                totalcount=totalcount+progress1;
                 fintotalcount=totalcount+progress1;
                 bottle_quan.setText(String.valueOf(fintotalcount));
+                try{
+                    int finalprogress=100-progress;
+                    int finalvalue=8*finalprogress;
+                    Log.d("final value ", "final  value of y: "+finalvalue);
+                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,finalvalue);
+                    parms.setMargins(25,0,25,0);
+                    parms.setLayoutDirection(Gravity.BOTTOM);
+                    frame_fill_background.setLayoutParams(parms);
+                    frame_fill_background.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override

@@ -4,13 +4,11 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +24,6 @@ import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
-import com.kyros.technologies.bar.utils.CustomLiquorModel;
 import com.kyros.technologies.bar.utils.EndURL;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -46,8 +43,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import static com.kyros.technologies.bar.Inventory.Activity.List.InventoryLists.holder;
 
 public class BottleDescriptionActivity extends AppCompatActivity {
 
@@ -218,7 +213,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
 
                     JSONObject obj=new JSONObject(response.toString());
                     String message=obj.getString("message");
-                    boolean success=obj.getBoolean("isiuccess");
+                    boolean success=obj.getBoolean("issuccess");
                     if (success){
 
                         JSONArray array=obj.getJSONArray("model");
