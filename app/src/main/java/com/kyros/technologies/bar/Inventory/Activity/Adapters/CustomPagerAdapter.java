@@ -105,7 +105,9 @@ public class CustomPagerAdapter extends PagerAdapter {
         double minval=utilSectionBar.getMinvalue();
         double maxval=utilSectionBar.getMaxvalue();
         String totalbottles=utilSectionBar.getTotalbottles();
-        totalcount=Float.parseFloat(totalbottles);
+        if(totalbottles!=null &&!totalbottles.isEmpty()){
+            totalcount=Float.parseFloat(totalbottles);
+        }
         store= PreferenceManager.getInstance(mContext.getApplicationContext());
         Userprofileid=store.getUserProfileId();
         Barid=store.getBarId();
