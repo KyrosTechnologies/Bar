@@ -158,8 +158,13 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             utilSectionBar.setProductcode(productcode);
                             utilSectionBar.setCreatedon(createdon);
                             utilSectionBar.setPictureurl(pictureurl);
-                            utilSectionBar.setMinvalue(Double.parseDouble(minvalue));
-                            utilSectionBar.setMaxvalue(Double.parseDouble(maxvalue));
+                            try{
+                                utilSectionBar.setMinvalue(Double.parseDouble(minvalue));
+                                utilSectionBar.setMaxvalue(Double.parseDouble(maxvalue));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
                             utilSectionBar.setTotalbottles(totalbottles);
 //                            utilSectionBar.setType(type);
 //                            utilSectionBar.setFullweight(fullweight);
