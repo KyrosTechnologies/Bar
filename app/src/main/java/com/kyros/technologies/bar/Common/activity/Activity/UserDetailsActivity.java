@@ -52,6 +52,8 @@ public class UserDetailsActivity extends AppCompatActivity {
     private String barname=null;
     private String createdon=null;
     private String modifiedon=null;
+    private TextView select_role,admin,basic;
+    private String selectrole=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class UserDetailsActivity extends AppCompatActivity {
             }
         });
         user_details_recycler=(RecyclerView)findViewById(R.id.user_details_recycler);
+        select_role=(TextView)findViewById(R.id.select_role);
+
         adapter=new UserDetailsAdapter(UserDetailsActivity.this,userDetailArrayList);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         user_details_recycler.setLayoutManager(layoutManagersecond);
@@ -90,6 +94,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         GetUserDetailList();
         adapter.notifyDataSetChanged();
+
     }
 
     private void GetUserDetailList() {
@@ -195,6 +200,25 @@ public class UserDetailsActivity extends AppCompatActivity {
             View view=inflater.inflate(R.layout.user_details_role,null);
             builder.setView(view);
             TextView back_forget=(TextView)view.findViewById(R.id.back_forget);
+            TextView admin=(TextView)view.findViewById(R.id.admin);
+            TextView basic=(TextView)view.findViewById(R.id.basic);
+
+            basic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectrole="Basic";
+                    select_role.setText("Basic");
+                    closepopup();
+                }
+            });
+            admin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectrole="Admin";
+                    select_role.setText("Admin");
+                    closepopup();
+                }
+            });
             back_forget.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

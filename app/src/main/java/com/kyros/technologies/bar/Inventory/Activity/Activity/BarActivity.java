@@ -117,6 +117,7 @@ public class BarActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                dismissBarDialog();
                 myBarArrayList.clear();
                 try {
 
@@ -161,7 +162,6 @@ public class BarActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-                dismissBarDialog();
                 adapter.notifyDataSetChanged();
 
             }

@@ -113,6 +113,7 @@ public class AddSectionActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                dismissBarDialog();
                 mySectionArrayList.clear();
                 try {
 
@@ -160,7 +161,6 @@ public class AddSectionActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-                dismissBarDialog();
                 adapter.notifyDataSetChanged();
 
             }
