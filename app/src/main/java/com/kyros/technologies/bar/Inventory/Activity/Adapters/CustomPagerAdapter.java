@@ -105,9 +105,9 @@ public class CustomPagerAdapter extends PagerAdapter {
         double minval=utilSectionBar.getMinvalue();
         double maxval=utilSectionBar.getMaxvalue();
         String totalbottles=utilSectionBar.getTotalbottles();
-        if(totalbottles!=null &&!totalbottles.isEmpty()){
-            totalcount=Float.parseFloat(totalbottles);
-        }
+//        if(totalbottles!=null &&!totalbottles.isEmpty()){
+//            totalcount=Float.parseFloat(totalbottles);
+//        }
         store= PreferenceManager.getInstance(mContext.getApplicationContext());
         Userprofileid=store.getUserProfileId();
         Barid=store.getBarId();
@@ -159,7 +159,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         try {
             Log.d("bottles",totalbottles);
             String value=totalbottles;
-            bottle_quan.setText(value);
+           // bottle_quan.setText(value);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -221,13 +221,13 @@ public class CustomPagerAdapter extends PagerAdapter {
                 bottle_quan.setText(String.valueOf(fintotalcount));
                 try{
                     int finalprogress=100-progress;
-                    int finalvalue=8*finalprogress;
+                    int finalvalue=6*finalprogress;
                     Log.d("final value ", "final  value of y: "+finalvalue);
                     RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,finalvalue);
                     parms.setMargins(25,0,25,0);
                     parms.setLayoutDirection(Gravity.BOTTOM);
                     frame_fill_background.setLayoutParams(parms);
-                    frame_fill_background.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
+                    frame_fill_background.setBackgroundColor(mContext.getResources().getColor(R.color.white));
                 }catch (Exception e){
                     e.printStackTrace();
                 }

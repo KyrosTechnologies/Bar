@@ -43,6 +43,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 public class BottleDescriptionActivity extends AppCompatActivity {
 
@@ -301,7 +302,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                 String bin=bottle_des_bin_number.getText().toString();
                 String product=bottle_des_product_code.getText().toString();
                 Log.d("Result",name+capacity+maincat+subcat+shots+parlevel+disname+price+bin+product);
-                BottleDescriptionApi(Integer.parseInt(UserProfileId),Integer.parseInt(Barid),Integer.parseInt(Sectionid),name,capacity,maincat,subcat,shots,parlevel,disname,price,bin,product);
+//                BottleDescriptionApi(Integer.parseInt(UserProfileId),Integer.parseInt(Barid),Integer.parseInt(Sectionid),name,capacity,maincat,subcat,shots,parlevel,disname,price,bin,product);
 
                 try{
                     Async i= new Async();
@@ -344,7 +345,11 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         HttpClient httpclient = new DefaultHttpClient();
         String url = EndURL.URL + "insertUserLiquorlistM";
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmapvar.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bitmapvar.compress(Bitmap.CompressFormat.PNG, 0, stream);
+//        int bys=bitmapvar.getByteCount();
+//        ByteBuffer buffer=ByteBuffer.allocate(bys);
+//        bitmapvar.copyPixelsFromBuffer(buffer);
+//        byte[] arrs=buffer.array();
         bytearayProfile = stream.toByteArray();
         HttpPost httppost = new HttpPost(url);
 
@@ -366,7 +371,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             maxval=maxval/100;
             String fminval=String.valueOf(minval);
             String fmaxval=String.valueOf(maxval);
-            entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
+            entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.png"));
             entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
             entity.addPart("barid", new StringBody(Barid, ContentType.TEXT_PLAIN));
             entity.addPart("sectionid", new StringBody(Sectionid, ContentType.TEXT_PLAIN));

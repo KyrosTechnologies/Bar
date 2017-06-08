@@ -107,7 +107,8 @@
 
             <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                 android:layout_width="wrap_content"
-                android:layout_height="320dp">
+                android:layout_height="320dp"
+                android:rotation="180">
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
                     android:id="@+id/mySeekBar"
@@ -116,28 +117,30 @@
                     android:max="100"
                     android:thumb="@drawable/custom_thumb"
                     android:splitTrack="false"
-                    app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+                    app:seekBarRotation="C90" /> <!-- Rotation: CW90 or CW270 -->
             </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="279dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/linear_layout"
-                android:orientation="vertical">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:id="@+id/frame_fill_background"
-                android:layout_height="400dp">
+                android:orientation="vertical"
+                android:layout_marginLeft="30dp">
 
+            <FrameLayout
+                android:layout_width="279dp"
+                android:id="@+id/frame_fill_background"
+                android:layout_height="wrap_content">
 
             </FrameLayout>
+
             <ImageView
                 android:id="@+id/liquor_bottle_image"
                 android:layout_width="279dp"
                 android:layout_height="320dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/absinthe" />
+                android:layout_gravity="center"/>
 </RelativeLayout>
+
         </LinearLayout>
 
         <FrameLayout
