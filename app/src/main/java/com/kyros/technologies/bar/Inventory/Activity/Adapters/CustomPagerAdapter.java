@@ -64,11 +64,13 @@ public class CustomPagerAdapter extends PagerAdapter {
     private   float fintotalcount;
     private PreferenceManager store;
     private FrameLayout frame_fill_background;
+    private int positionvalue=0;
 
-    public CustomPagerAdapter(Context context,ArrayList<UtilSectionBar> bottleslist) {
+    public CustomPagerAdapter(Context context,ArrayList<UtilSectionBar> bottleslist,int position) {
         mContext = context;
         this.bottleslist=bottleslist;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.positionvalue=position;
     }
 
 
@@ -86,7 +88,11 @@ public class CustomPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.image_slide, container, false);
-        UtilSectionBar utilSectionBar=bottleslist.get(position);
+        int lastposition=positionvalue+position;
+        if(lastposition>=bottleslist.size()){
+            lastposition=lastposition-bottleslist.size();
+        }
+        UtilSectionBar utilSectionBar =bottleslist.get(lastposition);
         final int  sectionid= utilSectionBar.getSectionid();
         final int barid= utilSectionBar.getBarid();
         String liquorname=utilSectionBar.getLiquorname();

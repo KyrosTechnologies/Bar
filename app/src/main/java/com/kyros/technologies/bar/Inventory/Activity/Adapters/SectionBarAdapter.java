@@ -168,26 +168,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(mContext,LiquorSlider.class);
-                i.putExtra("name", finalLiquorname);
-                i.putExtra("capacity", finalLiquorcapacity);
-                i.putExtra("picture", finalPictureurl);
-                i.putExtra("shots", finalShots);
-                i.putExtra("minvalue",minvalue);
-                i.putExtra("maxvalue",maxvalue);
-                i.putExtra("category", finalCategory);
-                i.putExtra("totalbottles", finalTotalbottles);
-                i.putExtra("id",id);
-                i.putExtra("barid",barid);
-                i.putExtra("sectionid",sectionid);
-                i.putExtra("subcategory", finalSubcategory);
-                i.putExtra("parlevel", finalParlevel);
-                i.putExtra("disname", finalDisname);
-                i.putExtra("price", finalPrice);
-                i.putExtra("binnumber", finalBinnumber);
-                i.putExtra("productcode", finalProductcode);
-                i.putExtra("type",type);
-                i.putExtra("fullweight", finalFullweight);
-                i.putExtra("emptyweight", finalEmptyweight);
+                i.putExtra("position", position);
                 mContext.startActivity(i);
             }
         });

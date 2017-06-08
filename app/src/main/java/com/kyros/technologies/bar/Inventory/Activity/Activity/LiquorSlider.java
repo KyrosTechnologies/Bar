@@ -1,39 +1,17 @@
 package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
-import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.CustomPagerAdapter;
 import com.kyros.technologies.bar.R;
-import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
-import com.kyros.technologies.bar.utils.EndURL;
 import com.kyros.technologies.bar.utils.UtilSectionBar;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -51,6 +29,7 @@ public class LiquorSlider extends AppCompatActivity {
     private String barid;
     private String sectionid;
   private ViewPager viewPager;
+    private int position =0;
     private  ArrayList<UtilSectionBar> bottleslist=new ArrayList<UtilSectionBar>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +53,13 @@ public class LiquorSlider extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        CustomPagerAdapter customPagerAdapter=new CustomPagerAdapter(this,bottleslist);
+        try{
+            Bundle bundle=getIntent().getExtras();
+            position=bundle.getInt("position");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        CustomPagerAdapter customPagerAdapter=new CustomPagerAdapter(this,bottleslist,position);
         viewPager.setAdapter(customPagerAdapter);
     }
 
