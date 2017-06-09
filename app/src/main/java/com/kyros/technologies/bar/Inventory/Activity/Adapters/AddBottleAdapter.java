@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddBottleDescription;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.utils.Purchase;
 import com.squareup.picasso.Picasso;
@@ -74,6 +73,7 @@ public class AddBottleAdapter extends RecyclerView.Adapter<AddBottleAdapter.MyVi
         String binnumber=purchase.getBinnumber();
         String productcode=purchase.getProductcode();
         String smallpic=purchase.getSmall_picture_url();
+        String pictureurl=purchase.getPictureurl();
 
         if (liquorname==null){
             liquorname="";
@@ -95,14 +95,17 @@ public class AddBottleAdapter extends RecyclerView.Adapter<AddBottleAdapter.MyVi
         }
 
         //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
-        try{
-            Picasso.with(mContext)
-                    .load(LiquorImagesList[position])
-                    .resize(65, 65)
-                    .into(holder.liquor_bottle);
-        }catch (Exception e){
-
+        if(pictureurl!=null){
+            try{
+                Picasso.with(mContext)
+                        .load(pictureurl)
+                        .resize(65, 65)
+                        .into(holder.liquor_bottle);
+            }catch (Exception e){
+e.printStackTrace();
+            }
         }
+
 
         holder.add_bottles.setOnClickListener(new View.OnClickListener() {
             @Override

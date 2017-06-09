@@ -104,13 +104,16 @@ public class AddBottleActivity extends AppCompatActivity {
                             String binnumber=first.getString("binnumber");
                             String productcode=first.getString("productcode");
                             String createdon=first.getString("createdon");
+                            String pictureurl=first.getString("pictureurl");
+                            String subcategory=first.getString("subcategory");
                             Purchase purchase=new Purchase();
                             purchase.setLiquorname(liquorname);
                             purchase.setUserprofileid(userprofile);
                             purchase.setLiquorcapacity(liquorcapacity);
                             purchase.setShots(shots);
                             purchase.setCategory(category);
-                            ///purchase.setSubcategory(subcategory);
+                            purchase.setSubcategory(subcategory);
+                            purchase.setPictureurl(pictureurl);
                             purchase.setParlevel(parlevel);
                             purchase.setDistributorname(distributorname);
                             purchase.setPriceunit(priceunit);
@@ -120,7 +123,6 @@ public class AddBottleActivity extends AppCompatActivity {
                             inventoryArrayList.add(purchase);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
 
 
                     }else {
