@@ -439,7 +439,6 @@ public class AddKegDescriptionPurchase extends AppCompatActivity {
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
 
-                        Toast.makeText(getApplicationContext(),"Item Updated successfully",Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(AddKegDescriptionPurchase.this,PurchaseListActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(i);

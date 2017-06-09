@@ -5,15 +5,14 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -110,9 +109,7 @@ private void showPopup(){
             public void onClick(View v) {
                 String email=email_change_password.getText().toString();
                 if(email!=null && !email.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Email is: "+email,Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(),"Reset is clicked!",Toast.LENGTH_SHORT).show();
 
                 }
             }

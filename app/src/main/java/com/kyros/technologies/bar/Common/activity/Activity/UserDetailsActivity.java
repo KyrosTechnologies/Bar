@@ -7,8 +7,8 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,13 +25,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.Common.activity.Adapter.ParListAdapter;
 import com.kyros.technologies.bar.Common.activity.Adapter.UserDetailsAdapter;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
-import com.kyros.technologies.bar.utils.Purchase;
 import com.kyros.technologies.bar.utils.UserDetail;
 
 import org.json.JSONArray;
@@ -86,7 +84,6 @@ public class UserDetailsActivity extends AppCompatActivity {
         createdon=UserDetail.getHolder().getCreatedon();
         modifiedon=UserDetail.getHolder().getModifiedon();
          try {
-             Toast.makeText(getApplicationContext(),"Name : "+barname+"id : "+id,Toast.LENGTH_SHORT).show();
 
          }catch (Exception e){
              e.printStackTrace();
@@ -142,8 +139,6 @@ public class UserDetailsActivity extends AppCompatActivity {
                             userDetail.setModifiedon(modify);
                             userDetailArrayList.add(userDetail);
                         }
-
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
 
 
                     }else {

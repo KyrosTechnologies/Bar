@@ -1,19 +1,13 @@
 package com.kyros.technologies.bar.Inventory.Activity.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
-import android.view.View;
-
-/**
- * Created by Rohin on 17-05-2017.
- */
-
-
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +21,10 @@ import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+/**
+ * Created by Rohin on 17-05-2017.
+ */
 
 /**
  * Created by Rohin on 17-05-2017.
@@ -155,6 +153,12 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setFilter(ArrayList<LiquorListClass> list1){
+        list=new ArrayList<>();
+        list.addAll(list1);
+        notifyDataSetChanged();
     }
 
 

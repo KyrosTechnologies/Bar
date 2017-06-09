@@ -3,11 +3,12 @@ package com.kyros.technologies.bar.Inventory.Activity.Activity;
 import android.annotation.TargetApi;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class MyInventoryListActivity extends AppCompatActivity {
     private RecyclerView recycler_database;
     private LiquorApiAdapter adapter;
     private ArrayList<LiquorListClass> liquorlist=new ArrayList<LiquorListClass>();
+    private SearchView my_inventory_auto_complete;
 
 
     @Override
@@ -44,12 +46,58 @@ public class MyInventoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_inventory_list);
         recycler_database=(RecyclerView)findViewById(R.id.recycler_database);
         adapter=new LiquorApiAdapter(MyInventoryListActivity.this,liquorlist);
+        my_inventory_auto_complete=(SearchView) findViewById(R.id.my_inventory_auto_complete);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         recycler_database.setLayoutManager(layoutManagersecond);
         recycler_database.setItemAnimator(new DefaultItemAnimator());
         recycler_database.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         StateChangeWaggonapi();
+
+        String s= getIntent().getStringExtra("search");
+        if(s!=null){
+            final ArrayList<LiquorListClass> filterlistdd=filter(liquorlist,s);
+            adapter. setFilter(filterlistdd);
+        }
+
+
+
+        my_inventory_auto_complete.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if(query!=null){
+                    final ArrayList<LiquorListClass> filterlistdd=filter(liquorlist,query);
+                    adapter. setFilter(filterlistdd);
+
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                if(newText!=null){
+                    final ArrayList<LiquorListClass> filterlistdd=filter(liquorlist,newText);
+                    adapter. setFilter(filterlistdd);
+                }
+
+                return false;
+            }
+        });
+
+    }
+
+    private ArrayList<LiquorListClass>filter(ArrayList<LiquorListClass>movies,String query){
+        query=query.toLowerCase();
+        final ArrayList<LiquorListClass>filterdlist=new ArrayList<>();
+        for(LiquorListClass movie:movies){
+            final String text=movie.getName().toLowerCase();
+            if(text.contains(query)){
+                filterdlist.add(movie);
+            }
+        }
+        return filterdlist;
     }
 
     private void StateChangeWaggonapi() {

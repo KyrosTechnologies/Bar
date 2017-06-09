@@ -180,4 +180,10 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         return utilSectionBarArrayList.size();
     }
 
+    public void setFilter(ArrayList<UtilSectionBar> utilsection1){
+        utilSectionBarArrayList=new ArrayList<>();
+        utilSectionBarArrayList.addAll(utilsection1);
+        notifyDataSetChanged();
+    }
+
 }

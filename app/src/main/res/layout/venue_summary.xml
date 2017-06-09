@@ -20,19 +20,17 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
 
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_marginLeft="15dp"
-                android:drawableLeft="@drawable/searchwhite_20"
+            <android.support.v7.widget.SearchView
+                android:id="@+id/venue_summary_auto_complete"
+                android:layout_width="50dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@android:color/transparent"
-                android:hint="Search bottles"
-                android:layout_marginRight="15dp"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
-                android:layout_height="wrap_content" />
+                android:layout_weight="1.5"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:clickable="true"
+                android:queryHint="Search here"
+                android:textSize="14sp"/>
 
         </LinearLayout>
 

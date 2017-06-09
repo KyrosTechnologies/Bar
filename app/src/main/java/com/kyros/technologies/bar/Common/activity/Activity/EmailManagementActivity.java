@@ -117,8 +117,6 @@ public class EmailManagementActivity extends AppCompatActivity {
                             emailManagementArrayList.add(emailManagement);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
 

@@ -30,10 +30,9 @@
                 android:layout_weight="1.5"
                 android:singleLine="true"
                 android:textAlignment="center"
+                android:clickable="true"
                 android:queryHint="Search here"
-                style="@style/SearchViewStyle"
-                android:textSize="14sp"
-                android:textColor="@color/white"/>
+                android:textSize="14sp"/>
 
         </LinearLayout>
 

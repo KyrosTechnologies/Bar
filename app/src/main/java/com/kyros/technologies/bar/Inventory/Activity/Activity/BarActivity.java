@@ -161,7 +161,6 @@ public class BarActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
 
             }
@@ -224,7 +223,6 @@ public class BarActivity extends AppCompatActivity {
                             myBarArrayList.add(bars);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
                         dismissBarDialog();
 
 
@@ -275,9 +273,7 @@ public class BarActivity extends AppCompatActivity {
                 String barname=barname_bar.getText().toString();
                 if(barname!=null &&!barname.isEmpty()){
                     AddBarApi(UserProfileId,barname);
-                    Toast.makeText(getApplicationContext(),"Bar name : "+barname,Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(),"Done clicked!",Toast.LENGTH_SHORT).show();
 
                 }
             }

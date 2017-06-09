@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,8 @@ public class PurchaseListActivity extends AppCompatActivity {
     private String UserprofileId=null;
     private ArrayList<Purchase>purchaseArrayList=new ArrayList<Purchase>();
     private PreferenceManager store;
+    private SearchView purchase_stock_auto_complete;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class PurchaseListActivity extends AppCompatActivity {
         store= PreferenceManager.getInstance(getApplicationContext());
         UserprofileId=store.getUserProfileId();
         purchase_recycler=(RecyclerView)findViewById(R.id.purchase_recycler);
+        purchase_stock_auto_complete=(SearchView) findViewById(R.id.purchase_stock_auto_complete);
         adapter=new PurchaseListAdapter(PurchaseListActivity.this,purchaseArrayList);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         purchase_recycler.setLayoutManager(layoutManagersecond);
@@ -68,6 +72,50 @@ public class PurchaseListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        String s= getIntent().getStringExtra("search");
+        if(s!=null){
+            final ArrayList<Purchase> filterlistdd=filter(purchaseArrayList,s);
+            adapter. setFilter(filterlistdd);
+        }
+
+
+
+        purchase_stock_auto_complete.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if(query!=null){
+                    final ArrayList<Purchase> filterlistdd=filter(purchaseArrayList,query);
+                    adapter. setFilter(filterlistdd);
+
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                if(newText!=null){
+                    final ArrayList<Purchase> filterlistdd=filter(purchaseArrayList,newText);
+                    adapter. setFilter(filterlistdd);
+                }
+
+                return false;
+            }
+        });
+    }
+
+    private ArrayList<Purchase>filter(ArrayList<Purchase>movies,String query){
+        query=query.toLowerCase();
+        final ArrayList<Purchase>filterdlist=new ArrayList<>();
+        for(Purchase movie:movies){
+            final String text=movie.getLiquorname().toLowerCase();
+            if(text.contains(query)){
+                filterdlist.add(movie);
+            }
+        }
+        return filterdlist;
     }
 
     @Override

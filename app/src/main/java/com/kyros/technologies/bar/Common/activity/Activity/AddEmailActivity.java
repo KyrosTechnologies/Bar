@@ -95,9 +95,6 @@ public class AddEmailActivity extends AppCompatActivity {
 
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Logged In",Toast.LENGTH_SHORT).show();
-
-
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
 

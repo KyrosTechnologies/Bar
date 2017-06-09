@@ -43,7 +43,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 
 public class BottleDescriptionActivity extends AppCompatActivity {
 
@@ -237,8 +236,6 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                             String createdon=first.getString("createdon");
 
                         }
-
-                        Toast.makeText(getApplicationContext(),"Sucessfully Logged In",Toast.LENGTH_SHORT).show();
                         BottleDescriptionActivity.this.finish();
 
 
@@ -288,7 +285,6 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                 BottleDescriptionActivity.this.finish();
                 return true;
             case R.id.action_done:
-                Toast.makeText(getApplicationContext(),"Saved successfully!",Toast.LENGTH_SHORT).show();
                 Barid=store.getBarId();
                 Sectionid=store.getSectionId();
                 String name =bottle_des_name.getText().toString();

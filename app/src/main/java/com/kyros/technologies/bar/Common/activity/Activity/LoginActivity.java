@@ -105,8 +105,6 @@ public class LoginActivity extends AppCompatActivity {
                 mails=email_address.getText().toString();
                 passwords=password.getText().toString();
                 StateChangeWaggonapi(mails,passwords);
-                Toast.makeText(getApplicationContext(),"Mail : "+mails+passwords,Toast.LENGTH_SHORT).show();
-
              //   StateChangeWaggonapi(mails,passwords);
                 //Toast.makeText(getApplicationContext(),"Mail : "+mails+passwords,Toast.LENGTH_SHORT).show();
 
@@ -175,8 +173,6 @@ public class LoginActivity extends AppCompatActivity {
                             session.createLoginSession(email,password);
 
                         }
-
-                        Toast.makeText(getApplicationContext(),"Sucessfully Logged In",Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(LoginActivity.this,LandingActivity.class);
                         startActivity(i);
 
@@ -262,7 +258,6 @@ private void ForgotPasswordApi(final String mails){
                 boolean success=obj.getBoolean("IsSuccess");
                 if (success){
 
-
                     Toast.makeText(getApplicationContext(),"Password has been Successfully sent to Registered Email",Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
@@ -315,10 +310,8 @@ private void ForgotPasswordApi(final String mails){
                     String email=email_forget_password.getText().toString();
                     if(!email.isEmpty()&&email!=null){
                        ForgotPasswordApi(email);
-                        Toast.makeText(getApplicationContext(),"Email is: "+email,Toast.LENGTH_SHORT).show();
 
                     }else{
-                        Toast.makeText(getApplicationContext(),"Reset is clicked !",Toast.LENGTH_SHORT).show();
                     }
                 }
             });

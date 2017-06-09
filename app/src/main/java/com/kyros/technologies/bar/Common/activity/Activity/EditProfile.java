@@ -197,7 +197,6 @@ public class EditProfile extends AppCompatActivity {
                         }
 
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Updated",Toast.LENGTH_SHORT).show();
 
                         EditProfile.this.finish();
 
@@ -219,7 +218,6 @@ public class EditProfile extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
                 if(error!=null){
-                    Toast.makeText(getApplicationContext(),"Error: "+error.toString(),Toast.LENGTH_SHORT).show();
                 }
 //                texts.setText(error.toString());
             }

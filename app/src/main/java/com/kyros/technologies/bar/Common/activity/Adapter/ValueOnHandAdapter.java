@@ -1,18 +1,14 @@
 package com.kyros.technologies.bar.Common.activity.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kyros.technologies.bar.Common.activity.Activity.AddEmailActivity;
 import com.kyros.technologies.bar.R;
-import com.kyros.technologies.bar.utils.EmailManagement;
 import com.kyros.technologies.bar.utils.Purchase;
 import com.squareup.picasso.Picasso;
 
@@ -117,6 +113,12 @@ public class ValueOnHandAdapter extends RecyclerView.Adapter<ValueOnHandAdapter.
     @Override
     public int getItemCount() {
         return purchaseArrayList.size();
+    }
+
+    public void setFilter(ArrayList<Purchase> purchaseArrayList1){
+        purchaseArrayList=new ArrayList<>();
+        purchaseArrayList.addAll(purchaseArrayList1);
+        notifyDataSetChanged();
     }
 
 }

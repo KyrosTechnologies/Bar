@@ -1,12 +1,10 @@
 package com.kyros.technologies.bar.Common.activity.Activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,10 +18,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
-import com.kyros.technologies.bar.Purchase.Activity.Activity.BottlePurchaseStock;
-import com.kyros.technologies.bar.Purchase.Activity.Activity.PurchaseListActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -42,7 +36,6 @@ import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -400,8 +393,6 @@ public class VenueBottleDescription extends AppCompatActivity {
                     String message=obj.getString("message");
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
-
-                        Toast.makeText(getApplicationContext(),"Item Updated successfully",Toast.LENGTH_SHORT).show();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

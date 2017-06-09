@@ -82,7 +82,6 @@ public class AddSectionActivity extends AppCompatActivity {
         });
         GetSectionList();
         adapter.notifyDataSetChanged();
-        Toast.makeText(getApplicationContext(),"Bar Id :"+BarId,Toast.LENGTH_SHORT).show();
 //        add_section.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -160,7 +159,6 @@ public class AddSectionActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
 
             }
@@ -227,7 +225,6 @@ public class AddSectionActivity extends AppCompatActivity {
                             mySectionArrayList.add(section);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
                         dismissBarDialog();
 
 
@@ -290,11 +287,9 @@ public class AddSectionActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     String barname=barname_bar.getText().toString();
                     if(barname!=null &&!barname.isEmpty()){
-                        Toast.makeText(getApplicationContext(),"Section name : "+barname,Toast.LENGTH_SHORT).show();
                         AddSectionApi(UserProfileId,barname, Integer.parseInt(BarId));
 
                     }else{
-                        Toast.makeText(getApplicationContext(),"Done clicked!",Toast.LENGTH_SHORT).show();
 
                     }
                 }

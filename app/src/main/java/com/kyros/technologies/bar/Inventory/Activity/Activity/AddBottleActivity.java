@@ -4,11 +4,12 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +20,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.AddBottleAdapter;
+import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
@@ -38,6 +39,8 @@ public class AddBottleActivity extends AppCompatActivity {
     private String UserprofileId=null;
     private ArrayList<Purchase> inventoryArrayList=new ArrayList<Purchase>();
     private PreferenceManager store;
+    private SearchView add_bottle_auto_complete;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class AddBottleActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_add_bottle);
         add_bottle=(RecyclerView)findViewById(R.id.add_bottle);
+        add_bottle_auto_complete=(SearchView) findViewById(R.id.add_bottle_auto_complete);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserprofileId=store.getUserProfileId();
         adapter=new AddBottleAdapter(AddBottleActivity.this,inventoryArrayList);
@@ -68,8 +72,50 @@ public class AddBottleActivity extends AppCompatActivity {
             }
         });
 
-    }
+        String s= getIntent().getStringExtra("search");
+        if(s!=null){
+            final ArrayList<Purchase> filterlistdd=filter(inventoryArrayList,s);
+            adapter. setFilter(filterlistdd);
+        }
 
+
+
+        add_bottle_auto_complete.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if(query!=null){
+                    final ArrayList<Purchase> filterlistdd=filter(inventoryArrayList,query);
+                    adapter. setFilter(filterlistdd);
+
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                if(newText!=null){
+                    final ArrayList<Purchase> filterlistdd=filter(inventoryArrayList,newText);
+                    adapter. setFilter(filterlistdd);
+                }
+
+                return false;
+            }
+        });
+
+    }
+    private ArrayList<Purchase>filter(ArrayList<Purchase>movies,String query){
+        query=query.toLowerCase();
+        final ArrayList<Purchase>filterdlist=new ArrayList<>();
+        for(Purchase movie:movies){
+            final String text=movie.getLiquorname().toLowerCase();
+            if(text.contains(query)){
+                filterdlist.add(movie);
+            }
+        }
+        return filterdlist;
+    }
     private void GetBottlesInventoryList() {
         String tag_json_obj = "json_obj_req";
         final String url = EndURL.URL+"getUserPurchaseList/"+UserprofileId;

@@ -1,7 +1,6 @@
 package com.kyros.technologies.bar.Common.activity.Activity;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,19 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.Common.activity.Adapter.ValueOnHandAdapter;
 import com.kyros.technologies.bar.Common.activity.Adapter.VenueSummaryAdapter;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -44,6 +40,8 @@ public class VenueSummary extends AppCompatActivity {
     private ArrayList<Purchase> purchaseArrayList=new ArrayList<Purchase>();
     private PreferenceManager store;
     private String UserProfileId=null;
+    private SearchView venue_summary_auto_complete;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +53,7 @@ public class VenueSummary extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.venue_summary);
         venue_summary_recycler=(RecyclerView)findViewById(R.id.venue_summary_recycler);
+        venue_summary_auto_complete=(SearchView) findViewById(R.id.venue_summary_auto_complete);
         adapter=new VenueSummaryAdapter(VenueSummary.this,purchaseArrayList);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         venue_summary_recycler.setLayoutManager(layoutManagersecond);
@@ -66,6 +65,50 @@ public class VenueSummary extends AppCompatActivity {
         GetVenueList();
         adapter.notifyDataSetChanged();
 
+        String s= getIntent().getStringExtra("search");
+        if(s!=null){
+            final ArrayList<Purchase> filterlistdd=filter(purchaseArrayList,s);
+            adapter. setFilter(filterlistdd);
+        }
+
+
+
+        venue_summary_auto_complete.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if(query!=null){
+                    final ArrayList<Purchase> filterlistdd=filter(purchaseArrayList,query);
+                    adapter. setFilter(filterlistdd);
+
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                if(newText!=null){
+                    final ArrayList<Purchase> filterlistdd=filter(purchaseArrayList,newText);
+                    adapter. setFilter(filterlistdd);
+                }
+
+                return false;
+            }
+        });
+
+    }
+
+    private ArrayList<Purchase>filter(ArrayList<Purchase>movies,String query){
+        query=query.toLowerCase();
+        final ArrayList<Purchase>filterdlist=new ArrayList<>();
+        for(Purchase movie:movies){
+            final String text=movie.getLiquorname().toLowerCase();
+            if(text.contains(query)){
+                filterdlist.add(movie);
+            }
+        }
+        return filterdlist;
     }
 
     private void GetVenueList() {
@@ -149,9 +192,6 @@ public class VenueSummary extends AppCompatActivity {
                             purchase.setEmptyweight(emptyweight);
                             purchaseArrayList.add(purchase);
                         }
-
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

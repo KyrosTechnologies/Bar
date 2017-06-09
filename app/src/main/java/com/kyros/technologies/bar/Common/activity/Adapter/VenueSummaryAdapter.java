@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.kyros.technologies.bar.Common.activity.Activity.VenueBottleDescription;
 import com.kyros.technologies.bar.Common.activity.Activity.VenueKegDescription;
-import com.kyros.technologies.bar.Purchase.Activity.Activity.AddKegDescriptionPurchase;
-import com.kyros.technologies.bar.Purchase.Activity.Activity.BottlePurchaseStock;
-import com.kyros.technologies.bar.Purchase.Activity.Activity.MyPurchaseListActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.utils.Purchase;
 import com.squareup.picasso.Picasso;
@@ -162,6 +159,12 @@ public class VenueSummaryAdapter extends RecyclerView.Adapter<VenueSummaryAdapte
     @Override
     public int getItemCount() {
         return purchases.size();
+    }
+
+    public void setFilter(ArrayList<Purchase> purchaseArrayList1){
+        purchases=new ArrayList<>();
+        purchases.addAll(purchaseArrayList1);
+        notifyDataSetChanged();
     }
 
 }

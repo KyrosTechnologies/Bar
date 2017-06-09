@@ -4,11 +4,12 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.SectionBarAdapter;
+import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
@@ -40,6 +41,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
     private String UserprofileId=null;
     private String SectionId=null;
     private ArrayList<UtilSectionBar>utilSectionBarArrayList=new ArrayList<UtilSectionBar>();
+    private SearchView section_bottles_auto_complete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_section_bottles);
         section_bar_recycler=(RecyclerView)findViewById(R.id.section_bar_recycler);
+        section_bottles_auto_complete=(SearchView) findViewById(R.id.section_bottles_auto_complete);
         adapter=new SectionBarAdapter(SectionBottlesActivity.this,utilSectionBarArrayList);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserprofileId=store.getUserProfileId();
@@ -71,24 +74,63 @@ public class SectionBottlesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        String s= getIntent().getStringExtra("search");
+        if(s!=null){
+            final ArrayList<UtilSectionBar> filterlistdd=filter(utilSectionBarArrayList,s);
+            adapter. setFilter(filterlistdd);
+        }
+
+
+
+        section_bottles_auto_complete.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if(query!=null){
+                    final ArrayList<UtilSectionBar> filterlistdd=filter(utilSectionBarArrayList,query);
+                    adapter. setFilter(filterlistdd);
+
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                if(newText!=null){
+                    final ArrayList<UtilSectionBar> filterlistdd=filter(utilSectionBarArrayList,newText);
+                    adapter. setFilter(filterlistdd);
+                }
+
+                return false;
+            }
+        });
+
     }
 
-    @Override
-    protected void onResume() {
-        GetBottlesList();
-        super.onResume();
+    private ArrayList<UtilSectionBar>filter(ArrayList<UtilSectionBar>movies,String query){
+        query=query.toLowerCase();
+        final ArrayList<UtilSectionBar>filterdlist=new ArrayList<>();
+        for(UtilSectionBar movie:movies){
+            final String text=movie.getLiquorname().toLowerCase();
+            if(text.contains(query)){
+                filterdlist.add(movie);
+            }
+        }
+        return filterdlist;
     }
 
     private void GetBottlesList() {
         String tag_json_obj = "json_obj_req";
         final String url = EndURL.URL+"getUserliquorlist/"+UserprofileId+"/"+SectionId;
+        //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onResponse(JSONObject response) {
-                utilSectionBarArrayList.clear();
                 Log.d("List Response",response.toString());
                 try {
 
@@ -178,7 +220,6 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             utilSectionBarArrayList.add(utilSectionBar);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

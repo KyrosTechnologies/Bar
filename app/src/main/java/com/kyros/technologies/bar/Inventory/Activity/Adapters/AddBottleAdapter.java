@@ -201,5 +201,9 @@ e.printStackTrace();
     public int getItemCount() {
         return inventoryArrayList.size();
     }
-
+    public void setFilter(ArrayList<Purchase> inventory1){
+        inventoryArrayList=new ArrayList<>();
+        inventoryArrayList.addAll(inventory1);
+        notifyDataSetChanged();
+    }
 }

@@ -156,7 +156,6 @@ public class CustomBottleDetailsPurchase extends AppCompatActivity {
                 parlevel=parlevel_custombottle.getText().toString();
                 try{
                     Async is=new Async();
-                    Toast.makeText(getApplicationContext(),"executing",Toast.LENGTH_SHORT).show();
                     is.execute();
                 }catch (Exception e){
                     e.printStackTrace();

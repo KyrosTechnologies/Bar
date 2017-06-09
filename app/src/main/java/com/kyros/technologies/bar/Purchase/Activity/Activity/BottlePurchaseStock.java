@@ -392,7 +392,6 @@ public class BottlePurchaseStock extends AppCompatActivity {
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
 
-                        Toast.makeText(getApplicationContext(),"Item Updated successfully",Toast.LENGTH_SHORT).show();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

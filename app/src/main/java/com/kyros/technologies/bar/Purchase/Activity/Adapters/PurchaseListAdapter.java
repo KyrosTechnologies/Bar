@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
 import com.kyros.technologies.bar.Purchase.Activity.Activity.AddKegDescriptionPurchase;
 import com.kyros.technologies.bar.Purchase.Activity.Activity.BottlePurchaseStock;
 import com.kyros.technologies.bar.R;
@@ -215,5 +214,9 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
     public int getItemCount() {
         return purchaseArrayList.size();
     }
-
+    public void setFilter(ArrayList<Purchase> purchaseArrayList1){
+        purchaseArrayList=new ArrayList<>();
+        purchaseArrayList.addAll(purchaseArrayList1);
+        notifyDataSetChanged();
+    }
 }

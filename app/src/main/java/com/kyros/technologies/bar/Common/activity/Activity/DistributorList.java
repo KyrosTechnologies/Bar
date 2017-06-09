@@ -1,7 +1,6 @@
 package com.kyros.technologies.bar.Common.activity.Activity;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.bar.Common.activity.Adapter.DistributorListAdapter;
-import com.kyros.technologies.bar.Common.activity.Adapter.ParListAdapter;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -98,8 +94,6 @@ public class DistributorList extends AppCompatActivity {
                             purchase.setUserprofileid(userprofile);
                             purchaseArrayList.add(purchase);
                         }
-
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
 
 
                     }else {

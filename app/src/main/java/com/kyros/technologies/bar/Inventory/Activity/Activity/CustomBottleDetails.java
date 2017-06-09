@@ -149,7 +149,6 @@ public class CustomBottleDetails extends AppCompatActivity {
                 parlevel=parlevel_custombottle.getText().toString();
                 try{
                     Async is=new Async();
-                    Toast.makeText(getApplicationContext(),"executing",Toast.LENGTH_SHORT).show();
                     is.execute();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -308,7 +307,6 @@ public class CustomBottleDetails extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
-                Toast.makeText(getApplicationContext(),"Successfully uploaded",Toast.LENGTH_SHORT).show();
                 CustomBottleDetails.this.finish();
 
 

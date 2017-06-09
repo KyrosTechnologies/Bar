@@ -4,8 +4,8 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,13 +26,14 @@ import org.json.JSONObject;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText first_name,last_name,mobile_number,email,venue_name,country;
+    private EditText first_name,last_name,mobile_number,email,venue_name,country,country_code;
     private String fn;
     private String ln;
     private String mob;
     private String mail;
     private String con;
     private String venue;
+    private String countrycode;
     private PreferenceManager store;
 
 
@@ -51,6 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
         email=(EditText)findViewById(R.id.email);
         venue_name=(EditText)findViewById(R.id.venue_name);
         country=(EditText)findViewById(R.id.country);
+        country_code=(EditText)findViewById(R.id.country_code);
         store= PreferenceManager.getInstance(getApplicationContext());
 
         try {
@@ -170,6 +172,7 @@ public class SignUpActivity extends AppCompatActivity {
                 mail=email.getText().toString();
                 con=country.getText().toString();
                 venue=venue_name.getText().toString();
+                countrycode=country_code.getText().toString();
 
 //
 //                if (fn==null&&fn.isEmpty()){
@@ -201,7 +204,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(),"Please Enter Venue",Toast.LENGTH_SHORT).show();
 //                    return;
 //                }
-                StateChangeWaggonapi(fn,ln,mob,mail,con,venue);
+                StateChangeWaggonapi(fn,ln,countrycode+" "+mob,mail,con,venue);
                 break;
 
             case android.R.id.home:

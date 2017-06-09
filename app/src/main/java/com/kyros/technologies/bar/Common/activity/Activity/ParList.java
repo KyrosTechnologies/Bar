@@ -194,8 +194,6 @@ public class ParList extends AppCompatActivity {
                             purchaseArrayList.add(purchase);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
-
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
