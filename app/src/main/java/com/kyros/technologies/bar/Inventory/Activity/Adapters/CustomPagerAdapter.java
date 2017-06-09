@@ -65,6 +65,8 @@ public class CustomPagerAdapter extends PagerAdapter {
     private PreferenceManager store;
     private FrameLayout frame_fill_background;
     private int positionvalue=0;
+    private double valuemin=0;
+    private double valuemax=0;
 
     public CustomPagerAdapter(Context context,ArrayList<UtilSectionBar> bottleslist,int position) {
         mContext = context;
@@ -111,6 +113,9 @@ public class CustomPagerAdapter extends PagerAdapter {
         double minval=utilSectionBar.getMinvalue();
         double maxval=utilSectionBar.getMaxvalue();
         String totalbottles=utilSectionBar.getTotalbottles();
+         valuemin=minval*1000000;
+         valuemax=maxval*1000000;
+        Log.d("valueminmultiplied",""+valuemin);
 //        if(totalbottles!=null &&!totalbottles.isEmpty()){
 //            totalcount=Float.parseFloat(totalbottles);
 //        }
@@ -165,7 +170,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         try {
             Log.d("bottles",totalbottles);
             String value=totalbottles;
-           // bottle_quan.setText(value);
+            bottle_quan.setText(value);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -215,19 +220,30 @@ public class CustomPagerAdapter extends PagerAdapter {
                 }
             }
         });
+        mySeekBar.setProgress((int) valuemin);
+//        mySeekBar.setMax((int)valuemax);
 
         mySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float progress1= (float)progress/100;
-                Toast.makeText(mContext.getApplicationContext(),"range is : "+progress+" / converted : "+progress1+" / total count: "+totalcount,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext.getApplicationContext(),"range is : "+progress+" / converted : "+progress1+" / total count: "+totalcount,Toast.LENGTH_SHORT).show();
+                if((int)valuemin>progress){
+                    mySeekBar.setProgress((int) valuemin);
+                }
+                if((int)valuemax<progress){
+                    mySeekBar.setProgress((int)valuemax);
+                }
+                int rcount=100-(int)valuemax;
+                float rscount=rcount/(float)100;
 
 //                totalcount=totalcount+progress1;
-                fintotalcount=totalcount+progress1;
+                fintotalcount=totalcount+progress1+rscount;
+                Log.d("final rscount",""+rscount+" /rcount "+rcount);
                 bottle_quan.setText(String.valueOf(fintotalcount));
                 try{
                     int finalprogress=100-progress;
-                    int finalvalue=6*finalprogress;
+                    int finalvalue=8*finalprogress;
                     Log.d("final value ", "final  value of y: "+finalvalue);
                     RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,finalvalue);
                     parms.setMargins(25,0,25,0);

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddBottleDescription;
+import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.utils.Purchase;
 import com.squareup.picasso.Picasso;
@@ -64,16 +65,24 @@ public class AddBottleAdapter extends RecyclerView.Adapter<AddBottleAdapter.MyVi
         final int id=purchase.getId();
         String liquorname=purchase.getLiquorname();
         String liquorcapacity=purchase.getLiquorcapacity();
-        String shots=purchase.getShots();
+        final String shots=purchase.getShots();
         String category=purchase.getCategory();
-       // String subcategory=purchase.getSubcategory();
-        String parlevel=purchase.getParlevel();
-        String disname=purchase.getDistributorname();
-        String price=purchase.getPriceunit();
-        String binnumber=purchase.getBinnumber();
-        String productcode=purchase.getProductcode();
+        final String subcategory=purchase.getSubcategory();
+        final String parlevel=purchase.getParlevel();
+        final String disname=purchase.getDistributorname();
+        final String price=purchase.getPriceunit();
+        final String binnumber=purchase.getBinnumber();
+        final String productcode=purchase.getProductcode();
         String smallpic=purchase.getSmall_picture_url();
-        String pictureurl=purchase.getPictureurl();
+        final String minvalue=purchase.getMinvalue();
+        final String maxvalue=purchase.getMaxvalue();
+        String totalbotles=purchase.getTotalbottles();
+        final String emptyweight=purchase.getEmptyweight();
+        final String fullweight=purchase.getFullweight();
+        final String createdon=purchase.getCreatedon();
+
+        final String pictureurl=purchase.getPictureurl();
+        final String type=purchase.getType();
 
         if (liquorname==null){
             liquorname="";
@@ -107,11 +116,82 @@ e.printStackTrace();
         }
 
 
+        final String finalLiquorname = liquorname;
+        final String finalLiquorcapacity = liquorcapacity;
+        final String finalCategory = category;
         holder.add_bottles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(mContext,AddBottleDescription.class);
-                mContext.startActivity(i);
+                if(type!=null){
+                    switch (type){
+                        case "bottle":
+                            Intent i=new Intent(mContext,AddBottleDescription.class);
+                            i.putExtra("image",pictureurl);
+                            i.putExtra("liquorname", finalLiquorname);
+                            i.putExtra("liquorcapacity", finalLiquorcapacity);
+                            i.putExtra("shots",shots);
+                            i.putExtra("minvalue",minvalue);
+                            i.putExtra("maxvalue",maxvalue);
+                            i.putExtra("id",id);
+                            i.putExtra("createdon",createdon);
+                            i.putExtra("productcode",productcode);
+                            i.putExtra("binnumber",binnumber);
+                            i.putExtra("price",price);
+                            i.putExtra("category", finalCategory);
+                            i.putExtra("subcategory",subcategory);
+                            i.putExtra("parvalue",parlevel);
+                            i.putExtra("distributorname",disname);
+                            i.putExtra("update","update");
+
+                            mContext.startActivity(i);
+                            break;
+                        case "keg":
+                            Intent ip=new Intent(mContext,AddKegDescription.class);
+                            ip.putExtra("image",pictureurl);
+                            ip.putExtra("liquorname", finalLiquorname);
+                            ip.putExtra("fullweight", fullweight);
+                            ip.putExtra("emptyweight",emptyweight);
+                            ip.putExtra("shots",shots);
+                            ip.putExtra("minvalue",minvalue);
+                            ip.putExtra("maxvalue",maxvalue);
+                            ip.putExtra("id",id);
+                            ip.putExtra("createdon",createdon);
+                            ip.putExtra("productcode",productcode);
+                            ip.putExtra("binnumber",binnumber);
+                            ip.putExtra("price",price);
+                            ip.putExtra("category", finalCategory);
+                            ip.putExtra("subcategory",subcategory);
+                            ip.putExtra("parvalue",parlevel);
+                            ip.putExtra("distributorname",disname);
+                            ip.putExtra("update","update");
+
+                            mContext.startActivity(ip);
+                            break;
+                        default:
+                            Intent is=new Intent(mContext,AddBottleDescription.class);
+                            is.putExtra("image",pictureurl);
+                            is.putExtra("liquorname", finalLiquorname);
+                            is.putExtra("liquorcapacity", finalLiquorcapacity);
+                            is.putExtra("shots",shots);
+                            is.putExtra("minvalue",minvalue);
+                            is.putExtra("maxvalue",maxvalue);
+                            is.putExtra("id",id);
+                            is.putExtra("createdon",createdon);
+                            is.putExtra("productcode",productcode);
+                            is.putExtra("binnumber",binnumber);
+                            is.putExtra("price",price);
+                            is.putExtra("category", finalCategory);
+                            is.putExtra("subcategory",subcategory);
+                            is.putExtra("parvalue",parlevel);
+                            is.putExtra("distributorname",disname);
+                            is.putExtra("update","update");
+
+                            mContext.startActivity(is);
+                            break;
+
+                    }
+                }
+
             }
         });
 

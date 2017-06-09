@@ -9,8 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -19,12 +19,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.CustomBottleDetails;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
-import com.kyros.technologies.bar.utils.CustomLiquorModel;
 import com.kyros.technologies.bar.utils.EndURL;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -195,7 +192,7 @@ public class CustomBottleDetailsPurchase extends AppCompatActivity {
             Log.d("url: ",url);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmapvar.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            bitmapvar.compress(Bitmap.CompressFormat.PNG, 0, stream);
             bytearayProfile = stream.toByteArray();
             HttpPost httppost = new HttpPost(url);
 
@@ -220,7 +217,7 @@ public class CustomBottleDetailsPurchase extends AppCompatActivity {
                 maxval=maxval/100;
                 String fminval=String.valueOf(minval);
                 String fmaxval=String.valueOf(maxval);
-                entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
+                entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.png"));
                 entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
                 entity.addPart("liquorname", new StringBody(name, ContentType.TEXT_PLAIN));
                 entity.addPart("liquorquantitiy", new StringBody(capacity, ContentType.TEXT_PLAIN));

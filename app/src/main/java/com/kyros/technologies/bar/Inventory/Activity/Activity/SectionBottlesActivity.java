@@ -73,16 +73,22 @@ public class SectionBottlesActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        GetBottlesList();
+        super.onResume();
+    }
+
     private void GetBottlesList() {
         String tag_json_obj = "json_obj_req";
         final String url = EndURL.URL+"getUserliquorlist/"+UserprofileId+"/"+SectionId;
-        //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onResponse(JSONObject response) {
+                utilSectionBarArrayList.clear();
                 Log.d("List Response",response.toString());
                 try {
 

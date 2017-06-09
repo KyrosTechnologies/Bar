@@ -310,7 +310,7 @@ public class AddKegDescriptionPurchase extends AppCompatActivity {
         String url = EndURL.URL + "insertCustomKegPurchase";
         Log.d("url: ",url);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmapvariable.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bitmapvariable.compress(Bitmap.CompressFormat.PNG, 0, stream);
         bytearayProfile = stream.toByteArray();
         HttpPost httppost = new HttpPost(url);
 
@@ -335,7 +335,7 @@ public class AddKegDescriptionPurchase extends AppCompatActivity {
             maxval=maxval/100;
             String fminval=String.valueOf(minval);
             String fmaxval=String.valueOf(maxval);
-            entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
+            entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.png"));
             entity.addPart("userprofileid", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
             entity.addPart("liquorname", new StringBody(name, ContentType.TEXT_PLAIN));
             entity.addPart("fullweight", new StringBody(fullweight, ContentType.TEXT_PLAIN));
