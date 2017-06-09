@@ -240,7 +240,9 @@ public class CustomPagerAdapter extends PagerAdapter {
 //                totalcount=totalcount+progress1;
                 fintotalcount=totalcount+progress1+rscount;
                 Log.d("final rscount",""+rscount+" /rcount "+rcount);
-                bottle_quan.setText(String.valueOf(fintotalcount));
+             if(fintotalcount<=1.0){
+                 bottle_quan.setText(String.valueOf(fintotalcount));
+             }
                 try{
                     int finalprogress=100-progress;
                     int finalvalue=8*finalprogress;
