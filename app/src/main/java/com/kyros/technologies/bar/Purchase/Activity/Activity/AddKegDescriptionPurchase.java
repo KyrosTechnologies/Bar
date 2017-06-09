@@ -118,8 +118,29 @@ public class AddKegDescriptionPurchase extends AppCompatActivity {
             byte[]decodedString= Base64.decode(image.getBytes(),Base64.DEFAULT);
             picturebyte=decodedString;
             Bitmap decodeByte= BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-            kegg_image_purchase.setImageBitmap(decodeByte);
+//            kegg_image_purchase.setImageBitmap(decodeByte);
             bitmapvariable=decodeByte;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            Picasso.with(AddKegDescriptionPurchase.this).load(baseimage).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    kegg_image_purchase.setImageBitmap(bitmap);
+                    bitmapvariable=bitmap;
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -190,7 +211,7 @@ public class AddKegDescriptionPurchase extends AppCompatActivity {
             if(MaxValue==null){
                 MaxValue="";
             }
-            Picture=bundle.getString("picture");
+            Picture=bundle.getString("image");
 
             try {
 

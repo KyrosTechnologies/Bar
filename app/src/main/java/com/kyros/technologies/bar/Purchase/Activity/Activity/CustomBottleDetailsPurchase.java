@@ -7,6 +7,7 @@ package com.kyros.technologies.bar.Purchase.Activity.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,12 +19,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.CustomBottleDetails;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
 import com.kyros.technologies.bar.utils.CustomLiquorModel;
 import com.kyros.technologies.bar.utils.EndURL;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -53,7 +57,7 @@ public class CustomBottleDetailsPurchase extends AppCompatActivity {
     private PreferenceManager store;
     private String UserProfileId=null;
     private String path=null;
-    private Bitmap bitmap;
+    private Bitmap bitmapvar;
     private String baseimage=null;
     private byte[] bytearayProfile;
     private String name;
@@ -103,8 +107,30 @@ public class CustomBottleDetailsPurchase extends AppCompatActivity {
             byte[]decodedString= Base64.decode(image.getBytes(),Base64.DEFAULT);
             picturebyte=decodedString;
             Bitmap decodeByte= BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-            image_custombottle.setImageBitmap(decodeByte);
-            bitmap=decodeByte;
+//            image_custombottle.setImageBitmap(decodeByte);
+            bitmapvar=decodeByte;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            Picasso.with(CustomBottleDetailsPurchase.this).load(baseimage).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    image_custombottle.setImageBitmap(bitmap);
+                    bitmapvar=bitmap;
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -169,7 +195,7 @@ public class CustomBottleDetailsPurchase extends AppCompatActivity {
             Log.d("url: ",url);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            bitmapvar.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             bytearayProfile = stream.toByteArray();
             HttpPost httppost = new HttpPost(url);
 

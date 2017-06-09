@@ -110,7 +110,7 @@ public class PurchaseApiAdapter extends RecyclerView.Adapter<PurchaseApiAdapter.
                 i.putExtra("subcategory", finalSubtype);
                 i.putExtra("minvalue",String.valueOf(minvalue));
                 i.putExtra("maxvalue",String.valueOf(maxvalue));
-                i.putExtra("picture",smallpic);
+                i.putExtra("image",smallpic);
                 mContext.startActivity(i);
             }
         });

@@ -104,4 +104,10 @@ public class ParListAdapter extends RecyclerView.Adapter<ParListAdapter.MyViewHo
         return purchaseArrayList.size();
     }
 
+    public void setFilter(ArrayList<Purchase> purchaseArrayList1){
+        purchaseArrayList=new ArrayList<>();
+        purchaseArrayList.addAll(purchaseArrayList1);
+        notifyDataSetChanged();
+    }
+
 }

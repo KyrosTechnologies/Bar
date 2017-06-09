@@ -240,6 +240,7 @@ private void ForgotPasswordApi(final String mails){
     String url = EndURL.URL+"ForgotPassword";
     //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
     Log.d("waggonurl", url);
+    closepopup();
     JSONObject inputLogin=new JSONObject();
     try{
         inputLogin.put("useremail",mails);
@@ -263,7 +264,6 @@ private void ForgotPasswordApi(final String mails){
 
 
                     Toast.makeText(getApplicationContext(),"Password has been Successfully sent to Registered Email",Toast.LENGTH_SHORT).show();
-                        closepopup();
                 }else {
                     Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
 

@@ -160,7 +160,7 @@ public class BottlePurchaseStock extends AppCompatActivity {
             if(MaxValue==null){
                 MaxValue="";
             }
-            Picture=bundle.getString("picture");
+            Picture=bundle.getString("image");
 
             try {
 
@@ -177,7 +177,7 @@ public class BottlePurchaseStock extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            if(Picture!=null){
+            try{
                 Picasso.with(BottlePurchaseStock.this).load(Picture).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -195,6 +195,8 @@ public class BottlePurchaseStock extends AppCompatActivity {
 
                     }
                 });
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
 

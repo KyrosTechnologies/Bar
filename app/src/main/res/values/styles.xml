@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -20,6 +22,11 @@
     <style name="NavigationDrawerStyle">
         <item name="android:textSize">12sp</item><!-- text size in menu-->
         <item name="android:listPreferredItemHeightSmall">50dp</item><!-- item size in menu-->
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:editTextColor">@android:color/white</item>
+        <item name="android:queryHint">@android:color/white</item>
     </style>
 
 </resources>

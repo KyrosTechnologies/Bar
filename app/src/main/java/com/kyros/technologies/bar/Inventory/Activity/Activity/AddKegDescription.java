@@ -4,7 +4,8 @@ import android.content.Intent;
         import android.content.pm.ActivityInfo;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
-        import android.os.AsyncTask;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
         import android.util.Base64;
@@ -19,8 +20,10 @@ import android.content.Intent;
         import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
         import com.kyros.technologies.bar.utils.CustomLiquorModel;
         import com.kyros.technologies.bar.utils.EndURL;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
-        import org.apache.http.HttpEntity;
+import org.apache.http.HttpEntity;
         import org.apache.http.HttpResponse;
         import org.apache.http.client.ClientProtocolException;
         import org.apache.http.client.HttpClient;
@@ -43,7 +46,7 @@ public class AddKegDescription  extends AppCompatActivity {
     private EditText keg_name,keg_weight,keg_emptyweight,keg_shots,keg_parlevel,
             keg_distributorname,keg_price,keg_binnumber,keg_productcode,keg_category,keg_subcategory;
 
-    private Bitmap bitmap;
+    private Bitmap bitmapvar;
     private String baseimage=null;
     private byte [] picturebyte=null;
     private String MinValue="";
@@ -87,11 +90,34 @@ public class AddKegDescription  extends AppCompatActivity {
             byte[]decodedString= Base64.decode(image.getBytes(),Base64.DEFAULT);
             picturebyte=decodedString;
             Bitmap decodeByte= BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-            kegg_image.setImageBitmap(decodeByte);
-            bitmap=decodeByte;
+//            kegg_image.setImageBitmap(decodeByte);
+            bitmapvar=decodeByte;
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        try{
+            Picasso.with(AddKegDescription.this).load(baseimage).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    kegg_image.setImageBitmap(bitmap);
+                    bitmapvar=bitmap;
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
 
     }
@@ -147,7 +173,7 @@ public class AddKegDescription  extends AppCompatActivity {
         HttpClient httpclient = new DefaultHttpClient();
         String url = EndURL.URL + "insertCustomKeg";
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bitmapvar.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         bytearayProfile = stream.toByteArray();
         HttpPost httppost = new HttpPost(url);
 

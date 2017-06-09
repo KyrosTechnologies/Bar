@@ -81,7 +81,7 @@ public class ValueOnHandAdapter extends RecyclerView.Adapter<ValueOnHandAdapter.
         String fullweight=purchase.getFullweight();
         String emptyweight=purchase.getEmptyweight();
 
-        if (price!=null&&totalbottles!=null){
+        if (price!=null&&totalbottles!=null&&!price.equals("null")&&!totalbottles.equals("null")&&!price.isEmpty()&&!totalbottles.isEmpty()){
             float fprice=Float.parseFloat(price);
             float fbottles=Float.parseFloat(totalbottles);
             float fvalue=fprice*fbottles;
