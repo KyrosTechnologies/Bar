@@ -46,7 +46,6 @@ public class MyPurchaseListActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_my_inventory_list);
-        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
 
         recycler_database=(RecyclerView)findViewById(R.id.recycler_database);
         adapter=new PurchaseApiAdapter(MyPurchaseListActivity.this,liquorlist);

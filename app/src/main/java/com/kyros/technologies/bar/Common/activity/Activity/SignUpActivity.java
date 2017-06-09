@@ -170,6 +170,7 @@ public class SignUpActivity extends AppCompatActivity {
                 mail=email.getText().toString();
                 con=country.getText().toString();
                 venue=venue_name.getText().toString();
+
 //
 //                if (fn==null&&fn.isEmpty()){
 //                    Toast.makeText(getApplicationContext(),"Please Enter First Name",Toast.LENGTH_SHORT).show();

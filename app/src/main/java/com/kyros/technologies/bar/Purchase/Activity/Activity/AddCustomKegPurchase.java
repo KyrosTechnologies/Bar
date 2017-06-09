@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddCustomKeg;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.seekbar.Seekbar;
 
@@ -34,7 +31,6 @@ public class AddCustomKegPurchase extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_add_custom_keg_purchase);
         seekbar=(Seekbar)findViewById(R.id.seek_custom_bottle_purchase);
-        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
 
         custom_capture_keg=(ImageView)findViewById(R.id.custom_capture_bottle_purchase);
 

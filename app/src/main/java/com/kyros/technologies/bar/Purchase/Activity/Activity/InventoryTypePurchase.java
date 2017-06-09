@@ -10,11 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddToInventory;
-import com.kyros.technologies.bar.R;
-import com.kyros.technologies.bar.Inventory.Activity.Adapters.InventoryType;
 import com.kyros.technologies.bar.Purchase.Activity.Adapters.InventoryPurchaseAdapter;
 import com.kyros.technologies.bar.R;
 
@@ -40,7 +36,6 @@ public class InventoryTypePurchase extends AppCompatActivity {
         purchase_type_list=(RecyclerView) findViewById(R.id.purchase_type_list);
         purchase_bottle_custom=(TextView)findViewById(R.id.purchase_bottle_custom);
         adapter=new InventoryPurchaseAdapter(InventoryTypePurchase.this);
-        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
 
         purchase_type_list.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         purchase_type_list.setItemAnimator(new DefaultItemAnimator());

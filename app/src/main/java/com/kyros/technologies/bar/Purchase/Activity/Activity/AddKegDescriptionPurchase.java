@@ -10,8 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -24,8 +24,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddKegDescription;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -48,9 +46,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import static android.R.attr.name;
-import static android.R.attr.type;
 
 public class AddKegDescriptionPurchase extends AppCompatActivity {
     private ImageView kegg_image_purchase;
@@ -95,7 +90,6 @@ public class AddKegDescriptionPurchase extends AppCompatActivity {
         keg_productcode=(EditText)findViewById(R.id.keg_productcode_purchase);
         keg_binnumber=(EditText)findViewById(R.id.keg_binnumber_purchase);
         keg_price=(EditText)findViewById(R.id.keg_price_purchase);
-        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
 
         keg_distributorname=(EditText)findViewById(R.id.keg_distributorname_purchase);
         keg_parlevel=(EditText)findViewById(R.id.keg_parlevel_purchase);

@@ -13,12 +13,12 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,9 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddCustomBottle;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddCustomKeg;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.AddToInventory;
 import com.kyros.technologies.bar.R;
 
 import java.io.ByteArrayOutputStream;
@@ -55,7 +52,6 @@ public class PurchaseAddToInventory extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_purchase_add_to_inventory);
         add_custom_bottle=(LinearLayout)findViewById(R.id.add_custom_bottle_purchase);
-        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
 
         add_custom_bottle.setOnClickListener(new View.OnClickListener() {
             @Override

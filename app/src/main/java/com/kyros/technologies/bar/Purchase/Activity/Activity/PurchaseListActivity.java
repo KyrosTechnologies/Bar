@@ -4,8 +4,8 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,8 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.bar.Purchase.Activity.Adapters.PurchaseListAdapter;
-import com.kyros.technologies.bar.Common.activity.Activity.LandingActivity;
-import com.kyros.technologies.bar.Inventory.Activity.Activity.InventoryActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -60,7 +58,6 @@ public class PurchaseListActivity extends AppCompatActivity {
         purchase_recycler.setItemAnimator(new DefaultItemAnimator());
         purchase_recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        Toast.makeText(getApplicationContext(),"working",Toast.LENGTH_SHORT).show();
 
         my_inventory_list=(LinearLayout)findViewById(R.id.my_inventory_list);
         adapter.notifyDataSetChanged();
@@ -152,7 +149,6 @@ public class PurchaseListActivity extends AppCompatActivity {
                             purchaseArrayList.add(purchase);
                         }
 
-                        Toast.makeText(getApplicationContext(),"Sucessfully Created",Toast.LENGTH_SHORT).show();
 
 
                     }else {
@@ -174,7 +170,6 @@ public class PurchaseListActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
-//                texts.setText(error.toString());
             }
         }) {
 
