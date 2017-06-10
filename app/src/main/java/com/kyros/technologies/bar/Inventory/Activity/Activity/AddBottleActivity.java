@@ -134,6 +134,8 @@ public class AddBottleActivity extends AppCompatActivity {
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
 
+                        inventoryArrayList.clear();
+
                         JSONArray array=obj.getJSONArray("model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
@@ -151,7 +153,7 @@ public class AddBottleActivity extends AppCompatActivity {
                             String createdon=first.getString("createdon");
                             String pictureurl=first.getString("pictureurl");
                             String subcategory=first.getString("subcategory");
-                           String minvalue=first.getString("minvalue");
+                            String minvalue=first.getString("minvalue");
                             String maxvalue=first.getString("maxvalue");
                             String totalbottles=first.getString("totalbottles");
                             String fullweight=first.getString("fullweight");

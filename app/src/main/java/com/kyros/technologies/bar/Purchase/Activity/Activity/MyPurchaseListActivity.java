@@ -80,6 +80,8 @@ public class MyPurchaseListActivity extends AppCompatActivity {
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
 
+                        liquorlist.clear();
+
                         JSONArray array=obj.getJSONArray("userlist");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
