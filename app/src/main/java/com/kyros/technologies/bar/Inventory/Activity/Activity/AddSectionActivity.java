@@ -197,6 +197,8 @@ public class AddSectionActivity extends AppCompatActivity {
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
 
+                        mySectionArrayList.clear();
+
                         JSONArray array=obj.getJSONArray("model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);

@@ -198,6 +198,8 @@ public class BarActivity extends AppCompatActivity {
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
 
+                        myBarArrayList.clear();
+
                         JSONArray array=obj.getJSONArray("model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);

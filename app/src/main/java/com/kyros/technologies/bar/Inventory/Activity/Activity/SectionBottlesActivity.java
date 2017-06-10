@@ -138,6 +138,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
                     String message=obj.getString("message");
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
+                        utilSectionBarArrayList.clear();
 
                         JSONArray array=obj.getJSONArray("model");
                         for (int i=0;i<array.length();i++){
