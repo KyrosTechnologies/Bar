@@ -236,13 +236,40 @@ public class CustomPagerAdapter extends PagerAdapter {
                 }
                 int rcount=100-(int)valuemax;
                 float rscount=rcount/(float)100;
+                int averageminmad=((int)valuemax+(int)valuemin)/2;
+                int nextavg=50/averageminmad;
+                int finanextavg=nextavg/(int)valuemin;
+
+
+                int hariavg=(int)valuemax-(int)valuemin;
+                int hariminusvalue=progress-(int)valuemin;
+                float haridivalue=(float)hariminusvalue/(float)hariavg;
+                float harihundredpercentage=haridivalue*100;
+                Log.d("harivalue: ","hariavg"+hariavg+" / "+"hariminusvalue : "+hariminusvalue+" / "+"haridivalue ;"+haridivalue+" / "+"harihundredpercentagge ; "+harihundredpercentage);
+              if(harihundredpercentage>=100){
+                  bottle_quan.setText(String.valueOf("1.0"));
+              }else if(harihundredpercentage<1){
+                  bottle_quan.setText(String.valueOf("0.0"));
+
+              }else{
+                  bottle_quan.setText(String.valueOf(haridivalue));
+              }
+
+
 
 //                totalcount=totalcount+progress1;
-                fintotalcount=totalcount+progress1+rscount;
+//                fintotalcount=totalcount+progress1+rscount;
+                fintotalcount=(totalcount+progress1)-(int)valuemin;
                 Log.d("final rscount",""+rscount+" /rcount "+rcount);
              if(fintotalcount<=1.0){
-                 bottle_quan.setText(String.valueOf(fintotalcount));
-             }
+                 //TODO:need to uncomment this line
+              //   bottle_quan.setText(String.valueOf(fintotalcount));
+             }if(fintotalcount==rscount){
+                    //TODO:need to uncomment this line
+
+                    //  bottle_quan.setText(String.valueOf("0"));
+
+                }
                 try{
                     int finalprogress=100-progress;
                     int finalvalue=8*finalprogress;

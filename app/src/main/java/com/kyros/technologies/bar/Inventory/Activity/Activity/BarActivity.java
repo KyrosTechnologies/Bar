@@ -6,11 +6,12 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,8 +25,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.BarAdapter;
+import com.kyros.technologies.bar.OnStartDragListener;
+import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
@@ -36,7 +38,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class BarActivity extends AppCompatActivity {
+public class BarActivity extends AppCompatActivity implements OnStartDragListener {
     private LinearLayout front_bar,add_bar_acti;
     private AlertDialog barDialog;
     private RecyclerView bar_recycler;
@@ -49,7 +51,10 @@ public class BarActivity extends AppCompatActivity {
     private PreferenceManager store;
     private ArrayList<MyBar>myBarArrayList=new ArrayList<MyBar>();
 
+    private ItemTouchHelper mItemTouchHelper;
+        public BarActivity(){
 
+        }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,7 @@ public class BarActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         bar_recycler.setLayoutManager(layoutManagersecond);
         bar_recycler.setItemAnimator(new DefaultItemAnimator());
+        bar_recycler.setHasFixedSize(true);
         bar_recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         front_bar=(LinearLayout)findViewById(R.id.front_bar);
@@ -81,6 +87,89 @@ public class BarActivity extends AppCompatActivity {
         });
         //GetBarList();
         adapter.notifyDataSetChanged();
+//        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+//            @Override
+//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+//                int fromPosition =viewHolder.getAdapterPosition();
+//                int toPosition =target.getAdapterPosition();
+//
+//                if(fromPosition<toPosition){
+//                    for(int i=fromPosition; i<toPosition;i++){
+//                        Collections.swap(myBarArrayList,i,i+1);
+//                    }
+//                }else{
+//                    for(int i=fromPosition;i> toPosition;i++){
+//                        Collections.swap(myBarArrayList,i,i-1);
+//                    }
+//                }
+//                adapter.notifyItemMoved(fromPosition,toPosition);
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+//                final int position = viewHolder.getAdapterPosition();
+//                switch (direction){
+//                    case ItemTouchHelper.RIGHT:
+//                        Toast.makeText(getApplicationContext(),"right position :"+position,Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case ItemTouchHelper.ACTION_STATE_DRAG:
+//                        Toast.makeText(getApplicationContext(),"drag position :"+position,Toast.LENGTH_SHORT).show();
+//
+//                        break;
+//                    case ItemTouchHelper.ACTION_STATE_IDLE:
+//                        Toast.makeText(getApplicationContext(),"idle position :"+position,Toast.LENGTH_SHORT).show();
+//
+//                        break;
+//                    case ItemTouchHelper.ACTION_STATE_SWIPE:
+//                        Toast.makeText(getApplicationContext(),"swipe position :"+position,Toast.LENGTH_SHORT).show();
+//
+//                        break;
+//                    case ItemTouchHelper.LEFT:
+//                        Toast.makeText(getApplicationContext(),"left position :"+position,Toast.LENGTH_SHORT).show();
+//
+//                        break;
+//
+//                }
+////                if (direction == ItemTouchHelper.LEFT) {
+////
+////                    AlertDialog.Builder builder = new AlertDialog.Builder(BarActivity.this);
+////                    builder.setMessage("Are you sure to delete?");
+////
+////                    builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() {
+////                        @Override
+////                        public void onClick(DialogInterface dialog, int which) {
+////                            myBarArrayList.remove(position);
+////                            adapter.notifyItemRemoved(position);
+////
+////                            return;
+////                        }
+////                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+////                        @Override
+////                        public void onClick(DialogInterface dialog, int which) {
+////                            adapter.notifyItemRemoved(position + 1);
+////                            adapter.notifyItemRangeChanged(position, adapter.getItemCount());
+////                            return;
+////                        }
+////                    }).show();
+////                }else if(direction==ItemTouchHelper.RIGHT){
+////                    String barname=myBarArrayList.get(position).getBarname();
+////                    int  barid=myBarArrayList.get(position).getid();
+////                    Toast.makeText(getApplicationContext(),"Barname and bar id : "+barname+" / "+barid,Toast.LENGTH_SHORT).show();
+////                }else if(direction==ItemTouchHelper.ACTION_STATE_DRAG){
+////                    Toast.makeText(getApplicationContext(),"Dragging : ",Toast.LENGTH_SHORT).show();
+////
+////                }
+//            }
+//        };
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+//        itemTouchHelper.attachToRecyclerView(bar_recycler);
+
+
+     /*   ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(bar_recycler);*/
     }
 
     @Override
@@ -180,6 +269,7 @@ public class BarActivity extends AppCompatActivity {
     }
 
 
+
     private void GetBarList() {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"getBarbyUserProfileId/"+UserProfileId;
@@ -197,6 +287,7 @@ public class BarActivity extends AppCompatActivity {
                     String message=obj.getString("message");
                     boolean success=obj.getBoolean("issuccess");
                     if (success){
+                        myBarArrayList.clear();
 
                         JSONArray array=obj.getJSONArray("model");
                         for (int i=0;i<array.length();i++){
@@ -308,5 +399,11 @@ public class BarActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dismissBarDialog();
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
+
     }
 }
