@@ -62,7 +62,6 @@ public class ValueOnHand extends AppCompatActivity {
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
         adapter.notifyDataSetChanged();
-        GetBarList();
         adapter.notifyDataSetChanged();
 
         String s= getIntent().getStringExtra("search");
@@ -110,7 +109,7 @@ public class ValueOnHand extends AppCompatActivity {
         return filterdlist;
     }
 
-    private void GetBarList() {
+    private void GetvalueOnHand() {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"GetValueOnHand/"+UserProfileId;
         //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
@@ -221,6 +220,11 @@ public class ValueOnHand extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetvalueOnHand();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

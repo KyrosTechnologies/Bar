@@ -64,7 +64,7 @@ public class ParList extends AppCompatActivity {
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
         adapter.notifyDataSetChanged();
-        GetParList();
+        //GetParList();
         adapter.notifyDataSetChanged();
         String s= getIntent().getStringExtra("search");
         if(s!=null){
@@ -222,6 +222,11 @@ public class ParList extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetParList();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -79,7 +79,7 @@ public class BarActivity extends AppCompatActivity {
                 showBarDialog();
             }
         });
-        GetBarList();
+        //GetBarList();
         adapter.notifyDataSetChanged();
     }
 
@@ -251,6 +251,12 @@ public class BarActivity extends AppCompatActivity {
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetBarList();
     }
 
     private void showBarDialog(){

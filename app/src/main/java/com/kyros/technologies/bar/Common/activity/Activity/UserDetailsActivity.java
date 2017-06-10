@@ -89,7 +89,7 @@ public class UserDetailsActivity extends AppCompatActivity {
              e.printStackTrace();
          }
         adapter.notifyDataSetChanged();
-        GetUserDetailList();
+        //GetUserDetailList();
         adapter.notifyDataSetChanged();
 
     }
@@ -187,6 +187,11 @@ public class UserDetailsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetUserDetailList();
+    }
 
     private void openpopup() {
         if(forget_dialog==null){

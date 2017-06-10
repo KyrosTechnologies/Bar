@@ -61,7 +61,7 @@ public class AddBottleActivity extends AppCompatActivity {
         add_bottle.setItemAnimator(new DefaultItemAnimator());
         add_bottle.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        GetBottlesInventoryList();
+        //GetBottlesInventoryList();
         adapter.notifyDataSetChanged();
         add_inventory_type=(TextView)findViewById(R.id.add_inventory_type);
         add_inventory_type.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +209,12 @@ public class AddBottleActivity extends AppCompatActivity {
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetBottlesInventoryList();
     }
 
     @Override

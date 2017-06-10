@@ -62,7 +62,7 @@ public class VenueSummary extends AppCompatActivity {
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
         adapter.notifyDataSetChanged();
-        GetVenueList();
+        //GetVenueList();
         adapter.notifyDataSetChanged();
 
         String s= getIntent().getStringExtra("search");
@@ -218,6 +218,12 @@ public class VenueSummary extends AppCompatActivity {
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetVenueList();
     }
 
     @Override

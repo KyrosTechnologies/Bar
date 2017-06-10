@@ -58,7 +58,7 @@ public class DistributorList extends AppCompatActivity {
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
         adapter.notifyDataSetChanged();
-        GetDistributorList();
+//        GetDistributorList();
         adapter.notifyDataSetChanged();
 
     }
@@ -123,7 +123,11 @@ public class DistributorList extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetDistributorList();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

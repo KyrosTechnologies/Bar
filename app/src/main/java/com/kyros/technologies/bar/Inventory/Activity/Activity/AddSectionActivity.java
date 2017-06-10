@@ -80,7 +80,7 @@ public class AddSectionActivity extends AppCompatActivity {
                 showBarDialog();
             }
         });
-        GetSectionList();
+        //GetSectionList();
         adapter.notifyDataSetChanged();
 //        add_section.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -254,6 +254,12 @@ public class AddSectionActivity extends AppCompatActivity {
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetSectionList();
     }
 
     @Override

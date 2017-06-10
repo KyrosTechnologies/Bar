@@ -59,7 +59,7 @@ public class EmailManagementActivity extends AppCompatActivity {
         UserprofileId=store.getUserProfileId();
         UserEmail=store.getUserEmail();
         Log.d("Email : "+UserprofileId,UserEmail);
-        GetEmail();
+//        GetEmail();
         adapter.notifyDataSetChanged();
         email_recycler.setLayoutManager(layoutManagersecond);
         email_recycler.setItemAnimator(new DefaultItemAnimator());
@@ -145,6 +145,11 @@ public class EmailManagementActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetEmail();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

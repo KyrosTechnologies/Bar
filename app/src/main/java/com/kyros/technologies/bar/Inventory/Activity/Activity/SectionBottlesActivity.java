@@ -64,7 +64,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
         section_bar_recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         add_bottle_act=(LinearLayout)findViewById(R.id.add_bottle_act);
-        GetBottlesList();
+       // GetBottlesList();
         adapter.notifyDataSetChanged();
         Toast.makeText(getApplicationContext(),"UserProfileId :"+UserprofileId,Toast.LENGTH_SHORT).show();
         add_bottle_act.setOnClickListener(new View.OnClickListener() {
@@ -257,6 +257,11 @@ public class SectionBottlesActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetBottlesList();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

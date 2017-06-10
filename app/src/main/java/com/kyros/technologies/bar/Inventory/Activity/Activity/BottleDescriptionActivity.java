@@ -93,7 +93,6 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         bottle_des_product_code=(EditText)findViewById(R.id.bottle_des_product_code);
         bott_image=(ImageView)findViewById(R.id.bott_image);
         store= PreferenceManager.getInstance(getApplicationContext());
-        Toast.makeText(getApplicationContext(),"picture",Toast.LENGTH_SHORT).show();
         UserProfileId=store.getUserProfileId();
         Barid=store.getBarId();
         Sectionid=store.getSectionId();

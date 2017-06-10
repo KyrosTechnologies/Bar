@@ -52,7 +52,7 @@ public class MyInventoryListActivity extends AppCompatActivity {
         recycler_database.setItemAnimator(new DefaultItemAnimator());
         recycler_database.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        StateChangeWaggonapi();
+        //StateChangeWaggonapi();
 
         String s= getIntent().getStringExtra("search");
         if(s!=null){
@@ -165,7 +165,11 @@ public class MyInventoryListActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StateChangeWaggonapi();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
