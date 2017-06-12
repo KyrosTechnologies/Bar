@@ -52,9 +52,9 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
     private ArrayList<MyBar>myBarArrayList=new ArrayList<MyBar>();
 
     private ItemTouchHelper mItemTouchHelper;
-        public BarActivity(){
-
-        }
+//        public BarActivity(){
+//
+//        }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
