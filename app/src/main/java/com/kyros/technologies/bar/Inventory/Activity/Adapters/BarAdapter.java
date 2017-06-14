@@ -28,6 +28,7 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
     private ArrayList<MyBar>barArrayList;
     private  OnStartDragListener mDragStartListener;
 
+
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
 //        Collections.swap(barArrayList, fromPosition, toPosition);

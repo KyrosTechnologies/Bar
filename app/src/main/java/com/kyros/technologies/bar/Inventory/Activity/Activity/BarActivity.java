@@ -79,7 +79,7 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
         adapter.notifyDataSetChanged();
         front_bar=(LinearLayout)findViewById(R.id.front_bar);
         add_bar_acti=(LinearLayout)findViewById(R.id.add_bar_acti);
-        add_bar_acti.setOnClickListener(new View.OnClickListener() {
+        add_bar_acti.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showBarDialog();
