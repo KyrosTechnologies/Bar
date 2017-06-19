@@ -193,8 +193,8 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
         Log.d("waggonurl", url);
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("userprofileid",userprofile);
-            inputLogin.put("barname",barname);
+            inputLogin.put("UserProfileId",userprofile);
+            inputLogin.put("BarName",barname);
 
 
         }catch (Exception e){
@@ -211,22 +211,22 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
+                            int userprofile=first.getInt("UserProfileId");
                             store.putUserProfileId(String.valueOf(userprofile));
-                            String fname=first.getString("barname");
+                            String fname=first.getString("BarName");
                             store.putBarName(String.valueOf(fname));
-                            int lname=first.getInt("barid");
+                            int lname=first.getInt("BarId");
                             //store.putBarId(String.valueOf(lname));
                             String number=null;
                             try {
-                                number=first.getString("createdon");
+                                number=first.getString("CreatedOn");
                                 store.putBarDateCreated(String.valueOf(number));
                             }catch (Exception e){
                                 e.printStackTrace();
@@ -284,25 +284,25 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
                         myBarArrayList.clear();
 
                         myBarArrayList.clear();
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
+                            int userprofile=first.getInt("UserProfileId");
                             store.putUserProfileId(String.valueOf(userprofile));
-                            String fname=first.getString("barname");
+                            String fname=first.getString("BarName");
                             store.putBarName(String.valueOf(fname));
-                            int lname=first.getInt("barid");
+                            int lname=first.getInt("BarId");
                             //store.putBarId(String.valueOf(lname));
                             String number=null;
                             try {
-                                number=first.getString("createdon");
+                                number=first.getString("CreatedOn");
                                 store.putBarDateCreated(String.valueOf(number));
                             }catch (Exception e){
                                 e.printStackTrace();

@@ -229,11 +229,11 @@ private void showLogoutDialog(){
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
-                        String totalbottles=obj.getString("totalbottles");
+                        String totalbottles=obj.getString("TotalBottles");
                         if(totalbottles!=null){
                             total_quans.setText(totalbottles);
                         }
@@ -282,11 +282,11 @@ private void showLogoutDialog(){
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
-                        String underparvalue=obj.getString("underparvalue");
+                        String underparvalue=obj.getString("UnderParValue");
                         if(underparvalue!=null){
                             parvlie.setText(underparvalue);
                         }

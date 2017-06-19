@@ -119,8 +119,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("waggonurl", url);
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("password",passwords);
-            inputLogin.put("useremail",mails);
+            inputLogin.put("Password",passwords);
+            inputLogin.put("UserEmail",mails);
 
 
         }catch (Exception e){
@@ -135,40 +135,40 @@ public class LoginActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
-                        JSONArray array=obj.getJSONArray("userlist");
+                        JSONArray array=obj.getJSONArray("UserList");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
+                            int userprofile=first.getInt("UserProfileId");
                             store.putUserProfileId(String.valueOf(userprofile));
-                            String fname=first.getString("userfirstname");
+                            String fname=first.getString("UserFirstName");
                             store.putFirstName(String.valueOf(fname));
-                            String lname=first.getString("userlastname");
+                            String lname=first.getString("UserLastName");
                             store.putLastName(String.valueOf(lname));
-                            String number=first.getString("usermobilenumber");
+                            String number=first.getString("UserMobileNumber");
                             store.putMobileNumber(String.valueOf(number));
-                            String email=first.getString("useremail");
+                            String email=first.getString("UserEmail");
                             store.putUserEmail(String.valueOf(email));
-                            String venue=first.getString("uservenuename");
+                            String venue=first.getString("UserVenueName");
                             store.putVenue(String.valueOf(venue));
-                            String country=first.getString("usercountry");
+                            String country=first.getString("UserCountry");
                             store.putCountry(String.valueOf(country));
-                            String inventory=first.getString("userofteninventory");
+                            String inventory=first.getString("UserOftenInventory");
                             store.putInventory(String.valueOf(inventory));
-                            int inventorytime=first.getInt("userinventorytime");
+                            int inventorytime=first.getInt("UserInventoryTime");
                             store.putinventoryTime(String.valueOf(inventorytime));
-                            boolean active=first.getBoolean("isactive");
+                            boolean active=first.getBoolean("IsActive");
                             store.putIsactive(active);
-                            String create=first.getString("createdon");
+                            String create=first.getString("CreatedOn");
                             store.putCreate(String.valueOf(create));
-                            String modify=first.getString("modifiedon");
+                            String modify=first.getString("ModifiedOn");
                             store.putModifi(String.valueOf(modify));
-                            int id=first.getInt("id");
+                            int id=first.getInt("Id");
                             store.putIds(String.valueOf(id));
-                            String password=first.getString("password");
+                            String password=first.getString("Password");
                             store.putPassword(String.valueOf(password));
                             session.createLoginSession(email,password);
 
@@ -239,7 +239,7 @@ private void ForgotPasswordApi(final String mails){
     closepopup();
     JSONObject inputLogin=new JSONObject();
     try{
-        inputLogin.put("useremail",mails);
+        inputLogin.put("UserEmail",mails);
 
 
     }catch (Exception e){
@@ -254,7 +254,7 @@ private void ForgotPasswordApi(final String mails){
             try {
 
                 JSONObject obj=new JSONObject(response.toString());
-                String message=obj.getString("message");
+                String message=obj.getString("Message");
                 boolean success=obj.getBoolean("IsSuccess");
                 if (success){
 

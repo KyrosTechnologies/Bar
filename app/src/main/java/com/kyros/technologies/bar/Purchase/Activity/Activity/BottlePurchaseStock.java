@@ -155,6 +155,7 @@ public class BottlePurchaseStock extends AppCompatActivity {
                 MaxValue="";
             }
             Picture=bundle.getString("image");
+            Log.d("Picture Url : ",Picture);
 
             try {
 
@@ -264,6 +265,7 @@ public class BottlePurchaseStock extends AppCompatActivity {
         String product=pur_bottle_des_product_code.getText().toString();
         HttpClient httpclient = new DefaultHttpClient();
         String url = EndURL.URL +"insertPurchaseList";
+        Log.d("Url: ",url);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmapvariable.compress(Bitmap.CompressFormat.PNG, 0, stream);
         bytearayProfile = stream.toByteArray();
@@ -359,21 +361,21 @@ public class BottlePurchaseStock extends AppCompatActivity {
         String product=pur_bottle_des_product_code.getText().toString();
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("id",id);
-            inputLogin.put("userprofileid",UserProfileId);
-            inputLogin.put("liquorname",name);
-            inputLogin.put("liquorcapacity",capacity);
-            inputLogin.put("type","bottle");
-            inputLogin.put("shots",shots);
-            inputLogin.put("category",maincat);
-            inputLogin.put("subcategory",subcat);
-            inputLogin.put("parlevel",parlevel);
-            inputLogin.put("distributorname",disname);
-            inputLogin.put("price",price);
-            inputLogin.put("binnumber",bin);
-            inputLogin.put("productcode",product);
-            inputLogin.put("minvalue",MinValue);
-            inputLogin.put("maxvalue",MaxValue);
+            inputLogin.put("Id",id);
+            inputLogin.put("UserProfileId",UserProfileId);
+            inputLogin.put("LiquorName",name);
+            inputLogin.put("LiquorCapacity",capacity);
+            inputLogin.put("Type","bottle");
+            inputLogin.put("Shots",shots);
+            inputLogin.put("Category",maincat);
+            inputLogin.put("SubCategory",subcat);
+            inputLogin.put("ParLevel",parlevel);
+            inputLogin.put("DistributorName",disname);
+            inputLogin.put("Price",price);
+            inputLogin.put("BinNumber",bin);
+            inputLogin.put("ProductCode",product);
+            inputLogin.put("MinValue",MinValue);
+            inputLogin.put("MaxValue",MaxValue);
 
 
 
@@ -388,8 +390,8 @@ public class BottlePurchaseStock extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
 

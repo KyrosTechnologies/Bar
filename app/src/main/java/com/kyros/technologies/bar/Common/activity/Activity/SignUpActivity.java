@@ -73,14 +73,14 @@ public class SignUpActivity extends AppCompatActivity {
         Log.d("waggonurl", url);
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("userfirstname",fn);
-            inputLogin.put("userlastname",ln);
-            inputLogin.put("usermobilenumber",mob);
-            inputLogin.put("useremail",mail);
-            inputLogin.put("uservenuename",venue);
-            inputLogin.put("usercountry",con);
-            inputLogin.put("userofteninventory","");
-            inputLogin.put("userinventorytime",0);
+            inputLogin.put("UserFirstName",fn);
+            inputLogin.put("UserLastName",ln);
+            inputLogin.put("UserMobileNumber",mob);
+            inputLogin.put("UserEmail",mail);
+            inputLogin.put("UserVenueName",venue);
+            inputLogin.put("UserCountry",con);
+            inputLogin.put("UserOftenInventory","");
+            inputLogin.put("UserInventoryTime",0);
 
 
         }catch (Exception e){
@@ -95,8 +95,8 @@ public class SignUpActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
 //                        JSONArray array=obj.getJSONArray("userList");

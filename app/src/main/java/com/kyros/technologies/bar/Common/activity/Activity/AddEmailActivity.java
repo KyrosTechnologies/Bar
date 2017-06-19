@@ -65,8 +65,8 @@ public class AddEmailActivity extends AppCompatActivity {
         Log.d("waggonurl", url);
         final JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("userprofileid",userprofile);
-            inputLogin.put("useremail",email);
+            inputLogin.put("UserProfileId",userprofile);
+            inputLogin.put("UserEmail",email);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -81,17 +81,17 @@ public class AddEmailActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
                             int id=first.getInt("id");
-                            int userprofile=first.getInt("userprofileid");
-                            String email=first.getString("useremail");
-                            String cretaeon=first.getString("createdon");
+                            int userprofile=first.getInt("UserProfileId");
+                            String email=first.getString("UserEmail");
+                            String cretaeon=first.getString("CreatedOn");
 
                         }
 

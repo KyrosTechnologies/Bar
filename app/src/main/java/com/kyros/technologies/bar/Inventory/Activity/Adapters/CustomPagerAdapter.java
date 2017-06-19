@@ -99,20 +99,22 @@ public class CustomPagerAdapter extends PagerAdapter {
         final int barid= utilSectionBar.getBarid();
         String liquorname=utilSectionBar.getLiquorname();
         final int userprofileid=utilSectionBar.getUserprofileid();
-        String liquorcapacity=utilSectionBar.getLiquorcapacity();
+        final String liquorcapacity=utilSectionBar.getLiquorcapacity();
         String shots= utilSectionBar.getShots();
-        String category=utilSectionBar.getCategory();
-        String subcategory=utilSectionBar.getSubcategory();
-        String parlevel=utilSectionBar.getParlevel();
-        String disname=utilSectionBar.getDistributorname();
-        String price=utilSectionBar.getPriceunit();
+        final String category=utilSectionBar.getCategory();
+        final String subcategory=utilSectionBar.getSubcategory();
+        final String parlevel=utilSectionBar.getParlevel();
+        final String disname=utilSectionBar.getDistributorname();
+        final String price=utilSectionBar.getPriceunit();
         final String binnumber=utilSectionBar.getBinnumber();
-        String productcode=utilSectionBar.getProductcode();
+        final String productcode=utilSectionBar.getProductcode();
         String createdon=utilSectionBar.getCreatedon();
-        String pictureurl= utilSectionBar.getPictureurl();
-        double minval=utilSectionBar.getMinvalue();
-        double maxval=utilSectionBar.getMaxvalue();
+        final String pictureurl= utilSectionBar.getPictureurl();
+        final double minval=utilSectionBar.getMinvalue();
+        final double maxval=utilSectionBar.getMaxvalue();
         String totalbottles=utilSectionBar.getTotalbottles();
+        final int BottleId=utilSectionBar.getBottleId();
+        final String type=utilSectionBar.getType();
          valuemin=minval*1000000;
          valuemax=maxval*1000000;
         Log.d("valueminmultiplied",""+valuemin);
@@ -174,11 +176,39 @@ public class CustomPagerAdapter extends PagerAdapter {
         }catch (Exception e){
             e.printStackTrace();
         }
+        final String finalLiquorname1 = liquorname;
+        final String finalShots = shots;
+        final String finalTotalbottles = totalbottles;
         edit_bottle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(mContext,BottleDescriptionActivity.class);
-                mContext.startActivity(i);
+                switch (type){
+                    case "bottle":
+                        Intent i=new Intent(mContext,BottleDescriptionActivity.class);
+                        i.putExtra("sectionid",sectionid);
+                        i.putExtra("barid",barid);
+                        i.putExtra("bottleid",BottleId);
+                        i.putExtra("liquorname", finalLiquorname1);
+                        i.putExtra("liquorcapacity",liquorcapacity);
+                        i.putExtra("shots", finalShots);
+                        i.putExtra("category",category);
+                        i.putExtra("subcategory",subcategory);
+                        i.putExtra("parvalue",parlevel);
+                        i.putExtra("distributorname",disname);
+                        i.putExtra("price",price);
+                        i.putExtra("binnumber",binnumber);
+                        i.putExtra("productcode",productcode);
+                        i.putExtra("minvalue",String.valueOf(minval));
+                        i.putExtra("maxvalue",String.valueOf(maxval));
+                        i.putExtra("totalbottles", finalTotalbottles);
+                        i.putExtra("whichtype","update");
+                        i.putExtra("image",pictureurl);
+                        mContext.startActivity(i);
+                        break;
+                    case "keg":
+                        break;
+                }
+
             }
         });
 
@@ -311,11 +341,11 @@ public class CustomPagerAdapter extends PagerAdapter {
         Log.d("waggonurl", url);
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("userprofileid",userprofileid);
-            inputLogin.put("totalbottles",String.valueOf(totalbottle));
-            inputLogin.put("barid",barid);
-            inputLogin.put("sectionid",sectionid);
-            inputLogin.put("liquorname",liquorname);
+            inputLogin.put("UserProfileId",userprofileid);
+            inputLogin.put("TotalBottles",String.valueOf(totalbottle));
+            inputLogin.put("BarId",barid);
+            inputLogin.put("SectionId",sectionid);
+            inputLogin.put("LiquorName",liquorname);
 
 
         }catch (Exception e){
@@ -330,8 +360,8 @@ public class CustomPagerAdapter extends PagerAdapter {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
                         Toast.makeText(mContext.getApplicationContext(),"Successfully Updated",Toast.LENGTH_SHORT).show();

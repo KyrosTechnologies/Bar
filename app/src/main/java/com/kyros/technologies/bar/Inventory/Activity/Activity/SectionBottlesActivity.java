@@ -135,59 +135,58 @@ public class SectionBottlesActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
                         utilSectionBarArrayList.clear();
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int id=first.getInt("id");
-                            int userprofile=first.getInt("userprofileid");
-                            int barid=first.getInt("barid");
-                            int sectionid=first.getInt("sectionid");
-                            String minvalue=first.getString("minvalue");
-                            String maxvalue=first.getString("maxvalue");
-                            String liquorname=first.getString("liquorname");
+                            int id=first.getInt("Id");
+                            int userprofile=first.getInt("UserProfileId");
+                            int barid=first.getInt("BarId");
+                            int sectionid=first.getInt("SectionId");
+                            String minvalue=first.getString("MinValue");
+                            String maxvalue=first.getString("MaxValue");
+                            String liquorname=first.getString("LiquorName");
                             String liquorcapacity=null;
                             try{
-                                liquorcapacity=first.getString("liquorcapacity");
+                                liquorcapacity=first.getString("LiquorCapacity");
 
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
-                            String shots=first.getString("shots");
-                            String category=first.getString("category");
-                            String subcategory=first.getString("subcategory");
-                            String parlevel=first.getString("parlevel");
-                            String distributorname=first.getString("distributorname");
-                            String priceunit=first.getString("price");
-                            String binnumber=first.getString("binnumber");
-                            String productcode=first.getString("productcode");
-                            String createdon=first.getString("createdon");
-                            String pictureurl=first.getString("pictureurl");
+                            String shots=first.getString("Shots");
+                            String category=first.getString("Category");
+                            String subcategory=first.getString("SubCategory");
+                            String parlevel=first.getString("ParLevel");
+                            String distributorname=first.getString("DistributorName");
+                            String priceunit=first.getString("Price");
+                            String binnumber=first.getString("BinNumber");
+                            String productcode=first.getString("ProductCode");
+                            String createdon=first.getString("CreatedOn");
+                            String pictureurl=first.getString("PictureURL");
                             String totalbottles=null;
                             try {
-                                totalbottles=first.getString("totalbottles");
+                                totalbottles=first.getString("TotalBottles");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
                             String type=null;
                             try {
-                                type=first.getString("type");
+                                type=first.getString("Type");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
                             String fullweight=null;
                             try {
-                                fullweight=first.getString("fullweight");
+                                fullweight=first.getString("FullWeight");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
                             String emptyweight=null;
                             try {
-                                emptyweight=first.getString("emptyweight");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
@@ -206,6 +205,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
                             utilSectionBar.setBinnumber(binnumber);
                             utilSectionBar.setProductcode(productcode);
                             utilSectionBar.setCreatedon(createdon);
+                            utilSectionBar.setBottleId(id);
                             utilSectionBar.setPictureurl(pictureurl);
                             try{
                                 utilSectionBar.setMinvalue(Double.parseDouble(minvalue));

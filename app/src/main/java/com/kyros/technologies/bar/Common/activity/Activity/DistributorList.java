@@ -77,18 +77,18 @@ public class DistributorList extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
                         purchaseArrayList.clear();
 
-                        JSONArray array=obj.getJSONArray("distributorslist");
+                        JSONArray array=obj.getJSONArray("DistributorsList");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
-                            int id=first.getInt("id");
-                            String distributorname=first.getString("distributorname");
+                            int userprofile=first.getInt("UserProfileId");
+                            int id=first.getInt("Id");
+                            String distributorname=first.getString("DistributorName");
 
                             Purchase purchase=new Purchase();
                             purchase.setid(id);

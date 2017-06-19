@@ -98,9 +98,9 @@ public class AddSectionActivity extends AppCompatActivity {
         Log.d("waggonurl", url);
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("userprofileid",userprofile);
-            inputLogin.put("sectionname",sectionname);
-            inputLogin.put("barid",BarId);
+            inputLogin.put("UserProfileId",userprofile);
+            inputLogin.put("SectionName",sectionname);
+            inputLogin.put("BarId",BarId);
 
 
         }catch (Exception e){
@@ -117,24 +117,24 @@ public class AddSectionActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
+                            int userprofile=first.getInt("UserProfileId");
                             store.putUserProfileId(String.valueOf(userprofile));
-                            String fname=first.getString("sectionname");
+                            String fname=first.getString("SectionName");
                             store.putSectionName(String.valueOf(fname));
-                            int lname=first.getInt("barid");
+                            int lname=first.getInt("BarId");
                             //store.putBarId(String.valueOf(lname));
-                            int sectionid=first.getInt("sectionid");
+                            int sectionid=first.getInt("SectionId");
                             //store.putSectionId(String .valueOf(sectionid));
                             String number=null;
                             try {
-                                number=first.getString("createdon");
+                                number=first.getString("CreatedOn");
                                 store.putBarDateCreated(String.valueOf(number));
                             }catch (Exception e){
                                 e.printStackTrace();
@@ -193,26 +193,26 @@ public class AddSectionActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
                         mySectionArrayList.clear();
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
+                            int userprofile=first.getInt("UserProfileId");
                             store.putUserProfileId(String.valueOf(userprofile));
-                            String fname=first.getString("sectionname");
+                            String fname=first.getString("SectionName");
                             store.putSectionName(String.valueOf(fname));
-                            int sectionid=first.getInt("sectionid");
+                            int sectionid=first.getInt("SectionId");
                             //store.putSectionId(String .valueOf(sectionid));
-                            int lname=first.getInt("barid");
+                            int lname=first.getInt("BarId");
                             //store.putBarId(String.valueOf(lname));
                             String number=null;
                             try {
-                                number=first.getString("createdon");
+                                number=first.getString("CreatedOn");
                                 store.putBarDateCreated(String.valueOf(number));
                             }catch (Exception e){
                                 e.printStackTrace();

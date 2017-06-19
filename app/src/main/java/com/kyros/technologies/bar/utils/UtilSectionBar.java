@@ -28,7 +28,7 @@ public class UtilSectionBar {
     private String type;
     private String fullweight;
     private String emptyweight;
-
+    private int BottleId;
     public UtilSectionBar(){
 
     }
@@ -55,6 +55,14 @@ public class UtilSectionBar {
 
     public void setBarid(int barid) {
         this.barid = barid;
+    }
+
+    public int getBottleId() {
+        return BottleId;
+    }
+
+    public void setBottleId(int bottleId) {
+        BottleId = bottleId;
     }
 
     public int getSectionid() {

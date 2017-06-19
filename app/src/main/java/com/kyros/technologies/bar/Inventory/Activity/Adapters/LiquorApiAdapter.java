@@ -130,13 +130,14 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(mContext,BottleDescriptionActivity.class);
-                i.putExtra("name", finalName);
-                i.putExtra("capacity",String.valueOf(quanti)+" ML");
+                i.putExtra("liquorname", finalName);
+                i.putExtra("liquorcapacity",String.valueOf(quanti)+" ML");
                 i.putExtra("category",listClass.getAlcohol_type());
                 i.putExtra("subcategory",listClass.getAlcohol_subtype());
                 i.putExtra("image",smallpic);
-                i.putExtra("minheight",String.valueOf(minheight));
-                i.putExtra("maxheight",String.valueOf(maxheight));
+                i.putExtra("minvalue",String.valueOf(minheight));
+                i.putExtra("whichtype","newone");
+                i.putExtra("maxvalue",String.valueOf(maxheight));
                 mContext.startActivity(i);
             }
         });

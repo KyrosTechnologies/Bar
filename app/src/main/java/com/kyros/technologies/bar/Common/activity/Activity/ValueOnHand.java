@@ -123,48 +123,48 @@ public class ValueOnHand extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
                         purchaseArrayList.clear();
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
-                            String barid=first.getString("barid");
-                            String sectionid=first.getString("sectionid");
-                            int id=first.getInt("id");
-                            String liquorname=first.getString("liquorname");
-                            String liquorcapacity=first.getString("liquorcapacity");
-                            String shots=first.getString("shots");
-                            String category=first.getString("category");
-                            String subcategory=first.getString("subcategory");
-                            String parlevel=first.getString("parlevel");
-                            String distributorname=first.getString("distributorname");
-                            String price=first.getString("price");
-                            String binnumber=first.getString("binnumber");
-                            String productcode=first.getString("productcode");
+                            int userprofile=first.getInt("UserProfileId");
+                            String barid=first.getString("BarId");
+                            String sectionid=first.getString("SectionId");
+                            int id=first.getInt("Id");
+                            String liquorname=first.getString("LiquorName");
+                            String liquorcapacity=first.getString("LiquorCapacity");
+                            String shots=first.getString("Shots");
+                            String category=first.getString("Category");
+                            String subcategory=first.getString("SubCategory");
+                            String parlevel=first.getString("ParLevel");
+                            String distributorname=first.getString("DistributorName");
+                            String price=first.getString("Price");
+                            String binnumber=first.getString("BinNumber");
+                            String productcode=first.getString("ProductCode");
                             String number=null;
                             try {
-                                number=first.getString("createdon");
+                                number=first.getString("CreatedOn");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
                             String modify=null;
                             try {
-                                modify=first.getString("modifiedon");
+                                modify=first.getString("ModifiedOn");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
-                            String minvalue=first.getString("minvalue");
-                            String maxvalue=first.getString("minvalue");
-                            String pictureurl=first.getString("pictureurl");
-                            String totalbottles=first.getString("totalbottles");
-                            String type=first.getString("type");
-                            String fullweight=first.getString("fullweight");
-                            String emptyweight=first.getString("emptyweight");
+                            String minvalue=first.getString("MinValue");
+                            String maxvalue=first.getString("MaxValue");
+                            String pictureurl=first.getString("PictureURL");
+                            String totalbottles=first.getString("TotalBottles");
+                            String type=first.getString("Type");
+                            String fullweight=first.getString("FullWeight");
+                            String emptyweight=first.getString("EmptyWeight");
 
                             Purchase purchase=new Purchase();
                             purchase.setid(id);

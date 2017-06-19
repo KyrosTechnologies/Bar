@@ -405,22 +405,22 @@ public class AddKegDescriptionPurchase extends AppCompatActivity {
         String product=keg_productcode.getText().toString();
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("id",id);
-            inputLogin.put("userprofileid",UserProfileId);
-            inputLogin.put("liquorname",name);
-            inputLogin.put("fullweight",fullweight);
-            inputLogin.put("emptyweight",emptyweight);
-            inputLogin.put("type","keg");
-            inputLogin.put("shots",shots);
-            inputLogin.put("category",maincat);
-            inputLogin.put("subcategory",subcat);
-            inputLogin.put("parlevel",parlevel);
-            inputLogin.put("distributorname",disname);
-            inputLogin.put("price",price);
-            inputLogin.put("binnumber",bin);
-            inputLogin.put("productcode",product);
-            inputLogin.put("minvalue",MinValue);
-            inputLogin.put("maxvalue",MaxValue);
+            inputLogin.put("Id",id);
+            inputLogin.put("UserProfileId",UserProfileId);
+            inputLogin.put("LiquorName",name);
+            inputLogin.put("FullWeight",fullweight);
+            inputLogin.put("EmptyWeight",emptyweight);
+            inputLogin.put("Type","keg");
+            inputLogin.put("Shots",shots);
+            inputLogin.put("Category",maincat);
+            inputLogin.put("SubCategory",subcat);
+            inputLogin.put("ParLevel",parlevel);
+            inputLogin.put("DistributorName",disname);
+            inputLogin.put("Price",price);
+            inputLogin.put("BinNumber",bin);
+            inputLogin.put("ProductCode",product);
+            inputLogin.put("MinValue",MinValue);
+            inputLogin.put("MaxValue",MaxValue);
 
 
 

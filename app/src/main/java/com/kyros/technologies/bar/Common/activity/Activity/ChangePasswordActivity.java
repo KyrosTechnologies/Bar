@@ -53,9 +53,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         Log.d("waggonurl", url);
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("userprofileid",Integer.parseInt(UserProfileId));
-            inputLogin.put("oldpassword",oldpass);
-            inputLogin.put("newpassword",newpass);
+            inputLogin.put("UserProfileId",Integer.parseInt(UserProfileId));
+            inputLogin.put("OldPassword",oldpass);
+            inputLogin.put("NewPassword",newpass);
 
 
         }catch (Exception e){
@@ -70,8 +70,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
                         Toast.makeText(getApplicationContext(),"Password Changed Sucessfully",Toast.LENGTH_SHORT).show();

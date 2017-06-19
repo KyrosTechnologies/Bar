@@ -140,41 +140,41 @@ public class PurchaseListActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
                         purchaseArrayList.clear();
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            String id=first.getString("id");
-                            String userprofile=first.getString("userprofileid");
-                            String liquorname=first.getString("liquorname");
-                            String liquorcapacity=first.getString("liquorcapacity");
-                            String shots=first.getString("shots");
-                            String category=first.getString("category");
+                            String id=first.getString("Id");
+                            String userprofile=first.getString("UserProfileId");
+                            String liquorname=first.getString("LiquorName");
+                            String liquorcapacity=first.getString("LiquorCapacity");
+                            String shots=first.getString("Shots");
+                            String category=first.getString("Category");
                             String subcategory=null;
                             try {
-                                subcategory=first.getString("subcategory");
+                                subcategory=first.getString("SubCategory");
 
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
-                            String parlevel=first.getString("parlevel");
-                            String distributorname=first.getString("distributorname");
-                            String priceunit=first.getString("price");
-                            String binnumber=first.getString("binnumber");
-                            String productcode=first.getString("productcode");
-                            String createdon=first.getString("createdon");
-                            String minvalue=first.getString("minvalue");
-                            String maxvalue=first.getString("maxvalue");
-                            String pictureurl=first.getString("pictureurl");
-                            String type=first.getString("type");
-                            String fullweight=first.getString("fullweight");
-                            String emptyweight=first.getString("emptyweight");
-                            String totalbottles=first.getString("totalbottles");
+                            String parlevel=first.getString("ParLevel");
+                            String distributorname=first.getString("DistributorName");
+                            String priceunit=first.getString("Price");
+                            String binnumber=first.getString("BinNumber");
+                            String productcode=first.getString("ProductCode");
+                            String createdon=first.getString("CreatedOn");
+                            String minvalue=first.getString("MinValue");
+                            String maxvalue=first.getString("MaxValue");
+                            String pictureurl=first.getString("PictureURL");
+                            String type=first.getString("Type");
+                            String fullweight=first.getString("FullWeight");
+                            String emptyweight=first.getString("EmptyWeight");
+                            String totalbottles=first.getString("TotalBottles");
                             Purchase purchase=new Purchase();
                             purchase.setLiquorname(liquorname);
                             purchase.setTotalbottles(totalbottles);

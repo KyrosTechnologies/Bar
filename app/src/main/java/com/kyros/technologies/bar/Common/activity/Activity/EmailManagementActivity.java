@@ -98,19 +98,19 @@ public class EmailManagementActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
                         emailManagementArrayList.clear();
 
-                        JSONArray array=obj.getJSONArray("model");
+                        JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int id=first.getInt("id");
-                            int userprofile=first.getInt("userprofileid");
-                            String useremail=first.getString("useremail");
-                            String createdon=first.getString("createdon");
+                            int id=first.getInt("Id");
+                            int userprofile=first.getInt("UserProfileId");
+                            String useremail=first.getString("UserEmail");
+                            String createdon=first.getString("CreatedOn");
                             EmailManagement emailManagement=new EmailManagement();
                             emailManagement.setCreatedon(createdon);
                             emailManagement.setUseremail(useremail);

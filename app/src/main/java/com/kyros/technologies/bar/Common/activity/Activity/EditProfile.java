@@ -135,16 +135,16 @@ public class EditProfile extends AppCompatActivity {
         Log.d("waggonurl", url);
         JSONObject inputLogin=new JSONObject();
         try{
-            inputLogin.put("userprofileid",Integer.parseInt(UserProfileId));
-            inputLogin.put("password",pass);
-            inputLogin.put("userfirstname",fn);
-            inputLogin.put("userlastname",ln);
-            inputLogin.put("usermobilenumber",mob);
-            inputLogin.put("useremail",mail);
-            inputLogin.put("uservenuename",venue);
-            inputLogin.put("usercountry",con);
-            inputLogin.put("userofteninventory","");
-            inputLogin.put("userinventorytime",0);
+            inputLogin.put("UserProfileId",Integer.parseInt(UserProfileId));
+            inputLogin.put("Password",pass);
+            inputLogin.put("UserFirstName",fn);
+            inputLogin.put("UserLastName",ln);
+            inputLogin.put("UserMobileNumber",mob);
+            inputLogin.put("UserEmail",mail);
+            inputLogin.put("UserVenueName",venue);
+            inputLogin.put("UserCountry",con);
+            inputLogin.put("UserOftenInventory","");
+            inputLogin.put("UserInventoryTime",0);
 
 
         }catch (Exception e){
@@ -159,40 +159,40 @@ public class EditProfile extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
+                    String message=obj.getString("Message");
                     boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
-                        JSONArray array=obj.getJSONArray("userList");
+                        JSONArray array=obj.getJSONArray("UserList");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
+                            int userprofile=first.getInt("UserProfileId");
                             store.putUserProfileId(String.valueOf(userprofile));
-                            String fname=first.getString("userfirstname");
+                            String fname=first.getString("UserFirstName");
                             store.putFirstName(String.valueOf(fname));
-                            String lname=first.getString("userlastname");
+                            String lname=first.getString("UserLastName");
                             store.putLastName(String.valueOf(lname));
-                            String number=first.getString("usermobilenumber");
+                            String number=first.getString("UserMobileNumber");
                             store.putMobileNumber(String.valueOf(number));
-                            String email=first.getString("useremail");
+                            String email=first.getString("UserEmail");
                             store.putUserEmail(String.valueOf(email));
-                            String venue=first.getString("uservenuename");
+                            String venue=first.getString("UserVenueName");
                             store.putVenue(String.valueOf(venue));
-                            String country=first.getString("usercountry");
+                            String country=first.getString("UserCountry");
                             store.putCountry(String.valueOf(country));
-                            String inventory=first.getString("userofteninventory");
+                            String inventory=first.getString("UserOftenInventory");
                             store.putInventory(String.valueOf(inventory));
-                            int inventorytime=first.getInt("userinventorytime");
+                            int inventorytime=first.getInt("UserInventoryTime");
                             store.putinventoryTime(String.valueOf(inventorytime));
-                            boolean active=first.getBoolean("isactive");
+                            boolean active=first.getBoolean("IsActive");
                             store.putIsactive(active);
-                            String create=first.getString("createdon");
+                            String create=first.getString("CreatedOn");
                             store.putCreate(String.valueOf(create));
-                            String modify=first.getString("modifiedon");
+                            String modify=first.getString("ModifiedOn");
                             store.putModifi(String.valueOf(modify));
-                            int id=first.getInt("id");
+                            int id=first.getInt("Id");
                             store.putIds(String.valueOf(id));
-                            String password=first.getString("password");
+                            String password=first.getString("Password");
                             store.putPassword(String.valueOf(password));
                         }
 

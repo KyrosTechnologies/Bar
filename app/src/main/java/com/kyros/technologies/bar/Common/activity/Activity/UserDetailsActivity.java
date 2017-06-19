@@ -108,25 +108,25 @@ public class UserDetailsActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
-                        JSONArray array=obj.getJSONArray("usermanagementlist");
+                        JSONArray array=obj.getJSONArray("UserManagementList");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
-                            int userprofile=first.getInt("userprofileid");
-                            int id=first.getInt("id");
-                            String barname=first.getString("barname");
+                            int userprofile=first.getInt("UserProfileId");
+                            int id=first.getInt("Id");
+                            String barname=first.getString("BarName");
                             String number=null;
                             try {
-                                number=first.getString("createdon");
+                                number=first.getString("CreatedOn");
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
                             String modify=null;
                             try {
-                                modify=first.getString("modifiedon");
+                                modify=first.getString("ModifiedOn");
                             }catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -206,7 +206,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             basic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectrole="Basic";
+                    selectrole="basic";
                     select_role.setText("Basic");
                     closepopup();
                 }
@@ -214,7 +214,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             admin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectrole="Admin";
+                    selectrole="admin";
                     select_role.setText("Admin");
                     closepopup();
                 }

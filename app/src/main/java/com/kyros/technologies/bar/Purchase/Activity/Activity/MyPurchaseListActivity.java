@@ -35,7 +35,7 @@ public class MyPurchaseListActivity extends AppCompatActivity {
     private RecyclerView recycler_database;
     private PurchaseApiAdapter adapter;
     private ArrayList<LiquorListClass> liquorlist=new ArrayList<LiquorListClass>();
-
+    private String Category=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +53,92 @@ public class MyPurchaseListActivity extends AppCompatActivity {
         recycler_database.setItemAnimator(new DefaultItemAnimator());
         recycler_database.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        try{
+            Bundle bundle=getIntent().getExtras();
+            Category=bundle.getString("category");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        StateChangeWaggonapi();
+        if(Category!=null){
+                CategoryList(Category);
+        }else{
+            StateChangeWaggonapi();
+        }
+
+    }
+
+    private void CategoryList(String category) {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+ "getLiquorListCategory/"+category;
+        Log.d("category", url);
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response",response.toString());
+                liquorlist.clear();
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
+                    if (success){
+
+                        liquorlist.clear();
+
+                        JSONArray array=obj.getJSONArray("UserList");
+                        for (int i=0;i<array.length();i++){
+                            JSONObject first=array.getJSONObject(i);
+                            String name=first.getString("name");
+                            int quantity=first.getInt("capacity_mL");
+                            String type=first.getString("alcohol_type");
+                            String pic=first.getString("picture_url");
+//                            String pic=first.getString("small_picture_url");
+                            String subtype=first.getString("alcohol_subtype");
+                            double max_height=first.getDouble("max_height");
+                            double min_height=first.getDouble("min_height");
+                            LiquorListClass liquorListClass=new LiquorListClass();
+                            liquorListClass.setName(name);
+                            liquorListClass.setCapacity_mL(quantity);
+                            liquorListClass.setAlcohol_subtype(subtype);
+                            liquorListClass.setAlcohol_type(type);
+                            liquorListClass.setSmall_picture_url(pic);
+                            liquorListClass.setMin_height(min_height);
+                            liquorListClass.setMax_height(max_height);
+                            liquorlist.add(liquorListClass);
+                        }
+
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                adapter.notifyDataSetChanged();
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
+//                texts.setText(error.toString());
+            }
+        }) {
+
+        };
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
@@ -76,19 +156,20 @@ public class MyPurchaseListActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    String message=obj.getString("message");
-                    boolean success=obj.getBoolean("issuccess");
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
                     if (success){
 
                         liquorlist.clear();
 
-                        JSONArray array=obj.getJSONArray("userlist");
+                        JSONArray array=obj.getJSONArray("UserList");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
                             String name=first.getString("name");
                             int quantity=first.getInt("capacity_mL");
                             String type=first.getString("alcohol_type");
-                            String pic=first.getString("small_picture_url");
+                            String pic=first.getString("picture_url");
+//                            String pic=first.getString("small_picture_url");
                             String subtype=first.getString("alcohol_subtype");
                             double max_height=first.getDouble("max_height");
                             double min_height=first.getDouble("min_height");

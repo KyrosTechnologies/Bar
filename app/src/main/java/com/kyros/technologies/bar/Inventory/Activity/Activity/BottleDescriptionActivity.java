@@ -1,6 +1,7 @@
 package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -33,6 +34,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -69,9 +71,11 @@ public class BottleDescriptionActivity extends AppCompatActivity {
     private String productcode=null;
     private String fullweight=null;
     private String emptyweight=null;
-    private String type=null;
-    private String id=null;
-
+  //  private String type=null;
+    private String BottleId=null;
+    private String WhichType=null;
+    private Async i=null;
+    private  UpdateAsync ups=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,23 +115,28 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         try {
 
             Bundle bundle=getIntent().getExtras();
-            bottlename=bundle.getString("name");
-            bottlecapacity=bundle.getString("capacity");
+            bottlename=bundle.getString("liquorname");
+
+            bottlecapacity=bundle.getString("liquorcapacity");
             bottlecategory=bundle.getString("category");
             bottlesubcategory=bundle.getString("subcategory");
             String imgbitmap=bundle.getString("image");
-            MinHeight=bundle.getString("minheight");
-            MaxHeight=bundle.getString("maxheight");
-            parlevel=bundle.getString("parlevel");
+            MinHeight=bundle.getString("minvalue");
+            MaxHeight=bundle.getString("maxvalue");
+            parlevel=bundle.getString("parvalue");
             shots=bundle.getString("shots");
-            disname=bundle.getString("disname");
+            disname=bundle.getString("distributorname");
             price=bundle.getString("price");
             binnumber=bundle.getString("binnumber");
             productcode=bundle.getString("productcode");
-            type=bundle.getString("type");
-            fullweight=bundle.getString("fullweight");
-            emptyweight=bundle.getString("emptyweight");
-            id=bundle.getString("id");
+          //  type=bundle.getString("type");
+          //  fullweight=bundle.getString("fullweight");
+          // emptyweight=bundle.getString("emptyweight");
+            int bottid=bundle.getInt("bottleid");
+            BottleId=String.valueOf(bottid);
+            Log.d("bottleId",BottleId);
+
+            WhichType=bundle.getString("whichtype");
 //            Log.d("Pictureurl",imgbitmap);
             try{
                 Picasso.with(BottleDescriptionActivity.this).load(imgbitmap).into(new Target() {
@@ -153,16 +162,45 @@ public class BottleDescriptionActivity extends AppCompatActivity {
 
             try {
 
-                bottle_des_name.setText(bottlename);
-                bottle_des_capacity.setText(bottlecapacity);
-                bottle_des_main_category.setText(bottlecategory);
-                bottle_des_sub_category.setText(bottlesubcategory);
-                bottle_des_par_level.setText(parlevel);
-                bottle_des_shots.setText(shots);
-                bottle_des_distributor_name.setText(disname);
-                bottle_des_price_unit.setText(price);
-                bottle_des_bin_number.setText(binnumber);
-                bottle_des_product_code.setText(productcode);
+                if(bottlename!=null){
+                    bottle_des_name.setText(bottlename);
+                }
+                if(bottlecapacity!=null){
+                    bottle_des_capacity.setText(bottlecapacity);
+
+                }
+                if(bottlecategory!=null){
+                    bottle_des_main_category.setText(bottlecategory);
+
+                }
+                if(bottlesubcategory!=null){
+                    bottle_des_sub_category.setText(bottlesubcategory);
+
+                }
+                if(parlevel!=null){
+                    bottle_des_par_level.setText(parlevel);
+
+                }
+                if(shots!=null){
+                    bottle_des_shots.setText(shots);
+
+                }
+                if(disname!=null){
+                    bottle_des_distributor_name.setText(disname);
+
+                }
+                if(price!=null){
+                    bottle_des_price_unit.setText(price);
+
+                }
+                if(binnumber!=null){
+                    bottle_des_bin_number.setText(binnumber);
+
+                }
+                if(productcode!=null){
+                    bottle_des_product_code.setText(productcode);
+
+                }
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -298,19 +336,63 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                 String product=bottle_des_product_code.getText().toString();
                 Log.d("Result",name+capacity+maincat+subcat+shots+parlevel+disname+price+bin+product);
 //                BottleDescriptionApi(Integer.parseInt(UserProfileId),Integer.parseInt(Barid),Integer.parseInt(Sectionid),name,capacity,maincat,subcat,shots,parlevel,disname,price,bin,product);
+                    if(WhichType.equals("newone")){
+                        Toast.makeText(getApplicationContext(),"Type is empty null new registration!",Toast.LENGTH_SHORT).show();
+                        try{
+                             i= new Async();
+                            i.execute();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }else if(WhichType.equals("update")){
+                        Toast.makeText(getApplicationContext(),"Type is update the old data!",Toast.LENGTH_SHORT).show();
 
-                try{
-                    Async i= new Async();
-                    i.execute();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                        try{
+                             ups=new UpdateAsync(BottleDescriptionActivity.this);
+                            ups.execute();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+
                 break;
 
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try{
+                i.cancel(true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            ups.cancel(true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try{
+            i.cancel(true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            ups.cancel(true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     private class Async extends AsyncTask<String,String,String > {
 
         @Override
@@ -420,6 +502,120 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         return responseString;
 
     }
+    private class UpdateAsync extends AsyncTask<String,String,String>{
+        private Context mContext;
+        public UpdateAsync(Context mContext){
+           this.mContext=mContext;
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            UpdateData();
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Toast.makeText(mContext.getApplicationContext(),"Successfully Updated!",Toast.LENGTH_SHORT).show();
+        }
+    }
+    private String UpdateData(){
+        Barid=store.getBarId();
+        Sectionid=store.getSectionId();
+        String name =bottle_des_name.getText().toString();
+        String capacity= bottle_des_capacity.getText().toString();
+        String maincat=bottle_des_main_category.getText().toString();
+        String subcat=bottle_des_sub_category.getText().toString();
+        String shots=bottle_des_shots.getText().toString();
+        String parlevel=bottle_des_par_level.getText().toString();
+        String disname=bottle_des_distributor_name.getText().toString();
+        String price=bottle_des_price_unit.getText().toString();
+        String bin=bottle_des_bin_number.getText().toString();
+        String product=bottle_des_product_code.getText().toString();
+        Log.d("Result",name+capacity+maincat+subcat+shots+parlevel+disname+price+bin+product);
+        String responseString = null;
+
+        HttpClient httpclient = new DefaultHttpClient();
+        String url = EndURL.URL + "UpdateLiquorSlider";
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmapvar.compress(Bitmap.CompressFormat.PNG, 0, stream);
+//        int bys=bitmapvar.getByteCount();
+//        ByteBuffer buffer=ByteBuffer.allocate(bys);
+//        bitmapvar.copyPixelsFromBuffer(buffer);
+//        byte[] arrs=buffer.array();
+        bytearayProfile = stream.toByteArray();
+        HttpPut httppost = new HttpPut(url);
+        try {
+            AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
+                    new AndroidMultiPartEntity.ProgressListener() {
+
+                        @Override
+                        public void transferred(long num) {
+                        }
+                    });
+
+
+
+
+            double minval=Double.parseDouble(MinHeight);
+            double maxval=Double.parseDouble(MaxHeight);
+            minval=minval/100;
+            maxval=maxval/100;
+            String fminval=String.valueOf(minval);
+            String fmaxval=String.valueOf(maxval);
+            entity.addPart("BottleId", new StringBody(BottleId,ContentType.TEXT_PLAIN));
+            entity.addPart("Image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.png"));
+            entity.addPart("UserProfileId", new StringBody(UserProfileId, ContentType.TEXT_PLAIN));
+            entity.addPart("BarId", new StringBody(Barid, ContentType.TEXT_PLAIN));
+            entity.addPart("SectionId", new StringBody(Sectionid, ContentType.TEXT_PLAIN));
+            entity.addPart("LiquorName", new StringBody(name, ContentType.TEXT_PLAIN));
+            entity.addPart("LiquorCapacity", new StringBody(capacity, ContentType.TEXT_PLAIN));
+            entity.addPart("Category", new StringBody(bottlecategory, ContentType.TEXT_PLAIN));
+            entity.addPart("SubCategory", new StringBody(bottlesubcategory, ContentType.TEXT_PLAIN));
+            entity.addPart("ParValue", new StringBody(parlevel, ContentType.TEXT_PLAIN));
+            entity.addPart("DistributorName", new StringBody(disname, ContentType.TEXT_PLAIN));
+            entity.addPart("Price", new StringBody(price, ContentType.TEXT_PLAIN));
+            entity.addPart("BinNumber", new StringBody(bin, ContentType.TEXT_PLAIN));
+            entity.addPart("ProductCode", new StringBody(product, ContentType.TEXT_PLAIN));
+            entity.addPart("MinValue", new StringBody(fminval, ContentType.TEXT_PLAIN));
+            entity.addPart("MaxValue", new StringBody(fmaxval, ContentType.TEXT_PLAIN));
+            entity.addPart("Shots", new StringBody(shots, ContentType.TEXT_PLAIN));
+            entity.addPart("Type",new StringBody("bottle",ContentType.TEXT_PLAIN));
+
+            long totalSize = entity.getContentLength();
+            httppost.setEntity(entity);
+
+            // Making server call
+            HttpResponse response = httpclient.execute(httppost);
+            HttpEntity r_entity = response.getEntity();
+            try{
+                Log.d("outputentity",entity.toString());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 200) {
+                // Server response
+                responseString = EntityUtils.toString(r_entity);
+                BottleDescriptionActivity.this.finish();
+                //    Toast.makeText(getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
+            } else {
+                responseString = "Error occurred! Http Status Code: "
+                        + statusCode;
+                //  Toast.makeText(getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
+
+            }
+            Log.d("response: ",responseString);
+
+
+        } catch (ClientProtocolException e) {
+            responseString = e.toString();
+        } catch (IOException e) {
+            responseString = e.toString();
+        }
+
+        return responseString;
+    }
 
 }
