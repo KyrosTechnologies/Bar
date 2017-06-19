@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.kyros.technologies.bar.Common.activity.Activity.UserDetailsActivity;
 import com.kyros.technologies.bar.Common.activity.model.BarAccess;
+import com.kyros.technologies.bar.Common.activity.model.TempStore;
 import com.kyros.technologies.bar.Common.activity.model.UserManagementModel;
 import com.kyros.technologies.bar.R;
 
@@ -62,14 +63,21 @@ public class UserManagementAdapter extends RecyclerView.Adapter<UserManagementAd
             userrole="";
         }
         int id=model.getId();
-        ArrayList<BarAccess> barAccesses=model.getBarAccess();
+        final ArrayList<BarAccess> barAccesses=model.getBarAccess();
         holder.user_management_name.setText(name);
-        holder.user_management_role.setText(userrole);
+        String value="Role : "+userrole;
+        holder.user_management_role.setText(value);
+        final String finalName = name;
+        final String finalEmail = email;
+        final String finalUserrole = userrole;
         holder.user_item_management.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mContext,UserDetailsActivity.class);
-
+                    intent.putExtra("username", finalName);
+                    intent.putExtra("useremail", finalEmail);
+                    intent.putExtra("userrole", finalUserrole);
+                TempStore.getHolder().setBarAccess(barAccesses);
                 mContext.startActivity(intent);
             }
         });

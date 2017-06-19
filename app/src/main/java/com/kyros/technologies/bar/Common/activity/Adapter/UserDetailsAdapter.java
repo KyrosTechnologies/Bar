@@ -3,20 +3,15 @@ package com.kyros.technologies.bar.Common.activity.Adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.kyros.technologies.bar.Common.activity.model.BarAccess;
 import com.kyros.technologies.bar.R;
-import com.kyros.technologies.bar.utils.Purchase;
 import com.kyros.technologies.bar.utils.UserDetail;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,6 +23,7 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
 
     private Context mContext;
     private ArrayList<UserDetail> userDetailArrayList;
+    private ArrayList<BarAccess> barAccess;
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
         public TextView bar_name;
@@ -39,9 +35,10 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
             bar_checkbox=(CheckBox)itemView.findViewById(R.id.bar_checkbox);
         }
     }
-    public UserDetailsAdapter(Context mContext,ArrayList<UserDetail>userDetailArrayList){
+    public UserDetailsAdapter(Context mContext,ArrayList<UserDetail>userDetailArrayList,ArrayList<BarAccess> barAccess){
         this.mContext=mContext;
         this.userDetailArrayList=userDetailArrayList;
+        this.barAccess=barAccess;
 
 
     }
@@ -61,6 +58,12 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
         final String barname=userDetail.getBarname();
         final String createdon=userDetail.getCreatedon();
         final String modifiedon=userDetail.getModifiedon();
+        for(int i=0;i<barAccess.size();i++){
+            String barnames=barAccess.get(i).getBarName();
+            if(barnames.equals(barname)){
+               holder.bar_checkbox.setChecked(true);
+            }
+        }
 
         try {
             holder.bar_name.setText(barname);

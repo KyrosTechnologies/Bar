@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.bar.Common.activity.Adapter.UserDetailsAdapter;
+import com.kyros.technologies.bar.Common.activity.model.BarAccess;
+import com.kyros.technologies.bar.Common.activity.model.TempStore;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -51,7 +54,13 @@ public class UserDetailsActivity extends AppCompatActivity {
     private String createdon=null;
     private String modifiedon=null;
     private TextView select_role,admin,basic;
+    private EditText email_user_details,name_user_details;
     private String selectrole=null;
+    private String UserName=null;
+    private String UserEmail=null;
+    private String UserRole=null;
+
+    private ArrayList<BarAccess> barAccess=new ArrayList<BarAccess>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +79,36 @@ public class UserDetailsActivity extends AppCompatActivity {
             }
         });
         user_details_recycler=(RecyclerView)findViewById(R.id.user_details_recycler);
+        name_user_details=(EditText)findViewById(R.id.name_user_details);
+        email_user_details=(EditText)findViewById(R.id.email_user_details);
         select_role=(TextView)findViewById(R.id.select_role);
+        try{
+            Bundle bundle=getIntent().getExtras();
+            UserName=bundle.getString("username");
+            UserEmail=bundle.getString("useremail");
+            UserRole=bundle.getString("userrole");
+            if(UserName!=null){
+                name_user_details.setText(UserName);
+            }if(UserEmail!=null){
+                email_user_details.setText(UserEmail);
+            }if(UserRole!=null){
+                if(UserRole.equals("admin")){
+                    select_role.setText("Admin");
 
-        adapter=new UserDetailsAdapter(UserDetailsActivity.this,userDetailArrayList);
+                }else if(UserRole.equals("basic")){
+                    select_role.setText("Basic");
+                }else {
+                    select_role.setText("Nope");
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        barAccess= TempStore.getHolder().getBarAccess();
+
+
+        adapter=new UserDetailsAdapter(UserDetailsActivity.this,userDetailArrayList,barAccess);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         user_details_recycler.setLayoutManager(layoutManagersecond);
         user_details_recycler.setItemAnimator(new DefaultItemAnimator());
@@ -90,7 +126,6 @@ public class UserDetailsActivity extends AppCompatActivity {
          }
         adapter.notifyDataSetChanged();
         //GetUserDetailList();
-        adapter.notifyDataSetChanged();
 
     }
 

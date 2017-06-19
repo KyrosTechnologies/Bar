@@ -9,6 +9,9 @@ public class BarAccess {
     private String BarName;
     private String CreatedOn;
     private String ModifiedOn;
+    private int UserManagementId;
+    private String UserProfileId;
+    private String Id;
     public BarAccess(){
 
     }
@@ -39,6 +42,30 @@ public class BarAccess {
 
     public String getModifiedOn() {
         return ModifiedOn;
+    }
+
+    public int getUserManagementId() {
+        return UserManagementId;
+    }
+
+    public void setUserManagementId(int userManagementId) {
+        UserManagementId = userManagementId;
+    }
+
+    public String getUserProfileId() {
+        return UserProfileId;
+    }
+
+    public void setUserProfileId(String userProfileId) {
+        UserProfileId = userProfileId;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 
     public void setModifiedOn(String modifiedOn) {
