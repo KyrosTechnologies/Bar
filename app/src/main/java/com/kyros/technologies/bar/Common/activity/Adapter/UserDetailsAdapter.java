@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 
 public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.MyViewHolderEleven> {
-
+    OnClickInAdapter onClickInAdapter;
     private Context mContext;
     private ArrayList<UserDetail> userDetailArrayList;
     private ArrayList<BarAccess> barAccess;
@@ -58,11 +58,14 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
         final String barname=userDetail.getBarname();
         final String createdon=userDetail.getCreatedon();
         final String modifiedon=userDetail.getModifiedon();
-        for(int i=0;i<barAccess.size();i++){
-            String barnames=barAccess.get(i).getBarName();
-            if(barnames.equals(barname)){
-               holder.bar_checkbox.setChecked(true);
+        if(barAccess!=null){
+            for(int i=0;i<barAccess.size();i++){
+                String barnames=barAccess.get(i).getBarName();
+                if(barnames.equals(barname)){
+                    holder.bar_checkbox.setChecked(true);
+                }
             }
+
         }
 
         try {
@@ -79,6 +82,13 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
                 UserDetail.getHolder().setBarname(barname);
                 UserDetail.getHolder().setCreatedon(createdon);
                 UserDetail.getHolder().setModifiedon(modifiedon);
+                try {
+                    onClickInAdapter = (OnClickInAdapter) mContext;
+                } catch (ClassCastException e) {
+                    throw new ClassCastException(mContext.toString()
+                            + " must implement OnClickInAdapter");
+                }
+                onClickInAdapter.onClickInAdapter(id,barname);
             }
         });
 
@@ -89,5 +99,7 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
     public int getItemCount() {
         return userDetailArrayList.size();
     }
-
+public interface OnClickInAdapter{
+    public void onClickInAdapter(int BarId,String BarName);
+}
 }

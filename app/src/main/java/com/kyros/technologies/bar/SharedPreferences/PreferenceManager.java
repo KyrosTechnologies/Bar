@@ -4,10 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by Thirunavukkarasu on 28-07-2016.
  */
@@ -320,4 +316,25 @@ public class PreferenceManager {
         editor.commit();
     }
 
+    public String getParentUserProfileId(){
+        return sp.getString("ParentUserProfileId",null);
+    }
+    public void putParentUserProfileId(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("ParentUserProfileId", value);
+        editor.commit();
+    }
+
+
+
+    public String getUserRole(){
+        return sp.getString("UserRole",null);
+    }
+    public void putUserRole(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("UserRole", value);
+        editor.commit();
+    }
 }

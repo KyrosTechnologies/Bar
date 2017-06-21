@@ -1,6 +1,7 @@
 package com.kyros.technologies.bar.Common.activity.Activity;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
@@ -35,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String venue;
     private String countrycode;
     private PreferenceManager store;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -66,11 +68,24 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        dismissPdialog();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissPdialog();
+    }
+
     private void StateChangeWaggonapi(final String fn, String ln, String mob, String mail, String con, String venue) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"manageUserProfile";
         //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
         Log.d("waggonurl", url);
+        showPdialog();
         JSONObject inputLogin=new JSONObject();
         try{
             inputLogin.put("UserFirstName",fn);
@@ -81,6 +96,8 @@ public class SignUpActivity extends AppCompatActivity {
             inputLogin.put("UserCountry",con);
             inputLogin.put("UserOftenInventory","");
             inputLogin.put("UserInventoryTime",0);
+            inputLogin.put("UserRole","admin");
+            inputLogin.put("ParentUserProfileId",JSONObject.NULL);
 
 
         }catch (Exception e){
@@ -130,14 +147,14 @@ public class SignUpActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
+dismissPdialog();
 
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+dismissPdialog();
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
                 if(error!=null){
                     Toast.makeText(getApplicationContext(),"Error: "+error.toString(),Toast.LENGTH_SHORT).show();
@@ -153,6 +170,22 @@ public class SignUpActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
+    }
+    private void showPdialog(){
+        if(progressDialog==null){
+            progressDialog=new ProgressDialog(SignUpActivity.this);
+            progressDialog.setMessage("Please Wait!....");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle("Loading..");
+
+        }
+        progressDialog.show();
+    }
+    private void dismissPdialog(){
+        if(progressDialog!=null && progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
     }
 
 

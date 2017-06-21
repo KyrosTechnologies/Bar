@@ -159,6 +159,10 @@ public class LoginActivity extends AppCompatActivity {
                             String inventory=first.getString("UserOftenInventory");
                             store.putInventory(String.valueOf(inventory));
                             int inventorytime=first.getInt("UserInventoryTime");
+                            String ParentUserProfileId=first.getString("ParentUserProfileId");
+                            String UserRole=first.getString("UserRole");
+                            store.putUserRole(UserRole);
+                                store.putParentUserProfileId(ParentUserProfileId);
                             store.putinventoryTime(String.valueOf(inventorytime));
                             boolean active=first.getBoolean("IsActive");
                             store.putIsactive(active);
@@ -194,8 +198,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
-                Intent i=new Intent(LoginActivity.this,LandingActivity.class);
-                startActivity(i);
+
 //                texts.setText(error.toString());
             }
         }) {

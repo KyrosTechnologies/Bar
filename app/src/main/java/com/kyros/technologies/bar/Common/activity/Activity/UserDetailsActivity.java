@@ -2,7 +2,7 @@ package com.kyros.technologies.bar.Common.activity.Activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,16 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kyros.technologies.bar.Common.activity.Adapter.UserDetailsAdapter;
+import com.kyros.technologies.bar.Common.activity.model.AdapterBarModel;
 import com.kyros.technologies.bar.Common.activity.model.BarAccess;
-import com.kyros.technologies.bar.Common.activity.model.TempStore;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -36,11 +40,15 @@ import com.kyros.technologies.bar.utils.EndURL;
 import com.kyros.technologies.bar.utils.UserDetail;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-public class UserDetailsActivity extends AppCompatActivity {
+public class UserDetailsActivity extends AppCompatActivity
+implements UserDetailsAdapter.OnClickInAdapter {
 
     private LinearLayout role;
     private AlertDialog forget_dialog;
@@ -59,8 +67,14 @@ public class UserDetailsActivity extends AppCompatActivity {
     private String UserName=null;
     private String UserEmail=null;
     private String UserRole=null;
+    private String VenueName=null;
+    private String Country=null;
 
     private ArrayList<BarAccess> barAccess=new ArrayList<BarAccess>();
+    private ArrayList<AdapterBarModel> adapterbaraccessdatalist=new ArrayList<AdapterBarModel>();
+    private ProgressDialog progressDialog;
+    private String BarAccessString=null;
+    private RelativeLayout remove_usermanagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +85,9 @@ public class UserDetailsActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_user_details);
+        store= PreferenceManager.getInstance(getApplicationContext());
+VenueName=store.getVenue();
+        Country=store.getCountry();
         role=(LinearLayout)findViewById(R.id.role);
         role.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +95,7 @@ public class UserDetailsActivity extends AppCompatActivity {
                 openpopup();
             }
         });
+        remove_usermanagement=(RelativeLayout)findViewById(R.id.remove_usermanagement);
         user_details_recycler=(RecyclerView)findViewById(R.id.user_details_recycler);
         name_user_details=(EditText)findViewById(R.id.name_user_details);
         email_user_details=(EditText)findViewById(R.id.email_user_details);
@@ -87,6 +105,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             UserName=bundle.getString("username");
             UserEmail=bundle.getString("useremail");
             UserRole=bundle.getString("userrole");
+            BarAccessString=bundle.getString("baraccess");
             if(UserName!=null){
                 name_user_details.setText(UserName);
             }if(UserEmail!=null){
@@ -105,7 +124,16 @@ public class UserDetailsActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        barAccess= TempStore.getHolder().getBarAccess();
+        try{
+            barAccess.clear();
+            Gson gsons=new Gson();
+            Type type1=new TypeToken<List<BarAccess>>(){}.getType();
+            barAccess=gsons.fromJson(BarAccessString,type1);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+       // barAccess= TempStore.getHolder().getBarAccess();
 
 
         adapter=new UserDetailsAdapter(UserDetailsActivity.this,userDetailArrayList,barAccess);
@@ -113,7 +141,6 @@ public class UserDetailsActivity extends AppCompatActivity {
         user_details_recycler.setLayoutManager(layoutManagersecond);
         user_details_recycler.setItemAnimator(new DefaultItemAnimator());
         user_details_recycler.setAdapter(adapter);
-        store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
         id=UserDetail.getHolder().getId();
         barname=UserDetail.getHolder().getBarname();
@@ -126,7 +153,83 @@ public class UserDetailsActivity extends AppCompatActivity {
          }
         adapter.notifyDataSetChanged();
         //GetUserDetailList();
+        remove_usermanagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userName=name_user_details.getText().toString();
+                String userEmail=email_user_details.getText().toString();
 
+                if(userName!=null&& !userName.isEmpty()&&userEmail!=null&&!userEmail.isEmpty()){
+                    DeleteUserAPI(UserProfileId);
+                }else {
+                    Toast.makeText(getApplicationContext(), "user name and user email is empty!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
+    private void DeleteUserAPI(String userProfileId) {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+"deleteUserManagement/"+userProfileId;
+        Log.d("waggonurl", url);
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response",response.toString());
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
+                    if (success){
+                        Toast.makeText(getApplicationContext(),"Successfully Deleted!",Toast.LENGTH_SHORT).show();
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                adapter.notifyDataSetChanged();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+
+        };
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
+
+    }
+
+    private void showPdialog(){
+        if(progressDialog==null){
+            progressDialog=new ProgressDialog(UserDetailsActivity.this);
+            progressDialog.setMessage("Please Wait!....");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle("Loading..");
+
+        }
+        progressDialog.show();
+    }
+    private void dismissPdialog(){
+        if(progressDialog!=null && progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
     }
 
     private void GetUserDetailList() {
@@ -208,12 +311,14 @@ public class UserDetailsActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         closepopup();
+        dismissPdialog();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         closepopup();
+        dismissPdialog();
     }
 
     private void closepopup(){
@@ -281,8 +386,32 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_done:
-                Intent i=new Intent(UserDetailsActivity.this,UserManagementActivity.class);
-                startActivity(i);
+                if(UserName==null){
+                    Toast.makeText(getApplicationContext(),"New User Registration !",Toast.LENGTH_SHORT).show();
+
+                    String userName=name_user_details.getText().toString();
+                    String userEmail=email_user_details.getText().toString();
+                    String role=select_role.getText().toString();
+                    if(role.equals("Admin")){
+                        role="admin";
+                    }
+                    if(role.equals("Basic")){
+                        role="basic";
+                    }
+                    if(userName==null&& userName.isEmpty()&&userEmail==null&&userEmail.isEmpty()&&role==null&&role.equals("Select Role")&&role.isEmpty()){
+                        Toast.makeText(getApplicationContext(),"Please enter all details !",Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        insertUserData(userName,userEmail,role);
+                    }
+
+
+                }else{
+                    Toast.makeText(getApplicationContext(),"Update User!",Toast.LENGTH_SHORT).show();
+
+                }
+//                Intent i=new Intent(UserDetailsActivity.this,UserManagementActivity.class);
+//                startActivity(i);
                 break;
 
             case android.R.id.home:
@@ -292,4 +421,107 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void insertUserData(String userName, String userEmail, String role) {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+"insertUserManagement";
+        Log.d("Insertuser Url",url);
+        JSONObject inputLogin=new JSONObject();
+        showPdialog();
+        String arrayjson=null;
+        try{
+            Gson gson=new Gson();
+             arrayjson=gson.toJson(adapterbaraccessdatalist);
+            Log.d("Adapter String","value is :"+arrayjson);
+        }catch (Exception e){
+            Log.d("exception_conve_gson",e.getMessage());
+        }
+        JSONArray jsonArray=null;
+        try {
+             jsonArray=new JSONArray(arrayjson);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            inputLogin.put("UserProfileId",UserProfileId);
+            inputLogin.put("UserEmail",userEmail);
+            inputLogin.put("UserName",userName);
+            inputLogin.put("UserRole",role);
+            inputLogin.put("VenueName",VenueName);
+            inputLogin.put("Country",Country);
+            inputLogin.put("BarList",jsonArray);
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Log.d("inputJsonuser",inputLogin.toString());
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Log.d("List Response",response.toString());
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
+                    if (success){
+
+                        Toast.makeText(getApplicationContext(),"Success fully registered the user! ",Toast.LENGTH_SHORT).show();
+                            UserDetailsActivity.this.finish();
+
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                dismissPdialog();
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+dismissPdialog();
+                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
+//                texts.setText(error.toString());
+            }
+        }) {
+
+        };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*1000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
+    }
+
+    @Override
+    public void onClickInAdapter(int BarId, String BarName) {
+        Log.d("adapter values : "," BarId : "+BarId+" / BarName : "+BarName );
+        AdapterBarModel barAccess=new AdapterBarModel();
+        barAccess.setBarName(BarName);
+        barAccess.setBarId(BarId);
+        adapterbaraccessdatalist.add(barAccess);
+        try{
+            Gson gson=new Gson();
+            String adapterbaraccessdata=gson.toJson(adapterbaraccessdatalist);
+                Log.d("Adapter String","value is :"+adapterbaraccessdata);
+        }catch (Exception e){
+            Log.d("exception_conve_gson",e.getMessage());
+        }
+    }
+
 }

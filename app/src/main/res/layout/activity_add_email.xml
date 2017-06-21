@@ -37,6 +37,7 @@
         android:layout_height="55dp"
         android:gravity="center"
         android:orientation="vertical"
+        android:id="@+id/delete_email"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
         <View

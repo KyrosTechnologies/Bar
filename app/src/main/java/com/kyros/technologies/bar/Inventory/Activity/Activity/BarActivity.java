@@ -50,6 +50,8 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
     private String BarCreated=null;
     private PreferenceManager store;
     private ArrayList<MyBar>myBarArrayList=new ArrayList<MyBar>();
+    private String UserRole=null;
+    private String ParentUserProfileId=null;
 
     private ItemTouchHelper mItemTouchHelper;
 //        public BarActivity(){
@@ -67,6 +69,8 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
         setContentView(R.layout.activity_bar);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
+        UserRole=store.getUserRole();
+        ParentUserProfileId=store.getParentUserProfileId();
         BarName=store.getBarName();
         BarCreated=store.getBarDateCreated();
         bar_recycler=(RecyclerView)findViewById(R.id.bar_recycler);
@@ -270,9 +274,9 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
 
 
 
-    private void GetBarList() {
+    private void GetBarList(String proid) {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"getBarbyUserProfileId/"+UserProfileId;
+        String url = EndURL.URL+"getBarbyUserProfileId/"+proid;
         //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
         Log.d("waggonurl", url);
 
@@ -349,7 +353,23 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
     @Override
     protected void onResume() {
         super.onResume();
-        GetBarList();
+        ParentUserProfileId=store.getParentUserProfileId();
+        UserRole=store.getUserRole();
+        if(UserRole.equals("basic")){
+            if(ParentUserProfileId!=null){
+                GetBarList(ParentUserProfileId);
+
+            }else{
+                Toast.makeText(getApplicationContext(),"Parent User ProfileId must not be null!",Toast.LENGTH_SHORT).show();
+
+            }
+
+        }else if(UserRole.equals("admin")){
+            GetBarList(UserProfileId);
+
+        }else {
+            Toast.makeText(getApplicationContext(),"UserRole must specified",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showBarDialog(){
@@ -371,7 +391,32 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
             public void onClick(View v) {
                 String barname=barname_bar.getText().toString();
                 if(barname!=null &&!barname.isEmpty()){
-                    AddBarApi(UserProfileId,barname);
+                    if(UserRole.equals("admin")){
+                        if(ParentUserProfileId!=null){
+                            if(ParentUserProfileId.equals("null")){
+                                AddBarApi(UserProfileId,barname);
+                            }else{
+                                AddBarApi(ParentUserProfileId,barname);
+
+                            }
+                        }else{
+                            Toast.makeText(getApplicationContext(),"parent id could not be null!",Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }else if(UserRole.equals("basic")){
+//                        if(ParentUserProfileId!=null){
+//                            AddBarApi(ParentUserProfileId,barname);
+//
+//                        }else{
+                            Toast.makeText(getApplicationContext(),"user is basic version could not be add!",Toast.LENGTH_SHORT).show();
+
+                        //}
+
+                    }else{
+                        Toast.makeText(getApplicationContext(),"User role must be specified!",Toast.LENGTH_SHORT).show();
+                    }
                 }else{
 
                 }

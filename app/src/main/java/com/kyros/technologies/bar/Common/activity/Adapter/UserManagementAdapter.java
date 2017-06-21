@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kyros.technologies.bar.Common.activity.Activity.UserDetailsActivity;
 import com.kyros.technologies.bar.Common.activity.model.BarAccess;
 import com.kyros.technologies.bar.Common.activity.model.TempStore;
@@ -74,10 +75,24 @@ public class UserManagementAdapter extends RecyclerView.Adapter<UserManagementAd
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mContext,UserDetailsActivity.class);
+                String adapterbaraccessdata=null;
+                try{
+                    Gson gson=new Gson();
+                     adapterbaraccessdata=gson.toJson(barAccesses);
+                    System.out.println("barslist data : "+adapterbaraccessdata);
+                }catch (Exception e){
+                }
                     intent.putExtra("username", finalName);
                     intent.putExtra("useremail", finalEmail);
                     intent.putExtra("userrole", finalUserrole);
-                TempStore.getHolder().setBarAccess(barAccesses);
+                    intent.putExtra("baraccess", adapterbaraccessdata);
+                if(barAccesses.size()==0){
+                    TempStore.getHolder().setBarAccess(null);
+
+                }else{
+                    TempStore.getHolder().setBarAccess(barAccesses);
+
+                }
                 mContext.startActivity(intent);
             }
         });

@@ -76,6 +76,7 @@ public class EmailManagementAdapter extends RecyclerView.Adapter<EmailManagement
             public void onClick(View v) {
                 Intent i=new Intent(mContext,AddEmailActivity.class);
                 i.putExtra("name", finalName);
+                i.putExtra("Id",id);
                 mContext.startActivity(i);
             }
         });
