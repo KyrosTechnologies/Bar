@@ -160,7 +160,7 @@ VenueName=store.getVenue();
                 String userEmail=email_user_details.getText().toString();
 
                 if(userName!=null&& !userName.isEmpty()&&userEmail!=null&&!userEmail.isEmpty()){
-                    DeleteUserAPI(UserProfileId);
+                    DeleteUserAPI(UserProfileId, String.valueOf(id));
                 }else {
                     Toast.makeText(getApplicationContext(), "user name and user email is empty!", Toast.LENGTH_SHORT).show();
                 }
@@ -170,9 +170,9 @@ VenueName=store.getVenue();
 
     }
 
-    private void DeleteUserAPI(String userProfileId) {
+    private void DeleteUserAPI(String userProfileId,String Id) {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"deleteUserManagement/"+userProfileId;
+        String url = EndURL.URL+"deleteUserManagement/"+userProfileId+"/"+Id;
         Log.d("waggonurl", url);
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
