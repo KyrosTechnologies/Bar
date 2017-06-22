@@ -117,6 +117,7 @@ public class UserManagementActivity extends AppCompatActivity {
                             String username=first.getString("UserName");
                             String email=first.getString("UserEmail");
                             String userrole=first.getString("UserRole");
+                            String ParentUserProfileId=first.getString("ParentUserProfileId");
                             JSONArray BarList=first.getJSONArray("BarList");
                             for(int j=0;j<BarList.length();j++){
                                 JSONObject second=BarList.getJSONObject(j);
@@ -153,6 +154,7 @@ public class UserManagementActivity extends AppCompatActivity {
                             managementModel.setUserRole(userrole);
                             managementModel.setUserName(username);
                             managementModel.setBarAccess(barAccessArrayList);
+                            managementModel.setParentUserProfileId(ParentUserProfileId);
                             userlist.add(managementModel);
 
 

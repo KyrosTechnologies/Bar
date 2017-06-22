@@ -24,6 +24,7 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
     private Context mContext;
     private ArrayList<UserDetail> userDetailArrayList;
     private ArrayList<BarAccess> barAccess;
+    private String ParentUserProfileId;
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
         public TextView bar_name;
@@ -35,11 +36,11 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
             bar_checkbox=(CheckBox)itemView.findViewById(R.id.bar_checkbox);
         }
     }
-    public UserDetailsAdapter(Context mContext,ArrayList<UserDetail>userDetailArrayList,ArrayList<BarAccess> barAccess){
+    public UserDetailsAdapter(Context mContext,ArrayList<UserDetail>userDetailArrayList,ArrayList<BarAccess> barAccess,String ParentUserProfileId){
         this.mContext=mContext;
         this.userDetailArrayList=userDetailArrayList;
         this.barAccess=barAccess;
-
+        this.ParentUserProfileId=ParentUserProfileId;
 
     }
     @Override
@@ -82,13 +83,14 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
                 UserDetail.getHolder().setBarname(barname);
                 UserDetail.getHolder().setCreatedon(createdon);
                 UserDetail.getHolder().setModifiedon(modifiedon);
+                UserDetail.getHolder().setParentUserProfileId(ParentUserProfileId);
                 try {
                     onClickInAdapter = (OnClickInAdapter) mContext;
                 } catch (ClassCastException e) {
                     throw new ClassCastException(mContext.toString()
                             + " must implement OnClickInAdapter");
                 }
-                onClickInAdapter.onClickInAdapter(id,barname);
+                onClickInAdapter.onClickInAdapter(id,barname,ParentUserProfileId);
             }
         });
 
@@ -100,6 +102,6 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
         return userDetailArrayList.size();
     }
 public interface OnClickInAdapter{
-    public void onClickInAdapter(int BarId,String BarName);
+    public void onClickInAdapter(int BarId,String BarName,String ParentUserProfileId);
 }
 }

@@ -30,6 +30,7 @@
                     android:layout_height="45dp"
                     android:layout_gravity="center"
                     android:layout_weight="1.5"
+                    android:background="@color/white"
                     android:singleLine="true"
                     android:textAlignment="center"
                     android:clickable="true"

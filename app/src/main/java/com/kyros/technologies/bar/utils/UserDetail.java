@@ -11,6 +11,7 @@ public class UserDetail {
     private String barname;
     private String createdon;
     private String modifiedon;
+    private String ParentUserProfileId;
 
     public UserDetail(){
 
@@ -18,6 +19,14 @@ public class UserDetail {
 
     public int getId() {
         return id;
+    }
+
+    public String getParentUserProfileId() {
+        return ParentUserProfileId;
+    }
+
+    public void setParentUserProfileId(String parentUserProfileId) {
+        ParentUserProfileId = parentUserProfileId;
     }
 
     public void setId(int id) {
