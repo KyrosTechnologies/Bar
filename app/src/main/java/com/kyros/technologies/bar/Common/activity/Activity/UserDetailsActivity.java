@@ -75,6 +75,7 @@ implements UserDetailsAdapter.OnClickInAdapter {
     private ProgressDialog progressDialog;
     private String BarAccessString=null;
     private RelativeLayout remove_usermanagement;
+    private String ParentUserProfileId=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +107,7 @@ VenueName=store.getVenue();
             UserEmail=bundle.getString("useremail");
             UserRole=bundle.getString("userrole");
             BarAccessString=bundle.getString("baraccess");
+            ParentUserProfileId=bundle.getString("ParentUserProfileId");
             if(UserName!=null){
                 name_user_details.setText(UserName);
             }if(UserEmail!=null){
@@ -136,7 +138,7 @@ VenueName=store.getVenue();
        // barAccess= TempStore.getHolder().getBarAccess();
 
 
-        adapter=new UserDetailsAdapter(UserDetailsActivity.this,userDetailArrayList,barAccess);
+        adapter=new UserDetailsAdapter(UserDetailsActivity.this,userDetailArrayList,barAccess,ParentUserProfileId);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         user_details_recycler.setLayoutManager(layoutManagersecond);
         user_details_recycler.setItemAnimator(new DefaultItemAnimator());
@@ -158,12 +160,18 @@ VenueName=store.getVenue();
             public void onClick(View v) {
                 String userName=name_user_details.getText().toString();
                 String userEmail=email_user_details.getText().toString();
+                if(UserName!=null){
+                    if(userName!=null&& !userName.isEmpty()&&userEmail!=null&&!userEmail.isEmpty()){
+                        DeleteUserAPI(UserProfileId, ParentUserProfileId);
+                    }else {
+                        Toast.makeText(getApplicationContext(), "user name and user email is empty!", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Cannot removed!", Toast.LENGTH_SHORT).show();
 
-                if(userName!=null&& !userName.isEmpty()&&userEmail!=null&&!userEmail.isEmpty()){
-                    DeleteUserAPI(UserProfileId, String.valueOf(id));
-                }else {
-                    Toast.makeText(getApplicationContext(), "user name and user email is empty!", Toast.LENGTH_SHORT).show();
                 }
+
+
 
             }
         });
@@ -186,6 +194,7 @@ VenueName=store.getVenue();
                     boolean success=obj.getBoolean("IsSuccess");
                     if (success){
                         Toast.makeText(getApplicationContext(),"Successfully Deleted!",Toast.LENGTH_SHORT).show();
+                        UserDetailsActivity.this.finish();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
@@ -451,6 +460,7 @@ VenueName=store.getVenue();
             inputLogin.put("VenueName",VenueName);
             inputLogin.put("Country",Country);
             inputLogin.put("BarList",jsonArray);
+            inputLogin.put("ParentUserProfileId",UserProfileId);
 
 
 
@@ -509,7 +519,7 @@ dismissPdialog();
     }
 
     @Override
-    public void onClickInAdapter(int BarId, String BarName) {
+    public void onClickInAdapter(int BarId, String BarName,String ParentUserProfileId) {
         Log.d("adapter values : "," BarId : "+BarId+" / BarName : "+BarName );
         AdapterBarModel barAccess=new AdapterBarModel();
         barAccess.setBarName(BarName);

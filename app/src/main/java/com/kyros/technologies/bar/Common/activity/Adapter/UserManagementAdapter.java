@@ -64,6 +64,10 @@ public class UserManagementAdapter extends RecyclerView.Adapter<UserManagementAd
             userrole="";
         }
         int id=model.getId();
+        String ParentUserProfileId=model.getParentUserProfileId();
+        if(ParentUserProfileId==null){
+            ParentUserProfileId="0";
+        }
         final ArrayList<BarAccess> barAccesses=model.getBarAccess();
         holder.user_management_name.setText(name);
         String value="Role : "+userrole;
@@ -71,6 +75,7 @@ public class UserManagementAdapter extends RecyclerView.Adapter<UserManagementAd
         final String finalName = name;
         final String finalEmail = email;
         final String finalUserrole = userrole;
+        final String finalParentUserProfileId = ParentUserProfileId;
         holder.user_item_management.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +91,7 @@ public class UserManagementAdapter extends RecyclerView.Adapter<UserManagementAd
                     intent.putExtra("useremail", finalEmail);
                     intent.putExtra("userrole", finalUserrole);
                     intent.putExtra("baraccess", adapterbaraccessdata);
+                intent.putExtra("ParentUserProfileId", finalParentUserProfileId);
                 if(barAccesses.size()==0){
                     TempStore.getHolder().setBarAccess(null);
 

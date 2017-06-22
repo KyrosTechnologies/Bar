@@ -11,6 +11,7 @@ public class UserManagementModel {
     private String UserEmail;
     private String UserRole;
     private int Id;
+    private String ParentUserProfileId;
     private ArrayList<BarAccess>barAccess=new ArrayList<BarAccess>();
     public UserManagementModel(){}
 
@@ -24,6 +25,14 @@ public class UserManagementModel {
 
     public String getUserEmail() {
         return UserEmail;
+    }
+
+    public String getParentUserProfileId() {
+        return ParentUserProfileId;
+    }
+
+    public void setParentUserProfileId(String parentUserProfileId) {
+        ParentUserProfileId = parentUserProfileId;
     }
 
     public void setUserEmail(String userEmail) {
