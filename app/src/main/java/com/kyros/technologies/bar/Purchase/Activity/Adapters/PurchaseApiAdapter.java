@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
-import com.kyros.technologies.bar.Inventory.Activity.Adapters.LiquorApiAdapter;
 import com.kyros.technologies.bar.Inventory.Activity.List.LiquorListClass;
 import com.kyros.technologies.bar.Purchase.Activity.Activity.BottlePurchaseStock;
 import com.kyros.technologies.bar.R;
@@ -122,6 +120,10 @@ public class PurchaseApiAdapter extends RecyclerView.Adapter<PurchaseApiAdapter.
     public int getItemCount() {
         return list.size();
     }
-
+    public void setFilter(ArrayList<LiquorListClass> list1){
+        list=new ArrayList<>();
+        list.addAll(list1);
+        notifyDataSetChanged();
+    }
 
 }

@@ -1,11 +1,16 @@
 package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -76,6 +81,10 @@ public class BottleDescriptionActivity extends AppCompatActivity {
     private String WhichType=null;
     private Async i=null;
     private  UpdateAsync ups=null;
+    private AlertDialog online,alertDialog;
+    private ProgressDialog pDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,6 +223,75 @@ public class BottleDescriptionActivity extends AppCompatActivity {
 
     }
 
+    public boolean checkOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return true;
+
+        }else {
+            onlineDialog();
+
+        }
+
+        return false;
+    }
+
+    public void onlineDialog(){
+        online= new AlertDialog.Builder(BottleDescriptionActivity.this).create();
+        online.setTitle("No Internet Connection");
+        online.setMessage("We cannot detect any internet connectivity.Please check your internet connection and try again");
+        //   alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        online.setButton("Try Again",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                checkOnline();
+            }
+        });
+        online.show();
+
+    }
+    private void dismissonlineDialog(){
+        if(online!=null && online.isShowing()){
+            online.dismiss();
+        }
+    }
+
+    private void showProgressDialog() {
+        if (pDialog == null) {
+            pDialog = new ProgressDialog(BottleDescriptionActivity.this);
+            pDialog.setMessage("Loading. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+        }
+        pDialog.show();
+    }
+
+    private void dismissProgressDialog() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+    }
+    private void showErrorDialog() {
+        if (alertDialog == null) {
+            alertDialog= new AlertDialog.Builder(BottleDescriptionActivity.this).create();
+            alertDialog.setTitle("Network/Connection Error");
+            alertDialog.setMessage(getString(R.string.server_error_dialog));
+            //   alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+            alertDialog.setButton("Ok",new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    alertDialog.dismiss();
+                }
+            });
+        }
+        alertDialog.show();
+    }
+
+    private void dismissErrorDialog() {
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
+    }
+
     private void BottleDescriptionApi(final int userprofile , int barid, int sectionid,String liquorname,String liquorcapacity,String category,String subcategory,String shots,
                                       String parlevel,String distributor,String price,String binnumber,String productcode) {
         String tag_json_obj = "json_obj_req";
@@ -245,6 +323,8 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                showProgressDialog();
+
                 try {
 
 
@@ -284,15 +364,18 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                dismissProgressDialog();
 
                 Intent i=new Intent(BottleDescriptionActivity.this,SectionBottlesActivity.class);
                 startActivity(i);
+
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dismissProgressDialog();
+                showErrorDialog();
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
 //                texts.setText(error.toString());
@@ -366,6 +449,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        dismissProgressDialog();
         try{
                 i.cancel(true);
         }catch (Exception e){
@@ -391,6 +475,9 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+        dismissonlineDialog();
+        dismissProgressDialog();
+        dismissErrorDialog();
     }
 
     private class Async extends AsyncTask<String,String,String > {

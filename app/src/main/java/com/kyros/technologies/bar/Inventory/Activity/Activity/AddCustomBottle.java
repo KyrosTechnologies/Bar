@@ -1,9 +1,14 @@
 package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
+        import android.app.AlertDialog;
+        import android.content.Context;
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.pm.ActivityInfo;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
+        import android.net.ConnectivityManager;
+        import android.net.NetworkInfo;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
         import android.util.Base64;
@@ -27,6 +32,7 @@ public class AddCustomBottle extends AppCompatActivity{
     private Seekbar seekbar;
     private String  Minvalue=null;
     private String  Maxvalue=null;
+    private AlertDialog online;
     private String path=null;
 
 
@@ -63,6 +69,39 @@ public class AddCustomBottle extends AppCompatActivity{
         });
     }
 
+    public boolean checkOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return true;
+
+        }else {
+            onlineDialog();
+
+        }
+
+        return false;
+    }
+
+    public void onlineDialog(){
+        online= new AlertDialog.Builder(AddCustomBottle.this).create();
+        online.setTitle("No Internet Connection");
+        online.setMessage("We cannot detect any internet connectivity.Please check your internet connection and try again");
+        //   alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        online.setButton("Try Again",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                checkOnline();
+            }
+        });
+        online.show();
+
+    }
+    private void dismissonlineDialog(){
+        if(online!=null && online.isShowing()){
+            online.dismiss();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.next, menu);
@@ -89,5 +128,10 @@ public class AddCustomBottle extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissonlineDialog();
+    }
 
 }

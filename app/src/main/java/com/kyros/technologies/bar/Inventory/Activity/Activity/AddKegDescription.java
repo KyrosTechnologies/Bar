@@ -1,41 +1,45 @@
 package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-        import android.content.pm.ActivityInfo;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
-        import android.util.Base64;
-        import android.util.Log;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.widget.EditText;
-        import android.widget.ImageView;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageView;
 
-        import com.kyros.technologies.bar.R;
-        import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
-        import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
-        import com.kyros.technologies.bar.utils.CustomLiquorModel;
-        import com.kyros.technologies.bar.utils.EndURL;
+import com.kyros.technologies.bar.R;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
+import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
+import com.kyros.technologies.bar.utils.EndURL;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import org.apache.http.HttpEntity;
-        import org.apache.http.HttpResponse;
-        import org.apache.http.client.ClientProtocolException;
-        import org.apache.http.client.HttpClient;
-        import org.apache.http.client.methods.HttpPost;
-        import org.apache.http.entity.ContentType;
-        import org.apache.http.entity.mime.content.ByteArrayBody;
-        import org.apache.http.entity.mime.content.StringBody;
-        import org.apache.http.impl.client.DefaultHttpClient;
-        import org.apache.http.util.EntityUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
-        import java.io.ByteArrayOutputStream;
-        import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Created by kyros on 02-06-2017.
@@ -56,6 +60,8 @@ public class AddKegDescription  extends AppCompatActivity {
     private String SectionId=null;
     private PreferenceManager store;
     private String UserProfileId=null;
+    private AlertDialog online;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,9 +124,41 @@ public class AddKegDescription  extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
 
+    public boolean checkOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return true;
+
+        }else {
+            onlineDialog();
+
+        }
+
+        return false;
+    }
+
+    public void onlineDialog(){
+        online= new AlertDialog.Builder(AddKegDescription.this).create();
+        online.setTitle("No Internet Connection");
+        online.setMessage("We cannot detect any internet connectivity.Please check your internet connection and try again");
+        //   alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        online.setButton("Try Again",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                checkOnline();
+            }
+        });
+        online.show();
 
     }
+    private void dismissonlineDialog(){
+        if(online!=null && online.isShowing()){
+            online.dismiss();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.next, menu);
@@ -156,6 +194,13 @@ public class AddKegDescription  extends AppCompatActivity {
             return null;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissonlineDialog();
+    }
+
     private String uploadFile() {
 
         String responseString = null;

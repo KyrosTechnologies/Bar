@@ -24,9 +24,10 @@
                 android:layout_marginLeft="15dp"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:layout_marginLeft="8dp"
                 android:orientation="vertical">
                 <TextView
@@ -39,11 +40,6 @@
                     android:textSize="16sp"
                     android:textColor="@color/white"/>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
-
                     <TextView
                         android:id="@+id/quantity"
                         android:layout_width="wrap_content"
@@ -51,30 +47,28 @@
                         android:text=""
                         android:gravity="start|center"
                         android:textColor="@color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:layout_marginTop="5dp"/>
 
                     <TextView
                         android:id="@+id/add_bottle_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:layout_gravity="center"
                         android:textSize="16sp"
-                        android:text="Type"/>
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_gravity="end|center"
-                        android:src="@drawable/rightarrow"
-                        android:layout_marginRight="20dp"/>
-
-                </FrameLayout>
-
+                        android:text="Type"
+                        android:layout_marginTop="5dp"/>
 
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="end|center"
+                android:src="@drawable/rightarrow"
+                android:layout_marginRight="15dp"/>
         </LinearLayout>
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"

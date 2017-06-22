@@ -2,12 +2,16 @@ package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -43,6 +47,8 @@ public class AddToInventory extends AppCompatActivity {
     private final int SELECT_FILE = 1;
     private String whichone=null;
     private Uri selectedImage=null;
+    private AlertDialog online;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,40 @@ public class AddToInventory extends AppCompatActivity {
             custom_bottle_dialog.dismiss();
         }
     }
+
+    public boolean checkOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return true;
+
+        }else {
+            onlineDialog();
+
+        }
+
+        return false;
+    }
+
+    public void onlineDialog(){
+        online= new AlertDialog.Builder(AddToInventory.this).create();
+        online.setTitle("No Internet Connection");
+        online.setMessage("We cannot detect any internet connectivity.Please check your internet connection and try again");
+        //   alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        online.setButton("Try Again",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                checkOnline();
+            }
+        });
+        online.show();
+
+    }
+    private void dismissonlineDialog(){
+        if(online!=null && online.isShowing()){
+            online.dismiss();
+        }
+    }
+
 
     private void openpopup() {
         if(custom_bottle_dialog==null){
@@ -132,6 +172,13 @@ public class AddToInventory extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_CAMERA);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissonlineDialog();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
