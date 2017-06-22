@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,14 +26,14 @@
             android:hint="Name"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:textSize="16sp"
             android:paddingLeft="10dp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -44,14 +44,14 @@
             android:hint="Capacity(ML)"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:textSize="16sp"
             android:paddingLeft="10dp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -70,10 +70,10 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Shots"
+            android:hint="Main Category"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:textSize="16sp"
             android:paddingLeft="10dp"
             android:inputType="textPersonName"/>
@@ -91,7 +91,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -102,14 +102,14 @@
             android:hint="Sub Category"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:textSize="16sp"
             android:paddingLeft="10dp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -120,14 +120,14 @@
             android:hint="Shots"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:textSize="16sp"
             android:paddingLeft="10dp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -138,14 +138,14 @@
             android:hint="Par Level"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:paddingLeft="10dp"
             android:textSize="16sp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -156,14 +156,14 @@
             android:hint="Distributor Name"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:paddingLeft="10dp"
             android:textSize="16sp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -174,14 +174,14 @@
             android:hint="Price Unit"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:paddingLeft="10dp"
             android:textSize="16sp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -192,14 +192,14 @@
             android:hint="Bin Number"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:paddingLeft="10dp"
             android:textSize="16sp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>
@@ -210,14 +210,14 @@
             android:hint="Product Code"
             android:textColorHint="@color/edit"
             android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:paddingLeft="10dp"
             android:textSize="16sp"
             android:inputType="textPersonName"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="20dp"/>

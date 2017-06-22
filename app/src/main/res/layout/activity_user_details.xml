@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@color/white"
     tools:context="com.kyros.technologies.bar.Common.activity.Activity.UserDetailsActivity">
 
     <LinearLayout
@@ -26,7 +26,7 @@
                 android:textColorHint="@color/edit"
                 android:background="@android:color/transparent"
                 android:id="@+id/name_user_details"
-                android:textColor="@color/white"
+                android:textColor="@color/edit"
                 android:textSize="18sp"
                 android:textAlignment="center"
                 android:paddingLeft="20dp"
@@ -34,7 +34,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="0.2dp"
                 android:background="@color/edittext"
                 android:layout_marginTop="7dp"/>
 
@@ -54,7 +54,7 @@
                 android:hint="Email"
                 android:textColorHint="@color/edit"
                 android:background="@android:color/transparent"
-                android:textColor="@color/white"
+                android:textColor="@color/edit"
                 android:textAlignment="center"
                 android:id="@+id/email_user_details"
                 android:textSize="18sp"
@@ -63,7 +63,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="0.2dp"
                 android:background="@color/edittext"
                 android:layout_marginTop="7dp"/>
         </LinearLayout>
@@ -103,7 +103,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="0.2dp"
                 android:background="@color/edittext"
                 android:layout_marginTop="7dp"/>
 
@@ -120,18 +120,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Bar Access"
-            android:textColorHint="@color/edit"
+            android:text="Bar Access"
             android:textAlignment="center"
-            android:background="@android:color/transparent"
-            android:textColor="@color/white"
+            android:textColor="@color/edit"
             android:textSize="18sp"
             android:paddingLeft="20dp"
             android:inputType="textEmailAddress"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"/>
 
@@ -149,8 +147,8 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:orientation="vertical"
+        android:background="@color/white"
         android:id="@+id/remove_usermanagement"
-        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
@@ -162,7 +160,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="0.2dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/edittext"/>
             <TextView

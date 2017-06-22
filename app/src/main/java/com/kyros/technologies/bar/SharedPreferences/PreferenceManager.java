@@ -315,6 +315,15 @@ public class PreferenceManager {
         editor.putString("SectionBottles", value);
         editor.commit();
     }
+    public String getBar(){
+        return sp.getString("Bar",null);
+    }
+    public void putBar(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("Bar", value);
+        editor.commit();
+    }
 
     public String getParentUserProfileId(){
         return sp.getString("ParentUserProfileId",null);

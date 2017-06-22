@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:orientation="vertical"
-        android:background="@drawable/popup">
+        android:background="@color/white">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             android:layout_marginTop="3dp"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="7dp"/>
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-           android:textColor="@color/edit"
+            android:textColor="@color/edit"
             android:textSize="16sp"
             android:text="Are you sure want to logout?"
             android:layout_marginLeft="5dp"
@@ -56,7 +56,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"/>
             <View
-                android:layout_width="0.5dp"
+                android:layout_width="0.2dp"
                 android:layout_height="30dp"
                 android:background="@color/edittext"/>
             <TextView

@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,13 +34,13 @@
                     android:id="@+id/name_custombottle"
                     android:paddingLeft="10dp"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="16sp"
                     android:inputType="textPersonName"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:background="@color/edittext"
                     android:layout_marginTop="7dp"/>
 
@@ -60,13 +60,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -93,7 +93,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:text="Main Category"
+                            android:hint="Main Category"
+                            android:textColorHint="@color/edit"
                             android:background="@android:color/transparent"
                             android:id="@+id/category_custombottle"
                             android:textColor="@color/edit"
@@ -115,7 +116,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:background="@color/edittext"
                     android:layout_marginTop="7dp"/>
 
@@ -135,13 +136,13 @@
                         android:id="@+id/subcategory_custombottle"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -161,13 +162,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -187,13 +188,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -213,13 +214,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -239,13 +240,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -265,13 +266,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -291,13 +292,13 @@
                         android:paddingLeft="10dp"
                         android:id="@+id/producr_custombottle"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 

@@ -2,9 +2,14 @@ package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,7 +43,7 @@ import java.util.ArrayList;
 
 public class AddSectionActivity extends AppCompatActivity {
     private LinearLayout section_bar;
-    private AlertDialog sectionDialog;
+    private AlertDialog sectionDialog,online,alertDialog;
     private RecyclerView section_recycler;
     private SectionAdapter adapter;
     private String sectionname;
@@ -50,6 +55,8 @@ public class AddSectionActivity extends AppCompatActivity {
     private String SectionId=null;
     private PreferenceManager store;
     private ArrayList<MySection>mySectionArrayList =new ArrayList<MySection>();
+    private ProgressDialog pDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +98,75 @@ public class AddSectionActivity extends AppCompatActivity {
 //        });
     }
 
+    public boolean checkOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return true;
+
+        }else {
+            onlineDialog();
+
+        }
+
+        return false;
+    }
+
+    public void onlineDialog(){
+        online= new AlertDialog.Builder(AddSectionActivity.this).create();
+        online.setTitle("No Internet Connection");
+        online.setMessage("We cannot detect any internet connectivity.Please check your internet connection and try again");
+        //   alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        online.setButton("Try Again",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                checkOnline();
+            }
+        });
+        online.show();
+
+    }
+    private void dismissonlineDialog(){
+        if(online!=null && online.isShowing()){
+            online.dismiss();
+        }
+    }
+
+    private void showProgressDialog() {
+        if (pDialog == null) {
+            pDialog = new ProgressDialog(AddSectionActivity.this);
+            pDialog.setMessage("Loading. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+        }
+        pDialog.show();
+    }
+
+    private void dismissProgressDialog() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+    }
+    private void showErrorDialog() {
+        if (alertDialog == null) {
+            alertDialog= new AlertDialog.Builder(AddSectionActivity.this).create();
+            alertDialog.setTitle("Network/Connection Error");
+            alertDialog.setMessage(getString(R.string.server_error_dialog));
+            //   alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+            alertDialog.setButton("Ok",new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    alertDialog.dismiss();
+                }
+            });
+        }
+        alertDialog.show();
+    }
+
+    private void dismissErrorDialog() {
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
+    }
+
     private void AddSectionApi(final String userprofile, final String sectionname,final int BarId) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"InsertSection";
@@ -112,6 +188,7 @@ public class AddSectionActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                showProgressDialog();
                 dismissBarDialog();
                 mySectionArrayList.clear();
                 try {
@@ -160,13 +237,15 @@ public class AddSectionActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 adapter.notifyDataSetChanged();
+                dismissProgressDialog();
 
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dismissProgressDialog();
+                showErrorDialog();
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
 //                texts.setText(error.toString());
@@ -190,6 +269,8 @@ public class AddSectionActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                showProgressDialog();
+
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
@@ -240,13 +321,15 @@ public class AddSectionActivity extends AppCompatActivity {
                 }
 
                 adapter.notifyDataSetChanged();
+                dismissProgressDialog();
 
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dismissProgressDialog();
+                showErrorDialog();
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
 //                texts.setText(error.toString());
@@ -316,15 +399,20 @@ public class AddSectionActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     protected void onStop() {
         super.onStop();
         dismissBarDialog();
+        dismissProgressDialog();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         dismissBarDialog();
+        dismissonlineDialog();
+        dismissProgressDialog();
+        dismissErrorDialog();
     }
 }

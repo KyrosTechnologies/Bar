@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.kyros.technologies.bar.Common.activity.Activity.LandingActivity"
     tools:showIn="@layout/app_bar_landing">
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="Take Inventory"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="Purchases"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -87,8 +87,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line_color" />
+            android:layout_height="0.2dp"
+            android:background="@color/edittext" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total liquor qty.,"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="14sp" />
 
                 <TextView
@@ -118,16 +118,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="250"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="16sp" />
 
             </LinearLayout>
 
             <View
-                android:layout_width="0.5dp"
+                android:layout_width="0.2dp"
                 android:layout_height="55dp"
                 android:layout_marginLeft="68dp"
-                android:background="@color/line_color" />
+                android:background="@color/edittext" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Under par value total"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="14sp" />
 
                 <TextView
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="15"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="16sp" />
 
             </LinearLayout>

@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,13 +34,13 @@
                         android:paddingLeft="10dp"
                         android:id="@+id/keg_name"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -60,13 +60,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -86,13 +86,13 @@
                         android:paddingLeft="10dp"
                         android:id="@+id/keg_emptyweight"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -111,13 +111,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -136,13 +136,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -162,13 +162,13 @@
                         android:paddingLeft="10dp"
                         android:id="@+id/keg_shots"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -188,13 +188,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -214,13 +214,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -240,13 +240,13 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -266,13 +266,13 @@
                         android:paddingLeft="10dp"
                         android:id="@+id/keg_binnumber"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 
@@ -291,14 +291,14 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:id="@+id/keg_productcode"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:background="@color/edittext"
                         android:layout_marginTop="7dp"/>
 

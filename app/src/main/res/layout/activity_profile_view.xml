@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/splash"
+    android:background="@color/white"
     tools:context="com.kyros.technologies.bar.Common.activity.Activity.ProfileViewActivity">
 
     <LinearLayout
@@ -67,7 +67,7 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"/>
 
         <LinearLayout
@@ -105,7 +105,7 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:background="@color/edittext"
             android:layout_marginTop="10dp"/>
 

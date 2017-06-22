@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,13 +28,13 @@
                     android:hint="Name"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -47,13 +47,13 @@
                     android:hint="Full Weight(KG)"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -66,13 +66,13 @@
                     android:hint="Empty Weight(KG)"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -96,7 +96,7 @@
                             android:hint="Main Category"
                             android:inputType="textPersonName"
                             android:paddingLeft="10dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/edit"
                             android:textColorHint="@color/edit"
                             android:textSize="16sp" />
 
@@ -113,7 +113,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -126,13 +126,13 @@
                     android:hint="Sub Category"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -145,13 +145,13 @@
                     android:hint="Shots"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -164,13 +164,13 @@
                     android:hint="Par Level"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -183,13 +183,13 @@
                     android:hint="Distributor Name"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -202,13 +202,13 @@
                     android:hint="Price Unit"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -221,13 +221,13 @@
                     android:hint="Bin Number"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />
@@ -240,13 +240,13 @@
                     android:hint="Product Code"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textColorHint="@color/edit"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/edittext" />

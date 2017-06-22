@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@color/white"
     tools:context="com.kyros.technologies.bar.Common.activity.Activity.SignUpActivity">
 
     <ScrollView
@@ -34,7 +34,7 @@
                         android:layout_gravity="center"/>
                 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="0.2dp"
                         android:layout_height="35dp"
                         android:background="@color/smallline"
                         android:layout_marginLeft="5dp"/>
@@ -49,14 +49,14 @@
                     android:textColorHint="@color/edit"
                     android:textAlignment="center"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="16sp"
                     android:inputType="textPersonName"
                     android:layout_marginTop="-25dp"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:background="@color/edittext"
                     android:layout_marginTop="7dp"/>
 
@@ -73,7 +73,7 @@
                         android:layout_gravity="center"/>
 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="0.2dp"
                         android:layout_height="35dp"
                         android:background="@color/smallline"
                         android:layout_marginLeft="5dp"/>
@@ -88,14 +88,14 @@
                     android:textColorHint="@color/edit"
                     android:textAlignment="center"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:inputType="textPersonName"
                     android:textSize="16sp"
                     android:layout_marginTop="-25dp"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:background="@color/edittext"
                     android:layout_marginTop="7dp"/>
 
@@ -112,7 +112,7 @@
                         android:layout_gravity="center"/>
 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="0.2dp"
                         android:layout_height="35dp"
                         android:background="@color/smallline"
                         android:layout_marginLeft="5dp"/>
@@ -141,7 +141,7 @@
                                     android:textColorHint="@color/edit"
                                     android:textAlignment="center"
                                     android:background="@android:color/transparent"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/edit"
                                     android:layout_gravity="center"
                                     android:textSize="16sp"
                                     android:layout_weight="0.5"/>
@@ -157,7 +157,7 @@
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
+                                android:layout_height="0.2dp"
                                 android:background="@color/edittext"
                                 android:layout_marginTop="7dp"/>
 
@@ -177,14 +177,14 @@
                             android:textColorHint="@color/edit"
                             android:textAlignment="center"
                             android:background="@android:color/transparent"
-                            android:textColor="@color/white"
+                            android:textColor="@color/edit"
                             android:textSize="16sp"
                             android:inputType="phone"
                             android:layout_weight="1"/>
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
+                                android:layout_height="0.2dp"
                                 android:background="@color/edittext"
                                 android:layout_marginTop="7dp"/>
 
@@ -208,7 +208,7 @@
                         android:src="@drawable/mail" />
 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="0.2dp"
                         android:layout_height="35dp"
                         android:layout_marginLeft="5dp"
                         android:background="@color/smallline" />
@@ -223,14 +223,14 @@
                     android:textColorHint="@color/edit"
                     android:textAlignment="center"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:textSize="16sp"
                     android:inputType="textEmailAddress"
                     android:layout_marginTop="-25dp"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:background="@color/edittext"
                     android:layout_marginTop="7dp"/>
 
@@ -247,7 +247,7 @@
                         android:layout_gravity="center"/>
 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="0.2dp"
                         android:layout_height="35dp"
                         android:background="@color/smallline"
                         android:layout_marginLeft="5dp"/>
@@ -262,14 +262,14 @@
                     android:textColorHint="@color/edit"
                     android:textAlignment="center"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:textColor="@color/edit"
                     android:inputType="textPersonName"
                     android:textSize="16sp"
                     android:layout_marginTop="-25dp"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:background="@color/edittext"
                     android:layout_marginTop="7dp"/>
 
@@ -286,7 +286,7 @@
                         android:layout_gravity="center"/>
 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="0.2dp"
                         android:layout_height="35dp"
                         android:background="@color/smallline"
                         android:layout_marginLeft="5dp"/>
@@ -299,7 +299,7 @@
                         android:textColorHint="@color/edit"
                         android:textAlignment="center"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/white"
+                        android:textColor="@color/edit"
                         android:layout_gravity="center"
                         android:textSize="16sp"
                         android:layout_weight="1"/>
@@ -315,7 +315,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.2dp"
                     android:background="@color/edittext"
                     android:layout_marginTop="7dp"/>
 

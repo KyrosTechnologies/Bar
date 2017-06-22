@@ -2,20 +2,27 @@ package com.kyros.technologies.bar.Inventory.Activity.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddSectionActivity;
 import com.kyros.technologies.bar.ItemTouchHelperViewHolder;
 import com.kyros.technologies.bar.OnStartDragListener;
 import com.kyros.technologies.bar.R;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.MyBar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Rohin on 17-05-2017.
@@ -27,19 +34,21 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
 //    String[]Updates=new String[]{"Updated 3 days ago","Updated 2 days ago","Updated 4 days ago"};
     private ArrayList<MyBar>barArrayList;
     private  OnStartDragListener mDragStartListener;
+    private PreferenceManager store;
+
 
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-//        Collections.swap(barArrayList, fromPosition, toPosition);
-//        notifyItemMoved(fromPosition, toPosition);
+        Collections.swap(barArrayList, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
         return true;
     }
 
     @Override
     public void onItemDismiss(int position) {
-//        barArrayList.remove(position);
-//        notifyItemRemoved(position);
+        barArrayList.remove(position);
+        notifyItemRemoved(position);
     }
 
 
@@ -52,20 +61,19 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
             front_bar=(LinearLayout) itemView.findViewById(R.id.front_bar);
             first_bar=(TextView)itemView.findViewById(R.id.first_bar);
             updates=(TextView)itemView.findViewById(R.id.updates);
+            store= PreferenceManager.getInstance(mContext.getApplicationContext());
 
         }
 
-
-
         @Override
         public void onItemSelected() {
-         //   itemView.setBackgroundColor(Color.LTGRAY);
+            itemView.setBackgroundColor(Color.LTGRAY);
 
         }
 
         @Override
         public void onItemClear() {
-           // itemView.setBackgroundColor(0);
+            itemView.setBackgroundColor(0);
 
         }
     }
@@ -92,6 +100,8 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
         final int id=bar.getid();
         String name=bar.getBarname();
         String datecreated=bar.getDatecreated();
+        store= PreferenceManager.getInstance(mContext.getApplicationContext());
+
 
         if (name==null){
             name="";
@@ -121,15 +131,36 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
                 mContext.startActivity(i);
             }
         });
-//        holder.front_bar.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-//                    mDragStartListener.onStartDrag(holder);
-//                }
-//                return false;
-//            }
-//        });
+        holder.front_bar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                try {
+
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                        if (holder!=null){
+                            mDragStartListener.onStartDrag(holder);
+                        }
+                    }
+
+                }catch (Exception e){
+
+                    e.printStackTrace();
+                }
+//                notifyDataSetChanged();
+//                Toast.makeText(mContext.getApplicationContext(),"Save",Toast.LENGTH_SHORT).show();
+
+                try{
+                    Gson gson=new Gson();
+                    String barlist=gson.toJson(barArrayList);
+                    store.putBar(barlist);
+
+                }catch (Exception e){
+                    Log.d("exception_conve_gson",e.getMessage());
+                }
+
+                return false;
+            }
+        });
 
     }
 

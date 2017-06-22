@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Adjust Slider to set level for Full Bottle"
-            android:textColor="@color/lightblack"
+            android:textColor="@color/edit"
             android:textSize="16sp"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"/>
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="&amp; an Empty Bottle"
-            android:textColor="@color/lightblack"
+            android:textColor="@color/edit"
             android:textSize="16sp"
             android:layout_gravity="center"/>
 
