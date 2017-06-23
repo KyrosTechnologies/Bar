@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddSectionActivity;
-import com.kyros.technologies.bar.ItemTouchHelperViewHolder;
-import com.kyros.technologies.bar.OnStartDragListener;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBarListChangedListner;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.MyBar;
@@ -33,14 +32,16 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
 //    String[]BarName=new String[]{"Front Bar","Side Bar","Main Bar"};
 //    String[]Updates=new String[]{"Updated 3 days ago","Updated 2 days ago","Updated 4 days ago"};
     private ArrayList<MyBar>barArrayList;
-    private  OnStartDragListener mDragStartListener;
     private PreferenceManager store;
 
+    private OnStartDragListener mDragStartListener;
+    private OnBarListChangedListner mListChangedListener;
 
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
         Collections.swap(barArrayList, fromPosition, toPosition);
+        mListChangedListener.onBarListChanged(barArrayList);
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
@@ -77,16 +78,19 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
 
         }
     }
-    public BarAdapter(Context mContext, ArrayList<MyBar>barArrayList){
+    public BarAdapter(Context mContext, ArrayList<MyBar>barArrayList,OnStartDragListener dragLlistener,
+                      OnBarListChangedListner listChangedListener){
         this.mContext=mContext;
         this.barArrayList=barArrayList;
+        this.mListChangedListener=listChangedListener;
+        this.mDragStartListener=dragLlistener;
 
     }
-    public BarAdapter(Context mContext,OnStartDragListener dragStartListener){
-        this.mContext=mContext;
-        mDragStartListener = dragStartListener;
-
-    }
+//    public BarAdapter(Context mContext,OnStartDragListener dragStartListener){
+//        this.mContext=mContext;
+//        mDragStartListener = dragStartListener;
+//
+//    }
     @Override
     public BarAdapter.MyViewHolderEleven onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_bar,parent,false);
@@ -131,33 +135,42 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
                 mContext.startActivity(i);
             }
         });
+//        holder.front_bar.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                try {
+//
+//                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+//                        if (holder!=null){
+//                            mDragStartListener.onStartDrag(holder);
+//                        }
+//                    }
+//
+//                }catch (Exception e){
+//
+//                    e.printStackTrace();
+//                }
+////                notifyDataSetChanged();
+////                Toast.makeText(mContext.getApplicationContext(),"Save",Toast.LENGTH_SHORT).show();
+//
+//                try{
+//                    Gson gson=new Gson();
+//                    String barlist=gson.toJson(barArrayList);
+//                    store.putBar(barlist);
+//
+//                }catch (Exception e){
+//                    Log.d("exception_conve_gson",e.getMessage());
+//                }
+//
+//                return false;
+//            }
+//        });
         holder.front_bar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                try {
-
-                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                        if (holder!=null){
-                            mDragStartListener.onStartDrag(holder);
-                        }
-                    }
-
-                }catch (Exception e){
-
-                    e.printStackTrace();
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onStartDrag(holder);
                 }
-//                notifyDataSetChanged();
-//                Toast.makeText(mContext.getApplicationContext(),"Save",Toast.LENGTH_SHORT).show();
-
-                try{
-                    Gson gson=new Gson();
-                    String barlist=gson.toJson(barArrayList);
-                    store.putBar(barlist);
-
-                }catch (Exception e){
-                    Log.d("exception_conve_gson",e.getMessage());
-                }
-
                 return false;
             }
         });

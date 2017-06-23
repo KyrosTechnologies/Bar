@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,8 +26,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.BarAdapter;
-import com.kyros.technologies.bar.OnStartDragListener;
+import com.kyros.technologies.bar.Inventory.Activity.Adapters.SimpleItemTouchHelperCallback;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBarListChangedListner;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -36,9 +41,11 @@ import com.kyros.technologies.bar.utils.MyBar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-public class BarActivity extends AppCompatActivity implements OnStartDragListener {
+public class BarActivity extends AppCompatActivity implements OnBarListChangedListner,OnStartDragListener {
     private LinearLayout front_bar,add_bar_acti;
     private AlertDialog barDialog;
     private RecyclerView bar_recycler;
@@ -52,11 +59,11 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
     private ArrayList<MyBar>myBarArrayList=new ArrayList<MyBar>();
     private String UserRole=null;
     private String ParentUserProfileId=null;
+    private String BarListInString=null;
 
     private ItemTouchHelper mItemTouchHelper;
-//        public BarActivity(){
-//
-//        }
+    private SwipeRefreshLayout bar_swipe;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +76,13 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
         setContentView(R.layout.activity_bar);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
+        BarListInString=store.getBar();
+
         UserRole=store.getUserRole();
         ParentUserProfileId=store.getParentUserProfileId();
         BarName=store.getBarName();
         BarCreated=store.getBarDateCreated();
-        bar_recycler=(RecyclerView)findViewById(R.id.bar_recycler);
-        adapter=new BarAdapter(BarActivity.this,myBarArrayList);
-        RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
-        bar_recycler.setLayoutManager(layoutManagersecond);
-        bar_recycler.setItemAnimator(new DefaultItemAnimator());
-        bar_recycler.setHasFixedSize(true);
-        bar_recycler.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        front_bar=(LinearLayout)findViewById(R.id.front_bar);
+        bar_swipe=(SwipeRefreshLayout)findViewById(R.id.bar_swipe);
         add_bar_acti=(LinearLayout)findViewById(R.id.add_bar_acti);
         add_bar_acti.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -89,91 +90,73 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
                 showBarDialog();
             }
         });
-        //GetBarList();
-        adapter.notifyDataSetChanged();
-//        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                int fromPosition =viewHolder.getAdapterPosition();
-//                int toPosition =target.getAdapterPosition();
-//
-//                if(fromPosition<toPosition){
-//                    for(int i=fromPosition; i<toPosition;i++){
-//                        Collections.swap(myBarArrayList,i,i+1);
-//                    }
-//                }else{
-//                    for(int i=fromPosition;i> toPosition;i++){
-//                        Collections.swap(myBarArrayList,i,i-1);
-//                    }
-//                }
-//                adapter.notifyItemMoved(fromPosition,toPosition);
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
-//                final int position = viewHolder.getAdapterPosition();
-//                switch (direction){
-//                    case ItemTouchHelper.RIGHT:
-//                        Toast.makeText(getApplicationContext(),"right position :"+position,Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case ItemTouchHelper.ACTION_STATE_DRAG:
-//                        Toast.makeText(getApplicationContext(),"drag position :"+position,Toast.LENGTH_SHORT).show();
-//
-//                        break;
-//                    case ItemTouchHelper.ACTION_STATE_IDLE:
-//                        Toast.makeText(getApplicationContext(),"idle position :"+position,Toast.LENGTH_SHORT).show();
-//
-//                        break;
-//                    case ItemTouchHelper.ACTION_STATE_SWIPE:
-//                        Toast.makeText(getApplicationContext(),"swipe position :"+position,Toast.LENGTH_SHORT).show();
-//
-//                        break;
-//                    case ItemTouchHelper.LEFT:
-//                        Toast.makeText(getApplicationContext(),"left position :"+position,Toast.LENGTH_SHORT).show();
-//
-//                        break;
-//
-//                }
-////                if (direction == ItemTouchHelper.LEFT) {
-////
-////                    AlertDialog.Builder builder = new AlertDialog.Builder(BarActivity.this);
-////                    builder.setMessage("Are you sure to delete?");
-////
-////                    builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() {
-////                        @Override
-////                        public void onClick(DialogInterface dialog, int which) {
-////                            myBarArrayList.remove(position);
-////                            adapter.notifyItemRemoved(position);
-////
-////                            return;
-////                        }
-////                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-////                        @Override
-////                        public void onClick(DialogInterface dialog, int which) {
-////                            adapter.notifyItemRemoved(position + 1);
-////                            adapter.notifyItemRangeChanged(position, adapter.getItemCount());
-////                            return;
-////                        }
-////                    }).show();
-////                }else if(direction==ItemTouchHelper.RIGHT){
-////                    String barname=myBarArrayList.get(position).getBarname();
-////                    int  barid=myBarArrayList.get(position).getid();
-////                    Toast.makeText(getApplicationContext(),"Barname and bar id : "+barname+" / "+barid,Toast.LENGTH_SHORT).show();
-////                }else if(direction==ItemTouchHelper.ACTION_STATE_DRAG){
-////                    Toast.makeText(getApplicationContext(),"Dragging : ",Toast.LENGTH_SHORT).show();
-////
-////                }
-//            }
-//        };
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-//        itemTouchHelper.attachToRecyclerView(bar_recycler);
+        if(BarListInString!=null){
+            try{
+                myBarArrayList.clear();
+                Gson gsons=new Gson();
+                Type type1=new TypeToken<List<MyBar>>(){}.getType();
+                myBarArrayList=gsons.fromJson(BarListInString,type1);
 
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if(myBarArrayList!=null && myBarArrayList.size()!=0){
 
-     /*   ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(bar_recycler);*/
+                bar_recycler=(RecyclerView)findViewById(R.id.bar_recycler);
+                adapter=new BarAdapter(BarActivity.this,myBarArrayList,this,this);
+                ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+                mItemTouchHelper = new ItemTouchHelper(callback);
+                mItemTouchHelper.attachToRecyclerView(bar_recycler);
+
+                RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+                bar_recycler.setLayoutManager(layoutManagersecond);
+                bar_recycler.setItemAnimator(new DefaultItemAnimator());
+                bar_recycler.setHasFixedSize(true);
+                bar_recycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }else{
+                Toast.makeText(getApplicationContext(), "List is empty !", Toast.LENGTH_SHORT).show();
+            }
+
+        }else{
+
+            bar_recycler=(RecyclerView)findViewById(R.id.bar_recycler);
+            adapter=new BarAdapter(BarActivity.this,myBarArrayList,this,this);
+            ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+            mItemTouchHelper = new ItemTouchHelper(callback);
+            mItemTouchHelper.attachToRecyclerView(bar_recycler);
+
+            RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+            bar_recycler.setLayoutManager(layoutManagersecond);
+            bar_recycler.setItemAnimator(new DefaultItemAnimator());
+            bar_recycler.setHasFixedSize(true);
+            bar_recycler.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+        bar_swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                bar_swipe.setRefreshing(true);
+                ParentUserProfileId=store.getParentUserProfileId();
+                UserRole=store.getUserRole();
+                if(UserRole.equals("basic")){
+                    if(ParentUserProfileId!=null){
+                        GetBarList(ParentUserProfileId);
+
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Parent User ProfileId must not be null!",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }else if(UserRole.equals("admin")){
+                    GetBarList(UserProfileId);
+
+                }else {
+                    Toast.makeText(getApplicationContext(),"UserRole must specified",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -285,6 +268,8 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                bar_swipe.setRefreshing(false);
+
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
@@ -333,6 +318,14 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
                 }
 
                 adapter.notifyDataSetChanged();
+                try{
+                    Gson gson=new Gson();
+                    String barlist=gson.toJson(myBarArrayList);
+                    store.putBar(barlist);
+
+                }catch (Exception e){
+                    Log.d("exception_conve_gson",e.getMessage());
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -355,21 +348,24 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
         super.onResume();
         ParentUserProfileId=store.getParentUserProfileId();
         UserRole=store.getUserRole();
-        if(UserRole.equals("basic")){
-            if(ParentUserProfileId!=null){
-                GetBarList(ParentUserProfileId);
+        if(BarListInString==null){
+            if(UserRole.equals("basic")){
+                if(ParentUserProfileId!=null){
+                    GetBarList(ParentUserProfileId);
 
-            }else{
-                Toast.makeText(getApplicationContext(),"Parent User ProfileId must not be null!",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Parent User ProfileId must not be null!",Toast.LENGTH_SHORT).show();
 
+                }
+
+            }else if(UserRole.equals("admin")){
+                GetBarList(UserProfileId);
+
+            }else {
+                Toast.makeText(getApplicationContext(),"UserRole must specified",Toast.LENGTH_SHORT).show();
             }
-
-        }else if(UserRole.equals("admin")){
-            GetBarList(UserProfileId);
-
-        }else {
-            Toast.makeText(getApplicationContext(),"UserRole must specified",Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void showBarDialog(){
@@ -452,5 +448,18 @@ public class BarActivity extends AppCompatActivity implements OnStartDragListene
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
 
+    }
+
+    @Override
+    public void onBarListChanged(ArrayList<MyBar> myBarArrayList) {
+        try{
+            Gson gson=new Gson();
+            String barlist=gson.toJson(myBarArrayList);
+            Log.d("Changed BarLIst",barlist);
+            store.putBar(barlist);
+
+        }catch (Exception e){
+            Log.d("exception_conve_gson",e.getMessage());
+        }
     }
 }
