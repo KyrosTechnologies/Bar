@@ -60,7 +60,6 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
     private String UserRole=null;
     private String ParentUserProfileId=null;
     private String BarListInString=null;
-
     private ItemTouchHelper mItemTouchHelper;
     private SwipeRefreshLayout bar_swipe;
 
@@ -310,6 +309,7 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                        store.putBar(null);
 
                     }
 

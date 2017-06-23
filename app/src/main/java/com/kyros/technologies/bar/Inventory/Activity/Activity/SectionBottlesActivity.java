@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +23,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.SectionBarAdapter;
+import com.kyros.technologies.bar.Inventory.Activity.Adapters.SimpleItemHelperBottles;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBottleListChangedListener;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -31,9 +37,11 @@ import com.kyros.technologies.bar.utils.UtilSectionBar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-public class SectionBottlesActivity extends AppCompatActivity {
+public class SectionBottlesActivity extends AppCompatActivity implements OnBottleListChangedListener,OnStartDragListener {
     private LinearLayout add_bottle_act;
     private SectionBarAdapter adapter;
     private RecyclerView section_bar_recycler;
@@ -42,6 +50,9 @@ public class SectionBottlesActivity extends AppCompatActivity {
     private String SectionId=null;
     private ArrayList<UtilSectionBar>utilSectionBarArrayList=new ArrayList<UtilSectionBar>();
     private SearchView section_bottles_auto_complete;
+    private String SectionBottlesListInString=null;
+    private ItemTouchHelper mItemTouchHelper;
+    private SwipeRefreshLayout bottles_swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +65,13 @@ public class SectionBottlesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_section_bottles);
         section_bar_recycler=(RecyclerView)findViewById(R.id.section_bar_recycler);
         section_bottles_auto_complete=(SearchView) findViewById(R.id.section_bottles_auto_complete);
-        adapter=new SectionBarAdapter(SectionBottlesActivity.this,utilSectionBarArrayList);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserprofileId=store.getUserProfileId();
         SectionId=store.getSectionId();
-        RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
-        section_bar_recycler.setLayoutManager(layoutManagersecond);
-        section_bar_recycler.setItemAnimator(new DefaultItemAnimator());
-        section_bar_recycler.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         add_bottle_act=(LinearLayout)findViewById(R.id.add_bottle_act);
        // GetBottlesList();
-        adapter.notifyDataSetChanged();
+        SectionBottlesListInString=store.getSection("SectionBottles"+SectionId);
+        bottles_swipe=(SwipeRefreshLayout)findViewById(R.id.bottles_swipe);
         Toast.makeText(getApplicationContext(),"UserProfileId :"+UserprofileId,Toast.LENGTH_SHORT).show();
         add_bottle_act.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +113,58 @@ public class SectionBottlesActivity extends AppCompatActivity {
             }
         });
 
+        if(SectionBottlesListInString!=null){
+            try{
+                utilSectionBarArrayList.clear();
+                Gson gsons=new Gson();
+                Type type1=new TypeToken<List<UtilSectionBar>>(){}.getType();
+                utilSectionBarArrayList=gsons.fromJson(SectionBottlesListInString,type1);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if(utilSectionBarArrayList!=null && utilSectionBarArrayList.size()!=0){
+
+                section_bar_recycler=(RecyclerView)findViewById(R.id.section_recycler);
+                adapter=new SectionBarAdapter(SectionBottlesActivity.this,utilSectionBarArrayList,this,this);
+                ItemTouchHelper.Callback callback = new SimpleItemHelperBottles(adapter);
+                mItemTouchHelper = new ItemTouchHelper(callback);
+                mItemTouchHelper.attachToRecyclerView(section_bar_recycler);
+
+                RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+                section_bar_recycler.setLayoutManager(layoutManagersecond);
+                section_bar_recycler.setItemAnimator(new DefaultItemAnimator());
+                section_bar_recycler.setHasFixedSize(true);
+                section_bar_recycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }else{
+                Toast.makeText(getApplicationContext(), "List is empty !", Toast.LENGTH_SHORT).show();
+            }
+
+        }else{
+
+            section_bar_recycler=(RecyclerView)findViewById(R.id.section_recycler);
+            adapter=new SectionBarAdapter(SectionBottlesActivity.this,utilSectionBarArrayList,this,this);
+            ItemTouchHelper.Callback callback = new SimpleItemHelperBottles(adapter);
+            mItemTouchHelper = new ItemTouchHelper(callback);
+            mItemTouchHelper.attachToRecyclerView(section_bar_recycler);
+
+            RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+            section_bar_recycler.setLayoutManager(layoutManagersecond);
+            section_bar_recycler.setItemAnimator(new DefaultItemAnimator());
+            section_bar_recycler.setHasFixedSize(true);
+            section_bar_recycler.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+        bottles_swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                bottles_swipe.setRefreshing(true);
+                GetBottlesList();
+
+            }
+        });
+
     }
 
     private ArrayList<UtilSectionBar>filter(ArrayList<UtilSectionBar>movies,String query){
@@ -132,6 +190,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                bottles_swipe.setRefreshing(false);
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
@@ -224,6 +283,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                        store.putSectionBottles("SectionBottles"+SectionId,null);
 
                     }
 
@@ -236,7 +296,7 @@ public class SectionBottlesActivity extends AppCompatActivity {
                 try{
                     Gson gson=new Gson();
                     String bottlestring=gson.toJson(utilSectionBarArrayList);
-                    store.putSectionBottles(bottlestring);
+                    store.putSectionBottles("SectionBottles"+SectionId,bottlestring);
 
                 }catch (Exception e){
                     Log.d("exception_conve_gson",e.getMessage());
@@ -261,7 +321,10 @@ public class SectionBottlesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        GetBottlesList();
+        SectionBottlesListInString=store.getSection("SectionBottles"+SectionId);
+        if(SectionBottlesListInString==null){
+            GetBottlesList();
+        }
     }
 
     @Override
@@ -275,5 +338,24 @@ public class SectionBottlesActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewholder) {
+        mItemTouchHelper.startDrag(viewholder);
+
+    }
+
+    @Override
+    public void onBottleListChanged(ArrayList<UtilSectionBar> utilSectionBarArrayList) {
+        try{
+            Gson gson=new Gson();
+            String sectionbottleslist=gson.toJson(utilSectionBarArrayList);
+            Log.d("Changed SectionList",sectionbottleslist);
+            store.putSection("SectionBottles"+SectionId,sectionbottleslist);
+
+        }catch (Exception e){
+            Log.d("exception_conve_gson",e.getMessage());
+        }
     }
 }

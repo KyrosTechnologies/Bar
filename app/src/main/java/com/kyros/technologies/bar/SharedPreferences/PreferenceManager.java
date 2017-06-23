@@ -306,13 +306,13 @@ public class PreferenceManager {
         editor.putString("ProductCode", value);
         editor.commit();
     }
-    public String getSectionBottles(){
-        return sp.getString("SectionBottles",null);
+    public String getSectionBottles(String key){
+        return sp.getString(key,null);
     }
-    public void putSectionBottles(String value){
+    public void putSectionBottles(String key,String value){
         SharedPreferences.Editor editor;
         editor=sp.edit();
-        editor.putString("SectionBottles", value);
+        editor.putString(key, value);
         editor.commit();
     }
     public String getBar(){
@@ -322,6 +322,16 @@ public class PreferenceManager {
         SharedPreferences.Editor editor;
         editor=sp.edit();
         editor.putString("Bar", value);
+        editor.commit();
+    }
+
+    public String getSection(String key){
+        return sp.getString(key,null);
+    }
+    public void putSection(String key,String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString(key, value);
         editor.commit();
     }
 

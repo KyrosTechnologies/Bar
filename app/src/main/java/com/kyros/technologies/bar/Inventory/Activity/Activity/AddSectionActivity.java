@@ -11,11 +11,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -29,8 +31,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.kyros.technologies.bar.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.SectionAdapter;
+import com.kyros.technologies.bar.Inventory.Activity.Adapters.SimpleItemTouchHelperSection;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnSectionListChangedListener;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
+import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
@@ -39,9 +46,11 @@ import com.kyros.technologies.bar.utils.MySection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-public class AddSectionActivity extends AppCompatActivity {
+public class AddSectionActivity extends AppCompatActivity implements OnSectionListChangedListener,OnStartDragListener {
     private LinearLayout section_bar;
     private AlertDialog sectionDialog,online,alertDialog;
     private RecyclerView section_recycler;
@@ -56,7 +65,9 @@ public class AddSectionActivity extends AppCompatActivity {
     private PreferenceManager store;
     private ArrayList<MySection>mySectionArrayList =new ArrayList<MySection>();
     private ProgressDialog pDialog;
-
+    private String SectionListInString=null;
+    private ItemTouchHelper mItemTouchHelper;
+    private SwipeRefreshLayout section_swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +83,9 @@ public class AddSectionActivity extends AppCompatActivity {
         sectionname=store.getSectionName();
         BarCreated=store.getBarDateCreated();
         SectionId=store.getSectionId();
-        section_recycler=(RecyclerView)findViewById(R.id.section_recycler);
-        adapter=new SectionAdapter(AddSectionActivity.this,mySectionArrayList);
-        RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
-        section_recycler.setLayoutManager(layoutManagersecond);
-        section_recycler.setItemAnimator(new DefaultItemAnimator());
-        section_recycler.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         BarId=store.getBarId();
+        SectionListInString=store.getSection("Section"+BarId);
+        section_swipe=(SwipeRefreshLayout)findViewById(R.id.section_swipe);
         section_bar=(LinearLayout)findViewById(R.id.section_bar);
         section_bar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +94,6 @@ public class AddSectionActivity extends AppCompatActivity {
             }
         });
         //GetSectionList();
-        adapter.notifyDataSetChanged();
 //        add_section.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -96,6 +101,59 @@ public class AddSectionActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+
+        if(SectionListInString!=null){
+            try{
+                mySectionArrayList.clear();
+                Gson gsons=new Gson();
+                Type type1=new TypeToken<List<MySection>>(){}.getType();
+                mySectionArrayList=gsons.fromJson(SectionListInString,type1);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if(mySectionArrayList!=null && mySectionArrayList.size()!=0){
+
+                section_recycler=(RecyclerView)findViewById(R.id.section_recycler);
+                adapter=new SectionAdapter(AddSectionActivity.this,mySectionArrayList,this,this);
+                ItemTouchHelper.Callback callback = new SimpleItemTouchHelperSection(adapter);
+                mItemTouchHelper = new ItemTouchHelper(callback);
+                mItemTouchHelper.attachToRecyclerView(section_recycler);
+
+                RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+                section_recycler.setLayoutManager(layoutManagersecond);
+                section_recycler.setItemAnimator(new DefaultItemAnimator());
+                section_recycler.setHasFixedSize(true);
+                section_recycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }else{
+                Toast.makeText(getApplicationContext(), "List is empty !", Toast.LENGTH_SHORT).show();
+            }
+
+        }else{
+
+            section_recycler=(RecyclerView)findViewById(R.id.section_recycler);
+            adapter=new SectionAdapter(AddSectionActivity.this,mySectionArrayList,this,this);
+            ItemTouchHelper.Callback callback = new SimpleItemTouchHelperSection(adapter);
+            mItemTouchHelper = new ItemTouchHelper(callback);
+            mItemTouchHelper.attachToRecyclerView(section_recycler);
+
+            RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+            section_recycler.setLayoutManager(layoutManagersecond);
+            section_recycler.setItemAnimator(new DefaultItemAnimator());
+            section_recycler.setHasFixedSize(true);
+            section_recycler.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+        section_swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                section_swipe.setRefreshing(true);
+                GetSectionList();
+
+            }
+        });
+
     }
 
     public boolean checkOnline() {
@@ -269,6 +327,7 @@ public class AddSectionActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                section_swipe.setRefreshing(false);
                 showProgressDialog();
 
                 try {
@@ -313,6 +372,7 @@ public class AddSectionActivity extends AppCompatActivity {
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                            store.putSection("Section"+BarId,null);
 
                     }
 
@@ -322,6 +382,14 @@ public class AddSectionActivity extends AppCompatActivity {
 
                 adapter.notifyDataSetChanged();
                 dismissProgressDialog();
+                try{
+                    Gson gson=new Gson();
+                    String sectionlist=gson.toJson(mySectionArrayList);
+                    store.putSection("Section"+BarId,sectionlist);
+
+                }catch (Exception e){
+                    Log.d("exception_conve_gson",e.getMessage());
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -344,7 +412,10 @@ public class AddSectionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        GetSectionList();
+        SectionListInString=store.getSection("Section"+BarId);
+        if(SectionListInString==null){
+            GetSectionList();
+        }
     }
 
     @Override
@@ -414,5 +485,24 @@ public class AddSectionActivity extends AppCompatActivity {
         dismissonlineDialog();
         dismissProgressDialog();
         dismissErrorDialog();
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewholder) {
+        mItemTouchHelper.startDrag(viewholder);
+
+    }
+
+    @Override
+    public void onSectionListChanged(ArrayList<MySection> mySectionArrayList) {
+        try{
+            Gson gson=new Gson();
+            String sectionlist=gson.toJson(mySectionArrayList);
+            Log.d("Changed SectionList",sectionlist);
+            store.putSection("Section"+BarId,sectionlist);
+
+        }catch (Exception e){
+            Log.d("exception_conve_gson",e.getMessage());
+        }
     }
 }

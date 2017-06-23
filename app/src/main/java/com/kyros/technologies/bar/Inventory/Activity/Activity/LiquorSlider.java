@@ -53,7 +53,7 @@ public class LiquorSlider extends AppCompatActivity {
            bottleslist.clear();
             Gson gsons=new Gson();
             Type type1=new TypeToken<List<UtilSectionBar>>(){}.getType();
-            String bottleslist3=store.getSectionBottles();
+            String bottleslist3=store.getSectionBottles("SectionBottles"+sectionid);
             ArrayList<UtilSectionBar> bottleslist12=gsons.fromJson(bottleslist3,type1);
             bottleslist=bottleslist12;
 

@@ -2,8 +2,11 @@ package com.kyros.technologies.bar.Inventory.Activity.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,27 +14,48 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kyros.technologies.bar.Inventory.Activity.Activity.LiquorSlider;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBottleListChangedListener;
+import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.utils.UtilSectionBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Rohin on 17-05-2017.
  */
 
-public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.MyViewHolderEleven>{
+public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.MyViewHolderEleven>implements ItemTouchHelperAdapter{
     private Context mContext;
     //    String[]Alchohol=new String[]{"Anchor Porter","Aristocrat Rum"};
 //    String[]AlchoholType=new String[]{"Beer","Rum"};
 //    String[]Ml=new String[]{"750 Ml","900 Ml"};
     public int[]LiquorImages=new int[]{R.drawable.beer,R.drawable.rum};
     private ArrayList<UtilSectionBar> utilSectionBarArrayList;
+    private OnStartDragListener mDragStartListener;
+    private OnBottleListChangedListener mListChangedListener;
+
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(utilSectionBarArrayList, fromPosition, toPosition);
+        mListChangedListener.onBottleListChanged(utilSectionBarArrayList);
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        utilSectionBarArrayList.remove(position);
+        notifyItemRemoved(position);
+    }
 
 
 
-    public class MyViewHolderEleven extends RecyclerView.ViewHolder{
+    public class MyViewHolderEleven extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         public LinearLayout slider_edit;
         public ImageView liquor_image;
         public TextView alchohol_name,bottle_ml,liquor_type;
@@ -44,11 +68,27 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
             bottle_ml=(TextView)itemView.findViewById(R.id.bottle_ml);
             liquor_type=(TextView)itemView.findViewById(R.id.liquor_type);
         }
+
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
+
+        }
+
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
+
+        }
+
     }
-    public SectionBarAdapter(Context mContext,ArrayList<UtilSectionBar>utilSectionBarArrayList){
+
+    public SectionBarAdapter(Context mContext,ArrayList<UtilSectionBar>utilSectionBarArrayList,OnStartDragListener dragLlistener,
+                             OnBottleListChangedListener listChangedListener){
         this.mContext=mContext;
         this.utilSectionBarArrayList=utilSectionBarArrayList;
-
+        this.mListChangedListener=listChangedListener;
+        this.mDragStartListener=dragLlistener;
 
     }
     @Override
@@ -59,7 +99,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(SectionBarAdapter.MyViewHolderEleven holder, final int position) {
+    public void onBindViewHolder(final SectionBarAdapter.MyViewHolderEleven holder, final int position) {
 
         UtilSectionBar utilSectionBar=utilSectionBarArrayList.get(position);
         final int id=utilSectionBar.getId();
@@ -170,6 +210,16 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
                 Intent i=new Intent(mContext,LiquorSlider.class);
                 i.putExtra("position", position);
                 mContext.startActivity(i);
+            }
+        });
+
+        holder.slider_edit.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onStartDrag(holder);
+                }
+                return false;
             }
         });
 
