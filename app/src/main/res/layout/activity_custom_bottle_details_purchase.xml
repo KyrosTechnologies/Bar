@@ -34,7 +34,7 @@
                         android:id="@+id/name_custombottle_purchase"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -60,7 +60,7 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -97,7 +97,7 @@
                                 android:hint="Main Category"
                                 android:background="@android:color/transparent"
                                 android:id="@+id/category_custombottle_purchase"
-                                android:textColor="@color/edit"
+                                android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:inputType="textPersonName"/>
 
@@ -136,7 +136,7 @@
                         android:id="@+id/subcategory_custombottle_purchase"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -162,7 +162,7 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -188,7 +188,7 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -214,7 +214,7 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -240,7 +240,7 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -266,7 +266,7 @@
                         android:textColorHint="@color/edit"
                         android:paddingLeft="10dp"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -292,7 +292,7 @@
                         android:paddingLeft="10dp"
                         android:id="@+id/producr_custombottle_purchase"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/edit"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:inputType="textPersonName"/>
 
@@ -305,18 +305,20 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:id="@+id/image_custombottle_purchase"
                     android:src="@mipmap/ic_launcher"/>
+
             </LinearLayout>
 
         </LinearLayout>

@@ -27,7 +27,7 @@
                     android:hint="Name"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:paddingLeft="10dp"
                     android:inputType="textPersonName"/>
@@ -46,7 +46,7 @@
                     android:hint="Capacity(ML)"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:paddingLeft="10dp"
                     android:inputType="textPersonName"/>
@@ -76,7 +76,7 @@
                             android:hint="Main Category"
                             android:textColorHint="@color/edit"
                             android:background="@android:color/transparent"
-                            android:textColor="@color/edit"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:paddingLeft="10dp"
                             android:inputType="textPersonName"/>
@@ -106,7 +106,7 @@
                     android:hint="Sub Category"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:paddingLeft="10dp"
                     android:inputType="textPersonName"/>
@@ -125,7 +125,7 @@
                     android:hint="Shots"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:paddingLeft="10dp"
                     android:inputType="textPersonName"/>
@@ -144,7 +144,7 @@
                     android:hint="Par Level"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:paddingLeft="10dp"
                     android:textSize="16sp"
                     android:inputType="textPersonName"/>
@@ -163,7 +163,7 @@
                     android:hint="Distributor Name"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:paddingLeft="10dp"
                     android:textSize="16sp"
                     android:inputType="textPersonName"/>
@@ -182,7 +182,7 @@
                     android:hint="Price Unit"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:paddingLeft="10dp"
                     android:textSize="16sp"
                     android:inputType="textPersonName"/>
@@ -201,7 +201,7 @@
                     android:hint="Bin Number"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:paddingLeft="10dp"
                     android:textSize="16sp"
                     android:inputType="textPersonName"/>
@@ -220,7 +220,7 @@
                     android:hint="Product Code"
                     android:textColorHint="@color/edit"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/edit"
+                    android:textColor="@color/black"
                     android:paddingLeft="10dp"
                     android:textSize="16sp"
                     android:inputType="textPersonName"/>

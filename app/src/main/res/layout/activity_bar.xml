@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:showIn="@layout/app_bar_landing"
     android:background="@color/white"
     tools:context="com.kyros.technologies.bar.Inventory.Activity.Activity.BarActivity">
     <LinearLayout
