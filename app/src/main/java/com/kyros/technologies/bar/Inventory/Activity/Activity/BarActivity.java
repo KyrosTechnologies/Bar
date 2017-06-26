@@ -112,7 +112,9 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                 bar_recycler.setItemAnimator(new DefaultItemAnimator());
                 bar_recycler.setHasFixedSize(true);
                 bar_recycler.setAdapter(adapter);
+
                 adapter.notifyDataSetChanged();
+
             }else{
                 Toast.makeText(getApplicationContext(), "List is empty !", Toast.LENGTH_SHORT).show();
             }
@@ -130,6 +132,7 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
             bar_recycler.setItemAnimator(new DefaultItemAnimator());
             bar_recycler.setHasFixedSize(true);
             bar_recycler.setAdapter(adapter);
+
             adapter.notifyDataSetChanged();
         }
         bar_swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -332,6 +335,7 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                bar_swipe.setRefreshing(false);
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 

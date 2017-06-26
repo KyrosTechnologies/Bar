@@ -39,7 +39,7 @@ public class SimpleItemHelperBottles extends ItemTouchHelper.Callback {
 
     @Override
     public boolean isItemViewSwipeEnabled() {
-        return false;
+        return true;
     }
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {

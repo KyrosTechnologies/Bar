@@ -47,6 +47,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="@drawable/rightarrow"
+                android:id="@+id/right_arrow_adapter_section"
                 android:layout_gravity="center"
                 android:layout_marginRight="15dp"/>
 

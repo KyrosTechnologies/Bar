@@ -39,6 +39,7 @@
 
         <ImageView
             android:layout_width="18dp"
+            android:id="@+id/right_arrow_adapter_bar"
             android:layout_height="18dp"
             android:src="@drawable/rightarrow"
             android:layout_gravity="center"

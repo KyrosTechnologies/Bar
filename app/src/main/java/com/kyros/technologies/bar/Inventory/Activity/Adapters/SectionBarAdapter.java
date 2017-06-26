@@ -53,6 +53,11 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         notifyItemRemoved(position);
     }
 
+    @Override
+    public void swipeToDelete(int position) {
+        utilSectionBarArrayList.remove(position);
+        notifyItemRemoved(position);
+    }
 
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {

@@ -8,5 +8,6 @@ public interface ItemTouchHelperAdapter {
     boolean onItemMove(int fromPosition, int toPosition);
 
     void onItemDismiss(int position);
+    public void swipeToDelete(int position);
 
 }

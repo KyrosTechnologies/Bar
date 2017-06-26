@@ -141,7 +141,8 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
                 Toast.makeText(getApplicationContext(), "List is empty !", Toast.LENGTH_SHORT).show();
             }
 
-        }else{
+        }
+        else{
 
             section_bar_recycler=(RecyclerView)findViewById(R.id.section_recycler);
             adapter=new SectionBarAdapter(SectionBottlesActivity.this,utilSectionBarArrayList,this,this);
@@ -290,8 +291,9 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
-                adapter.notifyDataSetChanged();
+                    if(adapter!=null){
+                        adapter.notifyDataSetChanged();
+                    }
 
                 try{
                     Gson gson=new Gson();
@@ -306,6 +308,7 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                bottles_swipe.setRefreshing(false);
 
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
@@ -321,6 +324,7 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
     @Override
     protected void onResume() {
         super.onResume();
+        store=PreferenceManager.getInstance(getApplicationContext());
         SectionBottlesListInString=store.getSection("SectionBottles"+SectionId);
         if(SectionBottlesListInString==null){
             GetBottlesList();

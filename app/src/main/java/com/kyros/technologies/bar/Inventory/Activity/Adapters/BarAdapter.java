@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddSectionActivity;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
@@ -52,16 +54,25 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
         notifyItemRemoved(position);
     }
 
+    @Override
+    public void swipeToDelete(int position) {
+        barArrayList.remove(position);
+        Toast.makeText(mContext.getApplicationContext(), "Item Remove at position " + position, Toast.LENGTH_LONG).show();
+        notifyDataSetChanged();
+    }
+
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         public LinearLayout front_bar;
         public TextView first_bar,updates;
+        public ImageView right_arrow_adapter_bar;
 
         public MyViewHolderEleven(View itemView) {
             super(itemView);
             front_bar=(LinearLayout) itemView.findViewById(R.id.front_bar);
             first_bar=(TextView)itemView.findViewById(R.id.first_bar);
             updates=(TextView)itemView.findViewById(R.id.updates);
+            right_arrow_adapter_bar=(ImageView)itemView.findViewById(R.id.right_arrow_adapter_bar);
             store= PreferenceManager.getInstance(mContext.getApplicationContext());
 
         }
@@ -76,6 +87,10 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
         public void onItemClear() {
             itemView.setBackgroundColor(0);
 
+        }
+        public void remove(int position) {
+            barArrayList.remove(position);
+            notifyItemRemoved(position);
         }
     }
     public BarAdapter(Context mContext, ArrayList<MyBar>barArrayList,OnStartDragListener dragLlistener,
@@ -135,37 +150,7 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
                 mContext.startActivity(i);
             }
         });
-//        holder.front_bar.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                try {
-//
-//                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-//                        if (holder!=null){
-//                            mDragStartListener.onStartDrag(holder);
-//                        }
-//                    }
-//
-//                }catch (Exception e){
-//
-//                    e.printStackTrace();
-//                }
-////                notifyDataSetChanged();
-////                Toast.makeText(mContext.getApplicationContext(),"Save",Toast.LENGTH_SHORT).show();
-//
-//                try{
-//                    Gson gson=new Gson();
-//                    String barlist=gson.toJson(barArrayList);
-//                    store.putBar(barlist);
-//
-//                }catch (Exception e){
-//                    Log.d("exception_conve_gson",e.getMessage());
-//                }
-//
-//                return false;
-//            }
-//        });
-        holder.front_bar.setOnTouchListener(new View.OnTouchListener() {
+        holder.right_arrow_adapter_bar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {

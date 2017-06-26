@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,16 +49,24 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
         notifyItemRemoved(position);
     }
 
+    @Override
+    public void swipeToDelete(int position) {
+        sectionArrayList.remove(position);
+        notifyItemRemoved(position);
+    }
+
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         public LinearLayout add_section;
         public TextView section_add,section_updates;
+        public ImageView right_arrow_adapter_section;
 
         public MyViewHolderEleven(View itemView) {
             super(itemView);
             add_section=(LinearLayout) itemView.findViewById(R.id.add_section);
             section_add=(TextView)itemView.findViewById(R.id.section_add);
             section_updates=(TextView)itemView.findViewById(R.id.section_updates);
+            right_arrow_adapter_section=(ImageView)itemView.findViewById(R.id.right_arrow_adapter_section);
 
         }
 
@@ -123,7 +132,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
             }
         });
 
-        holder.add_section.setOnTouchListener(new View.OnTouchListener() {
+        holder.right_arrow_adapter_section.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
