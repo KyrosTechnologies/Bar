@@ -47,7 +47,8 @@ public class CustomPagerAdapter extends PagerAdapter {
     private ArrayList<UtilSectionBar> bottleslist;
     private TextView edit_bottle,shots_count,done,liquor_names;
     private EditText bottle_quan;
-    private ImageView plus,minus,liquor_bottle_image,back;
+    private ImageView liquor_bottle_image,back;
+    private LinearLayout plus,minus;
     private String Userprofileid;
     private float totalcount=0;
     private String Barid;
@@ -137,8 +138,8 @@ public class CustomPagerAdapter extends PagerAdapter {
 
         edit_bottle=(TextView)itemView.findViewById(R.id.edit_bottle);
         bottle_quan=(EditText)itemView.findViewById(R.id.bottle_quan);
-        minus=(ImageView)itemView.findViewById(R.id.minus);
-        plus=(ImageView)itemView.findViewById(R.id.plus);
+        minus=(LinearLayout) itemView.findViewById(R.id.minus);
+        plus=(LinearLayout) itemView.findViewById(R.id.plus);
         liquor_bottle_image=(ImageView)itemView.findViewById(R.id.liquor_bottle_image);
         shots_count=(TextView)itemView.findViewById(R.id.shots_count);
         mySeekBar=(SeekBar)itemView.findViewById(R.id.mySeekBar);
