@@ -104,7 +104,7 @@ public class CustomBottleDetailsPurchase extends AppCompatActivity {
             byte[]decodedString= Base64.decode(image.getBytes(),Base64.DEFAULT);
             picturebyte=decodedString;
             Bitmap decodeByte= BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-//            image_custombottle.setImageBitmap(decodeByte);
+            image_custombottle.setImageBitmap(decodeByte);
             bitmapvar=decodeByte;
         }catch (Exception e){
             e.printStackTrace();

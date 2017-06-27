@@ -63,9 +63,10 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_section_bottles);
+        store= PreferenceManager.getInstance(getApplicationContext());
+
         section_bar_recycler=(RecyclerView)findViewById(R.id.section_bar_recycler);
         section_bottles_auto_complete=(SearchView) findViewById(R.id.section_bottles_auto_complete);
-        store= PreferenceManager.getInstance(getApplicationContext());
         UserprofileId=store.getUserProfileId();
         SectionId=store.getSectionId();
         add_bottle_act=(LinearLayout)findViewById(R.id.add_bottle_act);
@@ -125,7 +126,7 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
             }
             if(utilSectionBarArrayList!=null && utilSectionBarArrayList.size()!=0){
 
-                section_bar_recycler=(RecyclerView)findViewById(R.id.section_recycler);
+                section_bar_recycler=(RecyclerView)findViewById(R.id.section_bar_recycler);
                 adapter=new SectionBarAdapter(SectionBottlesActivity.this,utilSectionBarArrayList,this,this);
                 ItemTouchHelper.Callback callback = new SimpleItemHelperBottles(adapter);
                 mItemTouchHelper = new ItemTouchHelper(callback);
@@ -144,13 +145,14 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
         }
         else{
 
-            section_bar_recycler=(RecyclerView)findViewById(R.id.section_recycler);
+            section_bar_recycler=(RecyclerView)findViewById(R.id.section_bar_recycler);
+            RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+
             adapter=new SectionBarAdapter(SectionBottlesActivity.this,utilSectionBarArrayList,this,this);
             ItemTouchHelper.Callback callback = new SimpleItemHelperBottles(adapter);
             mItemTouchHelper = new ItemTouchHelper(callback);
             mItemTouchHelper.attachToRecyclerView(section_bar_recycler);
 
-            RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
             section_bar_recycler.setLayoutManager(layoutManagersecond);
             section_bar_recycler.setItemAnimator(new DefaultItemAnimator());
             section_bar_recycler.setHasFixedSize(true);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
+import android.util.FloatProperty;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.BottleDescriptionActivity;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
+import com.kyros.technologies.bar.Inventory.Activity.PercentDrawable;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
@@ -143,6 +145,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         liquor_bottle_image=(ImageView)itemView.findViewById(R.id.liquor_bottle_image);
         shots_count=(TextView)itemView.findViewById(R.id.shots_count);
         mySeekBar=(SeekBar)itemView.findViewById(R.id.mySeekBar);
+        mySeekBar.setThumbOffset(20);
         done=(TextView)itemView.findViewById(R.id.done);
         liquor_names=(TextView)itemView.findViewById(R.id.liquor_names);
         back=(ImageView)itemView.findViewById(R.id.back);
@@ -233,9 +236,19 @@ public class CustomPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 totalcount++;
+                String bottle_value=bottle_quan.getText().toString();
+                float converted_bottle_value= Float.parseFloat(bottle_value);
+//                if(converted_bottle_value!=0){
+//                    double finaltotalcount=converted_bottle_value+totalcount;
+//                    String add=String.valueOf(finaltotalcount);
+//
+//                    bottle_quan.setText(add);
+//                }else{
+//                    String add=String.valueOf(totalcount);
+//                    bottle_quan.setText(add);
+//                }
                 String add=String.valueOf(totalcount);
                 bottle_quan.setText(add);
-                Toast.makeText(mContext.getApplicationContext(),"Plus Clicked"+String.valueOf(totalcount),Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -245,8 +258,18 @@ public class CustomPagerAdapter extends PagerAdapter {
             public void onClick(View v) {
                 if (totalcount!=0){
                     totalcount--;
-                    bottle_quan.setText(String.valueOf(totalcount));
-                    Toast.makeText(mContext.getApplicationContext(),"Minus Clicked",Toast.LENGTH_SHORT).show();
+//                    String bottle_value=bottle_quan.getText().toString();
+//                    float converted_bottle_value= Float.parseFloat(bottle_value);
+//                    if(converted_bottle_value!=0){
+//                        double finaltotalcount=converted_bottle_value-totalcount;
+//                        String add=String.valueOf(finaltotalcount);
+//                        bottle_quan.setText(add);
+//                    }else{
+//                        String add=String.valueOf(totalcount);
+//                        bottle_quan.setText(add);
+//                    }
+                    String add=String.valueOf(totalcount);
+                    bottle_quan.setText(add);
                 }
             }
         });
@@ -264,6 +287,7 @@ public class CustomPagerAdapter extends PagerAdapter {
                 if((int)valuemax<progress){
                     mySeekBar.setProgress((int)valuemax);
                 }
+                frame_fill_background.setBackground(new PercentDrawable(progress,mContext.getResources().getColor(R.color.colorPrimaryDark)));
                 int rcount=100-(int)valuemax;
                 float rscount=rcount/(float)100;
                 int averageminmad=((int)valuemax+(int)valuemin)/2;
@@ -300,18 +324,24 @@ public class CustomPagerAdapter extends PagerAdapter {
                     //  bottle_quan.setText(String.valueOf("0"));
 
                 }
-                try{
-                    int finalprogress=100-progress;
-                    int finalvalue=8*finalprogress;
-                    Log.d("final value ", "final  value of y: "+finalvalue);
-                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,finalvalue);
-                    parms.setMargins(25,0,25,0);
-                    parms.setLayoutDirection(Gravity.BOTTOM);
-                    frame_fill_background.setLayoutParams(parms);
-                    frame_fill_background.setBackgroundColor(mContext.getResources().getColor(R.color.white));
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                //// TODO: 26-06-2017 need to enable to get background color
+
+
+//                try{
+//                    int finalprogress=100-progress;
+//                    int finalvalue=8*finalprogress;
+//                    Log.d("final value ", "final  value of y: "+finalvalue);
+////                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,finalvalue);
+//                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,finalvalue);
+//                    parms.setMargins(25,0,25,0);
+//
+////                    parms.setPivotY(0f);
+//                    parms.setLayoutDirection(Gravity.RELATIVE_LAYOUT_DIRECTION);
+//                    frame_fill_background.setLayoutParams(parms);
+//                    frame_fill_background.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
             }
 
             @Override

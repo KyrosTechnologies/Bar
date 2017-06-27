@@ -62,13 +62,14 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         public LinearLayout slider_edit;
-        public ImageView liquor_image;
+        public ImageView liquor_image,right_to_drag;
         public TextView alchohol_name,bottle_ml,liquor_type;
 
         public MyViewHolderEleven(View itemView) {
             super(itemView);
             slider_edit=(LinearLayout)itemView.findViewById(R.id.slider_edit);
             liquor_image=(ImageView) itemView.findViewById(R.id.liquor_image);
+            right_to_drag=(ImageView) itemView.findViewById(R.id.right_to_drag);
             alchohol_name=(TextView)itemView.findViewById(R.id.alchohol_name);
             bottle_ml=(TextView)itemView.findViewById(R.id.bottle_ml);
             liquor_type=(TextView)itemView.findViewById(R.id.liquor_type);
@@ -218,7 +219,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
             }
         });
 
-        holder.slider_edit.setOnTouchListener(new View.OnTouchListener() {
+        holder.right_to_drag.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {

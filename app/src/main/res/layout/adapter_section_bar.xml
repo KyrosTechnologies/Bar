@@ -65,6 +65,7 @@
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
+            android:id="@+id/right_to_drag"
             android:layout_gravity="center"
             android:src="@drawable/rightarrow"
             android:layout_marginRight="15dp"/>

@@ -115,7 +115,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:max="100"
-                    android:thumb="@drawable/custom_thumb"
+                    android:thumb="@drawable/thumb_circle"
                     android:splitTrack="false"
                     app:seekBarRotation="C90" /> <!-- Rotation: CW90 or CW270 -->
             </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
@@ -129,8 +129,9 @@
 
             <FrameLayout
                 android:layout_width="279dp"
+                android:rotation="180"
                 android:id="@+id/frame_fill_background"
-                android:layout_height="wrap_content">
+                android:layout_height="320dp">
 
             </FrameLayout>
 

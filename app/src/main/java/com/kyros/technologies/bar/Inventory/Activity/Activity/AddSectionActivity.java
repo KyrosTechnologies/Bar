@@ -87,6 +87,7 @@ public class AddSectionActivity extends AppCompatActivity implements OnSectionLi
         SectionListInString=store.getSection("Section"+BarId);
         section_swipe=(SwipeRefreshLayout)findViewById(R.id.section_swipe);
         section_bar=(LinearLayout)findViewById(R.id.section_bar);
+        adapter=new SectionAdapter(AddSectionActivity.this,mySectionArrayList,this,this);
         section_bar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -380,7 +381,10 @@ public class AddSectionActivity extends AppCompatActivity implements OnSectionLi
                     e.printStackTrace();
                 }
 
-                adapter.notifyDataSetChanged();
+
+                if(adapter!=null){
+                    adapter.notifyDataSetChanged();
+                }
                 dismissProgressDialog();
                 try{
                     Gson gson=new Gson();
