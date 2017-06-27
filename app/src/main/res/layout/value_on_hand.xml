@@ -13,17 +13,16 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="15dp"
             android:background="@drawable/search_background"
             android:orientation="horizontal"
             android:layout_gravity="center">
 
             <android.support.v7.widget.SearchView
                 android:id="@+id/value_on_hand_auto_complete"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_weight="1.5"
