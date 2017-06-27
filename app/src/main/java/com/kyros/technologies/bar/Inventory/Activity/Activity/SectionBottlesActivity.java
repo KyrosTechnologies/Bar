@@ -338,7 +338,8 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
 
         switch (item.getItemId()){
             case android.R.id.home:
-                SectionBottlesActivity.this.finish();
+                Intent i=new Intent(SectionBottlesActivity.this,AddSectionActivity.class);
+                startActivity(i);
                 return true;
 
         }

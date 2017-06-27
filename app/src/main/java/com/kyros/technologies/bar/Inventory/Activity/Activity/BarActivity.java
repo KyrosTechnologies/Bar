@@ -2,16 +2,22 @@ package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +34,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.kyros.technologies.bar.Common.activity.Activity.DistributorList;
+import com.kyros.technologies.bar.Common.activity.Activity.LoginActivity;
+import com.kyros.technologies.bar.Common.activity.Activity.ParList;
+import com.kyros.technologies.bar.Common.activity.Activity.ProfileViewActivity;
+import com.kyros.technologies.bar.Common.activity.Activity.SettingActivity;
+import com.kyros.technologies.bar.Common.activity.Activity.ValueOnHand;
+import com.kyros.technologies.bar.Common.activity.Activity.VenueSummary;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.BarAdapter;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.SimpleItemTouchHelperCallback;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBarListChangedListner;
@@ -46,9 +59,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarActivity extends AppCompatActivity implements OnBarListChangedListner,OnStartDragListener {
+public class BarActivity extends AppCompatActivity implements OnBarListChangedListner,OnStartDragListener,NavigationView.OnNavigationItemSelectedListener {
     private LinearLayout front_bar,add_bar_acti;
-    private AlertDialog barDialog;
+    private AlertDialog barDialog,logoutdialog;
     private RecyclerView bar_recycler;
     private BarAdapter adapter;
     private String barname;
@@ -64,23 +77,44 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
     private ItemTouchHelper mItemTouchHelper;
     private SwipeRefreshLayout bar_swipe;
     private SessionManager session;
+    private TextView username,email_id;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+//        actionBar.setHomeButtonEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_landing);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_bar);
+        actionBar.setTitle("Venue Name");
+
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
         store= PreferenceManager.getInstance(getApplicationContext());
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        String venue_name= store.getVenue();
+        if(venue_name!=null){
+            actionBar.setTitle(venue_name);
+        }
         UserProfileId=store.getUserProfileId();
         BarListInString=store.getBar();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
+        View headerview = navigationView.getHeaderView(0);
+        email_id = (TextView) headerview.findViewById(R.id.email_id);
+        username = (TextView) headerview.findViewById(R.id.username);
         UserRole=store.getUserRole();
         ParentUserProfileId=store.getParentUserProfileId();
         BarName=store.getBarName();
@@ -93,6 +127,13 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                 showBarDialog();
             }
         });
+        try {
+            email_id.setText(store.getUserEmail());
+            String name=store.getFirstName()+" "+store.getLastName();
+            username.setText(name);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         if(BarListInString!=null){
             try{
                 myBarArrayList.clear();
@@ -165,18 +206,43 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    private void showLogoutDialog(){
+        if(logoutdialog==null){
+            AlertDialog.Builder builder=new AlertDialog.Builder(BarActivity.this);
+            LayoutInflater inflater=getLayoutInflater();
+            View view=inflater.inflate(R.layout.logout_dialog,null);
+            builder.setView(view);
+            TextView yes_logout=(TextView)view.findViewById(R.id.yes_logout);
+            TextView back_logout=(TextView)view.findViewById(R.id.back_logout);
+            back_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismissLogoutDialog();
+                }
+            });
+            yes_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
 
-        switch (item.getItemId()){
+                public void onClick(View v) {
+                    session.logoutUser();
+                    store.clear();
+                    Intent i=new Intent(BarActivity.this,LoginActivity.class);
+                    startActivity(i);
+                }
+            });
 
+            logoutdialog=builder.create();
+            logoutdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            logoutdialog.setCancelable(false);
+            logoutdialog.setCanceledOnTouchOutside(false);
+        }
+        logoutdialog.show();
 
-            case android.R.id.home:
-                BarActivity.this.finish();
-                return true;
+    }private void dismissLogoutDialog(){
+        if(logoutdialog!=null && logoutdialog.isShowing()){
+            logoutdialog.dismiss();
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
     private void AddBarApi(final String userprofile, final String barname) {
@@ -448,12 +514,14 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
     protected void onStop() {
         super.onStop();
         dismissBarDialog();
+        dismissLogoutDialog();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         dismissBarDialog();
+        dismissLogoutDialog();
     }
 
     @Override
@@ -461,6 +529,8 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
         mItemTouchHelper.startDrag(viewHolder);
 
     }
+
+
 
     @Override
     public void onBarListChanged(ArrayList<MyBar> myBarArrayList) {
@@ -473,5 +543,58 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
         }catch (Exception e){
             Log.d("exception_conve_gson",e.getMessage());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.par_value) {
+
+            Intent i=new Intent(BarActivity.this,ParList.class);
+            startActivity(i);
+
+        } else if (id == R.id.value_on_hand) {
+
+            Intent intent=new Intent(BarActivity.this,ValueOnHand.class);
+            startActivity(intent);
+        } else if (id == R.id.distri_list) {
+
+            Intent i=new Intent(BarActivity.this,DistributorList.class);
+            startActivity(i);
+
+        } else if (id == R.id.venue_sum) {
+
+            Intent i=new Intent(BarActivity.this,VenueSummary.class);
+            startActivity(i);
+
+        } else if (id == R.id.profile) {
+            Intent intent=new Intent(BarActivity.this,ProfileViewActivity.class);
+            startActivity(intent);
+
+
+        } else if (id == R.id.logout) {
+            showLogoutDialog();
+
+        }else if (id == R.id.settings) {
+            Intent intent=new Intent(BarActivity.this,SettingActivity.class);
+            startActivity(intent);
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

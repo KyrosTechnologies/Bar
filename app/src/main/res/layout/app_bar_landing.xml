@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_landing" />
+    <include layout="@layout/activity_bar" />
 
 
 

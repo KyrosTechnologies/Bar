@@ -56,7 +56,8 @@
             android:label="Add Email" />
         <activity
             android:name=".Inventory.Activity.Activity.BarActivity"
-            android:label="Bar" />
+            android:label="Bar"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Inventory.Activity.Activity.SectionBottlesActivity"
             android:label="Section Bar" />
