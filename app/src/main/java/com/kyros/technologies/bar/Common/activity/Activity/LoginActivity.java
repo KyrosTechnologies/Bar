@@ -23,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.kyros.technologies.bar.Inventory.Activity.Activity.BarActivity;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
 import com.kyros.technologies.bar.ServiceHandler.SessionManager;
@@ -104,7 +105,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mails=email_address.getText().toString();
                 passwords=password.getText().toString();
-                StateChangeWaggonapi(mails,passwords);
+                if (mails==null && mails.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter valid email address!", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+                if(passwords==null && passwords.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter valid Password!", Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+                if(mails!=null &&!mails.isEmpty()&& passwords!=null && !passwords.isEmpty()){
+                    StateChangeWaggonapi(mails,passwords);
+                }else{
+
+                }
              //   StateChangeWaggonapi(mails,passwords);
                 //Toast.makeText(getApplicationContext(),"Mail : "+mails+passwords,Toast.LENGTH_SHORT).show();
 
@@ -177,7 +191,8 @@ public class LoginActivity extends AppCompatActivity {
                             session.createLoginSession(email,password);
 
                         }
-                        Intent i=new Intent(LoginActivity.this,LandingActivity.class);
+                        Intent i=new Intent(LoginActivity.this,BarActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(i);
 
                     }else {

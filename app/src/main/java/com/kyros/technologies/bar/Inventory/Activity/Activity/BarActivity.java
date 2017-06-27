@@ -34,6 +34,7 @@ import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBarListCh
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.ServiceHandler.SessionManager;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 import com.kyros.technologies.bar.utils.MyBar;
@@ -62,6 +63,7 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
     private String BarListInString=null;
     private ItemTouchHelper mItemTouchHelper;
     private SwipeRefreshLayout bar_swipe;
+    private SessionManager session;
 
 
     @Override
@@ -73,6 +75,8 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_bar);
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
         BarListInString=store.getBar();
@@ -352,23 +356,27 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
         super.onResume();
         ParentUserProfileId=store.getParentUserProfileId();
         UserRole=store.getUserRole();
-        if(BarListInString==null){
-            if(UserRole.equals("basic")){
-                if(ParentUserProfileId!=null){
-                    GetBarList(ParentUserProfileId);
+        BarListInString=store.getBar();
+        if(UserRole!=null){
+            if(BarListInString==null){
+                if(UserRole.equals("basic")){
+                    if(ParentUserProfileId!=null){
+                        GetBarList(ParentUserProfileId);
 
-                }else{
-                    Toast.makeText(getApplicationContext(),"Parent User ProfileId must not be null!",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Parent User ProfileId must not be null!",Toast.LENGTH_SHORT).show();
 
+                    }
+
+                }else if(UserRole.equals("admin")){
+                    GetBarList(UserProfileId);
+
+                }else {
+                    Toast.makeText(getApplicationContext(),"UserRole must specified",Toast.LENGTH_SHORT).show();
                 }
-
-            }else if(UserRole.equals("admin")){
-                GetBarList(UserProfileId);
-
-            }else {
-                Toast.makeText(getApplicationContext(),"UserRole must specified",Toast.LENGTH_SHORT).show();
             }
         }
+
 
     }
 

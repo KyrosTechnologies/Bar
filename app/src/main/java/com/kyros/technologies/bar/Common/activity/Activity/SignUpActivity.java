@@ -25,6 +25,8 @@ import com.kyros.technologies.bar.utils.EndURL;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText first_name,last_name,mobile_number,email,venue_name,country,country_code;
@@ -37,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String countrycode;
     private PreferenceManager store;
     private ProgressDialog progressDialog;
+    private ArrayList<EditText>containerEditText=new ArrayList<EditText>();
 
 
     @Override
@@ -200,43 +203,29 @@ dismissPdialog();
         switch (item.getItemId()){
             case R.id.action_done:
                 fn=first_name.getText().toString();
+                containerEditText.add(first_name);
                 ln=last_name.getText().toString();
-                mob=mobile_number.getText().toString();
-                mail=email.getText().toString();
-                con=country.getText().toString();
-                venue=venue_name.getText().toString();
-                countrycode=country_code.getText().toString();
+                containerEditText.add(last_name);
 
-//
-//                if (fn==null&&fn.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter First Name",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (ln==null&&ln.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Last Name",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (mob==null&&mob.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Mobile Number",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (mail==null&&mail.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Email Address",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (con==null&&con.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Country",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (venue==null&&venue.isEmpty()){
-//                    Toast.makeText(getApplicationContext(),"Please Enter Venue",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                mob=mobile_number.getText().toString();
+                containerEditText.add(mobile_number);
+
+                mail=email.getText().toString();
+                containerEditText.add(email);
+
+                con=country.getText().toString();
+                containerEditText.add(country);
+
+                venue=venue_name.getText().toString();
+                containerEditText.add(venue_name);
+
+                countrycode=country_code.getText().toString();
+                containerEditText.add(country_code);
+
+
+
+
+               //shfkjshdfkhsdkfhksdhfk
                 StateChangeWaggonapi(fn,ln,countrycode+" "+mob,mail,con,venue);
                 break;
 
@@ -247,4 +236,6 @@ dismissPdialog();
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
