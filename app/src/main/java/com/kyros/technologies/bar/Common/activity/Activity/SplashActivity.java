@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.kyros.technologies.bar.Inventory.Activity.Activity.BarActivity;
 import com.kyros.technologies.bar.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                final Intent mainIntent = new Intent(SplashActivity.this, LandingActivity.class);
+                final Intent mainIntent = new Intent(SplashActivity.this, BarActivity.class);
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }

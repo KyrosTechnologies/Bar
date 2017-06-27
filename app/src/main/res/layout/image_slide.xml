@@ -161,6 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text=""
+                android:maxLines="1"
                 android:textColor="@color/edit"
                 android:textSize="18sp" />
 
