@@ -224,9 +224,13 @@ dismissPdialog();
 
 
 
+                    if(fn!=null &&!fn.isEmpty()&& ln!=null && !ln.isEmpty()&&mob!=null && !mob.isEmpty()&&mail!=null&& !mail.isEmpty()&&con!=null &&!con.isEmpty()&&venue!=null &&!venue.isEmpty()&&countrycode!=null &&!countrycode.isEmpty()){
+                        StateChangeWaggonapi(fn,ln,countrycode+" "+mob,mail,con,venue);
 
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Some fileds are missing ! Please check that",Toast.LENGTH_SHORT).show();
+                    }
                //shfkjshdfkhsdkfhksdhfk
-                StateChangeWaggonapi(fn,ln,countrycode+" "+mob,mail,con,venue);
                 break;
 
             case android.R.id.home:

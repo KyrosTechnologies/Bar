@@ -117,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(mails!=null &&!mails.isEmpty()&& passwords!=null && !passwords.isEmpty()){
                     StateChangeWaggonapi(mails,passwords);
                 }else{
+                    Toast.makeText(getApplicationContext(), "Email or Password is not valid!", Toast.LENGTH_SHORT).show();
 
                 }
              //   StateChangeWaggonapi(mails,passwords);

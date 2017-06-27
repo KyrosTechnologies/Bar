@@ -68,6 +68,7 @@ public class LiquorSlider extends AppCompatActivity {
         }
         CustomPagerAdapter customPagerAdapter=new CustomPagerAdapter(this,bottleslist,position);
         viewPager.setAdapter(customPagerAdapter);
+        customPagerAdapter.notifyDataSetChanged();
     }
 
     public boolean checkOnline() {
