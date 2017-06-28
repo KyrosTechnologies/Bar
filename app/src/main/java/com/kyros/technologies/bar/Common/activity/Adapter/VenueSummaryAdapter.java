@@ -98,7 +98,8 @@ public class VenueSummaryAdapter extends RecyclerView.Adapter<VenueSummaryAdapte
             holder.venue_sum_name.setText(liquorname);
             holder.venue_capacity.setText(liquorcapacity);
             String ftotalbottles=totalbottles+" Bottles";
-            holder.venue_type.setText(type);
+            String fvalue=category+", "+type;
+            holder.venue_type.setText(fvalue);
             holder.venue_bottles.setText(ftotalbottles);
 
         }catch (Exception e){

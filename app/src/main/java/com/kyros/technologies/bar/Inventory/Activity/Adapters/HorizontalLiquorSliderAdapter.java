@@ -4,7 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,19 +37,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by Rohin on 07-06-2017.
+ * Created by Thirunavukkarasu on 27-06-2017.
  */
 
-public class CustomPagerAdapter extends PagerAdapter {
-
-    Context mContext;
-    LayoutInflater mLayoutInflater;
-    private ArrayList<UtilSectionBar> bottleslist;
-    private TextView edit_bottle,shots_count,liquor_names;
-    private LinearLayout done;
-    private EditText bottle_quan;
-    private ImageView liquor_bottle_image,back;
-    private LinearLayout plus,minus;
+public class HorizontalLiquorSliderAdapter extends RecyclerView.Adapter<HorizontalLiquorSliderAdapter.MyViewHolder> {
+    private Context mContext;
+    private  ArrayList<UtilSectionBar>list_bottles;
     private String Userprofileid;
     private float totalcount=0;
     private String Barid;
@@ -64,40 +57,47 @@ public class CustomPagerAdapter extends PagerAdapter {
     private SeekBar mySeekBar;
     private   float fintotalcount;
     private PreferenceManager store;
-    private FrameLayout frame_fill_background;
     private int positionvalue=0;
     private double valuemin=0;
     private double valuemax=0;
-    public LinearLayout linear_child_view;
+    public HorizontalLiquorSliderAdapter (Context mContext, ArrayList<UtilSectionBar>list_bottles){
+        this.mContext=mContext;
+        this.list_bottles=list_bottles;
+  }
+    public class MyViewHolder extends RecyclerView.ViewHolder{
+        private TextView edit_bottle,shots_count,done,liquor_names;
+        private LinearLayout  plus,minus;
+        private EditText bottle_quan;
+        private ImageView liquor_bottle_image,back;
+        private FrameLayout frame_fill_background;
+        private SeekBar mySeekBar;
 
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            edit_bottle=(TextView)itemView.findViewById(R.id.edit_bottle);
+            bottle_quan=(EditText)itemView.findViewById(R.id.bottle_quan);
+            minus=(LinearLayout)itemView.findViewById(R.id.minus);
+            plus=(LinearLayout)itemView.findViewById(R.id.plus);
+            liquor_bottle_image=(ImageView)itemView.findViewById(R.id.liquor_bottle_image);
+            shots_count=(TextView)itemView.findViewById(R.id.shots_count);
+            mySeekBar=(SeekBar)itemView.findViewById(R.id.mySeekBar);
+            done=(TextView)itemView.findViewById(R.id.done);
+            liquor_names=(TextView)itemView.findViewById(R.id.liquor_names);
+            back=(ImageView)itemView.findViewById(R.id.back);
+            frame_fill_background=(FrameLayout)itemView.findViewById(R.id.frame_fill_background);
 
-    public CustomPagerAdapter(Context context,ArrayList<UtilSectionBar> bottleslist,int position) {
-        mContext = context;
-        this.bottleslist=bottleslist;
-        mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.positionvalue=position;
-    }
-
-
-
-    @Override
-    public int getCount() {
-        return bottleslist.size();
-    }
-
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
-    }
-
-    @Override
-    public Object instantiateItem(final ViewGroup container, final int position) {
-        final View itemView = mLayoutInflater.inflate(R.layout.image_slide, container, false);
-        int lastposition=positionvalue+position;
-        if(lastposition>=bottleslist.size()){
-            lastposition=lastposition-bottleslist.size();
         }
-        UtilSectionBar utilSectionBar =bottleslist.get(lastposition);
+    }
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_slide,parent,false);
+
+        return new MyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        UtilSectionBar utilSectionBar=list_bottles.get(position);
         final int  sectionid= utilSectionBar.getSectionid();
         final int barid= utilSectionBar.getBarid();
         String liquorname=utilSectionBar.getLiquorname();
@@ -118,8 +118,8 @@ public class CustomPagerAdapter extends PagerAdapter {
         String totalbottles=utilSectionBar.getTotalbottles();
         final int BottleId=utilSectionBar.getBottleId();
         final String type=utilSectionBar.getType();
-         valuemin=minval*1000000;
-         valuemax=maxval*1000000;
+        valuemin=minval*1000000;
+        valuemax=maxval*1000000;
         Log.d("valueminmultiplied",""+valuemin);
 //        if(totalbottles!=null &&!totalbottles.isEmpty()){
 //            totalcount=Float.parseFloat(totalbottles);
@@ -139,28 +139,8 @@ public class CustomPagerAdapter extends PagerAdapter {
             liquorname="";
         }
 
-        edit_bottle=(TextView)itemView.findViewById(R.id.edit_bottle);
-        bottle_quan=(EditText)itemView.findViewById(R.id.bottle_quan);
-        bottle_quan.setTag(utilSectionBar);
-        minus=(LinearLayout) itemView.findViewById(R.id.minus);
-        minus.setTag(utilSectionBar);
-        plus=(LinearLayout) itemView.findViewById(R.id.plus);
-        plus.setTag(utilSectionBar);
-        liquor_bottle_image=(ImageView)itemView.findViewById(R.id.liquor_bottle_image);
-
-        shots_count=(TextView)itemView.findViewById(R.id.shots_count);
-        mySeekBar=(SeekBar)itemView.findViewById(R.id.mySeekBar);
-        linear_child_view=(LinearLayout)itemView.findViewById(R.id.linear_child_view);
-        mySeekBar.setThumbOffset(20);
-        mySeekBar.setTag(utilSectionBar);
-        done=(LinearLayout)itemView.findViewById(R.id.done);
-        liquor_names=(TextView)itemView.findViewById(R.id.liquor_names);
-        back=(ImageView)itemView.findViewById(R.id.back);
-        frame_fill_background=(FrameLayout)itemView.findViewById(R.id.frame_fill_background);
-        frame_fill_background.setTag(utilSectionBar);
-
         try {
-            liquor_names.setText(liquorname);
+            holder.liquor_names.setText(liquorname);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -169,12 +149,12 @@ public class CustomPagerAdapter extends PagerAdapter {
             Picasso.with(mContext)
                     .load(pictureurl)
                     .resize(279, 320)
-                    .into(liquor_bottle_image);
+                    .into(  holder.liquor_bottle_image);
         }catch (Exception eq){
             eq.printStackTrace();
         }
         try {
-            shots_count.setText(shots);
+            holder. shots_count.setText(shots);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -183,14 +163,14 @@ public class CustomPagerAdapter extends PagerAdapter {
         try {
             Log.d("bottles",totalbottles);
             String value=totalbottles;
-            bottle_quan.setText(value);
+            holder. bottle_quan.setText(value);
         }catch (Exception e){
             e.printStackTrace();
         }
         final String finalLiquorname1 = liquorname;
         final String finalShots = shots;
         final String finalTotalbottles = totalbottles;
-        edit_bottle.setOnClickListener(new View.OnClickListener() {
+        holder. edit_bottle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (type){
@@ -223,47 +203,29 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
 
-//        back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i=new Intent(mContext,SectionBottlesActivity.class);
-//                mContext.startActivity(i);
-//            }
-//        });
+        holder.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(mContext,SectionBottlesActivity.class);
+                mContext.startActivity(i);
+            }
+        });
 
         final String finalLiquorname = liquorname;
-        done.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            LiquorSliderapi(String.valueOf(userprofileid),Float.parseFloat( ((EditText) itemView.findViewById(R.id.bottle_quan)).getText().toString()),String.valueOf(barid),String.valueOf(sectionid), finalLiquorname);
+        holder.done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LiquorSliderapi(String.valueOf(userprofileid),fintotalcount,String.valueOf(barid),String.valueOf(sectionid), finalLiquorname);
 
-        }
-    });
+            }
+        });
 
-        plus.setOnClickListener(new View.OnClickListener() {
+        holder. plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 totalcount++;
-               int child_count= plus.getChildCount();
-
-                  //  bottle_quan.setText(""+add);
-                String vlu=  ((EditText) itemView.findViewById(R.id.bottle_quan)).getText().toString();
-                if(vlu!=null &&!vlu.isEmpty()){
-                    float vl=Float.parseFloat(vlu);
-                    totalcount=vl+1;
-                    String add=Float.toString(totalcount);
-                    ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(add);
-
-                }else{
-                    String add=Float.toString(totalcount);
-
-                    ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(add);
-
-                }
-
-
-//                String bottle_value=bottle_quan.getText().toString();
-//                float converted_bottle_value= Float.parseFloat(bottle_value);
+                String bottle_value=  holder.bottle_quan.getText().toString();
+                float converted_bottle_value= Float.parseFloat(bottle_value);
 //                if(converted_bottle_value!=0){
 //                    double finaltotalcount=converted_bottle_value+totalcount;
 //                    String add=String.valueOf(finaltotalcount);
@@ -273,17 +235,17 @@ public class CustomPagerAdapter extends PagerAdapter {
 //                    String add=String.valueOf(totalcount);
 //                    bottle_quan.setText(add);
 //                }
-                CustomPagerAdapter.super.notifyDataSetChanged();
+                String add=String.valueOf(totalcount);
+                holder. bottle_quan.setText(add);
 
             }
         });
 
-        minus.setOnClickListener(new View.OnClickListener() {
+        holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (totalcount!=0){
                     totalcount--;
-
 //                    String bottle_value=bottle_quan.getText().toString();
 //                    float converted_bottle_value= Float.parseFloat(bottle_value);
 //                    if(converted_bottle_value!=0){
@@ -294,41 +256,26 @@ public class CustomPagerAdapter extends PagerAdapter {
 //                        String add=String.valueOf(totalcount);
 //                        bottle_quan.setText(add);
 //                    }
-                    String vlu=  ((EditText) itemView.findViewById(R.id.bottle_quan)).getText().toString();
-
-                    if(vlu!=null &&!vlu.isEmpty()){
-                        float vl=Float.parseFloat(vlu);
-                        totalcount=vl-1;
-                        String add=Float.toString(totalcount);
-                        ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(add);
-
-                    }else{
-                        String add=Float.toString(totalcount);
-
-                        ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(add);
-
-                    }
-
-
-
+                    String add=String.valueOf(totalcount);
+                    holder.bottle_quan.setText(add);
                 }
             }
         });
-        ((SeekBar) itemView.findViewById(R.id.mySeekBar)).setProgress((int) valuemin);
+        holder.mySeekBar.setProgress((int) valuemin);
 //        mySeekBar.setMax((int)valuemax);
-        ((SeekBar) itemView.findViewById(R.id.mySeekBar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+        holder. mySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float progress1= (float)progress/100;
 //                Toast.makeText(mContext.getApplicationContext(),"range is : "+progress+" / converted : "+progress1+" / total count: "+totalcount,Toast.LENGTH_SHORT).show();
                 if((int)valuemin>progress){
-
-                    ((SeekBar) itemView.findViewById(R.id.mySeekBar)).setProgress((int) valuemin);
+                    holder. mySeekBar.setProgress((int) valuemin);
                 }
                 if((int)valuemax<progress){
-                    ((SeekBar) itemView.findViewById(R.id.mySeekBar)).setProgress((int)valuemax);
+                    holder. mySeekBar.setProgress((int)valuemax);
                 }
-                ((FrameLayout) itemView.findViewById(R.id.frame_fill_background)).setBackground(new PercentDrawable(progress,mContext.getResources().getColor(R.color.colorPrimaryDark)));
+                holder.frame_fill_background.setBackground(new PercentDrawable(progress,mContext.getResources().getColor(R.color.colorPrimaryDark)));
                 int rcount=100-(int)valuemax;
                 float rscount=rcount/(float)100;
                 int averageminmad=((int)valuemax+(int)valuemin)/2;
@@ -341,26 +288,14 @@ public class CustomPagerAdapter extends PagerAdapter {
                 float haridivalue=(float)hariminusvalue/(float)hariavg;
                 float harihundredpercentage=haridivalue*100;
                 Log.d("harivalue: ","hariavg"+hariavg+" / "+"hariminusvalue : "+hariminusvalue+" / "+"haridivalue ;"+haridivalue+" / "+"harihundredpercentagge ; "+harihundredpercentage);
-              if(harihundredpercentage>=100){
-                  ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(Float.toString(1.0f));
+                if(harihundredpercentage>=100){
+                    holder. bottle_quan.setText(String.valueOf("1.0"));
+                }else if(harihundredpercentage<1){
+                    holder. bottle_quan.setText(String.valueOf("0.0"));
 
-//                  bottle_quan.setText(String.valueOf("1.0"));
-              }else if(harihundredpercentage<1){
-                  ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(Float.toString(0.0f));
-
-               //  bottle_quan.setText(String.valueOf("0.0"));
-
-              }else{
-                  String vlu=  ((EditText) itemView.findViewById(R.id.bottle_quan)).getText().toString();
-                    if(vlu!=null &&!vlu.isEmpty()){
-                        float vl=Float.parseFloat(vlu);
-                        vl=vl+haridivalue;
-                        ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(Float.toString(haridivalue));
-
-                    }
-
-                //  bottle_quan.setText(String.valueOf(haridivalue));
-              }
+                }else{
+                    holder.bottle_quan.setText(String.valueOf(haridivalue));
+                }
 
 
 
@@ -368,10 +303,10 @@ public class CustomPagerAdapter extends PagerAdapter {
 //                fintotalcount=totalcount+progress1+rscount;
                 fintotalcount=(totalcount+progress1)-(int)valuemin;
                 Log.d("final rscount",""+rscount+" /rcount "+rcount);
-             if(fintotalcount<=1.0){
-                 //TODO:need to uncomment this line
-              //   bottle_quan.setText(String.valueOf(fintotalcount));
-             }if(fintotalcount==rscount){
+                if(fintotalcount<=1.0){
+                    //TODO:need to uncomment this line
+                    //   bottle_quan.setText(String.valueOf(fintotalcount));
+                }if(fintotalcount==rscount){
                     //TODO:need to uncomment this line
 
                     //  bottle_quan.setText(String.valueOf("0"));
@@ -408,13 +343,11 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
 
-        container.addView(itemView);
-        return itemView;
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
+    public int getItemCount() {
+        return list_bottles.size();
     }
     private void LiquorSliderapi(final String userprofileid, float totalbottle, String barid, String sectionid,  String liquorname) {
         String tag_json_obj = "json_obj_req";
@@ -482,6 +415,5 @@ public class CustomPagerAdapter extends PagerAdapter {
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
-
 
 }

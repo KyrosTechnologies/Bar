@@ -9,11 +9,13 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kyros.technologies.bar.Inventory.Activity.Adapters.CustomPagerAdapter;
+import com.kyros.technologies.bar.Inventory.Activity.Adapters.HorizontalLiquorSliderAdapter;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.UtilSectionBar;
@@ -37,7 +39,8 @@ public class LiquorSlider extends AppCompatActivity {
     private int position =0;
     private  ArrayList<UtilSectionBar> bottleslist=new ArrayList<UtilSectionBar>();
     private AlertDialog online;
-
+    private RecyclerView horizontal_view;
+    private HorizontalLiquorSliderAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,7 @@ public class LiquorSlider extends AppCompatActivity {
         barid=store.getBarId();
         sectionid=store.getSectionId();
         viewPager=(ViewPager)findViewById(R.id.viewpager);
+        horizontal_view=(RecyclerView)findViewById(R.id.horizontal_view);
 
         try{
            bottleslist.clear();
@@ -73,6 +77,20 @@ public class LiquorSlider extends AppCompatActivity {
         CustomPagerAdapter customPagerAdapter=new CustomPagerAdapter(this,bottleslist,position);
         viewPager.setAdapter(customPagerAdapter);
         customPagerAdapter.notifyDataSetChanged();
+
+//        horizontal_view=(RecyclerView)findViewById(R.id.horizontal_view);
+//        adapter=new HorizontalLiquorSliderAdapter(LiquorSlider.this,bottleslist);
+//
+//
+//        LinearLayoutManager layoutManager= new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
+//        horizontal_view.setLayoutManager(layoutManager);
+//        horizontal_view.setItemAnimator(new DefaultItemAnimator());
+//        horizontal_view.setHasFixedSize(true);
+//        horizontal_view.setAdapter(adapter);
+//
+//        adapter.notifyDataSetChanged();
+
+
     }
 
     public boolean checkOnline() {
