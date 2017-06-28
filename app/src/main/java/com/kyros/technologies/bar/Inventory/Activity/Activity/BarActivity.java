@@ -60,7 +60,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BarActivity extends AppCompatActivity implements OnBarListChangedListner,OnStartDragListener,NavigationView.OnNavigationItemSelectedListener {
-    private LinearLayout front_bar,add_bar_acti;
+    private LinearLayout front_bar,add_bar_acti,report;
     private AlertDialog barDialog,logoutdialog;
     private RecyclerView bar_recycler;
     private BarAdapter adapter;
@@ -93,7 +93,7 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle("Venue Name");
-
+        report=(LinearLayout)findViewById(R.id.report);
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
         store= PreferenceManager.getInstance(getApplicationContext());
@@ -201,6 +201,14 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                 }else {
                     Toast.makeText(getApplicationContext(),"UserRole must specified",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(BarActivity.this,VenueSummary.class);
+                startActivity(i);
             }
         });
 
