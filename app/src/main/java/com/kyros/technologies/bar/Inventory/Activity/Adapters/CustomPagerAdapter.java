@@ -45,7 +45,8 @@ public class CustomPagerAdapter extends PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
     private ArrayList<UtilSectionBar> bottleslist;
-    private TextView edit_bottle,shots_count,done,liquor_names;
+    private TextView edit_bottle,shots_count,liquor_names;
+    private LinearLayout done;
     private EditText bottle_quan;
     private ImageView liquor_bottle_image,back;
     private LinearLayout plus,minus;
@@ -144,7 +145,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         shots_count=(TextView)itemView.findViewById(R.id.shots_count);
         mySeekBar=(SeekBar)itemView.findViewById(R.id.mySeekBar);
         mySeekBar.setThumbOffset(20);
-        done=(TextView)itemView.findViewById(R.id.done);
+        done=(LinearLayout)itemView.findViewById(R.id.done);
         liquor_names=(TextView)itemView.findViewById(R.id.liquor_names);
         back=(ImageView)itemView.findViewById(R.id.back);
         frame_fill_background=(FrameLayout)itemView.findViewById(R.id.frame_fill_background);
@@ -213,13 +214,13 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(mContext,SectionBottlesActivity.class);
-                mContext.startActivity(i);
-            }
-        });
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i=new Intent(mContext,SectionBottlesActivity.class);
+//                mContext.startActivity(i);
+//            }
+//        });
 
         final String finalLiquorname = liquorname;
         done.setOnClickListener(new View.OnClickListener() {

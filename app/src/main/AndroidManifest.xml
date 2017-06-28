@@ -92,7 +92,7 @@
             android:label="Custom Keg"/>
         <activity android:name=".Inventory.Activity.Activity.LiquorSlider"
             android:label="Liquor Slider"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme"/>
         <activity android:name=".Common.activity.Activity.ParList"
             android:label="Par List"/>
         <activity android:name=".Common.activity.Activity.DistributorList"

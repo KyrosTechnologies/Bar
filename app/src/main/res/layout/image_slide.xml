@@ -8,6 +8,7 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
@@ -32,7 +33,6 @@
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Done"
@@ -51,6 +51,12 @@
         android:layout_marginLeft="10dp"
         android:orientation="vertical">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="5dp">
+
         <TextView
             android:id="@+id/liquor_names"
             android:layout_width="wrap_content"
@@ -60,6 +66,31 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:textColor="@color/edit"/>
+
+            <LinearLayout
+                android:id="@+id/done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="end">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/done"
+                android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/edit"
+                    android:text="Done"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
