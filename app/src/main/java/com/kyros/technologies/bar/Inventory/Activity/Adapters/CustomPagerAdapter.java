@@ -181,7 +181,19 @@ public class CustomPagerAdapter extends PagerAdapter {
         try {
             Log.d("bottles",totalbottles);
             String value=totalbottles;
-            bottle_quan.setText(value);
+            if(value!=null){
+                if(value.equals("")){
+                    value="0.0";
+                }
+                ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(value);
+
+            }else{
+                ((EditText) itemView.findViewById(R.id.bottle_quan)).setText("0.0");
+
+            }
+
+
+            Log.d("value input edit text",value);
         }catch (Exception e){
             e.printStackTrace();
         }

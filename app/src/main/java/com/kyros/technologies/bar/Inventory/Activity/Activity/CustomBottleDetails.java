@@ -1,5 +1,7 @@
 package com.kyros.technologies.bar.Inventory.Activity.Activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -148,7 +150,7 @@ public class CustomBottleDetails extends AppCompatActivity {
                 productcode=producr_custombottle.getText().toString();
                 parlevel=parlevel_custombottle.getText().toString();
                 try{
-                    Async is=new Async();
+                    Async is=new Async(CustomBottleDetails.this);
                     is.execute();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -326,15 +328,18 @@ public class CustomBottleDetails extends AppCompatActivity {
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
     }
     private class Async extends AsyncTask<String,String,String >{
-
+        Context mContext;
+            public Async(Context mContext){
+             this.mContext=mContext;
+            }
         @Override
         protected String doInBackground(String... params) {
-            uploadFile(name,capacity,category,subcategory,shots,distributor,price,binnumber,productcode,MinValue,MaxValue,picturebyte,parlevel);
+            uploadFile(name,capacity,category,subcategory,shots,distributor,price,binnumber,productcode,MinValue,MaxValue,picturebyte,parlevel,mContext);
 
             return null;
         }
     }
-    private String uploadFile(String name, String capacity, String category, String subcategory, String shots, String distributor, String price, String binnumber, String productcode, String minValue, String maxValue, byte[] picturebyte, String parlevel) {
+    private String uploadFile(String name, String capacity, String category, String subcategory, String shots, String distributor, String price, String binnumber, String productcode, String minValue, String maxValue, byte[] picturebyte, String parlevel,Context mContext) {
         {
             String responseString = null;
 
@@ -377,8 +382,8 @@ public class CustomBottleDetails extends AppCompatActivity {
                 modl.setMaxValue(Double.parseDouble(maxValue));
                 double minval=Double.parseDouble(minValue);
                 double maxval=Double.parseDouble(maxValue);
-//                minval=minval/100;
-//                maxval=maxval/100;
+                minval=minval/100;
+                maxval=maxval/100;
                 String fminval=String.valueOf(minval);
                 String fmaxval=String.valueOf(maxval);
                 entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));
@@ -416,7 +421,10 @@ public class CustomBottleDetails extends AppCompatActivity {
                 if (statusCode == 200) {
                     // Server response
                     responseString = EntityUtils.toString(r_entity);
-                    CustomBottleDetails.this.finish();
+                    Intent is=new Intent(mContext.getApplicationContext(),SectionBottlesActivity.class);
+                    is.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                    mContext.startActivity(is);
                     //    Toast.makeText(getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
                 } else {
                     responseString = "Error occurred! Http Status Code: "

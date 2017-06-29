@@ -145,49 +145,49 @@ e.printStackTrace();
 
                             mContext.startActivity(i);
                             break;
-                        case "keg":
-                            Intent ip=new Intent(mContext,AddKegDescription.class);
-                            ip.putExtra("image",pictureurl);
-                            ip.putExtra("liquorname", finalLiquorname);
-                            ip.putExtra("fullweight", fullweight);
-                            ip.putExtra("emptyweight",emptyweight);
-                            ip.putExtra("shots",shots);
-                            ip.putExtra("minvalue",minvalue);
-                            ip.putExtra("maxvalue",maxvalue);
-                            ip.putExtra("id",id);
-                            ip.putExtra("createdon",createdon);
-                            ip.putExtra("productcode",productcode);
-                            ip.putExtra("binnumber",binnumber);
-                            ip.putExtra("price",price);
-                            ip.putExtra("category", finalCategory);
-                            ip.putExtra("subcategory",subcategory);
-                            ip.putExtra("parvalue",parlevel);
-                            ip.putExtra("distributorname",disname);
-                            ip.putExtra("update","update");
-
-                            mContext.startActivity(ip);
-                            break;
-                        default:
-                            Intent is=new Intent(mContext,AddBottleDescription.class);
-                            is.putExtra("image",pictureurl);
-                            is.putExtra("liquorname", finalLiquorname);
-                            is.putExtra("liquorcapacity", finalLiquorcapacity);
-                            is.putExtra("shots",shots);
-                            is.putExtra("minvalue",minvalue);
-                            is.putExtra("maxvalue",maxvalue);
-                            is.putExtra("id",id);
-                            is.putExtra("createdon",createdon);
-                            is.putExtra("productcode",productcode);
-                            is.putExtra("binnumber",binnumber);
-                            is.putExtra("price",price);
-                            is.putExtra("category", finalCategory);
-                            is.putExtra("subcategory",subcategory);
-                            is.putExtra("parvalue",parlevel);
-                            is.putExtra("distributorname",disname);
-                            is.putExtra("update","update");
-
-                            mContext.startActivity(is);
-                            break;
+//                        case "keg":
+//                            Intent ip=new Intent(mContext,AddKegDescription.class);
+//                            ip.putExtra("image",pictureurl);
+//                            ip.putExtra("liquorname", finalLiquorname);
+//                            ip.putExtra("fullweight", fullweight);
+//                            ip.putExtra("emptyweight",emptyweight);
+//                            ip.putExtra("shots",shots);
+//                            ip.putExtra("minvalue",minvalue);
+//                            ip.putExtra("maxvalue",maxvalue);
+//                            ip.putExtra("id",id);
+//                            ip.putExtra("createdon",createdon);
+//                            ip.putExtra("productcode",productcode);
+//                            ip.putExtra("binnumber",binnumber);
+//                            ip.putExtra("price",price);
+//                            ip.putExtra("category", finalCategory);
+//                            ip.putExtra("subcategory",subcategory);
+//                            ip.putExtra("parvalue",parlevel);
+//                            ip.putExtra("distributorname",disname);
+//                            ip.putExtra("update","update");
+//
+//                            mContext.startActivity(ip);
+//                            break;
+//                        default:
+//                            Intent is=new Intent(mContext,AddBottleDescription.class);
+//                            is.putExtra("image",pictureurl);
+//                            is.putExtra("liquorname", finalLiquorname);
+//                            is.putExtra("liquorcapacity", finalLiquorcapacity);
+//                            is.putExtra("shots",shots);
+//                            is.putExtra("minvalue",minvalue);
+//                            is.putExtra("maxvalue",maxvalue);
+//                            is.putExtra("id",id);
+//                            is.putExtra("createdon",createdon);
+//                            is.putExtra("productcode",productcode);
+//                            is.putExtra("binnumber",binnumber);
+//                            is.putExtra("price",price);
+//                            is.putExtra("category", finalCategory);
+//                            is.putExtra("subcategory",subcategory);
+//                            is.putExtra("parvalue",parlevel);
+//                            is.putExtra("distributorname",disname);
+//                            is.putExtra("update","update");
+//
+//                            mContext.startActivity(is);
+//                            break;
 
                     }
                 }
