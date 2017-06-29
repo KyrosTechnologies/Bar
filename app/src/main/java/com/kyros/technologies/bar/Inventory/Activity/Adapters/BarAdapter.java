@@ -1,19 +1,24 @@
 package com.kyros.technologies.bar.Inventory.Activity.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kyros.technologies.bar.Common.activity.Activity.LoginActivity;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddSectionActivity;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBarListChangedListner;
@@ -35,6 +40,7 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
 //    String[]Updates=new String[]{"Updated 3 days ago","Updated 2 days ago","Updated 4 days ago"};
     private ArrayList<MyBar>barArrayList;
     private PreferenceManager store;
+    private AlertDialog forget_dialog;
 
     private OnStartDragListener mDragStartListener;
     private OnBarListChangedListner mListChangedListener;
@@ -55,10 +61,33 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
     }
 
     @Override
-    public void swipeToDelete(int position) {
-        barArrayList.remove(position);
-        Toast.makeText(mContext.getApplicationContext(), "Item Remove at position " + position, Toast.LENGTH_LONG).show();
-        notifyDataSetChanged();
+    public void swipeToDelete(final int position) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+        alertDialogBuilder.setMessage("Are you sure wanted to delete?");
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        barArrayList.remove(position);
+                        notifyDataSetChanged();
+                        Toast.makeText(mContext.getApplicationContext(),"Long clicked  yes @!"+position,Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext.getApplicationContext(),"Long clicked no @!"+position,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
+
     }
 
 
@@ -160,11 +189,15 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
             }
         });
 
+
     }
 
     @Override
     public int getItemCount() {
         return barArrayList.size();
     }
+
+
+
     
 }

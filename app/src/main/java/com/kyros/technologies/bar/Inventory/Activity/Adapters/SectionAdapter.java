@@ -1,6 +1,8 @@
 package com.kyros.technologies.bar.Inventory.Activity.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
@@ -50,9 +53,31 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
     }
 
     @Override
-    public void swipeToDelete(int position) {
-        sectionArrayList.remove(position);
-        notifyItemRemoved(position);
+    public void swipeToDelete(final int position) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+        alertDialogBuilder.setMessage("Are you sure wanted to delete?");
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        sectionArrayList.remove(position);
+                        notifyDataSetChanged();
+                        Toast.makeText(mContext.getApplicationContext(),"Long clicked  yes @!"+position,Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext.getApplicationContext(),"Long clicked no @!"+position,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
     }
 
 
