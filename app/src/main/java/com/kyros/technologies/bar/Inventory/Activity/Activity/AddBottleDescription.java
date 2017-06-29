@@ -314,8 +314,8 @@ public class AddBottleDescription extends AppCompatActivity {
 
             double minval=Double.parseDouble(MinValue);
             double maxval=Double.parseDouble(MaxValue);
-            minval=minval/100;
-            maxval=maxval/100;
+//            minval=minval/100;
+//            maxval=maxval/100;
             String fminval=String.valueOf(minval);
             String fmaxval=String.valueOf(maxval);
             entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.png"));

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,7 +138,10 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
                 i.putExtra("image",smallpic);
                 i.putExtra("minvalue",String.valueOf(minheight));
                 i.putExtra("whichtype","newone");
+
                 i.putExtra("maxvalue",String.valueOf(maxheight));
+                Log.d("MIN,Max Values: ","are : "+String.valueOf(minheight)+" max height : "+String.valueOf(maxheight));
+
                 mContext.startActivity(i);
             }
         });

@@ -377,8 +377,8 @@ public class CustomBottleDetails extends AppCompatActivity {
                 modl.setMaxValue(Double.parseDouble(maxValue));
                 double minval=Double.parseDouble(minValue);
                 double maxval=Double.parseDouble(maxValue);
-                minval=minval/100;
-                maxval=maxval/100;
+//                minval=minval/100;
+//                maxval=maxval/100;
                 String fminval=String.valueOf(minval);
                 String fmaxval=String.valueOf(maxval);
                 entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.jpg"));

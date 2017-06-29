@@ -118,12 +118,10 @@ public class CustomPagerAdapter extends PagerAdapter {
         String totalbottles=utilSectionBar.getTotalbottles();
         final int BottleId=utilSectionBar.getBottleId();
         final String type=utilSectionBar.getType();
-         valuemin=minval*1000000;
-         valuemax=maxval*1000000;
+         valuemin=minval*100;
+         valuemax=maxval*100;
         Log.d("valueminmultiplied",""+valuemin);
-//        if(totalbottles!=null &&!totalbottles.isEmpty()){
-//            totalcount=Float.parseFloat(totalbottles);
-//        }
+
         store= PreferenceManager.getInstance(mContext.getApplicationContext());
         Userprofileid=store.getUserProfileId();
         Barid=store.getBarId();
@@ -223,14 +221,6 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
 
-//        back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i=new Intent(mContext,SectionBottlesActivity.class);
-//                mContext.startActivity(i);
-//            }
-//        });
-
         final String finalLiquorname = liquorname;
         done.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -261,18 +251,6 @@ public class CustomPagerAdapter extends PagerAdapter {
 
                 }
 
-
-//                String bottle_value=bottle_quan.getText().toString();
-//                float converted_bottle_value= Float.parseFloat(bottle_value);
-//                if(converted_bottle_value!=0){
-//                    double finaltotalcount=converted_bottle_value+totalcount;
-//                    String add=String.valueOf(finaltotalcount);
-//
-//                    bottle_quan.setText(add);
-//                }else{
-//                    String add=String.valueOf(totalcount);
-//                    bottle_quan.setText(add);
-//                }
                 CustomPagerAdapter.super.notifyDataSetChanged();
 
             }
@@ -283,17 +261,6 @@ public class CustomPagerAdapter extends PagerAdapter {
             public void onClick(View v) {
                 if (totalcount!=0){
                     totalcount--;
-
-//                    String bottle_value=bottle_quan.getText().toString();
-//                    float converted_bottle_value= Float.parseFloat(bottle_value);
-//                    if(converted_bottle_value!=0){
-//                        double finaltotalcount=converted_bottle_value-totalcount;
-//                        String add=String.valueOf(finaltotalcount);
-//                        bottle_quan.setText(add);
-//                    }else{
-//                        String add=String.valueOf(totalcount);
-//                        bottle_quan.setText(add);
-//                    }
                     String vlu=  ((EditText) itemView.findViewById(R.id.bottle_quan)).getText().toString();
 
                     if(vlu!=null &&!vlu.isEmpty()){
@@ -315,12 +282,10 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
         ((SeekBar) itemView.findViewById(R.id.mySeekBar)).setProgress((int) valuemin);
-//        mySeekBar.setMax((int)valuemax);
         ((SeekBar) itemView.findViewById(R.id.mySeekBar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float progress1= (float)progress/100;
-//                Toast.makeText(mContext.getApplicationContext(),"range is : "+progress+" / converted : "+progress1+" / total count: "+totalcount,Toast.LENGTH_SHORT).show();
                 if((int)valuemin>progress){
 
                     ((SeekBar) itemView.findViewById(R.id.mySeekBar)).setProgress((int) valuemin);
@@ -329,12 +294,6 @@ public class CustomPagerAdapter extends PagerAdapter {
                     ((SeekBar) itemView.findViewById(R.id.mySeekBar)).setProgress((int)valuemax);
                 }
                 ((FrameLayout) itemView.findViewById(R.id.frame_fill_background)).setBackground(new PercentDrawable(progress,mContext.getResources().getColor(R.color.colorPrimaryDark)));
-                int rcount=100-(int)valuemax;
-                float rscount=rcount/(float)100;
-                int averageminmad=((int)valuemax+(int)valuemin)/2;
-                int nextavg=50/averageminmad;
-                int finanextavg=nextavg/(int)valuemin;
-
 
                 int hariavg=(int)valuemax-(int)valuemin;
                 int hariminusvalue=progress-(int)valuemin;
@@ -344,11 +303,9 @@ public class CustomPagerAdapter extends PagerAdapter {
               if(harihundredpercentage>=100){
                   ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(Float.toString(1.0f));
 
-//                  bottle_quan.setText(String.valueOf("1.0"));
               }else if(harihundredpercentage<1){
                   ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(Float.toString(0.0f));
 
-               //  bottle_quan.setText(String.valueOf("0.0"));
 
               }else{
                   String vlu=  ((EditText) itemView.findViewById(R.id.bottle_quan)).getText().toString();
@@ -359,42 +316,13 @@ public class CustomPagerAdapter extends PagerAdapter {
 
                     }
 
-                //  bottle_quan.setText(String.valueOf(haridivalue));
               }
 
 
 
-//                totalcount=totalcount+progress1;
-//                fintotalcount=totalcount+progress1+rscount;
                 fintotalcount=(totalcount+progress1)-(int)valuemin;
-                Log.d("final rscount",""+rscount+" /rcount "+rcount);
-             if(fintotalcount<=1.0){
-                 //TODO:need to uncomment this line
-              //   bottle_quan.setText(String.valueOf(fintotalcount));
-             }if(fintotalcount==rscount){
-                    //TODO:need to uncomment this line
-
-                    //  bottle_quan.setText(String.valueOf("0"));
-
-                }
-                //// TODO: 26-06-2017 need to enable to get background color
 
 
-//                try{
-//                    int finalprogress=100-progress;
-//                    int finalvalue=8*finalprogress;
-//                    Log.d("final value ", "final  value of y: "+finalvalue);
-////                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,finalvalue);
-//                    RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,finalvalue);
-//                    parms.setMargins(25,0,25,0);
-//
-////                    parms.setPivotY(0f);
-//                    parms.setLayoutDirection(Gravity.RELATIVE_LAYOUT_DIRECTION);
-//                    frame_fill_background.setLayoutParams(parms);
-//                    frame_fill_background.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
             }
 
             @Override

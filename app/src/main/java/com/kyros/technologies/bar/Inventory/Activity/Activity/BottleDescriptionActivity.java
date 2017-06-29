@@ -132,6 +132,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             String imgbitmap=bundle.getString("image");
             MinHeight=bundle.getString("minvalue");
             MaxHeight=bundle.getString("maxvalue");
+         Log.d("MIN,Max Values: ","are : "+MinHeight+" max height : "+MaxHeight);
             parlevel=bundle.getString("parvalue");
             shots=bundle.getString("shots");
             disname=bundle.getString("distributorname");
@@ -422,7 +423,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
                     if(WhichType.equals("newone")){
                         Toast.makeText(getApplicationContext(),"Type is empty null new registration!",Toast.LENGTH_SHORT).show();
                         try{
-                             i= new Async();
+                             i= new Async(BottleDescriptionActivity.this);
                             i.execute();
                         }catch (Exception e){
                             e.printStackTrace();
@@ -466,12 +467,18 @@ public class BottleDescriptionActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         try{
-            i.cancel(true);
+            if(i!=null){
+                i.cancel(true);
+
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
         try{
-            ups.cancel(true);
+            if(ups!=null){
+                ups.cancel(true);
+
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -481,16 +488,19 @@ public class BottleDescriptionActivity extends AppCompatActivity {
     }
 
     private class Async extends AsyncTask<String,String,String > {
-
+        Context mContext;
+        public Async(Context mContext){
+            this.mContext=mContext;
+        }
         @Override
         protected String doInBackground(String... params) {
 
-            uploadFile();
+            uploadFile(mContext);
 
             return null;
         }
     }
-    private String uploadFile(){
+    private String uploadFile(Context mContext){
         Barid=store.getBarId();
         Sectionid=store.getSectionId();
         String name =bottle_des_name.getText().toString();
@@ -531,8 +541,6 @@ public class BottleDescriptionActivity extends AppCompatActivity {
 
             double minval=Double.parseDouble(MinHeight);
             double maxval=Double.parseDouble(MaxHeight);
-            minval=minval/100;
-            maxval=maxval/100;
             String fminval=String.valueOf(minval);
             String fmaxval=String.valueOf(maxval);
             entity.addPart("image", new ByteArrayBody(bytearayProfile, UserProfileId + "liq.png"));
@@ -541,8 +549,8 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             entity.addPart("sectionid", new StringBody(Sectionid, ContentType.TEXT_PLAIN));
             entity.addPart("liquorname", new StringBody(name, ContentType.TEXT_PLAIN));
             entity.addPart("liquorquantitiy", new StringBody(capacity, ContentType.TEXT_PLAIN));
-            entity.addPart("category", new StringBody(bottlecategory, ContentType.TEXT_PLAIN));
-            entity.addPart("subcategory", new StringBody(bottlesubcategory, ContentType.TEXT_PLAIN));
+            entity.addPart("category", new StringBody(maincat, ContentType.TEXT_PLAIN));
+            entity.addPart("subcategory", new StringBody(subcat, ContentType.TEXT_PLAIN));
             entity.addPart("parvalue", new StringBody(parlevel, ContentType.TEXT_PLAIN));
             entity.addPart("distributorname", new StringBody(disname, ContentType.TEXT_PLAIN));
             entity.addPart("price", new StringBody(price, ContentType.TEXT_PLAIN));
@@ -569,12 +577,17 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             if (statusCode == 200) {
                 // Server response
                 responseString = EntityUtils.toString(r_entity);
-                BottleDescriptionActivity.this.finish();
-                //    Toast.makeText(getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
+                Intent is=new Intent(mContext.getApplicationContext(),SectionBottlesActivity.class);
+                is.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                mContext.startActivity(is);
+
+
+                //   Toast.makeText(mContext.getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
             } else {
                 responseString = "Error occurred! Http Status Code: "
                         + statusCode;
-                //  Toast.makeText(getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(mContext.getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
 
             }
             Log.d("response: ",responseString);
@@ -596,7 +609,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
         }
         @Override
         protected String doInBackground(String... params) {
-            UpdateData();
+            UpdateData(mContext);
             return null;
         }
 
@@ -606,7 +619,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             Toast.makeText(mContext.getApplicationContext(),"Successfully Updated!",Toast.LENGTH_SHORT).show();
         }
     }
-    private String UpdateData(){
+    private String UpdateData(Context mContext){
         Barid=store.getBarId();
         Sectionid=store.getSectionId();
         String name =bottle_des_name.getText().toString();
@@ -646,8 +659,8 @@ public class BottleDescriptionActivity extends AppCompatActivity {
 
             double minval=Double.parseDouble(MinHeight);
             double maxval=Double.parseDouble(MaxHeight);
-            minval=minval/100;
-            maxval=maxval/100;
+//            minval=minval/100;
+//            maxval=maxval/100;
             String fminval=String.valueOf(minval);
             String fmaxval=String.valueOf(maxval);
             entity.addPart("BottleId", new StringBody(BottleId,ContentType.TEXT_PLAIN));
@@ -657,8 +670,8 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             entity.addPart("SectionId", new StringBody(Sectionid, ContentType.TEXT_PLAIN));
             entity.addPart("LiquorName", new StringBody(name, ContentType.TEXT_PLAIN));
             entity.addPart("LiquorCapacity", new StringBody(capacity, ContentType.TEXT_PLAIN));
-            entity.addPart("Category", new StringBody(bottlecategory, ContentType.TEXT_PLAIN));
-            entity.addPart("SubCategory", new StringBody(bottlesubcategory, ContentType.TEXT_PLAIN));
+            entity.addPart("Category", new StringBody(maincat, ContentType.TEXT_PLAIN));
+            entity.addPart("SubCategory", new StringBody(subcat, ContentType.TEXT_PLAIN));
             entity.addPart("ParValue", new StringBody(parlevel, ContentType.TEXT_PLAIN));
             entity.addPart("DistributorName", new StringBody(disname, ContentType.TEXT_PLAIN));
             entity.addPart("Price", new StringBody(price, ContentType.TEXT_PLAIN));
@@ -685,12 +698,15 @@ public class BottleDescriptionActivity extends AppCompatActivity {
             if (statusCode == 200) {
                 // Server response
                 responseString = EntityUtils.toString(r_entity);
-                BottleDescriptionActivity.this.finish();
-                //    Toast.makeText(getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
+                Intent is=new Intent(mContext.getApplicationContext(),SectionBottlesActivity.class);
+                is.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                mContext.startActivity(is);
+             //       Toast.makeText(mContext.getApplicationContext(),"Uploaded successfully",Toast.LENGTH_SHORT).show();
             } else {
                 responseString = "Error occurred! Http Status Code: "
                         + statusCode;
-                //  Toast.makeText(getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
+              //    Toast.makeText(mContext.getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
 
             }
             Log.d("response: ",responseString);
