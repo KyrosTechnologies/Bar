@@ -21,15 +21,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/section_add"
+                <ViewSwitcher
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:text="Front section"
-                    android:textColor="@color/edit"
-                    android:textSize="16sp"/>
+                    android:id="@+id/viewSwitcher_section">
+                    <TextView
+                        android:id="@+id/section_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:text="Front section"
+                        android:textColor="@color/edit"
+                        android:textSize="16sp"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter SectionName"
+                        android:singleLine="true"
+                        android:id="@+id/edit_text_section_name"
+                        android:textColorHint="@color/edit"
+                        android:textColor="@color/black"/>
+                </ViewSwitcher>
+
+
                 <TextView
                     android:id="@+id/section_updates"
                     android:layout_width="match_parent"

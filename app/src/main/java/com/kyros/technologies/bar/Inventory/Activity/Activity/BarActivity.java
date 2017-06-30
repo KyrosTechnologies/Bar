@@ -357,9 +357,6 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                     boolean success=obj.getBoolean("IsSuccess");
                     if (success){
                         myBarArrayList.clear();
-
-                        myBarArrayList.clear();
-
                         JSONArray array=obj.getJSONArray("Model");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
@@ -367,7 +364,7 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                             store.putUserProfileId(String.valueOf(userprofile));
                             String fname=first.getString("BarName");
                             store.putBarName(String.valueOf(fname));
-                            int lname=first.getInt("BarId");
+                            int BarId=first.getInt("BarId");
                             //store.putBarId(String.valueOf(lname));
                             String number=null;
                             try {
@@ -378,7 +375,7 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                             }
 
                             MyBar bars=new MyBar();
-                            bars.setid(lname);
+                            bars.setid(BarId);
                             bars.setBarname(fname);
                             bars.setUserprofileid(userprofile);
                             bars.setDatecreated(number);
@@ -397,8 +394,10 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                    if(adapter!=null){
+                        adapter.notifyDataSetChanged();
 
-                adapter.notifyDataSetChanged();
+                    }
                 try{
                     Gson gson=new Gson();
                     String barlist=gson.toJson(myBarArrayList);

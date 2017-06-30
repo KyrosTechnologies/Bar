@@ -18,13 +18,29 @@
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_weight="1">
-            <TextView
-                android:id="@+id/first_bar"
-                android:layout_width="wrap_content"
+            <ViewSwitcher
+                android:layout_width="match_parent"
+                android:id="@+id/view_switcher_change"
                 android:layout_height="wrap_content"
-                android:text="Front Bar"
-                android:textColor="@color/edit"
-                android:textSize="16sp"/>
+                >
+
+                <TextView
+                    android:id="@+id/first_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Front Bar"
+                    android:textColor="@color/edit"
+                    android:textSize="16sp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:hint="Enter Bar Name"
+                    android:textColorHint="@color/edit"
+                    android:id="@+id/edit_barname"/>
+            </ViewSwitcher>
+
 
             <TextView
                 android:id="@+id/updates"

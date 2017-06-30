@@ -1,12 +1,15 @@
 package com.kyros.technologies.bar.Inventory.Activity.Adapters;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,13 +19,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.LiquorSlider;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBottleListChangedListener;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
 import com.kyros.technologies.bar.R;
+import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.utils.EndURL;
 import com.kyros.technologies.bar.utils.UtilSectionBar;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,21 +62,18 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
     }
 
     @Override
-    public void onItemDismiss(int position) {
-        utilSectionBarArrayList.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    @Override
-    public void swipeToDelete(final int position) {
+    public void onItemDismiss(final int position) {
+        final UtilSectionBar section=utilSectionBarArrayList.get(position);
+        final int id=section.getSectionid();
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
         alertDialogBuilder.setMessage("Are you sure wanted to delete?");
         alertDialogBuilder.setPositiveButton("yes",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        utilSectionBarArrayList.remove(position);
-                        notifyDataSetChanged();
+                        DeleteBarbyBarID(String.valueOf(section.getBottleId()),position);
+                        Log.d("BarID : ",section.getBottleId()+", Position : "+position);
+
                         Toast.makeText(mContext.getApplicationContext(),"Long clicked  yes @!"+position,Toast.LENGTH_SHORT).show();
 
                     }
@@ -74,6 +82,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                notifyDataSetChanged();
                 Toast.makeText(mContext.getApplicationContext(),"Long clicked no @!"+position,Toast.LENGTH_SHORT).show();
 
             }
@@ -82,6 +91,13 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
 
+
+    }
+
+    @Override
+    public void swipeToDelete(final int position) {
+        utilSectionBarArrayList.remove(position);
+        notifyItemRemoved(position);
     }
 
 
@@ -265,6 +281,54 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         utilSectionBarArrayList=new ArrayList<>();
         utilSectionBarArrayList.addAll(utilsection1);
         notifyDataSetChanged();
+    }
+    private void DeleteBarbyBarID(String barId, final int position) {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+"DeleteUserLiquor/"+barId;
+        Log.d("DeleteUserLiquor: ", url);
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response",response.toString());
+
+
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
+                    if (success){
+                        utilSectionBarArrayList.remove(position);
+                        notifyDataSetChanged();
+                        Toast.makeText(mContext.getApplicationContext(),"Successfully deleted!",Toast.LENGTH_SHORT).show();
+
+                    }else {
+                        Toast.makeText(mContext.getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                notifyDataSetChanged();
+                Toast.makeText(mContext.getApplicationContext(),"Some error occured!",Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+
+        };
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
     }
 
 }
