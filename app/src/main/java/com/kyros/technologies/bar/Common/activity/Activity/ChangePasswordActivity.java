@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,6 +52,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String url = EndURL.URL+"changePassword";
         //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
         Log.d("waggonurl", url);
+
+      //  byte[] decodedBytes = Base64.decode(newpass,Base64.DEFAULT);
+     //   System.out.println("decoded_password : " + new String(decodedBytes));
+
         JSONObject inputLogin=new JSONObject();
         try{
             inputLogin.put("UserProfileId",Integer.parseInt(UserProfileId));
