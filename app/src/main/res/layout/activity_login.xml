@@ -48,18 +48,21 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp">
 
-                <EditText
-                    android:id="@+id/email_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Email Address"
-                    android:singleLine="true"
-                    android:inputType="textEmailAddress"
-                    android:textColorHint="@color/edit"
-                    android:textAlignment="center"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    <AutoCompleteTextView
+                        android:id="@+id/email_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email Address"
+                        android:textColorHint="@color/edit"
+                        android:textAlignment="center"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+
 
                 <View
                     android:layout_width="wrap_content"
