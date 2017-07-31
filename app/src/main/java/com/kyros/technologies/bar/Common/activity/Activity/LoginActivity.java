@@ -2,11 +2,20 @@ package com.kyros.technologies.bar.Common.activity.Activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +23,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,10 +44,16 @@ import com.kyros.technologies.bar.utils.EndURL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.Manifest.permission.READ_CONTACTS;
+
+public class LoginActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private TextView forget_password_login,login_user,signup_login;
     private AlertDialog forget_dialog;
-    private EditText email_address,password;
+    private EditText password;
+    private AutoCompleteTextView email_address;
     private String  mails;
     private String passwords;
     private String UserProfileId=null;
@@ -55,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     private String Ids=null;
     private String Password=null;
     private PreferenceManager store;
+    private static final int REQUEST_READ_CONTACTS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +88,9 @@ public class LoginActivity extends AppCompatActivity {
         signup_login=(TextView) findViewById(R.id.signup_login);
         login_user=(TextView)findViewById(R.id.login_user);
         forget_password_login=(TextView)findViewById(R.id.forget_password_login);
-        email_address=(EditText)findViewById(R.id.email_address);
+        email_address=(AutoCompleteTextView)findViewById(R.id.email_address);
+        populateAutoComplete();
+
         password=(EditText)findViewById(R.id.password);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
@@ -126,7 +146,43 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void populateAutoComplete() {
+        if (!mayRequestContacts()) {
+            return;
+        }
 
+        getLoaderManager().initLoader(0, null, this);
+    }
+    private boolean mayRequestContacts() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+            Snackbar.make(email_address, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+                        }
+                    });
+        } else {
+            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+        }
+        return false;
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_READ_CONTACTS) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                populateAutoComplete();
+            }
+        }
+    }
     private void StateChangeWaggonapi(final String mails, String passwords) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"userLogin";
@@ -341,6 +397,52 @@ private void ForgotPasswordApi(final String mails){
 
         }
         forget_dialog.show();
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return  new CursorLoader(this,
+                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
+                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
+
+                ContactsContract.Contacts.Data.MIMETYPE +
+                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
+                .CONTENT_ITEM_TYPE},
+                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        List<String> emails = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            emails.add(cursor.getString(ProfileQuery.ADDRESS));
+            cursor.moveToNext();
+        }
+
+        addEmailsToAutoComplete(emails);
+    }
+    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(LoginActivity.this,
+                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
+
+        email_address.setAdapter(adapter);
+    }
+
+    private interface ProfileQuery {
+        String[] PROJECTION = {
+                ContactsContract.CommonDataKinds.Email.ADDRESS,
+                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+        };
+
+        int ADDRESS = 0;
+        int IS_PRIMARY = 1;
+    }
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

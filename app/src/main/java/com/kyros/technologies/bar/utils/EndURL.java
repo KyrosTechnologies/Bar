@@ -6,7 +6,7 @@ package com.kyros.technologies.bar.utils;
 
 public class EndURL {
 
-      public static final String URL="http://192.168.0.115:8080/Bar/rest/";
+      public static final String URL="http://192.168.0.112:8080/Bar/rest/";
 //        public static final String URL="http://bardemotest.azurewebsites.net/rest/";
 
 }
