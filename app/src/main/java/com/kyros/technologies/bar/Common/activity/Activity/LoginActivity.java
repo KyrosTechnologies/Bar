@@ -3,6 +3,7 @@ package com.kyros.technologies.bar.Common.activity.Activity;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     private String Ids=null;
     private String Password=null;
     private PreferenceManager store;
+    private ProgressDialog  progressDialog=null;
     private static final int REQUEST_READ_CONTACTS = 0;
 
     @Override
@@ -153,6 +155,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         getLoaderManager().initLoader(0, null, this);
     }
+    private void showDialog(){
+        if(progressDialog==null){
+            progressDialog=new ProgressDialog(LoginActivity.this);
+            progressDialog.setMessage("Loading Please wait..");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setCancelable(false);
+
+
+        }
+        progressDialog.show();
+    }
+    private void dismissDialog(){
+        if(progressDialog!=null && progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+    }
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -186,6 +204,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     private void StateChangeWaggonapi(final String mails, String passwords) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"userLogin";
+        showDialog();
         //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
         Log.d("waggonurl", url);
         JSONObject inputLogin=new JSONObject();
@@ -203,6 +222,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                dismissDialog();
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
@@ -267,7 +287,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+dismissDialog();
                 Toast.makeText(getApplicationContext(),"Not Workings",Toast.LENGTH_SHORT).show();
 
 
@@ -293,12 +313,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     protected void onStop() {
         super.onStop();
         closepopup();
+        dismissDialog();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         closepopup();
+        dismissDialog();
     }
 private void closepopup(){
     if(forget_dialog!=null&& forget_dialog.isShowing()){
@@ -312,6 +334,7 @@ private void ForgotPasswordApi(final String mails){
     //  String url = "http://192.168.0.109:8080/Bar/rest/getLiquorList";
     Log.d("waggonurl", url);
     closepopup();
+    showDialog();
     JSONObject inputLogin=new JSONObject();
     try{
         inputLogin.put("UserEmail",mails);
@@ -325,6 +348,7 @@ private void ForgotPasswordApi(final String mails){
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         @Override
         public void onResponse(JSONObject response) {
+            dismissDialog();
             Log.d("List Response",response.toString());
             try {
 
@@ -349,7 +373,7 @@ private void ForgotPasswordApi(final String mails){
 
         @Override
         public void onErrorResponse(VolleyError error) {
-
+dismissDialog();
             Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 //                texts.setText(error.toString());
         }
