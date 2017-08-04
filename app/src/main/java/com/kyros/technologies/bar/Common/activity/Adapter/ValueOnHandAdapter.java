@@ -78,12 +78,17 @@ public class ValueOnHandAdapter extends RecyclerView.Adapter<ValueOnHandAdapter.
         String emptyweight=purchase.getEmptyweight();
 
         if (price!=null&&totalbottles!=null&&!price.equals("null")&&!totalbottles.equals("null")&&!price.isEmpty()&&!totalbottles.isEmpty()){
-            float fprice=Float.parseFloat(price);
-            float fbottles=Float.parseFloat(totalbottles);
-            float fvalue=fprice*fbottles;
-            String cvalue=String.valueOf(fvalue)+" Price";
+            try{
+                float fprice=Float.parseFloat(price);
+                float fbottles=Float.parseFloat(totalbottles);
+                float fvalue=fprice*fbottles;
+                String cvalue=String.valueOf(fvalue)+" Price";
 
                 holder.value_price.setText(cvalue);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
 
         }
 
