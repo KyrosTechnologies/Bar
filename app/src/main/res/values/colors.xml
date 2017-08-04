@@ -15,7 +15,8 @@
     <color name="black">#000000</color>
     <color name="edittext">#b798a7</color>
     <color name="line_color">#dedddd</color>
-    <color name="edit">#454145</color>
+    <color name="edit">#565556</color>
+    <color name="edit_light">#837f83</color>
     <color name="smallline">#ffbca4</color>
     <color name="searchbarcolor">#645752</color>
     <color name="text_color">#feddd0</color>

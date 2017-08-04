@@ -37,26 +37,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Type"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:layout_weight="1"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/edit"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp">
+                android:layout_marginTop="3dp"
+                android:textColor="@color/edit_light"/>
 
                 <TextView
                     android:id="@+id/value_bottles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/edit"
-                    android:layout_gravity="center"
+                    android:textColor="@color/edit_light"
                     android:layout_weight="1"
-                    android:textSize="14sp"
+                    android:layout_marginTop="3dp"
+                    android:textSize="12sp"
                     android:text="64 Bottles"/>
 
                 <TextView
@@ -64,12 +57,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
-                    android:textSize="14sp"
-                    android:textColor="@color/edit"
-                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/edit_light"
                     android:layout_weight="1"/>
-
-            </LinearLayout>
 
         </LinearLayout>
 
