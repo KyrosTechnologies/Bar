@@ -297,6 +297,14 @@ public class AddSectionActivity extends AppCompatActivity implements OnSectionLi
                     e.printStackTrace();
                 }
                 adapter.notifyDataSetChanged();
+                try{
+                    Gson gson=new Gson();
+                    String sectionlist=gson.toJson(mySectionArrayList);
+                    store.putSection("Section"+BarId,sectionlist);
+
+                }catch (Exception e){
+                    Log.d("exception_conve_gson",e.getMessage());
+                }
                 dismissProgressDialog();
 
             }

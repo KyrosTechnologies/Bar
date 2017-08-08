@@ -313,6 +313,14 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
 
                     }
+                    try{
+                        Gson gson=new Gson();
+                        String barlist=gson.toJson(myBarArrayList);
+                        store.putBar(barlist);
+
+                    }catch (Exception e){
+                        Log.d("exception_conve_gson",e.getMessage());
+                    }
 
                 }catch (Exception e){
                     e.printStackTrace();

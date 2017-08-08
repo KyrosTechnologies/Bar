@@ -330,8 +330,39 @@ public class SectionBottlesActivity extends AppCompatActivity implements OnBottl
         super.onResume();
         store=PreferenceManager.getInstance(getApplicationContext());
         SectionBottlesListInString=store.getSection("SectionBottles"+SectionId);
-        if(SectionBottlesListInString==null){
+        String putSectionBottles=store.getSectionBottles("SectionBottles"+SectionId);
+
+        if(putSectionBottles==null){
             GetBottlesList();
+        }else{
+            Log.d("resumetext",putSectionBottles);
+
+            try{
+                utilSectionBarArrayList.clear();
+                Gson gsons=new Gson();
+                Type type1=new TypeToken<List<UtilSectionBar>>(){}.getType();
+                utilSectionBarArrayList=gsons.fromJson(putSectionBottles,type1);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if(utilSectionBarArrayList!=null && utilSectionBarArrayList.size()!=0){
+
+                section_bar_recycler=(RecyclerView)findViewById(R.id.section_bar_recycler);
+                adapter=new SectionBarAdapter(SectionBottlesActivity.this,utilSectionBarArrayList,this,this);
+                ItemTouchHelper.Callback callback = new SimpleItemHelperBottles(adapter);
+                mItemTouchHelper = new ItemTouchHelper(callback);
+                mItemTouchHelper.attachToRecyclerView(section_bar_recycler);
+
+                RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+                section_bar_recycler.setLayoutManager(layoutManagersecond);
+                section_bar_recycler.setItemAnimator(new DefaultItemAnimator());
+                section_bar_recycler.setHasFixedSize(true);
+                section_bar_recycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }else{
+                Toast.makeText(getApplicationContext(), "List is empty  resume!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

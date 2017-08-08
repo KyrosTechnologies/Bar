@@ -16,11 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.AndroidMultiPartEntity;
 import com.kyros.technologies.bar.utils.EndURL;
+import com.kyros.technologies.bar.utils.UtilSectionBar;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -34,9 +37,12 @@ import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Rohin on 30-05-2017.
@@ -61,6 +67,8 @@ public class AddBottleDescription extends AppCompatActivity {
     private String MaxValue=null;
     private byte[] bytearayProfile;
     private AlertDialog online;
+    private ArrayList<UtilSectionBar> utilSectionBarArrayList=new ArrayList<UtilSectionBar>();
+    private String SectionId=null;
 
 
     @Override
@@ -85,6 +93,8 @@ public class AddBottleDescription extends AppCompatActivity {
         bottle_des_product_code=(EditText)findViewById(R.id.bottle_des_product_code);
         store= PreferenceManager.getInstance(getApplicationContext());
         UserProfileId=store.getUserProfileId();
+        SectionId=store.getSectionId();
+
         Barid=store.getBarId();
         Sectionid=store.getSectionId();
         try {
@@ -360,7 +370,115 @@ public class AddBottleDescription extends AppCompatActivity {
                 //  Toast.makeText(getApplicationContext(),"Error occured",Toast.LENGTH_SHORT).show();
 
             }
-            Log.d("response: ",responseString);
+            Log.d("response description: ",responseString);
+            if(responseString!=null){
+                try {
+
+                    JSONObject obj=new JSONObject(responseString);
+                    String message=obj.getString("Message");
+                    boolean success=obj.getBoolean("IsSuccess");
+                    if (success){
+                        utilSectionBarArrayList.clear();
+
+                        JSONArray array=obj.getJSONArray("Model");
+                        for (int i=0;i<array.length();i++){
+                            JSONObject first=array.getJSONObject(i);
+                            int id=first.getInt("Id");
+                            int userprofile=first.getInt("UserProfileId");
+                            int barid=first.getInt("BarId");
+                            int sectionid=first.getInt("SectionId");
+                            String minvalue=first.getString("MinValue");
+                            String maxvalue=first.getString("MaxValue");
+                            String liquorname=first.getString("LiquorName");
+                            String liquorcapacity=null;
+                            try{
+                                liquorcapacity=first.getString("LiquorCapacity");
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String shots1=first.getString("Shots");
+                            String category=first.getString("Category");
+                            String subcategory=first.getString("SubCategory");
+                            String parlevel1=first.getString("ParLevel");
+                            String distributorname=first.getString("DistributorName");
+                            String priceunit=first.getString("Price");
+                            String binnumber=first.getString("BinNumber");
+                            String productcode=first.getString("ProductCode");
+                            String createdon=first.getString("CreatedOn");
+                            String pictureurl=first.getString("PictureURL");
+                            String totalbottles=null;
+                            try {
+                                totalbottles=first.getString("TotalBottles");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String type=null;
+                            try {
+                                type=first.getString("Type");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String fullweight=null;
+                            try {
+                                fullweight=first.getString("FullWeight");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String emptyweight=null;
+                            try {
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            UtilSectionBar utilSectionBar=new UtilSectionBar();
+                            utilSectionBar.setSectionid(sectionid);
+                            utilSectionBar.setBarid(barid);
+                            utilSectionBar.setLiquorname(liquorname);
+                            utilSectionBar.setUserprofileid(userprofile);
+                            utilSectionBar.setLiquorcapacity(liquorcapacity);
+                            utilSectionBar.setShots(shots1);
+                            utilSectionBar.setCategory(category);
+                            utilSectionBar.setSubcategory(subcategory);
+                            utilSectionBar.setParlevel(parlevel1);
+                            utilSectionBar.setDistributorname(distributorname);
+                            utilSectionBar.setPriceunit(priceunit);
+                            utilSectionBar.setBinnumber(binnumber);
+                            utilSectionBar.setProductcode(productcode);
+                            utilSectionBar.setCreatedon(createdon);
+                            utilSectionBar.setBottleId(id);
+                            utilSectionBar.setPictureurl(pictureurl);
+                            try{
+                                utilSectionBar.setMinvalue(Double.parseDouble(minvalue));
+                                utilSectionBar.setMaxvalue(Double.parseDouble(maxvalue));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            utilSectionBar.setTotalbottles(totalbottles);
+                            utilSectionBar.setType(type);
+                            utilSectionBar.setFullweight(fullweight);
+                            utilSectionBar.setEmptyweight(emptyweight);
+                            utilSectionBarArrayList.add(utilSectionBar);
+                        }
+
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                try{
+                    Gson gson=new Gson();
+                    String bottlestring=gson.toJson(utilSectionBarArrayList);
+                    store.putSectionBottles("SectionBottles"+SectionId,bottlestring);
+                    Log.d("resumetextdescription",bottlestring);
+
+                }catch (Exception e){
+                    Log.d("exception_conve_gson",e.getMessage());
+                }
+            }
 
 
         } catch (ClientProtocolException e) {
