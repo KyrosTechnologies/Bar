@@ -27,6 +27,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.AddSectionActivity;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBarListChangedListner;
@@ -37,6 +38,7 @@ import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 import com.kyros.technologies.bar.utils.MyBar;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -54,6 +56,8 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
     private PreferenceManager store;
     private AlertDialog forget_dialog;
     private int Id=0;
+    private String pro;
+    private ArrayList<MyBar>myBarArrayList=new ArrayList<MyBar>();
 
     private OnStartDragListener mDragStartListener;
     private OnBarListChangedListner mListChangedListener;
@@ -78,7 +82,7 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
 
-                        DeleteBarbyBarID(String.valueOf(bar.getid()),position);
+                        DeleteBarbyBarID(String.valueOf(bar.getid()),position,String.valueOf(pro));
                         Log.d("BarID : ",bar.getid()+", Position : "+position);
                         Toast.makeText(mContext.getApplicationContext(),"BarId is : "+bar.getid(),Toast.LENGTH_SHORT).show();
 
@@ -174,7 +178,8 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
         String name=bar.getBarname();
         String datecreated=bar.getDatecreated();
         store= PreferenceManager.getInstance(mContext.getApplicationContext());
-
+        int pro1=bar.getUserprofileid();
+        pro=String.valueOf(pro1);
 
         if (name==null){
             name="";
@@ -278,9 +283,10 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
     public int getItemCount() {
         return barArrayList.size();
     }
-    private void DeleteBarbyBarID(String barId, final int position) {
+    private void DeleteBarbyBarID(String barId, final int position,String pro) {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"DeleteBar/"+barId;
+
+        String url = EndURL.URL+"DeleteBar/"+pro+"/"+barId;
         Log.d("deletebarurl: ", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -298,6 +304,39 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
                     if (success){
                         barArrayList.remove(position);
                         notifyDataSetChanged();
+                        myBarArrayList.clear();
+                        JSONArray array=obj.getJSONArray("Model");
+                        for (int i=0;i<array.length();i++){
+                            JSONObject first=array.getJSONObject(i);
+                            int userprofile=first.getInt("UserProfileId");
+                            store.putUserProfileId(String.valueOf(userprofile));
+                            String fname=first.getString("BarName");
+                            store.putBarName(String.valueOf(fname));
+                            int BarId=first.getInt("BarId");
+                            //store.putBarId(String.valueOf(lname));
+                            String number=null;
+                            try {
+                                number=first.getString("CreatedOn");
+                                store.putBarDateCreated(String.valueOf(number));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            MyBar bars=new MyBar();
+                            bars.setid(BarId);
+                            bars.setBarname(fname);
+                            bars.setUserprofileid(userprofile);
+                            bars.setDatecreated(number);
+                            myBarArrayList.add(bars);
+                        }
+                        try{
+                            Gson gson=new Gson();
+                            String barlist=gson.toJson(myBarArrayList);
+                            store.putBar(barlist);
+
+                        }catch (Exception e){
+                            Log.d("exception_conve_gson",e.getMessage());
+                        }
                         Toast.makeText(mContext.getApplicationContext(),"Successfully deleted!",Toast.LENGTH_SHORT).show();
 
                     }else {
@@ -335,6 +374,7 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
         try{
             inputjso.put("BarId",BarId);
             inputjso.put("BarName",BarName);
+            inputjso.put("UserProfileId",pro);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -353,6 +393,39 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.MyViewHolderElev
                     boolean success=obj.getBoolean("IsSuccess");
                     if (success){
                         notifyDataSetChanged();
+                        myBarArrayList.clear();
+                        JSONArray array=obj.getJSONArray("Model");
+                        for (int i=0;i<array.length();i++){
+                            JSONObject first=array.getJSONObject(i);
+                            int userprofile=first.getInt("UserProfileId");
+                            store.putUserProfileId(String.valueOf(userprofile));
+                            String fname=first.getString("BarName");
+                            store.putBarName(String.valueOf(fname));
+                            int BarId=first.getInt("BarId");
+                            //store.putBarId(String.valueOf(lname));
+                            String number=null;
+                            try {
+                                number=first.getString("CreatedOn");
+                                store.putBarDateCreated(String.valueOf(number));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            MyBar bars=new MyBar();
+                            bars.setid(BarId);
+                            bars.setBarname(fname);
+                            bars.setUserprofileid(userprofile);
+                            bars.setDatecreated(number);
+                            myBarArrayList.add(bars);
+                        }
+                        try{
+                            Gson gson=new Gson();
+                            String barlist=gson.toJson(myBarArrayList);
+                            store.putBar(barlist);
+
+                        }catch (Exception e){
+                            Log.d("exception_conve_gson",e.getMessage());
+                        }
                         Toast.makeText(mContext.getApplicationContext(),"Successfully updated!",Toast.LENGTH_SHORT).show();
 
                     }else {

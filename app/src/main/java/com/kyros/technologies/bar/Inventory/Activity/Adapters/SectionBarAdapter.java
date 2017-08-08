@@ -23,16 +23,19 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.LiquorSlider;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnBottleListChangedListener;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 import com.kyros.technologies.bar.utils.UtilSectionBar;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -49,10 +52,14 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
 //    String[]Ml=new String[]{"750 Ml","900 Ml"};
     public int[]LiquorImages=new int[]{R.drawable.beer,R.drawable.rum};
     private ArrayList<UtilSectionBar> utilSectionBarArrayList;
+    private ArrayList<UtilSectionBar> utilSectionBarArrayList1=new ArrayList<UtilSectionBar>();
+
     private OnStartDragListener mDragStartListener;
     private OnBottleListChangedListener mListChangedListener;
+    private PreferenceManager store;
 
-
+    private String proid;
+    private String sectionid;
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
         Collections.swap(utilSectionBarArrayList, fromPosition, toPosition);
@@ -71,7 +78,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        DeleteBarbyBarID(String.valueOf(section.getBottleId()),position);
+                        DeleteBarbyBarID(String.valueOf(section.getBottleId()),position,proid,sectionid);
                         Log.d("BarID : ",section.getBottleId()+", Position : "+position);
 
                         Toast.makeText(mContext.getApplicationContext(),"Long clicked  yes @!"+position,Toast.LENGTH_SHORT).show();
@@ -108,6 +115,8 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
 
         public MyViewHolderEleven(View itemView) {
             super(itemView);
+            store= PreferenceManager.getInstance(mContext.getApplicationContext());
+
             slider_edit=(LinearLayout)itemView.findViewById(R.id.slider_edit);
             liquor_image=(ImageView) itemView.findViewById(R.id.liquor_image);
             right_to_drag=(ImageView) itemView.findViewById(R.id.right_to_drag);
@@ -147,11 +156,16 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
 
     @Override
     public void onBindViewHolder(final SectionBarAdapter.MyViewHolderEleven holder, final int position) {
+        store= PreferenceManager.getInstance(mContext.getApplicationContext());
 
         UtilSectionBar utilSectionBar=utilSectionBarArrayList.get(position);
         final int id=utilSectionBar.getId();
+        int pid=utilSectionBar.getUserprofileid();
+        proid=String.valueOf(pid);
+
         final int barid=utilSectionBar.getBarid();
-        final int sectionid=utilSectionBar.getSectionid();
+        final int sectionid1=utilSectionBar.getSectionid();
+        sectionid=String.valueOf(sectionid1);
         String liquorname=utilSectionBar.getLiquorname();
         String liquorcapacity=utilSectionBar.getLiquorcapacity();
         String shots=utilSectionBar.getShots();
@@ -282,9 +296,9 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
         utilSectionBarArrayList.addAll(utilsection1);
         notifyDataSetChanged();
     }
-    private void DeleteBarbyBarID(String barId, final int position) {
+    private void DeleteBarbyBarID(String barId, final int position, String proid, final String sectionid) {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"DeleteUserLiquor/"+barId;
+        String url = EndURL.URL+"DeleteUserLiquor/"+barId+"/"+proid+"/"+sectionid;
         Log.d("DeleteUserLiquor: ", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -302,11 +316,104 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
                     if (success){
                         utilSectionBarArrayList.remove(position);
                         notifyDataSetChanged();
+                        utilSectionBarArrayList1.clear();
+
+                        JSONArray array=obj.getJSONArray("Model");
+                        for (int i=0;i<array.length();i++){
+                            JSONObject first=array.getJSONObject(i);
+                            int id=first.getInt("Id");
+                            int userprofile=first.getInt("UserProfileId");
+                            int barid=first.getInt("BarId");
+                            int sectionid=first.getInt("SectionId");
+                            String minvalue=first.getString("MinValue");
+                            String maxvalue=first.getString("MaxValue");
+                            String liquorname=first.getString("LiquorName");
+                            String liquorcapacity=null;
+                            try{
+                                liquorcapacity=first.getString("LiquorCapacity");
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String shots=first.getString("Shots");
+                            String category=first.getString("Category");
+                            String subcategory=first.getString("SubCategory");
+                            String parlevel=first.getString("ParLevel");
+                            String distributorname=first.getString("DistributorName");
+                            String priceunit=first.getString("Price");
+                            String binnumber=first.getString("BinNumber");
+                            String productcode=first.getString("ProductCode");
+                            String createdon=first.getString("CreatedOn");
+                            String pictureurl=first.getString("PictureURL");
+                            String totalbottles=null;
+                            try {
+                                totalbottles=first.getString("TotalBottles");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String type=null;
+                            try {
+                                type=first.getString("Type");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String fullweight=null;
+                            try {
+                                fullweight=first.getString("FullWeight");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String emptyweight=null;
+                            try {
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            UtilSectionBar utilSectionBar=new UtilSectionBar();
+                            utilSectionBar.setSectionid(sectionid);
+                            utilSectionBar.setBarid(barid);
+                            utilSectionBar.setLiquorname(liquorname);
+                            utilSectionBar.setUserprofileid(userprofile);
+                            utilSectionBar.setLiquorcapacity(liquorcapacity);
+                            utilSectionBar.setShots(shots);
+                            utilSectionBar.setCategory(category);
+                            utilSectionBar.setSubcategory(subcategory);
+                            utilSectionBar.setParlevel(parlevel);
+                            utilSectionBar.setDistributorname(distributorname);
+                            utilSectionBar.setPriceunit(priceunit);
+                            utilSectionBar.setBinnumber(binnumber);
+                            utilSectionBar.setProductcode(productcode);
+                            utilSectionBar.setCreatedon(createdon);
+                            utilSectionBar.setBottleId(id);
+                            utilSectionBar.setPictureurl(pictureurl);
+                            try{
+                                utilSectionBar.setMinvalue(Double.parseDouble(minvalue));
+                                utilSectionBar.setMaxvalue(Double.parseDouble(maxvalue));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            utilSectionBar.setTotalbottles(totalbottles);
+                            utilSectionBar.setType(type);
+                            utilSectionBar.setFullweight(fullweight);
+                            utilSectionBar.setEmptyweight(emptyweight);
+                            utilSectionBarArrayList1.add(utilSectionBar);
+                        }
+
                         Toast.makeText(mContext.getApplicationContext(),"Successfully deleted!",Toast.LENGTH_SHORT).show();
 
                     }else {
                         Toast.makeText(mContext.getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                        store.putSectionBottles("SectionBottles"+sectionid,null);
 
+                    }
+
+                    try{
+                        Gson gson=new Gson();
+                        String bottlestring=gson.toJson(utilSectionBarArrayList);
+                        store.putSectionBottles("SectionBottles"+sectionid,bottlestring);
+
+                    }catch (Exception e){
+                        Log.d("exception_conve_gson",e.getMessage());
                     }
 
                 }catch (Exception e){

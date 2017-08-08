@@ -27,15 +27,18 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.kyros.technologies.bar.Inventory.Activity.Activity.SectionBottlesActivity;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.ItemTouchHelperViewHolder;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnSectionListChangedListener;
 import com.kyros.technologies.bar.Inventory.Activity.interfacesmodel.OnStartDragListener;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 import com.kyros.technologies.bar.utils.MySection;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -52,6 +55,10 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
     private ArrayList<MySection>sectionArrayList;
     private OnStartDragListener mDragStartListener;
     private OnSectionListChangedListener mListChangedListener;
+    private String proid;
+    private PreferenceManager store;
+    private String BarId;
+    private ArrayList<MySection>mySectionArrayList =new ArrayList<MySection>();
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
@@ -71,7 +78,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        DeleteBarbyBarID(String.valueOf(section.getSectionid()),position);
+                        DeleteBarbyBarID(String.valueOf(section.getSectionid()),position,proid);
                         Log.d("BarID : ",section.getSectionid()+", Position : "+position);
 
                         Toast.makeText(mContext.getApplicationContext(),"Long clicked  yes @!"+position,Toast.LENGTH_SHORT).show();
@@ -110,6 +117,8 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
 
         public MyViewHolderEleven(View itemView) {
             super(itemView);
+            store= PreferenceManager.getInstance(mContext.getApplicationContext());
+
             add_section=(LinearLayout) itemView.findViewById(R.id.add_section);
             section_add=(TextView)itemView.findViewById(R.id.section_add);
             section_updates=(TextView)itemView.findViewById(R.id.section_updates);
@@ -148,13 +157,16 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(final SectionAdapter.MyViewHolderEleven holder, final int position) {
+        store= PreferenceManager.getInstance(mContext.getApplicationContext());
 
         MySection section=sectionArrayList.get(position);
         final int id=section.getSectionid();
         String sectionname=section.getSectionname();
         String sectioncreated=section.getSectioncreated();
         int barid=section.getBarid();
-
+        BarId=String.valueOf(barid);
+        int proid1=section.getUserprofile();
+            proid=String.valueOf(proid1);
         if (sectionname==null){
             sectionname="";
 
@@ -253,9 +265,9 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
     public int getItemCount() {
         return sectionArrayList.size();
     }
-    private void DeleteBarbyBarID(String barId, final int position) {
+    private void DeleteBarbyBarID(String barId, final int position,String proid) {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"DeleteSection/"+barId;
+        String url = EndURL.URL+"DeleteSection/"+proid+"/"+barId;
         Log.d("DeleteSection: ", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -273,8 +285,44 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
                     if (success){
                         sectionArrayList.remove(position);
                         notifyDataSetChanged();
-                        Toast.makeText(mContext.getApplicationContext(),"Successfully deleted!",Toast.LENGTH_SHORT).show();
+                        mySectionArrayList.clear();
 
+                        JSONArray array=obj.getJSONArray("Model");
+                        for (int i=0;i<array.length();i++){
+                            JSONObject first=array.getJSONObject(i);
+                            int userprofile=first.getInt("UserProfileId");
+                            store.putUserProfileId(String.valueOf(userprofile));
+                            String fname=first.getString("SectionName");
+                            store.putSectionName(String.valueOf(fname));
+                            int sectionid=first.getInt("SectionId");
+                            //store.putSectionId(String .valueOf(sectionid));
+                            int lname=first.getInt("BarId");
+                            //store.putBarId(String.valueOf(lname));
+                            String number=null;
+                            try {
+                                number=first.getString("CreatedOn");
+                                store.putBarDateCreated(String.valueOf(number));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            MySection section=new MySection();
+                            section.setSectionid(sectionid);
+                            section.setBarid(lname);
+                            section.setSectionname(fname);
+                            section.setUserprofile(userprofile);
+                            section.setSectioncreated(number);
+                            mySectionArrayList.add(section);
+                        }
+                        Toast.makeText(mContext.getApplicationContext(),"Successfully deleted!",Toast.LENGTH_SHORT).show();
+                        try{
+                            Gson gson=new Gson();
+                            String sectionlist=gson.toJson(mySectionArrayList);
+                            store.putSection("Section"+BarId,sectionlist);
+
+                        }catch (Exception e){
+                            Log.d("exception_conve_gson",e.getMessage());
+                        }
                     }else {
                         Toast.makeText(mContext.getApplicationContext(),message,Toast.LENGTH_SHORT).show();
 
@@ -309,6 +357,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
         try{
             inputjso.put("SectionId",BarId);
             inputjso.put("SectionName",BarName);
+            inputjso.put("UserProfileId",proid);
         }catch (Exception e){
             e.printStackTrace();
         }
