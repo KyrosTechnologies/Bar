@@ -349,7 +349,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
-    private void UpdateName(String BarId,String BarName) {
+    private void UpdateName(final String BarId, String BarName) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"updateSectionBottles";
         Log.d("updateSectionBottles: ", url);
@@ -361,6 +361,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
         }catch (Exception e){
             e.printStackTrace();
         }
+        Log.d("inputjso",inputjso.toString());
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url, inputjso, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -376,6 +377,44 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
                     boolean success=obj.getBoolean("IsSuccess");
                     if (success){
                         notifyDataSetChanged();
+                        mySectionArrayList.clear();
+
+                        JSONArray array=obj.getJSONArray("Model");
+                        for (int i=0;i<array.length();i++){
+                            JSONObject first=array.getJSONObject(i);
+                            int userprofile=first.getInt("UserProfileId");
+                            store.putUserProfileId(String.valueOf(userprofile));
+                            String fname=first.getString("SectionName");
+                            store.putSectionName(String.valueOf(fname));
+                            int sectionid=first.getInt("SectionId");
+                            //store.putSectionId(String .valueOf(sectionid));
+                            int lname=first.getInt("BarId");
+                            //store.putBarId(String.valueOf(lname));
+                            String number=null;
+                            try {
+                                number=first.getString("CreatedOn");
+                                store.putBarDateCreated(String.valueOf(number));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            MySection section=new MySection();
+                            section.setSectionid(sectionid);
+                            section.setBarid(lname);
+                            section.setSectionname(fname);
+                            section.setUserprofile(userprofile);
+                            section.setSectioncreated(number);
+                            mySectionArrayList.add(section);
+                        }
+                        Toast.makeText(mContext.getApplicationContext(),"Successfully deleted!",Toast.LENGTH_SHORT).show();
+                        try{
+                            Gson gson=new Gson();
+                            String sectionlist=gson.toJson(mySectionArrayList);
+                            store.putSection("Section"+BarId,sectionlist);
+
+                        }catch (Exception e){
+                            Log.d("exception_conve_gson",e.getMessage());
+                        }
                         Toast.makeText(mContext.getApplicationContext(),"Successfully updated!",Toast.LENGTH_SHORT).show();
 
                     }else {

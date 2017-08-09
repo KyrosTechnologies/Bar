@@ -70,33 +70,38 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
 
     @Override
     public void onItemDismiss(final int position) {
-        final UtilSectionBar section=utilSectionBarArrayList.get(position);
-        final int id=section.getSectionid();
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
-        alertDialogBuilder.setMessage("Are you sure wanted to delete?");
-        alertDialogBuilder.setPositiveButton("yes",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        DeleteBarbyBarID(String.valueOf(section.getBottleId()),position,proid,sectionid);
-                        Log.d("BarID : ",section.getBottleId()+", Position : "+position);
+        if(utilSectionBarArrayList.size()!=0){
+            final UtilSectionBar section=utilSectionBarArrayList.get(position);
+            final int id=section.getSectionid();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+            alertDialogBuilder.setMessage("Are you sure wanted to delete?");
+            alertDialogBuilder.setPositiveButton("yes",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            DeleteBarbyBarID(String.valueOf(section.getBottleId()),position,proid,sectionid);
+                            Log.d("BarID : ",section.getBottleId()+", Position : "+position);
 
-                        Toast.makeText(mContext.getApplicationContext(),"Long clicked  yes @!"+position,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext.getApplicationContext(),"Long clicked  yes @!"+position,Toast.LENGTH_SHORT).show();
 
-                    }
-                });
+                        }
+                    });
 
-        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                notifyDataSetChanged();
-                Toast.makeText(mContext.getApplicationContext(),"Long clicked no @!"+position,Toast.LENGTH_SHORT).show();
+            alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    notifyDataSetChanged();
+                    Toast.makeText(mContext.getApplicationContext(),"Long clicked no @!"+position,Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+            });
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            Toast.makeText(mContext.getApplicationContext(),"List is empty adapter ! ",Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }
@@ -316,6 +321,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
                     if (success){
                         utilSectionBarArrayList.remove(position);
                         notifyDataSetChanged();
+                        utilSectionBarArrayList.clear();
                         utilSectionBarArrayList1.clear();
 
                         JSONArray array=obj.getJSONArray("Model");
@@ -397,6 +403,7 @@ public class SectionBarAdapter extends RecyclerView.Adapter<SectionBarAdapter.My
                             utilSectionBar.setFullweight(fullweight);
                             utilSectionBar.setEmptyweight(emptyweight);
                             utilSectionBarArrayList1.add(utilSectionBar);
+                            utilSectionBarArrayList.add(utilSectionBar);
                         }
 
                         Toast.makeText(mContext.getApplicationContext(),"Successfully deleted!",Toast.LENGTH_SHORT).show();
