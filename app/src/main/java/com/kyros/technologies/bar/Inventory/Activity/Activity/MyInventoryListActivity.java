@@ -262,7 +262,7 @@ public class MyInventoryListActivity extends AppCompatActivity {
         }
     }
 
-    private void CategoryList(String category) {
+    private void CategoryList(final String category) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+ "getLiquorListCategory/"+category;
         Log.d("category", url);
@@ -293,15 +293,32 @@ public class MyInventoryListActivity extends AppCompatActivity {
                             String subtype=first.getString("alcohol_subtype");
                             double max_height=first.getDouble("max_height");
                             double min_height=first.getDouble("min_height");
-                            LiquorListClass liquorListClass=new LiquorListClass();
-                            liquorListClass.setName(name);
-                            liquorListClass.setCapacity_mL(quantity);
-                            liquorListClass.setAlcohol_subtype(subtype);
-                            liquorListClass.setAlcohol_type(type);
-                            liquorListClass.setSmall_picture_url(pic);
-                            liquorListClass.setMin_height(min_height);
-                            liquorListClass.setMax_height(max_height);
-                            liquorlist.add(liquorListClass);
+                            boolean transparent=first.getBoolean("transparent");
+                            if(category.equals("Bitters")||category.equals("Brandy")||category.equals("Cognac")||
+                                    category.equals("Gin")){
+                                if(transparent){
+                                    LiquorListClass liquorListClass=new LiquorListClass();
+                                    liquorListClass.setName(name);
+                                    liquorListClass.setCapacity_mL(quantity);
+                                    liquorListClass.setAlcohol_subtype(subtype);
+                                    liquorListClass.setAlcohol_type(type);
+                                    liquorListClass.setSmall_picture_url(pic);
+                                    liquorListClass.setMin_height(min_height);
+                                    liquorListClass.setMax_height(max_height);
+                                    liquorlist.add(liquorListClass);
+                                }
+                            }else{
+                                LiquorListClass liquorListClass=new LiquorListClass();
+                                liquorListClass.setName(name);
+                                liquorListClass.setCapacity_mL(quantity);
+                                liquorListClass.setAlcohol_subtype(subtype);
+                                liquorListClass.setAlcohol_type(type);
+                                liquorListClass.setSmall_picture_url(pic);
+                                liquorListClass.setMin_height(min_height);
+                                liquorListClass.setMax_height(max_height);
+                                liquorlist.add(liquorListClass);
+                            }
+
                         }
 
 
