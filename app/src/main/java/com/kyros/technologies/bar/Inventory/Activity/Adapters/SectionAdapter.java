@@ -349,15 +349,16 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
-    private void UpdateName(final String BarId, String BarName) {
+    private void UpdateName(final String BarId1, String BarName) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"updateSectionBottles";
         Log.d("updateSectionBottles: ", url);
         JSONObject inputjso=new JSONObject();
         try{
-            inputjso.put("SectionId",BarId);
+            inputjso.put("SectionId",BarId1);
             inputjso.put("SectionName",BarName);
             inputjso.put("UserProfileId",proid);
+            inputjso.put("BarId",Integer.parseInt(BarId));
         }catch (Exception e){
             e.printStackTrace();
         }

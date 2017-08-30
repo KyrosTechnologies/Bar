@@ -135,6 +135,7 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
             e.printStackTrace();
         }
         if(BarListInString!=null){
+
             try{
                 myBarArrayList.clear();
                 Gson gsons=new Gson();
@@ -165,9 +166,9 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
             }
 
         }else{
-
             bar_recycler=(RecyclerView)findViewById(R.id.bar_recycler);
             adapter=new BarAdapter(BarActivity.this,myBarArrayList,this,this);
+
             ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
             mItemTouchHelper = new ItemTouchHelper(callback);
             mItemTouchHelper.attachToRecyclerView(bar_recycler);
@@ -176,6 +177,8 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
             bar_recycler.setLayoutManager(layoutManagersecond);
             bar_recycler.setItemAnimator(new DefaultItemAnimator());
             bar_recycler.setHasFixedSize(true);
+            GetBarList(UserProfileId);
+
             bar_recycler.setAdapter(adapter);
 
             adapter.notifyDataSetChanged();
@@ -391,6 +394,21 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                         }
 
                         dismissBarDialog();
+                        bar_recycler=(RecyclerView)findViewById(R.id.bar_recycler);
+                        adapter=new BarAdapter(BarActivity.this,myBarArrayList,BarActivity.this,BarActivity.this);
+
+                        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+                        mItemTouchHelper = new ItemTouchHelper(callback);
+                        mItemTouchHelper.attachToRecyclerView(bar_recycler);
+
+                        RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+                        bar_recycler.setLayoutManager(layoutManagersecond);
+                        bar_recycler.setItemAnimator(new DefaultItemAnimator());
+                        bar_recycler.setHasFixedSize(true);
+
+                        bar_recycler.setAdapter(adapter);
+
+                        adapter.notifyDataSetChanged();
 
 
                     }else {
@@ -405,6 +423,8 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                     if(adapter!=null){
                         adapter.notifyDataSetChanged();
 
+                    }else{
+                        Toast.makeText(getApplicationContext(),"adapter value null",Toast.LENGTH_SHORT).show();
                     }
                 try{
                     Gson gson=new Gson();
@@ -438,6 +458,8 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
         ParentUserProfileId=store.getParentUserProfileId();
         UserRole=store.getUserRole();
         BarListInString=store.getBar();
+        adapter=new BarAdapter(BarActivity.this,myBarArrayList,this,this);
+
         if(UserRole!=null){
             if(BarListInString==null){
                 if(UserRole.equals("basic")){
@@ -457,7 +479,6 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
                 }
             }
         }
-
 
     }
 

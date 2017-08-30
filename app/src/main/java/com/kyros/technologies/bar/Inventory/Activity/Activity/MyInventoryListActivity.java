@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -53,13 +54,12 @@ public class MyInventoryListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_my_inventory_list);
         recycler_database=(RecyclerView)findViewById(R.id.recycler_database);
-        adapter=new LiquorApiAdapter(MyInventoryListActivity.this,liquorlist);
         my_inventory_auto_complete=(SearchView) findViewById(R.id.my_inventory_auto_complete);
+        adapter=new LiquorApiAdapter(MyInventoryListActivity.this,liquorlist);
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         recycler_database.setLayoutManager(layoutManagersecond);
         recycler_database.setItemAnimator(new DefaultItemAnimator());
-        recycler_database.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
         //StateChangeWaggonapi();
 
         String s= getIntent().getStringExtra("search");
@@ -207,18 +207,32 @@ public class MyInventoryListActivity extends AppCompatActivity {
                         JSONArray array=obj.getJSONArray("UserList");
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
+                            int Id=first.getInt("_id");
                             String name=first.getString("name");
                             int quantity=first.getInt("capacity_mL");
                             String type=first.getString("alcohol_type");
                             String pic=first.getString("small_picture_url");
                             String subtype=first.getString("alcohol_subtype");
-                            LiquorListClass liquorListClass=new LiquorListClass();
-                            liquorListClass.setName(name);
-                            liquorListClass.setCapacity_mL(quantity);
-                            liquorListClass.setAlcohol_subtype(subtype);
-                            liquorListClass.setAlcohol_type(type);
-                            liquorListClass.setSmall_picture_url(pic);
-                            liquorlist.add(liquorListClass);
+                            boolean transparent=first.getBoolean("transparent");
+                            if(transparent){
+                                LiquorListClass liquorListClass=new LiquorListClass();
+                                liquorListClass.setName(name);
+                                liquorListClass.setCapacity_mL(quantity);
+                                liquorListClass.setAlcohol_subtype(subtype);
+                                liquorListClass.setAlcohol_type(type);
+                                liquorListClass.setSmall_picture_url(pic);
+                                liquorListClass.set_id(Id);
+                                Log.d("Id_for_value : "," "+Id);
+                                liquorlist.add(liquorListClass);
+                            }
+
+
+                        }
+                        if(liquorlist.size()==0){
+                        Toast.makeText(getApplicationContext(),"No Transparent Image! ",Toast.LENGTH_SHORT).show();
+                        }else{
+                            recycler_database.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                         }
 
 
@@ -248,7 +262,12 @@ public class MyInventoryListActivity extends AppCompatActivity {
         }) {
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
 
     }
 
@@ -262,7 +281,7 @@ public class MyInventoryListActivity extends AppCompatActivity {
         }
     }
 
-    private void CategoryList(String category) {
+    private void CategoryList(final String category) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+ "getLiquorListCategory/"+category;
         Log.d("category", url);
@@ -286,6 +305,7 @@ public class MyInventoryListActivity extends AppCompatActivity {
                         for (int i=0;i<array.length();i++){
                             JSONObject first=array.getJSONObject(i);
                             String name=first.getString("name");
+                            int Id=first.getInt("_id");
                             int quantity=first.getInt("capacity_mL");
                             String type=first.getString("alcohol_type");
                             String pic=first.getString("picture_url");
@@ -293,17 +313,45 @@ public class MyInventoryListActivity extends AppCompatActivity {
                             String subtype=first.getString("alcohol_subtype");
                             double max_height=first.getDouble("max_height");
                             double min_height=first.getDouble("min_height");
-                            LiquorListClass liquorListClass=new LiquorListClass();
-                            liquorListClass.setName(name);
-                            liquorListClass.setCapacity_mL(quantity);
-                            liquorListClass.setAlcohol_subtype(subtype);
-                            liquorListClass.setAlcohol_type(type);
-                            liquorListClass.setSmall_picture_url(pic);
-                            liquorListClass.setMin_height(min_height);
-                            liquorListClass.setMax_height(max_height);
-                            liquorlist.add(liquorListClass);
-                        }
+                            boolean transparent=first.getBoolean("transparent");
+                            if(category.equals("Gin")||category.equals("Cognac")||category.equals("Brandy")||category.equals("Bitters")){
+                                if(transparent){
+                                    LiquorListClass liquorListClass=new LiquorListClass();
+                                    liquorListClass.setName(name);
+                                    liquorListClass.setCapacity_mL(quantity);
+                                    liquorListClass.setAlcohol_subtype(subtype);
+                                    liquorListClass.setAlcohol_type(type);
+                                    liquorListClass.setSmall_picture_url(pic);
+                                    liquorListClass.setMin_height(min_height);
+                                    liquorListClass.setMax_height(max_height);
+                                    liquorListClass.set_id(Id);
+                                    liquorlist.add(liquorListClass);
+                                    Log.d("Id_for_value : "," "+Id);
+                                }
+                            }else{
+                                LiquorListClass liquorListClass=new LiquorListClass();
+                                liquorListClass.setName(name);
+                                liquorListClass.setCapacity_mL(quantity);
+                                liquorListClass.setAlcohol_subtype(subtype);
+                                liquorListClass.setAlcohol_type(type);
+                                liquorListClass.setSmall_picture_url(pic);
+                                liquorListClass.setMin_height(min_height);
+                                liquorListClass.setMax_height(max_height);
+                                liquorListClass.set_id(Id);
+                                liquorlist.add(liquorListClass);
+                                Log.d("Id_for_value : "," "+Id);
+                            }
 
+
+
+
+                        }
+                        if(liquorlist.size()==0){
+                            Toast.makeText(getApplicationContext(),"List is Empty! ",Toast.LENGTH_SHORT).show();
+                        }else{
+                            recycler_database.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
@@ -315,6 +363,7 @@ public class MyInventoryListActivity extends AppCompatActivity {
                 }
 
                 adapter.notifyDataSetChanged();
+                adapter.notifyItemRangeChanged(0, adapter.getItemCount());
 
                 dismissProgressDialog();
 

@@ -20,6 +20,7 @@
     <color name="smallline">#ffbca4</color>
     <color name="searchbarcolor">#645752</color>
     <color name="text_color">#feddd0</color>
+    <color name="green">#228b22</color>
 
     <array name="array_dot_tile_active">
         <item>@color/colorPrimary</item>

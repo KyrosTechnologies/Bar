@@ -133,7 +133,6 @@ public class AddSectionActivity extends AppCompatActivity implements OnSectionLi
             }
 
         }else{
-
             section_recycler=(RecyclerView)findViewById(R.id.section_recycler);
             adapter=new SectionAdapter(AddSectionActivity.this,mySectionArrayList,this,this);
             ItemTouchHelper.Callback callback = new SimpleItemTouchHelperSection(adapter);
@@ -144,6 +143,8 @@ public class AddSectionActivity extends AppCompatActivity implements OnSectionLi
             section_recycler.setLayoutManager(layoutManagersecond);
             section_recycler.setItemAnimator(new DefaultItemAnimator());
             section_recycler.setHasFixedSize(true);
+            GetSectionList();
+
             section_recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -378,7 +379,19 @@ public class AddSectionActivity extends AppCompatActivity implements OnSectionLi
                         }
 
                         dismissBarDialog();
+                        section_recycler=(RecyclerView)findViewById(R.id.section_recycler);
+                        adapter=new SectionAdapter(AddSectionActivity.this,mySectionArrayList,AddSectionActivity.this,AddSectionActivity.this);
+                        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperSection(adapter);
+                        mItemTouchHelper = new ItemTouchHelper(callback);
+                        mItemTouchHelper.attachToRecyclerView(section_recycler);
 
+                        RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+                        section_recycler.setLayoutManager(layoutManagersecond);
+                        section_recycler.setItemAnimator(new DefaultItemAnimator());
+                        section_recycler.setHasFixedSize(true);
+
+                        section_recycler.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
 
                     }else {
                         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
@@ -426,9 +439,12 @@ public class AddSectionActivity extends AppCompatActivity implements OnSectionLi
     protected void onResume() {
         super.onResume();
         SectionListInString=store.getSection("Section"+BarId);
+        adapter=new SectionAdapter(AddSectionActivity.this,mySectionArrayList,this,this);
+
         if(SectionListInString==null){
             GetSectionList();
         }
+
     }
 
     @Override

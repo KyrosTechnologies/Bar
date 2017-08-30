@@ -97,7 +97,9 @@ public class CustomPagerAdapter extends PagerAdapter {
         if(lastposition>=bottleslist.size()){
             lastposition=lastposition-bottleslist.size();
         }
-        UtilSectionBar utilSectionBar =bottleslist.get(lastposition);
+        Log.d("Values  position : "," "+position);
+
+        UtilSectionBar utilSectionBar =bottleslist.get(position);
         final int  sectionid= utilSectionBar.getSectionid();
         final int barid= utilSectionBar.getBarid();
         String liquorname=utilSectionBar.getLiquorname();
@@ -115,7 +117,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         final String pictureurl= utilSectionBar.getPictureurl();
         final double minval=utilSectionBar.getMinvalue();
         final double maxval=utilSectionBar.getMaxvalue();
-        String totalbottles=utilSectionBar.getTotalbottles();
+      final  String totalbottles=utilSectionBar.getTotalbottles();
         final int BottleId=utilSectionBar.getBottleId();
         final String type=utilSectionBar.getType();
          valuemin=minval*100;
@@ -129,9 +131,9 @@ public class CustomPagerAdapter extends PagerAdapter {
         if(shots==null){
             shots="";
         }
-        if (totalbottles==null){
-            totalbottles="";
-        }
+//        if (totalbottles==null){
+//            totalbottles="";
+//        }
 
         if (liquorname==null){
             liquorname="";
@@ -180,12 +182,29 @@ public class CustomPagerAdapter extends PagerAdapter {
 
         try {
             Log.d("bottles",totalbottles);
-            String value=totalbottles;
+            String value=bottleslist.get(position).getTotalbottles();
+            Log.d("Values  original : "," "+value);
+
             if(value!=null){
                 if(value.equals("")){
                     value="0.0";
                 }
                 ((EditText) itemView.findViewById(R.id.bottle_quan)).setText(value);
+                String numberD = String.valueOf(value);
+                numberD = numberD.substring ( numberD.indexOf ( "." ) );
+                String valuedummy=numberD;
+                Log.d("Values  valuedummy : "," "+valuedummy);
+
+                float progressfloat=Float.valueOf(valuedummy);
+                progressfloat=100*progressfloat;
+                int valueint=(int)progressfloat;
+                Log.d("Values integer : "," "+valueint);
+
+//                mySeekBar.setThumbOffset(valueint);
+//
+//                ((FrameLayout) itemView.findViewById(R.id.frame_fill_background)).setBackground(new PercentDrawable(valueint,mContext.getResources().getColor(R.color.colorPrimaryDark)));
+
+
 
             }else{
                 ((EditText) itemView.findViewById(R.id.bottle_quan)).setText("0.0");

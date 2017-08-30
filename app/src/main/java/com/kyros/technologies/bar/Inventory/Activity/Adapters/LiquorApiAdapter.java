@@ -34,7 +34,6 @@ import java.util.ArrayList;
 public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyViewHolderEleven>{
     private Context mContext;
     private ArrayList<LiquorListClass>list;
-    private String sharedbitmap=null;
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
         public LinearLayout add_bottles;
@@ -70,6 +69,8 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
         String subtype=listClass.getAlcohol_subtype();
         final double minheight=listClass.getMin_height();
         final double maxheight=listClass.getMax_height();
+        final int Id=listClass.get_id();
+
         if(name==null){
             name="Dummy";
         }
@@ -85,43 +86,33 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
         try {
 
             holder.bottle_name.setText(name);
-            holder.quantity.setText(String.valueOf(quanti)+" ML");
-            holder.alchohol_type.setText(alchotype);
+            String quantivalue=String.valueOf(quanti)+" ML ";
+//            String quantivalue=String.valueOf(quanti)+" ML "+" / "+list.size();
+                holder.quantity.setText(quantivalue);
+            String value=""+alchotype ;
+//            String value=alchotype+" / "+Id ;
+            holder.alchohol_type.setText(value);
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
 
-        //   holder.bottle_pic.setBackgroundResource(Bottleimages[position]);
-//        try{
-//            Picasso.with(mContext)
-//                    .load(smallpic)
-//                    .resize(65, 65)
-//                    .into(holder.liquor_bottle);
-//        }catch (Exception e){
-//
-//        }
 
         try {
-            Picasso.with(mContext).load(smallpic).into(new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    holder.liquor_bottle.setImageBitmap(bitmap);
-                    sharedbitmap = Base64.encodeToString(getBytesFromBitmap(bitmap), Base64.DEFAULT);
+            if(smallpic!=null){
+                Picasso.with(mContext)
+                        .load(smallpic)
+                        .placeholder(R.drawable.liquier)
+                        .error(R.drawable.liquier)
+                        .resize(65, 65)
+                        .into(holder.liquor_bottle);
 
-                }
+            }else{
+                holder.liquor_bottle.setImageBitmap(null);
 
-                @Override
-                public void onBitmapFailed(Drawable errorDrawable) {
+            }
 
-                }
-
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                }
-            });
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -146,14 +137,9 @@ public class LiquorApiAdapter extends RecyclerView.Adapter<LiquorApiAdapter.MyVi
             }
         });
 
-
     }
 
-    private byte[] getBytesFromBitmap(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-        return stream.toByteArray();
-    }
+
 
     @Override
     public int getItemCount() {
