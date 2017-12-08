@@ -221,7 +221,7 @@ public class AddKegDescription  extends AppCompatActivity {
         bitmapvar.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         bytearayProfile = stream.toByteArray();
         HttpPost httppost = new HttpPost(url);
-
+        httppost.addHeader("Authorization",store.getUserProfileId()+"|"+store.getAuthorizationKey());
         try {
             AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
                     new AndroidMultiPartEntity.ProgressListener() {

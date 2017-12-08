@@ -3,15 +3,15 @@ package com.kyros.technologies.bar.Common.activity.Activity;
 import android.annotation.TargetApi;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,6 +22,9 @@ import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -103,7 +106,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
 //                texts.setText(error.toString());
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 

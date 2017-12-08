@@ -265,6 +265,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                             store.putIds(String.valueOf(id));
                             String password=first.getString("Password");
                             store.putPassword(String.valueOf(password));
+                            String AuthorizationKey=first.getString("AuthorizationKey");
+                            store.putAuthorizationKey(String.valueOf(AuthorizationKey));
                             session.createLoginSession(email,password);
 
                         }

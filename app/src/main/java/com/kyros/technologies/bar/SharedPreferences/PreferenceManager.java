@@ -345,8 +345,6 @@ public class PreferenceManager {
         editor.commit();
     }
 
-
-
     public String getUserRole(){
         return sp.getString("UserRole",null);
     }
@@ -354,6 +352,16 @@ public class PreferenceManager {
         SharedPreferences.Editor editor;
         editor=sp.edit();
         editor.putString("UserRole", value);
+        editor.commit();
+    }
+
+    public String getAuthorizationKey(){
+        return sp.getString("AuthorizationKey",null);
+    }
+    public void putAuthorizationKey(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("AuthorizationKey", value);
         editor.commit();
     }
 }

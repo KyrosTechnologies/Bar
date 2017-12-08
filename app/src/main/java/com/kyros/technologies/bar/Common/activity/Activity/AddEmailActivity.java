@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,6 +26,9 @@ import com.kyros.technologies.bar.utils.EndURL;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddEmailActivity extends AppCompatActivity {
 
@@ -135,6 +139,14 @@ public class AddEmailActivity extends AppCompatActivity {
             }
         }) {
 
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
+
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
@@ -195,7 +207,13 @@ public class AddEmailActivity extends AppCompatActivity {
 //                texts.setText(error.toString());
                 }
             }) {
+                @Override
+                public Map<String, String> getHeaders()throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
 
+                    params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                    return params;
+                }
             };
             ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
         }
@@ -249,7 +267,13 @@ public class AddEmailActivity extends AppCompatActivity {
 //                texts.setText(error.toString());
             }
         }) {
+           @Override
+           public Map<String, String> getHeaders()throws AuthFailureError {
+               Map<String, String> params = new HashMap<String, String>();
 
+               params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+               return params;
+           }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
     }

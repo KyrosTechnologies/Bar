@@ -309,7 +309,7 @@ public class AddBottleDescription extends AppCompatActivity {
 //        byte[] arrs=buffer.array();
         bytearayProfile = stream.toByteArray();
         HttpPost httppost = new HttpPost(url);
-
+        httppost.addHeader("Authorization",store.getUserProfileId()+"|"+store.getAuthorizationKey());
         try {
             AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
                     new AndroidMultiPartEntity.ProgressListener() {

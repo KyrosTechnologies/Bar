@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,12 +29,15 @@ import com.kyros.technologies.bar.Inventory.Activity.Adapters.LiquorApiAdapter;
 import com.kyros.technologies.bar.Inventory.Activity.List.LiquorListClass;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyInventoryListActivity extends AppCompatActivity {
     private RecyclerView recycler_database;
@@ -43,6 +47,7 @@ public class MyInventoryListActivity extends AppCompatActivity {
     private String Category=null;
     private AlertDialog online,alertDialog;
     private ProgressDialog pDialog;
+    private PreferenceManager store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,7 @@ public class MyInventoryListActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
         recycler_database.setLayoutManager(layoutManagersecond);
         recycler_database.setItemAnimator(new DefaultItemAnimator());
+        store= PreferenceManager.getInstance(getApplicationContext());
 
         //StateChangeWaggonapi();
 
@@ -231,6 +237,11 @@ public class MyInventoryListActivity extends AppCompatActivity {
                         if(liquorlist.size()==0){
                         Toast.makeText(getApplicationContext(),"No Transparent Image! ",Toast.LENGTH_SHORT).show();
                         }else{
+                            recycler_database=(RecyclerView)findViewById(R.id.recycler_database);
+                            adapter=new LiquorApiAdapter(MyInventoryListActivity.this,liquorlist);
+                            RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+                            recycler_database.setLayoutManager(layoutManagersecond);
+                            recycler_database.setItemAnimator(new DefaultItemAnimator());
                             recycler_database.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                         }
@@ -260,7 +271,13 @@ public class MyInventoryListActivity extends AppCompatActivity {
 //                texts.setText(error.toString());
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         objectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 20*10000,
@@ -343,12 +360,26 @@ public class MyInventoryListActivity extends AppCompatActivity {
                             }
 
 
-
+                            LiquorListClass liquorListClass=new LiquorListClass();
+                            liquorListClass.setName(name);
+                            liquorListClass.setCapacity_mL(quantity);
+                            liquorListClass.setAlcohol_subtype(subtype);
+                            liquorListClass.setAlcohol_type(type);
+                            liquorListClass.setSmall_picture_url(pic);
+                            liquorListClass.setMin_height(min_height);
+                            liquorListClass.setMax_height(max_height);
+                            liquorListClass.set_id(Id);
+                            liquorlist.add(liquorListClass);
 
                         }
                         if(liquorlist.size()==0){
                             Toast.makeText(getApplicationContext(),"List is Empty! ",Toast.LENGTH_SHORT).show();
                         }else{
+                            recycler_database=(RecyclerView)findViewById(R.id.recycler_database);
+                            adapter=new LiquorApiAdapter(MyInventoryListActivity.this,liquorlist);
+                            RecyclerView.LayoutManager layoutManagersecond=new LinearLayoutManager(getApplicationContext());
+                            recycler_database.setLayoutManager(layoutManagersecond);
+                            recycler_database.setItemAnimator(new DefaultItemAnimator());
                             recycler_database.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                         }
@@ -378,7 +409,13 @@ public class MyInventoryListActivity extends AppCompatActivity {
 //                texts.setText(error.toString());
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 

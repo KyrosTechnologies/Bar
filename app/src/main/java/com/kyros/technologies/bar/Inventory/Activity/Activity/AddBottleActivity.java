@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -37,6 +38,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddBottleActivity extends AppCompatActivity {
     private TextView add_inventory_type;
@@ -220,6 +223,13 @@ public class AddBottleActivity extends AppCompatActivity {
 //                texts.setText(error.toString());
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
 
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);

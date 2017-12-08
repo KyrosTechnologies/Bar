@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -43,6 +44,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Rohin on 17-05-2017.
@@ -344,7 +347,13 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
 
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
@@ -439,7 +448,13 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
 
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 

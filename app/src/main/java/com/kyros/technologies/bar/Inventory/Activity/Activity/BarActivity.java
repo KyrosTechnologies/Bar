@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -57,7 +58,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BarActivity extends AppCompatActivity implements OnBarListChangedListner,OnStartDragListener,NavigationView.OnNavigationItemSelectedListener {
     private LinearLayout front_bar,add_bar_acti,report;
@@ -84,7 +87,6 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
 //        actionBar.setHomeButtonEnabled(true);
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_landing);
@@ -336,11 +338,16 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
@@ -442,11 +449,16 @@ public class BarActivity extends AppCompatActivity implements OnBarListChangedLi
             public void onErrorResponse(VolleyError error) {
                 bar_swipe.setRefreshing(false);
 
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 

@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -45,7 +46,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserDetailsActivity extends AppCompatActivity
 implements UserDetailsAdapter.OnClickInAdapter {
@@ -217,7 +220,13 @@ VenueName=store.getVenue();
 
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
@@ -309,7 +318,13 @@ VenueName=store.getVenue();
 
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
@@ -508,7 +523,13 @@ dismissPdialog();
 //                texts.setText(error.toString());
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         objectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 20*1000,

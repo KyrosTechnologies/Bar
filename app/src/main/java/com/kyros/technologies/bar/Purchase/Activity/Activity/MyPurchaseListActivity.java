@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,12 +22,15 @@ import com.kyros.technologies.bar.Inventory.Activity.List.LiquorListClass;
 import com.kyros.technologies.bar.Purchase.Activity.Adapters.PurchaseApiAdapter;
 import com.kyros.technologies.bar.R;
 import com.kyros.technologies.bar.ServiceHandler.ServiceHandler;
+import com.kyros.technologies.bar.SharedPreferences.PreferenceManager;
 import com.kyros.technologies.bar.utils.EndURL;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Rohin on 29-05-2017.
@@ -38,7 +42,7 @@ public class MyPurchaseListActivity extends AppCompatActivity {
     private ArrayList<LiquorListClass> liquorlist=new ArrayList<LiquorListClass>();
     private String Category=null;
     private SearchView my_inventory_auto_complete;
-
+    private PreferenceManager store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class MyPurchaseListActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_my_inventory_list);
+        store= PreferenceManager.getInstance(getApplicationContext());
         recycler_database=(RecyclerView)findViewById(R.id.recycler_database);
         my_inventory_auto_complete=(SearchView) findViewById(R.id.my_inventory_auto_complete);
         adapter=new PurchaseApiAdapter(MyPurchaseListActivity.this,liquorlist);
@@ -175,7 +180,13 @@ public class MyPurchaseListActivity extends AppCompatActivity {
 //                texts.setText(error.toString());
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 

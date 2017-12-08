@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -323,7 +324,13 @@ public class CustomBottleDetails extends AppCompatActivity {
 
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
     }
@@ -349,7 +356,7 @@ public class CustomBottleDetails extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             bytearayProfile = stream.toByteArray();
             HttpPost httppost = new HttpPost(url);
-
+            httppost.addHeader("Authorization",store.getUserProfileId()+"|"+store.getAuthorizationKey());
             try {
                 AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
                         new AndroidMultiPartEntity.ProgressListener() {

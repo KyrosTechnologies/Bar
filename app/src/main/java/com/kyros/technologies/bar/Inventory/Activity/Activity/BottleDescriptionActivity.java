@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -53,6 +54,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BottleDescriptionActivity extends AppCompatActivity {
 
@@ -387,7 +390,13 @@ public class BottleDescriptionActivity extends AppCompatActivity {
 //                texts.setText(error.toString());
             }
         }) {
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
+                params.put("Authorization", store.getUserProfileId()+"|"+store.getAuthorizationKey());
+                return params;
+            }
         };
 
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
@@ -531,7 +540,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
 //        byte[] arrs=buffer.array();
         bytearayProfile = stream.toByteArray();
         HttpPost httppost = new HttpPost(url);
-
+        httppost.addHeader("Authorization",store.getUserProfileId()+"|"+store.getAuthorizationKey());
         try {
             AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
                     new AndroidMultiPartEntity.ProgressListener() {
@@ -759,6 +768,7 @@ public class BottleDescriptionActivity extends AppCompatActivity {
 //        byte[] arrs=buffer.array();
         bytearayProfile = stream.toByteArray();
         HttpPut httppost = new HttpPut(url);
+        httppost.addHeader("Authorization",store.getUserProfileId()+"|"+store.getAuthorizationKey());
         try {
             AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
                     new AndroidMultiPartEntity.ProgressListener() {
